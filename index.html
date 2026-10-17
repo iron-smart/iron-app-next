@@ -3568,7 +3568,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.16.0</div>
+      <div class="ver">גרסה 7.17.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3699,7 +3699,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="ordopen-2026-10-17a">גרסה 7.16.0</div>
+    <div class="side-foot" title="mfagate-2026-10-17a">גרסה 7.17.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5290,7 +5290,11 @@ async function doSetPassword(){
   btn.disabled = true; btn.textContent = 'מעדכן…';
   try{
     const { error } = await sb.auth.updateUser({ password: p1 });
-    if(error){ $('#loginErr').textContent = 'עדכון הסיסמה נכשל — בקשו קישור חדש'; return; }
+    if(error){
+      /* 7.17.0 — למשתמש עם מאמת השרת עשוי לדרוש aal2 לפני החלפת סיסמה: קוד, ואז אותה פעולה שוב */
+      if(error.code === 'insufficient_aal'){ const fs = await mfaVerifiedFactors(null); if(fs.length){ killSplash(); mfaShowChallenge(fs, doSetPassword); return; } }
+      $('#loginErr').textContent = 'עדכון הסיסמה נכשל — בקשו קישור חדש'; return;
+    }
     PW_RECOVERY = false;
     /* 6.24.0 — ניקוי דגל חובת החלפת הסיסמה, אם מנהל המערכת סימן אותו, כדי שלא יתבקש פעמיים */
     try{
@@ -5408,6 +5412,9 @@ async function afterLogin(){
   if(pErr){ console.error('profile', pErr); try{ await sb.auth.signOut({ scope:'local' }); }catch(_){} showLogin('שגיאה בטעינת הפרופיל — פנו למנהל המערכת'); return; }
   if(!prof || prof.role==='pending'){ try{ await sb.auth.signOut({ scope:'local' }); }catch(_){} showLogin('המשתמש ממתין לאישור מנהל'); return; }
   ME = { id:user.id, ...prof };
+  /* 7.17.0 — אימות דו-שלבי (AUTH-USERS-1): לפני ההרשאות, לפני החלפת סיסמה ראשונה, לפני כל ציור.
+     כאן ולא בכפתור הכניסה — כך הוא חל על כל המסלולים: סיסמה, Microsoft, קישור איפוס, לשונית חדשה, סשן שמור. */
+  if(!(await mfaGate(user, prof))) return;
   /* 6.20.0 — מפת ההרשאות של המשתמש, נטענת פעם אחת בכניסה.
      __loaded מבדיל בין "אין הרשאה" לבין "הטעינה נכשלה": כשל טעינה לא יחסום
      מסכים (אין עדיין אכיפה בצד הלקוח), אך גם לא יעניק דבר בצד השרת. */
@@ -6060,9 +6067,131 @@ window.pfPass = async (btn)=>{
   btn.disabled=true; const t=btn.textContent; btn.textContent='מעדכן…';
   const { error } = await sb.auth.updateUser({ password:p1 });
   btn.disabled=false; btn.textContent=t;
-  if(error){ toast('עדכון הסיסמה נכשל: '+error.message); return; }
+  if(error){
+    /* 7.17.0 — משתמש עם מאמת בסשן aal1: קוד, ואז אותה פעולה שוב */
+    if(error.code === 'insufficient_aal'){ const fs = await mfaVerifiedFactors(null); if(fs.length){ mfaShowChallenge(fs, ()=>window.pfPass(btn)); return; } }
+    toast('עדכון הסיסמה נכשל: '+error.message); return;
+  }
   $('#pfP1').value=''; $('#pfP2').value='';
   toast('הסיסמה עודכנה ✓');
+};
+
+/* ══════ 7.17.0 — אימות דו-שלבי בכניסה (AUTH-USERS-1, 17/10/2026) ══════
+   עד כאן ה-TOTP היה קישוט: אפשר היה להירשם בפרופיל, אבל שום דבר לא ביקש קוד בכניסה.
+   🔴 לשונית ההתחקות (VAS) לעולם אינה נשאלת: הסשן שלה נוצר מקישור קסם של העובד, ואין לרומן את הקוד שלו.
+   🔴 האכיפה האמיתית בשרת: core.admin_mfa_ok() בתוך feature_level/my_perms/is_admin/my_role, ו-aal2 בפונקציות
+      admin-view-as · orders-admin-users · admin-create-user. המסך כאן הוא הדרך להגיע ל-aal2, לא ההגנה.
+   מתג: core.mfa_enforce_admin() — true ⇒ אדמין בלי מאמת מאומת נדרש להירשם לפני הכניסה. כשל קריאה ⇒ לא נדרש
+   (השרת הוא האוכף; מסך רישום שנתקע אסור שינעל את רומן). */
+let MFA_FS = [], MFA_AFTER = null, MFA_ENROLL_ID = null;
+async function mfaVerifiedFactors(user){
+  const all = [];
+  try{ ((user && user.factors) || []).forEach(f => all.push(f)); }catch(_e){}
+  try{ const { data } = await sb.auth.mfa.listFactors(); ((data && (data.all || data.totp)) || []).forEach(f => all.push(f)); }catch(_e){}
+  const seen = {};
+  return all.filter(f => f && f.status === 'verified' && (f.factor_type || 'totp') === 'totp' && !seen[f.id] && (seen[f.id] = 1));
+}
+async function mfaAdminRequired(){
+  try{ const { data, error } = await sb.schema('core').rpc('mfa_enforce_admin'); return !error && data === true; }
+  catch(_e){ return false; }
+}
+/* true = להמשיך בכניסה. false = הוצג מסך (קוד או רישום), והמשך הכניסה יקרה ממנו. */
+async function mfaGate(user, prof){
+  if(VAS) return true;
+  let cur = 'aal1';
+  try{ const { data } = await sb.auth.mfa.getAuthenticatorAssuranceLevel(); cur = (data && data.currentLevel) || 'aal1'; }catch(_e){}
+  if(cur === 'aal2') return true;
+  const fs = await mfaVerifiedFactors(user);
+  if(fs.length){ killSplash(); mfaShowChallenge(fs, afterLogin); return false; }
+  if(prof && prof.role === 'admin' && await mfaAdminRequired()){ killSplash(); await mfaShowEnroll(); return false; }
+  return true;
+}
+const MFA_IN = 'width:100%;padding:10px;margin-bottom:8px;border:1px solid #cbd5e1;border-radius:9px;font-family:inherit;font-size:20px;letter-spacing:6px;text-align:center';
+const MFA_ERR = '<div id="mfa-err" role="alert" style="color:#c0392b;min-height:18px;font-size:13px;margin-bottom:10px"></div>';
+function mfaCodeInput(){ return '<input id="mfa-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" dir="ltr" placeholder="000000" aria-label="קוד אימות" style="' + MFA_IN + '">'; }
+function mfaWire(){
+  setTimeout(()=>{ try{ const i = document.getElementById('mfa-code'); i.focus(); i.onkeydown = e => { if(e.key === 'Enter'){ const b = document.getElementById('mfa-btn'); if(b) b.click(); } }; }catch(_){} }, 60);
+}
+function mfaShowChallenge(fs, after){
+  MFA_FS = fs; MFA_AFTER = after || afterLogin;
+  const pick = fs.length > 1
+    ? '<select id="mfa-f" aria-label="בחירת מאמת" style="width:100%;padding:8px;margin-bottom:8px;border:1px solid #cbd5e1;border-radius:9px;font-family:inherit">'
+        + fs.map(f => '<option value="' + esc(f.id) + '">' + esc(f.friendly_name || 'מאמת') + '</option>').join('') + '</select>'
+    : '';
+  blockOverlay('mfaGate',
+    '<h2 style="margin:0 0 8px">אימות דו-שלבי</h2>' +
+    '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:14px">הזינו את הקוד בן 6 הספרות מאפליקציית המאמת.</div>' +
+    pick + mfaCodeInput() + MFA_ERR +
+    '<div style="display:flex;gap:8px"><button class="chip" id="mfa-btn" onclick="mfaSubmit()">אישור</button>' +
+    '<button class="chip" onclick="forceLogout()">יציאה</button></div>');
+  mfaWire();
+}
+async function mfaCheck(fid, code){
+  const { data:ch, error:cErr } = await sb.auth.mfa.challenge({ factorId: fid });
+  if(cErr) return cErr;
+  const { error:vErr } = await sb.auth.mfa.verify({ factorId: fid, challengeId: ch.id, code });
+  if(vErr) return vErr;
+  /* הסשן כבר aal2. הרענון מפיץ את האסימון החדש גם ל-realtime (TOKEN_REFRESHED) */
+  try{ await sb.auth.refreshSession(); }catch(_e){}
+  return null;
+}
+window.mfaSubmit = async ()=>{
+  const err = document.getElementById('mfa-err'), btn = document.getElementById('mfa-btn');
+  const code = ((document.getElementById('mfa-code') || {}).value || '').replace(/[^0-9]/g, '');
+  err.textContent = '';
+  if(code.length !== 6){ err.textContent = 'יש להזין קוד בן 6 ספרות'; return; }
+  const sel = document.getElementById('mfa-f');
+  const fid = (sel && sel.value) || (MFA_FS[0] && MFA_FS[0].id);
+  if(!fid){ err.textContent = 'לא נמצא מאמת — פנו למנהל המערכת'; return; }
+  btn.disabled = true; btn.textContent = 'בודק…';
+  try{
+    const e = await mfaCheck(fid, code);
+    if(e){ err.textContent = (e.code === 'mfa_verification_failed') ? 'הקוד שגוי או שפג תוקפו — נסו שוב' : ('האימות נכשל: ' + (e.message || '')); return; }
+    hideOverlay('mfaGate');
+    const after = MFA_AFTER || afterLogin; MFA_AFTER = null;
+    await after();
+  }catch(e){ console.error('mfaSubmit', e); err.textContent = 'שגיאת רשת — נסו שוב'; }
+  finally{ btn.disabled = false; btn.textContent = 'אישור'; }
+};
+async function mfaShowEnroll(){
+  blockOverlay('mfaGate', '<h2 style="margin:0 0 8px">הפעלת אימות דו-שלבי</h2><div style="color:var(--ink-3)">טוען…</div>');
+  try{
+    const { data:lf } = await sb.auth.mfa.listFactors();
+    for(const f of ((lf && lf.all) || [])) if(f.status !== 'verified'){ try{ await sb.auth.mfa.unenroll({ factorId:f.id }); }catch(_e){} }
+  }catch(_e){}
+  const { data, error } = await sb.auth.mfa.enroll({ factorType:'totp', friendlyName:'איירון ' + Date.now() });
+  if(error || !data){
+    blockOverlay('mfaGate', '<h2 style="margin:0 0 8px">הפעלת אימות דו-שלבי</h2>' +
+      '<div style="color:#c0392b;line-height:1.7;margin-bottom:14px">הרישום נכשל: ' + esc((error && error.message) || '') + '</div>' +
+      '<div style="display:flex;gap:8px"><button class="chip" onclick="mfaShowEnroll()">נסה שוב</button><button class="chip" onclick="forceLogout()">יציאה</button></div>');
+    return;
+  }
+  MFA_ENROLL_ID = data.id;
+  blockOverlay('mfaGate',
+    '<h2 style="margin:0 0 8px">הפעלת אימות דו-שלבי נדרשת</h2>' +
+    '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:10px">לחשבון מנהל המערכת חובה מאמת. סרקו את הקוד באפליקציית מאמת והזינו את הקוד בן 6 הספרות. סריקה ואישור מאותה רשת.</div>' +
+    '<img src="' + esc(data.totp.qr_code) + '" alt="קוד QR לאימות דו-שלבי" style="display:block;width:180px;height:180px;margin:0 auto 8px">' +
+    '<div style="text-align:center;font-size:12px;color:var(--ink-3);margin-bottom:10px">מפתח ידני: <span dir="ltr">' + esc(data.totp.secret) + '</span></div>' +
+    mfaCodeInput() + MFA_ERR +
+    '<div style="display:flex;gap:8px"><button class="chip" id="mfa-btn" onclick="mfaEnrollSubmit()">אישור</button>' +
+    '<button class="chip" onclick="forceLogout()">יציאה</button></div>');
+  mfaWire();
+}
+window.mfaShowEnroll = mfaShowEnroll;
+window.mfaEnrollSubmit = async ()=>{
+  const err = document.getElementById('mfa-err'), btn = document.getElementById('mfa-btn');
+  const code = ((document.getElementById('mfa-code') || {}).value || '').replace(/[^0-9]/g, '');
+  err.textContent = '';
+  if(code.length !== 6){ err.textContent = 'יש להזין קוד בן 6 ספרות'; return; }
+  btn.disabled = true; btn.textContent = 'בודק…';
+  try{
+    const e = await mfaCheck(MFA_ENROLL_ID, code);
+    if(e){ err.textContent = 'הקוד שגוי — ודאו שהשעון בטלפון מדויק ונסו שוב'; return; }
+    hideOverlay('mfaGate');
+    try{ toast('אימות דו-שלבי הופעל ✓ — מומלץ להוסיף מאמת גיבוי באזור האישי'); }catch(_e){}
+    await afterLogin();
+  }catch(e){ console.error('mfaEnrollSubmit', e); err.textContent = 'שגיאת רשת — נסו שוב'; }
+  finally{ btn.disabled = false; btn.textContent = 'אישור'; }
 };
 
 /* אימות דו-שלבי — TOTP של Supabase (Google Authenticator / Authy וכו') */
@@ -6074,9 +6203,13 @@ async function pfMfaRender(){
   const box=document.getElementById('pfMfa'); if(!box) return;
   const fs=await pfFactors();
   const on=fs.find(f=>f.status==='verified');
+  const vf=fs.filter(f=>f.status==='verified');
   box.innerHTML = on
     ? `<div class="pf-mfa"><span class="st on">🔒 אימות דו-שלבי פעיל</span><span class="grow"></span>
-         <button class="pf-lnk" onclick="pfMfaOff('${esc(on.id)}',this)">ביטול</button></div>`
+         <button class="pf-lnk" onclick="pfMfaStart(this)">הוספת מאמת גיבוי</button></div>`
+      + vf.map(f=>`<div class="pf-mfa"><span class="st">מאמת · נוסף ${fmtIso(f.created_at)}</span><span class="grow"></span>
+         <button class="pf-lnk" onclick="pfMfaOff('${esc(f.id)}',this)">הסרה</button></div>`).join('')
+      + (vf.length<2 ? `<p class="pf-note">אין קודי שחזור. מאמת גיבוי (מכשיר שני או מנהל סיסמאות) הוא הדרך להיכנס אם הטלפון אבד.</p>` : '')
     : `<div class="pf-mfa"><span class="st off">🔓 אימות דו-שלבי כבוי</span><span class="grow"></span>
          <button class="pf-lnk" onclick="pfMfaStart(this)">הפעלה</button></div>
        <p class="pf-note">בהפעלה תוצג סריקת QR עבור אפליקציית מאמת (Google Authenticator, Authy ודומותיהן).</p>`;
@@ -6084,7 +6217,7 @@ async function pfMfaRender(){
 window.pfMfaStart = async (btn)=>{
   btn.disabled=true;
   /* גורמים שלא אומתו נשארים תלויים ומונעים רישום חדש — מנקים לפני */
-  for(const f of (await pfFactors())) if(f.status!=='verified'){ try{ await sb.auth.mfa.unenroll({factorId:f.id}); }catch(_e){} }
+  try{ const { data:lf } = await sb.auth.mfa.listFactors(); for(const f of ((lf && lf.all) || [])) if(f.status!=='verified'){ try{ await sb.auth.mfa.unenroll({factorId:f.id}); }catch(_e){} } }catch(_e){}
   const { data, error } = await sb.auth.mfa.enroll({ factorType:'totp', friendlyName:'איירון '+Date.now() });
   btn.disabled=false;
   if(error){ toast('הפעלת האימות נכשלה: '+error.message); return; }
@@ -6114,6 +6247,9 @@ window.pfMfaVerify = async (fid, btn)=>{
   toast('אימות דו-שלבי הופעל ✓'); pfMfaRender();
 };
 window.pfMfaOff = async (fid, btn)=>{
+  /* 7.17.0 — לאדמין בלי מאמת השרת חוסם את כל כוחות הניהול; ההסרה האחרונה נחסמת כאן כנוחות */
+  if(ME && ME.role === 'admin' && (await pfFactors()).filter(f=>f.status==='verified').length <= 1){ toast('למנהל המערכת חובה להשאיר מאמת אחד לפחות — הוסיפו מאמת גיבוי לפני ההסרה', 'err'); return; }
+  if(!(await sysConfirm('להסיר את המאמת הזה? הכניסה לא תבקש ממנו קוד יותר.', { ok:'הסרה' }))) return;
   btn.disabled=true;
   const { error } = await sb.auth.mfa.unenroll({ factorId:fid });
   btn.disabled=false;
@@ -13013,7 +13149,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'ordopen-2026-10-17a';
+const BUILD_ID = 'mfagate-2026-10-17a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
