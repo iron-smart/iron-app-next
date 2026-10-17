@@ -3060,6 +3060,11 @@ td.lb-today .lb-dt{ background-color:transparent; }
 .lb-psub button{ font-size:var(--fs-xs); font-weight:700; padding:3px 10px; border-radius:var(--r-pill);
   border:1px solid var(--line); background-color:#fff; color:var(--ink-2); cursor:pointer; font-family:inherit; }
 .lb-psub button:disabled{ cursor:default; }
+/* 7.13.0 dealpay — בלוק תנאי התשלום בכרטיס העסקה */
+.dl-payrow{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+.dl-payrow select{ max-width:280px; }
+.dl-paybeats{ margin-top:6px; font-size:12px; color:var(--ink-2); }
+.dl-paybeats b{ color:var(--ink-1); font-weight:700; }
 /* ---- דחיסת כרטיס הליד (6.108.0, רומן: "יותר דחוס וקומפקטי") ---- */
 #leadSheet .form-grid, #tkSheet .form-grid{ gap:9px 12px; }
 #leadSheet .form-sep, #tkSheet .form-sep{ margin-top:var(--sp-3); padding-bottom:var(--sp-1); }
@@ -3417,7 +3422,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.12.0</div>
+      <div class="ver">גרסה 7.13.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3548,7 +3553,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="booktx2-2026-10-17a">גרסה 7.12.0</div>
+    <div class="side-foot" title="dealpay-2026-10-17a">גרסה 7.13.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -12775,6 +12780,11 @@ window.dlQuoteDoc = async (dealId)=>{
   /* 6.196.0 — toast ולא alert: שני המצבים כבר מוצגים inline ב-dlSignBox (הכפתור אינו מצויר). */
   if(!window.canEdit('docs.' + DL_QCAT)){ toast('אין לך הרשאת עריכה בקטגוריית ההצעות.'); return; }
   if(!d.priority_quote_id){ toast('לעסקה אין מספר הצעה בפריוריטי — אין ממה להפיק מסמך.'); return; }
+  /* 7.13.0 — התנאים נצרבים במסמך (deal-quote-doc v3), ולכן בלעדיהם אין מה לשלוח. השרת אוכף באותו מתג;
+     כאן רק חוסכים את הפנייה לפריוריטי ואת האישור. */
+  if(osetStr('crm_payterms_required', 'לא') === 'כן' && (!d.pay_method || !d.pay_term)){
+    toast('יש להגדיר «תנאי תשלום» בכרטיס התהליך לפני הפקת מסמך לחתימה', 'err', 5000); return;
+  }
   /* ⚠️ האישור אומר במפורש שהמסמך מצטט תמונה ואינו מתעדכן. זו התכונה
      שהופכת אותו לראיה (הלקח של sign גרסה 12), והמשתמש צריך לדעת שהיא
      נלקחת עכשיו. */
@@ -12855,7 +12865,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'booktx2-2026-10-17a';
+const BUILD_ID = 'dealpay-2026-10-17a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -19072,7 +19082,7 @@ const CRM_Q = {
   leads: () => sb.schema('crm').from('leads').select('id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,send_whatsapp_catalog,owner_id,updated_at,contact_id').order('created_at',{ascending:false}).limit(10000),
   custs: () => sb.schema('core').from('customers').select('id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes').order('created_at',{ascending:false}).limit(10000),
   tasks: () => sb.schema('crm').from('tasks').select('id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id').order('due_at',{ascending:true}).limit(10000),
-  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id').order('created_at',{ascending:false}).limit(10000),
+  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term').order('created_at',{ascending:false}).limit(10000),
   meets: () => sb.schema('crm').from('meetings').select('id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone').order('meet_date',{ascending:false}).limit(10000),
   lown: () => /* שורות הבעלות הראשיות. **לא מיותר מול leads.owner_id**: המראה מחזיקה
          profile_id בלבד, ולעובד לשעבר אין חשבון — 694 לידים היו מוצגים
@@ -25624,7 +25634,7 @@ let DLIVE_CH = null, DLIVE_T = null, DLIVE_ID = null, DLIVE_CONTACT = null;
 /* 🔴 6.250.0 — בדיוק עמודות הטוען של DEALS (נאכף בבנייה). עד כאן הרשימה הייתה ידנית וחסר בה
    quote_doc_path — ולכן PDF שנמשך בוובהוק לא הגיע למטמון, וגם פתיחה מחדש של הכרטיס הראתה
    "טרם נמשך" (נמדד על PQ26001166, 12/10/2026). */
-const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id';
+const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term';
 
 window.dlLiveStop = ()=>{
   if(DLIVE_T){ clearInterval(DLIVE_T); DLIVE_T = null; }
@@ -25915,6 +25925,7 @@ function dlLivePaint(d, changed){
     ()=>{ const q = document.getElementById('dl-qdoc'); if(!q) return;
           q.innerHTML = '<label>מסמך ההצעה</label>' + dlQDocBox(d); },
     ()=>dlChanDraw(id),
+    ()=>dlPayDraw(id),
     ()=>set('dl-signbox', dlSignBox(d)),
     ()=>set('dl-signlink', dlSignLinkHtml(d)),
     ()=>{ const e = document.getElementById('dl-dates'); if(!e) return;
@@ -26052,6 +26063,8 @@ window.openDeal = async (id)=>{
         ${dlQDocBox(d)}</div>
       <div class="span2"><label>לאן לשלוח את ההצעה<span class="req">*</span></label>
         <div id="dl-chanbox"></div></div>
+      <div class="span4" id="dl-paycell"><label>תנאי תשלום<span class="req">*</span></label>
+        <div id="dl-paybox"></div></div>
       <div class="span2"><label>חתימה על ההצעה — מודול איירון</label>
         <div id="dl-signbox">${dlSignBox(d)}</div></div>
       <div><label>לינק לחתימה</label><div id="dl-signlink">${dlSignLinkHtml(d)}</div></div>
@@ -26084,7 +26097,7 @@ window.openDeal = async (id)=>{
     </section>
     </div>
 `;
-  dlPipeDraw(id); dlChanDraw(id);
+  dlPipeDraw(id); dlChanDraw(id); dlPayDraw(id);
   /* 🔴 אחרי הציור ולא לפניו: dlLiveApply קורא ל-dlPipeDraw, וקריאה
      על כרטיס שטרם צויר הייתה נופלת בשקט ל-catch. */
   try{ dlLiveStart(id); }catch(_e){}
@@ -26168,6 +26181,85 @@ window.dlSetChan = async (id, ch)=>{
   if(d) d.send_channel = (r && r.channel) || null;
   dlChanDraw(id); renderDeals();
   toast(ch ? 'ערוץ השליחה נשמר ✓' : 'ערוץ השליחה נוקה ✓');
+};
+/* ===== תנאי תשלום בכרטיס התהליך (7.13.0 dealpay) =====
+   רומן, 17/10/2026: "איש המכירות מגדיר תנאי תשלום בכרטיס התהליך (חובה לפני שליחה לחתימה)".
+   שלושה שדות: **אמצעי** (6) · **מספר תשלומים** (באשראי בלבד — A1–A12 בפריוריטי) · **אופן התשלום** מ-PTERMS
+   (ord.payment_terms — הטבלה של מעיין: "רק להנהלת חשבונות, גיול חובות, וככה מעיין תדע מתי לגבות").
+   🔴 השרת הוא השער (crm.deal_set_payment): "שוטף" וכל אופן מלבד מיידי ו-50/50 דורשים crm.deals.payterms
+      (רומן, בן, נח), ואחרי אישור הלקוח כל שינוי דורש אותה — התנאים הם חלק ממה שנחתם. כאן רק מסתירים את מה
+      שממילא יידחה; כפתור נעול עם 🔒 אומר *למה*, במקום שייעלם בלי הסבר. */
+const DEAL_PAY_METHODS = ['אשראי','העברה בנקאית','שקים','הוראת קבע','מזומן','שוטף'];
+const DEAL_PAY_BASIC = ['IMM','A50DEL'];
+const DEAL_PAY_LOCKED = ['אושרה ע״י לקוח','הזמנה','לא רלוונטי'];
+const DEAL_PAY_CLR = '#5559df';
+/* הפעימות כפי שהלקוח יראה אותן בדף החתימה. ⚠️ אותו עיגול כמו buildPayterms ב-deal-quote-doc v3: הפעימה
+   האחרונה סוגרת את ההפרש, כך שהסכומים מסתכמים בדיוק לסה"כ. מספר אחר כאן היה "הבטחה" שהמסמך לא יקיים. */
+function dlPayBeats(d){
+  const t = (PTERMS||[]).find(x=>x.code===d.pay_term); if(!t) return '';
+  const raw = Array.isArray(t.beats) ? t.beats : []; if(!raw.length) return '';
+  const tot = d.amount_incl_vat != null ? Number(d.amount_incl_vat) : null;
+  const f2 = x => '₪' + Number(x).toLocaleString('he-IL', { minimumFractionDigits:0, maximumFractionDigits:2 });
+  let acc = 0;
+  const parts = raw.map((b, i)=>{
+    const pct = Number(b.pct||0);
+    const lbl = raw.length===1 ? 'תשלום מלא' : (i===0 && b.anchor==='order' ? 'מקדמה' : (i===raw.length-1 ? 'יתרה' : 'תשלום ' + (i+1)));
+    let amt = '';
+    if(tot != null){
+      let a;
+      if(i < raw.length-1){ a = Math.round(tot*pct)/100; acc += a; } else a = Math.round((tot-acc)*100)/100;
+      amt = ' · <b>' + esc(f2(a)) + '</b>';
+    }
+    return esc(lbl) + (raw.length>1 ? ' ' + esc(String(pct)) + '%' : '') + amt;
+  });
+  return '<div class="dl-paybeats">' + parts.join(' &nbsp;|&nbsp; ') + (tot != null ? ' <span style="color:var(--ink-3)">(כולל מע"מ)</span>' : '') + '</div>';
+}
+function dlPayDraw(id){
+  const box = document.getElementById('dl-paybox'); if(!box) return;
+  const d = (DEALS||[]).find(x=>x.id===id); if(!d) return;
+  const sp = window.canEdit('crm.deals.payterms');
+  const can = window.canEdit('crm.deals');
+  const ed = can && (sp || DEAL_PAY_LOCKED.indexOf(d.stage||'') < 0);
+  const m = d.pay_method || '', t = d.pay_term || '', n = +d.pay_installments || 1;
+  /* ⚠️ ערך קיים שאינו ברשימה מוצג בכל זאת — אותו כלל של dlChanDraw. */
+  const all = m && DEAL_PAY_METHODS.indexOf(m) < 0 ? DEAL_PAY_METHODS.concat([m]) : DEAL_PAY_METHODS;
+  const chips = all.map(o=>{
+    const on = o===m, lock = o==='שוטף' && !sp && !on;
+    const stl = on ? `background-color:${tint(DEAL_PAY_CLR,LB_TK)};color:${onWhite(DEAL_PAY_CLR)};border-color:${tint(DEAL_PAY_CLR,LB_TK-.20)}` : '';
+    return `<button type="button" style="${stl}"${(ed && !lock) ? '' : ' disabled'}`
+      + (lock ? ' title="דורש הרשאת «תנאי תשלום מיוחדים»"' : '')
+      + ` onclick="dlSetPay('${jsq(id)}',{m:'${jsq(on?'':o)}'})">${esc(o)}${lock?' 🔒':''}</button>`;
+  }).join('');
+  /* אופני התשלום: מיידי ו-50/50 לכולם; השאר בהרשאה. הערך הנוכחי מוצג תמיד, גם אם אינו מותר למשתמש. */
+  const terms = (PTERMS||[]).filter(x=> sp || DEAL_PAY_BASIC.indexOf(x.code) >= 0 || x.code===t);
+  const sel = `<select id="dl-payterm"${ed?'':' disabled'} onchange="dlSetPay('${jsq(id)}',{t:this.value})">`
+    + `<option value="">— אופן התשלום —</option>`
+    + terms.map(x=>`<option value="${esc(x.code)}"${x.code===t?' selected':''}>${esc(x.name)}</option>`).join('')
+    + `</select>`;
+  const inst = m==='אשראי'
+    ? `<select id="dl-payinst"${ed?'':' disabled'} onchange="dlSetPay('${jsq(id)}',{n:+this.value})">`
+      + Array.from({length:12}, (_, i)=>i+1).map(k=>`<option value="${k}"${k===n?' selected':''}>${k===1?'תשלום אחד':k+' תשלומים'}</option>`).join('')
+      + `</select>`
+    : '';
+  box.innerHTML = `<div class="lb-psub">${chips}</div><div class="dl-payrow">${sel}${inst}</div>` + dlPayBeats(d)
+    + ((!m || !t) ? `<div class="lb-psub-x">חובה לפני מעבר ל«נשלחה הצעת מחיר לחתימה».</div>` : '')
+    + ((can && !ed) ? `<div class="lb-psub-x">הלקוח כבר אישר — שינוי דורש הרשאת «תנאי תשלום מיוחדים».</div>` : '');
+}
+/* ⚠️ RPC ולא UPDATE ישיר — אותו נימוק של dlSetChan: שער הרשאה אחד, ולידציה אחת, ושורת יומן.
+   כל לחיצה שולחת את **שלושת** השדות (המצב המלא), כדי שהשרת יבדוק את הצירוף ולא שדה בודד. */
+window.dlSetPay = async (id, p)=>{
+  if(!window.canEdit('crm.deals')){ toast('אין הרשאת עריכה'); return; }
+  const d = (DEALS||[]).find(x=>x.id===id); if(!d) return;
+  const m = p.m !== undefined ? (p.m || null) : (d.pay_method || null);
+  const t = p.t !== undefined ? (p.t || null) : (d.pay_term || null);
+  const n = p.n !== undefined ? p.n : (d.pay_installments || null);
+  const { data, error } = await sb.schema('crm').rpc('deal_set_payment',
+    { p_deal: id, p_method: m, p_term: t, p_installments: m==='אשראי' ? (n || 1) : null });
+  if(error){ toast('השמירה נכשלה — ' + error.message, 'err', 5000); dlPayDraw(id); return; }
+  const r = Array.isArray(data) ? data[0] : data;
+  if(r){ d.pay_method = r.pay_method || null; d.pay_term = r.pay_term || null; d.pay_installments = r.pay_installments || null; }
+  dlPayDraw(id);
+  toast('תנאי התשלום נשמרו ✓');
 };
 /* 🔴 נקודת החנק היחידה לשינוי שלב. כותבת **רק** את העמודות שהשלב
    מחייב, ומנקה את תת-הסטטוס שאינו שייך לו — אחרת ערך ישן נשאר
