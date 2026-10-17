@@ -3378,6 +3378,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   td.lb-ck input, th.lb-ck input{ width:22px; height:22px; }
 }
 /* ===== 6.199.0 — דשבורד שיווק ===== */
+  #tab-mkt .mkt-intent-tbl td .fun-bar{ min-width:90px }
 #tab-mkt .mkt-bar{ display:block; margin-bottom:6px; }   /* 6.207.0 — הילדים (.toolbar + details.lf-wrap) מסדרים את עצמם */
 #tab-mkt .mkt-tools{ flex-wrap:wrap; margin-bottom:8px; }
 #tab-mkt .mkt-tools .lf-sel{ width:auto; flex:none; height:var(--ctl-h-md); }
@@ -3527,7 +3528,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.15.0</div>
+      <div class="ver">גרסה 7.15.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3658,7 +3659,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="dealui-2026-10-17a">גרסה 7.15.0</div>
+    <div class="side-foot" title="mktintent-2026-10-17a">גרסה 7.15.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -12971,7 +12972,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'dealui-2026-10-17a';
+const BUILD_ID = 'mktintent-2026-10-17a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -19496,7 +19497,7 @@ async function mktLoad(force){
     if(r.error){ mktStatus('טעינת הדשבורד נכשלה: '+(r.error.message||'')); return; }
     if(r.data==null){ mktStatus('אין הרשאה לדשבורד השיווק'); return; }
     MKT_D=r.data; MKT_AT=Date.now(); MKT_LAST=key; ok=true;
-    MKT_PV.key='';   /* נתונים חדשים מהשרת ⇒ גם הניתוח הדינמי נטען מחדש (ולא ממטמון שנבנה על התשובה הקודמת) */
+    MKT_PV.key=''; MKT_IN.key='';   /* נתונים חדשים מהשרת ⇒ גם הניתוח הדינמי נטען מחדש (ולא ממטמון שנבנה על התשובה הקודמת) */
     mktPaintBar(); mktPaint();
   }catch(e){ mktStatus('טעינת הדשבורד נכשלה: '+String(e)); }
   finally{
@@ -19726,6 +19727,7 @@ function mktPaint(){
     '<div class="mkt-card" id="mkt-trend"></div>'+
     '<div class="mkt-grid2"><div class="mkt-card" id="mkt-funnel"></div><div class="mkt-card" id="mkt-response"></div></div>'+
     '<div class="mkt-card" id="mkt-sources"></div>'+
+    '<div class="mkt-card" id="mkt-intent"></div>'+
     '<div class="mkt-card" id="mkt-campaigns"></div>'+
     '<div class="mkt-card" id="mkt-pivot"></div>'+
     '<div class="mkt-card" id="mkt-lost"></div>'+
@@ -19733,7 +19735,7 @@ function mktPaint(){
     '<div class="mkt-card" id="mkt-quality"></div>'+
     '<div class="mkt-card" id="mkt-spend"></div>';
   body.innerHTML=h;
-  mktPaintTrend(); mktPaintFunnel(); mktPaintResponse(); mktPaintTables(); mktPaintPivot(); mktPaintLost(); mktPaintQuality(); mktPaintSpend();
+  mktPaintTrend(); mktPaintFunnel(); mktPaintResponse(); mktPaintTables(); mktPaintIntent(); mktPaintPivot(); mktPaintLost(); mktPaintQuality(); mktPaintSpend();
 }
 function mktPaintFunnel(){
   const el=document.getElementById('mkt-funnel'); if(!el||!MKT_D) return;
@@ -19802,6 +19804,46 @@ function mktPaintQuality(){
     t('lost_no_date','לידים אבודים בלי תאריך','','quality:lost_no_date')+
     t('no_contact_stamp','לידים שטופלו בלי חותמת זמן','נמדד מ-'+fmtD((MKT_D.response||{}).measured_from||''),'quality:no_contact_stamp')+
     '</div>';
+}
+/* 7.15.1 mktintent — רומן: "תוסיף פילוח במה מתעניינים בדשבורד השיווק". התשובה האחרונה ל"במה מתעניין?"
+   (crm.activities details.q.q_intent — מדף הקביעה באתר ומהנציגים) על אותם מסננים: crm.mkt_intent(p) מעל mkt_leads(p).
+   טעינה עצלה ומטמון לפי ה-payload, כמו MKT_PV. בלי drill — mkt_drill אינו מכיר את המימד. */
+let MKT_IN = { key:'', data:null, busy:false, again:false };
+const MKT_IN_HEAD = '<h3>במה מתעניינים <small>התשובה לשאלה "במה מתעניין?" — מדף הקביעה באתר ומהתשאול של הנציגים · לידים שנוצרו בטווח, באותם מסננים</small></h3>';
+function mktIntentHtml(D){
+  const tot=+D.total||0, ans=+D.answered||0, rows=D.rows||[], sd=D.since ? new Date(D.since) : null, since=(sd && !isNaN(sd)) ? fmtD(mktIso(sd)) : '';   /* since הוא timestamp, ו-fmtD מקבל תאריך בלבד */
+  if(!ans) return '<div class="db-empty">אין עדיין תשובות בטווח ובסינון'+(tot?' ('+mktN(tot)+' לידים)':'')+'. '+
+    (since ? 'השאלה נאספת מ-'+esc(since)+' — ' : 'השאלה נאספת ')+'בדף הקביעה באתר (חובה) ובתשאול הליד במערכת. לידים מלפני כן לא נשאלו, והתשובה שלהם אינה מנוחשת.</div>';
+  const mx=Math.max(1,...rows.map(r=>+r.leads||0));
+  let h='<div class="db-fin"><div><b>'+mktN(ans)+'</b><small>לידים ענו</small></div>'+
+    '<div><b>'+mktPct(tot?ans/tot:null)+'</b><small>מתוך '+mktN(tot)+' לידים בטווח</small></div>'+
+    '<div><b>'+mktN(rows.length)+'</b><small>תשובות שונות</small></div></div>';
+  h+='<div class="tbl-wrap"><table class="tbl mkt-intent-tbl"><thead><tr><th>תשובה</th><th class="num">לידים</th><th>% מהעונים</th><th class="num">רלוונטיים</th><th class="num">נסגרו</th><th class="num">המרה</th><th class="num">הכנסות</th></tr></thead><tbody>'+
+    rows.map(r=>{ const n=+r.leads||0;
+      return '<tr><td>'+esc(r.intent)+'</td><td class="num">'+mktN(n)+'</td>'+
+        '<td><div class="fun-row" style="cursor:default;padding:0"><div class="fun-bar"><div style="width:'+Math.round(n/mx*100)+'%"></div></div><span class="fun-a" style="width:auto">'+mktPct(ans?n/ans:null)+'</span></div></td>'+
+        '<td class="num">'+mktN(r.qualified)+'</td><td class="num">'+mktN(r.won_n)+'</td><td class="num">'+mktPct(n?(+r.won_n||0)/n:null)+'</td><td class="num">'+mktTM(r.revenue)+'</td></tr>'; }).join('')+
+    '</tbody></table></div>';
+  return h+'<div class="mkt-note">נאסף מ-'+esc(since)+' · התשובה האחרונה של כל ליד · "נסגרו" = לידים שיש להם עסקה שנסגרה · "המרה" = נסגרו מתוך הלידים בשורה'+
+    (tot>ans ? ' · '+mktN(tot-ans)+' לידים בטווח בלי תשובה אינם בטבלה' : '')+'</div>';
+}
+async function mktPaintIntent(){
+  const el=document.getElementById('mkt-intent'); if(!el||!MKT_D) return;
+  if(!canView('mkt.dash')) return;
+  const key=JSON.stringify(mktPayload());
+  if(MKT_IN.key===key && MKT_IN.data){ el.innerHTML=MKT_IN_HEAD+mktIntentHtml(MKT_IN.data); return; }
+  el.innerHTML=MKT_IN_HEAD+'<div class="empty">טוען…</div>';
+  if(MKT_IN.busy){ MKT_IN.again=true; return; }
+  MKT_IN.busy=true;
+  const put=h=>{ const e=document.getElementById('mkt-intent'); if(e) e.innerHTML=MKT_IN_HEAD+h; };
+  try{
+    const r=await sb.schema('crm').rpc('mkt_intent', { p:mktPayload() });
+    if(r.error){ put('<div class="empty">'+esc('טעינת הפילוח נכשלה: '+(r.error.message||''))+'</div>'); return; }
+    if(r.data==null){ put('<div class="empty">אין הרשאה</div>'); return; }
+    MKT_IN.key=key; MKT_IN.data=r.data;
+    if(JSON.stringify(mktPayload())===key) put(mktIntentHtml(r.data));
+  }catch(e){ put('<div class="empty">'+esc('טעינת הפילוח נכשלה: '+String(e))+'</div>'); }
+  finally{ MKT_IN.busy=false; if(MKT_IN.again){ MKT_IN.again=false; mktPaintIntent(); } }
 }
 /* ── ניתוח דינמי (6.202.0) — mkt_pivot(p, row, col): הגדרה אחת בשרת, כאן רק בחירה וציור ── */
 let MKT_PV = { key:'', data:null, busy:false, again:false, sorted:false };
