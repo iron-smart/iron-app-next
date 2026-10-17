@@ -3160,8 +3160,48 @@ td.lb-today .lb-dt{ background-color:transparent; }
 #dl-deal .dd-dates{ display:flex; flex-direction:row; align-items:center; gap:var(--sp-4); }
 #dl-deal .dd-dates .c2-half{ display:flex; flex-direction:row; align-items:baseline; gap:6px; }
 #dl-deal .dd-dates input.ro{ font-size:var(--fs-sm); font-weight:600; width:9ch; }
+/* 7.16.0 ordopen — "פתיחת הזמנה": הכפתור בסרגל, והחלונית (#dlOrdModal נבנית ב-body, מחוץ ל-#dl-deal).
+   ⚠️ :empty — עסקה שאין לה מה לפתוח משאירה מכל ריק, ובלי זה הוא פריט flex שמוסיף רווח לסרגל. */
+#dl-deal #dl-ordopen:empty{ display:none; }
+#dl-deal #dl-ordopen .btn{ width:auto; min-height:var(--ctl-h-md); padding:0 22px; font-size:var(--fs-md); }
+#dlOrdModal .oo-head{ display:flex; flex-wrap:wrap; gap:var(--sp-2) var(--sp-5); font-size:var(--fs-md); color:var(--ink-2); }
+#dlOrdModal .oo-head b{ color:var(--ink-1); font-variant-numeric:tabular-nums; }
+#dlOrdModal .oo-sub{ font-size:var(--fs-sm); color:var(--ink-3); margin:var(--sp-2) 0 var(--sp-3); }
+#dlOrdModal .oo-sched{ border-top:1px solid #eef2f6; }
+#dlOrdModal .oo-row{ display:grid; grid-template-columns:minmax(100px,1fr) 104px minmax(120px,1.2fr) minmax(140px,1.3fr);
+  gap:var(--sp-2) var(--sp-3); align-items:center; padding:10px 4px; border-bottom:1px solid #eef2f6; }
+#dlOrdModal .oo-row.oo-need{ background:var(--amber-bg); }
+#dlOrdModal .oo-n{ display:flex; align-items:center; gap:8px; font-weight:600; color:var(--ink-2); min-width:0; }
+#dlOrdModal .oo-idx{ width:20px; height:20px; border-radius:50%; background:#eef2f6; color:var(--ink-2); font-size:11px; font-weight:700;
+  display:inline-grid; place-items:center; flex:none; }
+#dlOrdModal .oo-amt{ font-size:var(--fs-lg); font-weight:800; color:var(--ink-1); font-variant-numeric:tabular-nums; white-space:nowrap; }
+#dlOrdModal .oo-m{ font-size:var(--fs-sm); color:var(--ink-2); }
+#dlOrdModal .oo-ck{ display:inline-flex; align-items:center; gap:6px; margin:0; font-size:var(--fs-sm); font-weight:700; color:var(--ink-1); cursor:pointer; }
+#dlOrdModal .oo-ref{ width:100%; min-height:var(--ctl-h-sm); padding:3px 8px; border:1px solid var(--line); border-radius:var(--r-sm);
+  background:#fff; color:var(--ink-1); font:inherit; font-size:var(--fs-sm); box-sizing:border-box; }
+#dlOrdModal .oo-ref:focus{ outline:none; border-color:var(--navy); box-shadow:var(--sh-focus); }
+#dlOrdModal .oo-ref:disabled, #dlOrdModal .oo-ck input:disabled{ cursor:not-allowed; opacity:.6; }
+#dlOrdModal .oo-mut{ font-size:var(--fs-xs); color:var(--ink-3); }
+#dlOrdModal .oo-facts{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--sp-3); margin:var(--sp-4) 0 var(--sp-2); }
+#dlOrdModal .oo-facts > div{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+#dlOrdModal .oo-k{ font-size:var(--fs-xs); font-weight:600; color:var(--ink-3); }
+#dlOrdModal .oo-v{ font-size:var(--fs-md); font-weight:700; color:var(--ink-1); }
+#dlOrdModal .oo-info{ font-size:var(--fs-sm); padding:8px 10px; border-radius:var(--r-md); margin-top:var(--sp-2); background:#f8fafc; color:var(--ink-2); }
+#dlOrdModal .oo-info.warn{ background:var(--amber-bg); color:#92400e; }
+#dlOrdModal .oo-info.bad{ background:var(--red-bg); color:var(--red); font-weight:600; }
+#dlOrdModal .oo-msg{ font-size:var(--fs-sm); margin-top:var(--sp-3); min-height:1em; }
+#dlOrdModal .oo-msg.busy{ color:var(--navy); font-weight:600; }
+#dlOrdModal .oo-msg.bad{ color:var(--red); font-weight:600; }
+/* ⚠️ אין כלל .btn:disabled שמגיע ל-.actions (רק .modal-actions ו-#cvPickModal) — בלעדיו הכפתור המנוטרל נראה פעיל
+   (נמדד בסקירה: opacity 1, cursor pointer). */
+#dlOrdModal .actions .btn:disabled, #dlOrdModal .actions .ghost:disabled{ opacity:.45; cursor:not-allowed; box-shadow:none; }
 @media(max-width:759.98px){
   #dl-deal .dd-sum{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #dlOrdModal .oo-row{ grid-template-columns:1fr 1fr; }
+  #dlOrdModal .oo-n, #dlOrdModal .oo-x{ grid-column:1/-1; }
+  #dlOrdModal .oo-facts{ grid-template-columns:1fr; }
+  #dl-deal #dl-ordopen{ flex:1 1 100%; }
+  #dl-deal #dl-ordopen .btn{ width:100%; }
   #dl-deal .dd-two{ grid-template-columns:1fr; }
   #dl-deal .dd-pr{ grid-template-columns:1fr 1fr; }
   #dl-deal .dd-pr-n, #dl-deal .dd-pr-when{ grid-column:1/-1; }
@@ -3528,7 +3568,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.15.3</div>
+      <div class="ver">גרסה 7.16.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3659,7 +3699,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="mktintentfix-2026-10-17a">גרסה 7.15.3</div>
+    <div class="side-foot" title="ordopen-2026-10-17a">גרסה 7.16.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -12877,7 +12917,8 @@ window.dlSignBox = (d)=>{
   if(!window.canEdit('docs.' + DL_QCAT))
     return `<div class="tk-lnk">${shipBtn}</div><div class="note">אין לך הרשאת עריכה בקטגוריית ההצעות.</div>`;
   /* 7.15.0 — Primary יחיד בסרגל הפעולות; מספר ההצעה כבר בסיכום ולכן ירד מכאן. */
-  return `<div class="tk-lnk"><button type="button" class="btn" onclick="dlQuoteDoc('${jsq(d.id)}')">✎ צור מסמך לחתימה</button> ${shipBtn}</div>`;
+  /* 7.16.0 — אחרי אישור הלקוח הפעולה הראשית היא «פתיחת הזמנה»; המסמך יורד למשני. */
+  return `<div class="tk-lnk"><button type="button" class="${dlOrdOpenShow(d) ? 'chip' : 'btn'}" onclick="dlQuoteDoc('${jsq(d.id)}')">✎ צור מסמך לחתימה</button> ${shipBtn}</div>`;
 };
 
 /* 6.263.0 — מודול התצוגה המקדימה בריחוף (6.173.0/6.174.0) ירד כולו (רומן: "תבטל את ה-hover — זה סתם מעצבן").
@@ -12972,7 +13013,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'mktintentfix-2026-10-17a';
+const BUILD_ID = 'ordopen-2026-10-17a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -25416,6 +25457,11 @@ window.dlBulk = async (op)=>{
     if(rep) rep.textContent = `מבצע ${i+1} מתוך ${ids.length}…`;
     let e = null, r = null;
     if(op==='owner') ({ error:e } = await sb.schema('crm').rpc('deal_set_owner', { p_deal:id, p_owner: lbOwnUuid(val) }));
+    /* 7.16.0 — אותו כלל של dlPipeSet: עסקה עם תנאי תשלום והצעה, בלי הזמנה פעילה, עוברת ל'הזמנה' רק בכפתור. */
+    else if(val === 'הזמנה' && d && d.stage !== 'הזמנה' && Array.isArray(d.pay_plan) && d.pay_plan.length
+            && /^PQ[0-9]+$/.test(String(d.priority_quote_id||'')) && !dlOrdLive(d)){
+      bad.push(nameOf(id) + ' — מעבר ל«הזמנה» בכפתור «פתיחת הזמנה» בכרטיס'); continue;
+    }
     else { ({ data:r, error:e } = await sb.schema('crm').rpc('deal_stage_set',
               { p_deal:id, p_stage:val, p_sub:null, p_expect:(d&&d.stage)||null })); }
     if(e) bad.push(nameOf(id)+' — '+e.message); else ok++;
@@ -25608,7 +25654,10 @@ function dlOrdOf(d){
 function dlOrdSecHtml(d){
   const o = dlOrdOf(d);
   const sep = '<div class="form-sep">ההזמנה</div>';
-  if(!o) return sep + '<div class="span4"><div class="note" id="dl-ordnone">אין הזמנה בפריוריטי — חיוב (כולל אשראי) נעשה רק אחרי פתיחת הזמנה בטיוטא או ממתין לתשלום.</div></div>';
+  /* 7.16.0 — הזמנה שנפתחה כרגע מהכרטיס ועוד לא נקלטה ל-ORDS: אומרים את זה, ולא "אין הזמנה". */
+  if(!o) return sep + '<div class="span4"><div class="note" id="dl-ordnone">' + ((window.DL_OO_DONE||{})[d.id]
+    ? 'נפתחה הזמנה ' + esc(window.DL_OO_DONE[d.id]) + ' בפריוריטי — תופיע כאן אחרי הסנכרון (עד כמה דקות).'
+    : 'אין הזמנה בפריוריטי — חיוב (כולל אשראי) נעשה רק אחרי פתיחת הזמנה בטיוטא או ממתין לתשלום.') + '</div></div>';
   if(!DL_ORD_SHOW.includes(o.erp_status))
     return sep + '<div class="span4"><div class="note" id="dl-ordhidden">הזמנה ' + esc(o.order_number) + ' בפריוריטי בסטטוס «' + esc(o.erp_status||'—') + '» — אינה מוצגת כאן.</div></div>';
   return sep +
@@ -25622,7 +25671,10 @@ function dlOrdSecHtml(d){
     ordTermsBlock(o);
 }
 /* ציור מחדש **במקום** — לא openDeal (מאפס scrollTop, 6.154.0). */
-function dlOrdSecDraw(d){ const el = document.getElementById('dl-ordsec'); if(el && d) el.innerHTML = dlOrdSecHtml(d); }
+function dlOrdSecDraw(d){ const el = document.getElementById('dl-ordsec'); if(el && d) el.innerHTML = dlOrdSecHtml(d);
+  /* 7.16.0 — הזמנה שנקלטה (או בוטלה) מחליפה את הפעולה הראשית בסרגל: «פתיחת הזמנה» ⇄ «צור מסמך לחתימה». */
+  const _oo = document.getElementById('dl-ordopen'); if(_oo && d) _oo.innerHTML = window.dlOrdOpenBox(d);
+  const _sb = document.getElementById('dl-signbox'); if(_sb && d) _sb.innerHTML = window.dlSignBox(d); }
 /* היורש של renderOrders(): כל מסלול שמשנה הזמנה (ieSave · saveOrd · ordSyncOne · ordCloseIds · payAutoRefresh)
    קורא לכאן, והסקשן בכרטיס העסקה הפתוח מתעדכן. כרטיס סגור/מוסתר ⇒ אפס עבודה. */
 function dlOrdSecSync(){
@@ -26219,6 +26271,7 @@ window.openDeal = async (id)=>{
         </div>
         <div class="dd-pay" id="dl-paycell"><div id="dl-paybox"></div></div>
         <div class="dd-bar">
+          <div id="dl-ordopen">${window.dlOrdOpenBox(d)}</div>
           <div id="dl-signbox">${dlSignBox(d)}</div>
           <div class="dd-meta">
             <div class="dd-inl"><label>לינק לחתימה</label><div id="dl-signlink">${dlSignLinkHtml(d)}</div></div>
@@ -26503,6 +26556,7 @@ window.dlPpSave = async id=>{
   DL_PP[id] = dlPpFromDeal(d);
   Object.keys(DL_PL).forEach(k=>{ if(k.indexOf(id+':')===0) delete DL_PL[k]; });   /* קישורים ישנים — לסכום ישן */
   dlPayDraw(id);
+  try{ dlOrdSecDraw(d); }catch(_e){}   /* 7.16.0 — תוכנית חדשה בעסקה מאושרת ⇒ «פתיחת הזמנה» מופיעה/נעלמת */
   toast(d.pay_plan ? 'תנאי התשלום נשמרו ✓' : 'תנאי התשלום נוקו ✓');
 };
 /* 🔗 קישור תשלום (pay-link): הסכום נקבע בשרת — מהמסמך החתום אם יש, אחרת מהתוכנית. הדפדפן שולח רק עסקה ומספר תשלום. */
@@ -26547,6 +26601,14 @@ window.dlPayLink = async (id, seq)=>{
 window.dlPipeSet = async (id, stage, sub)=>{
   if(!window.canEdit('crm.deals')){ toast('אין לך הרשאת עריכה לתהליכי מכירה'); return; }
   const d = DEALS.find(x=>x.id===id); if(!d) return;
+  /* 7.16.0 — 'הזמנה' בעסקה עם תנאי תשלום ובלי הזמנה פעילה = «פתיחת הזמנה» (רומן: "מעביר ל'הזמנה' ⇒ המערכת
+     מריצה בפריוריטי 'פתיחת הזמנה'"). השרת אוכף אותו כלל ב-crm.deal_stage_set (deal_order_open_gate). */
+  if(stage === 'הזמנה' && d.stage !== 'הזמנה' && Array.isArray(d.pay_plan) && d.pay_plan.length
+     && /^PQ[0-9]+$/.test(String(d.priority_quote_id||'')) && !dlOrdLive(d)){   /* בלי הצעה — כמו קודם (השער בשרת זהה) */
+    if(dlOrdOpenShow(d)) return dlOrdOpen(id);
+    try{ renderDeals(); }catch(_e){}   /* בורר השלב בטבלה חוזר לשלב האמיתי */
+    toast('מעבר ל«הזמנה» — אחרי שהלקוח אישר את ההצעה, בכפתור «פתיחת הזמנה»', 'err', 5000); return;
+  }
   /* 🔴 6.180.0 — נעילת מקביליות אופטימית. p_expect הוא **השלב שהמסך
      מצייר עכשיו**, והשרת דוחה אם הוא כבר אינו נכון. זה מה שמונע את
      מה שקרה ב-31/08: החתימה קידמה, והכרטיס הפתוח כתב בחזרה את הישן. */
@@ -26584,6 +26646,211 @@ window.dlPipeSet = async (id, stage, sub)=>{
   /* 6.263.0 — רק במעבר **אל** השלב: בחירת סיבה אחרי השלב (אותו stage, sub אחר) אינה מקפיצה שוב. */
   if(stage === 'לא רלוונטי' && expect !== 'לא רלוונטי') dlUpdRequire(id);
 };
+/* ═══ 7.16.0 ordopen — "פתיחת הזמנה" מכרטיס העסקה (תנאי תשלום, שלב 2 מתוך 3) ═══════════════════
+   רומן, 16/10/2026: "איש המכירות גובה ⇒ מעביר ל'הזמנה' ⇒ המערכת מריצה בפריוריטי 'פתיחת הזמנה' ⇒ ההזמנה
+   בממתין לתשלום (שוטף ⇒ מאושרת לקוח)" · "לפני 'הזמנה': אשראי ומזומן ⇒ סימון 'התקבל'; העברה/שקים/הוראת
+   קבע ⇒ אסמכתא חובה. במקדמה — התנאי על המקדמה". 17/10: תשלום משולב ⇒ קוד התשלום של **היתרה**.
+   🔴 הלקוח אינו מחשב מה נדרש, איזה קוד ואיזה סטטוס: crm.deal_order_preview מחזירה אותם מאותו מחשב
+      (crm.deal_order_plan_of) שהשער (deal_order_open_claim) והזריעה קוראים — שלושתם אינם יכולים להיפרד.
+   🔴 הפתיחה עצמה רק בשרת (deal-open-order): תביעה אטומית, אימוץ הזמנה קיימת במקום פתיחת שנייה, PATCH+GET.
+   ⚠️ סקירה רב-סוכנית (17/10/2026): החלונית ראשונה ב-body (לולאת ה-Tab ושער ה-Esc בוחרים את המודאל הגלוי
+      הראשון), מיקוד נכנס ויוצא, לחיצה חוזרת בזמן פתיחה נבלעת, תשובה ישנה אינה דורסת חדשה, timeout בצד הלקוח,
+      וטיוטא אינה "הזמנה פעילה" — אותו כלל של השער בשרת: את הטיוטא הכפתור מאמץ ומשלים. */
+window.DL_OO_DONE = window.DL_OO_DONE || {};   /* id ⇒ מספר הזמנה שנפתחה עכשיו — עד שהיא נקלטת ל-ORDS */
+function dlOrdLive(d){
+  if(!d) return false;
+  if(window.DL_OO_DONE[d.id]) return true;
+  const q = String(d.priority_quote_id || '').trim(); if(!q) return false;
+  /* ⚠️ כל הזמנה מההצעה ולא רק המועדפת של dlOrdOf (הזמנה מבוטלת חדשה יכלה להסתיר פעילה ישנה). */
+  return (ORDS||[]).some(o => String(o.priority_quote_id || '').trim() === q && !['מבוטלת','טיוטא'].includes(o.erp_status));
+}
+function dlOrdOpenShow(d){
+  return !!(d && window.canEdit('crm.deals') && ['אושרה ע״י לקוח','הזמנה'].includes(d.stage)
+    && Array.isArray(d.pay_plan) && d.pay_plan.length && /^PQ[0-9]+$/.test(String(d.priority_quote_id || '')) && !dlOrdLive(d));
+}
+window.dlOrdOpenBox = (d)=> dlOrdOpenShow(d)
+  ? `<button type="button" class="btn" id="dl-ordopen-btn" onclick="dlOrdOpen('${jsq(d.id)}')">פתיחת הזמנה בפריוריטי</button>`
+  : '';
+let DL_OO = null;   /* { id, pv, ev:{ [seq]: {received|ref} }, busy, ret } — החלונית הפתוחה */
+const DL_OO_F2 = x => '₪' + Number(x).toLocaleString('he-IL', { minimumFractionDigits: Number.isInteger(Number(x)) ? 0 : 2, maximumFractionDigits: 2 });
+function dlOoEl(){
+  let e = document.getElementById('dlOrdModal');
+  if(!e){
+    /* modal-over (הדפוס של #dl-shipm): נפתח מעל כרטיס העסקה ולא במקומו, Esc/רקע סוגרים אותו בלבד —
+       ובזמן הפתיחה data-must חוסם את שניהם: חלון שנסגר באמצע קריאה לפריוריטי משאיר משתמש בלי תשובה.
+       🔴 ראשון ב-body (הדפוס של sysDlgEl): _openModal מחזיר את המודאל הגלוי הראשון בסדר ה-DOM. */
+    e = document.createElement('div');
+    e.id = 'dlOrdModal'; e.className = 'modal modal-over hidden';
+    e.setAttribute('role', 'dialog'); e.setAttribute('aria-labelledby', 'oo-ttl');
+    e.innerHTML = '<div class="sheet"><h3 id="oo-ttl">פתיחת הזמנה בפריוריטי</h3><div id="oo-body"></div>'
+      + '<div class="actions"><button type="button" class="btn green" id="oo-go" disabled onclick="dlOrdOpenGo()">פתיחת הזמנה</button>'
+      + '<button type="button" class="ghost" id="oo-cancel" onclick="dlOrdOpenClose()">ביטול</button></div></div>';
+    document.body.insertBefore(e, document.body.firstChild);
+    e.addEventListener('click', ev=>{ if(ev.target === e && !e.dataset.must) dlOrdOpenClose(); });
+    /* כל הסתרה — Esc הגלובלי, רקע, ביטול — עוברת בניקוי אחד (הדפוס של sysDlgEl). */
+    new MutationObserver(()=>{ if(e.classList.contains('hidden')) dlOoCleanup(); }).observe(e, { attributes:true, attributeFilter:['class'] });
+  }
+  return e;
+}
+function dlOoCleanup(){
+  if(!DL_OO || DL_OO.busy) return;
+  const ret = DL_OO.ret; DL_OO = null;
+  try{ renderDeals(); }catch(_e){}   /* בורר השלב בטבלה חוזר לשלב האמיתי (בחירה ב'הזמנה' שבוטלה) */
+  /* ⚠️ המפעיל עשוי להתחלף בציור מחדש (dlOrdSecSync / dlLivePaint) — אז לפי המזהה. */
+  const r = (ret && document.contains(ret)) ? ret : (ret && ret.id ? document.getElementById(ret.id) : null);
+  if(r && r.focus && r !== document.body){ try{ r.focus(); }catch(_e){} }
+}
+window.dlOrdOpenClose = ()=>{
+  if(DL_OO && DL_OO.busy) return;
+  const e = document.getElementById('dlOrdModal'); if(e) e.classList.add('hidden');
+  dlOoCleanup();
+};
+window.dlOrdOpen = async (id)=>{
+  if(DL_OO && DL_OO.busy) return;   /* 🔴 Enter/לחיצה על המפעיל בזמן פתיחה הייתה מאפסת את הנעילה */
+  const d = (DEALS||[]).find(x=>x.id===id); if(!d) return;
+  if(!window.canEdit('crm.deals')){ toast('אין לך הרשאת עריכה לתהליכי מכירה'); return; }
+  const e = dlOoEl();
+  const ret = (DL_OO && DL_OO.ret) || document.activeElement;
+  const tok = DL_OO = { id, pv:null, ev:{}, busy:false, ret };
+  document.getElementById('oo-body').innerHTML = crmLoading('טוען את תנאי התשלום…');   /* dstest: טעינה = crmLoading */
+  document.getElementById('oo-go').disabled = true;
+  const cn = document.getElementById('oo-cancel'); if(cn) cn.disabled = false;
+  e.setAttribute('aria-modal', 'true');   /* closeCards מסיר אותו */
+  /* ⚠️ לחיצה כפולה על המפעיל: הלחיצה השנייה נוחתת על הרקע שנפתח זה עתה וסוגרת אותו. */
+  e.dataset.must = '1'; setTimeout(()=>{ if(DL_OO === tok && !tok.busy) delete e.dataset.must; }, 450);
+  e.classList.remove('hidden');
+  try{ cn && cn.focus(); }catch(_e){}
+  let data = null, error = null;
+  try{ ({ data, error } = await sb.schema('crm').rpc('deal_order_preview', { p_deal: id })); }catch(x){ error = x; }
+  if(DL_OO !== tok) return;   /* נסגר או נפתח מחדש בינתיים — תשובה ישנה אינה דורסת חדשה */
+  if(error || !data){
+    document.getElementById('oo-body').innerHTML = `<div class="oo-msg bad">${esc('הטעינה נכשלה — ' + ((error && error.message) || 'אין תשובה מהשרת'))}</div>`;
+    return;
+  }
+  tok.pv = data;
+  dlOoDraw();
+  const f = document.querySelector('#oo-body input');
+  try{ (f || cn) && (f || cn).focus(); }catch(_e){}
+};
+function dlOoDraw(){
+  const box = document.getElementById('oo-body'); const pv = DL_OO && DL_OO.pv; if(!box || !pv) return;
+  const plan = pv.plan || {}, beats = plan.beats || [], ev = DL_OO.ev;
+  const rows = beats.map(b=>{
+    const det = (b.method==='אשראי' && Number(b.installments||1) > 1) ? ' · ' + b.installments + ' תשלומים'
+              : (b.method==='שוטף' && Number(b.net_days||0) > 0) ? ' + ' + b.net_days : '';
+    const cur = ev[b.seq] || {};
+    const need = b.need==='received'
+        ? `<label class="oo-ck"><input type="checkbox" id="oo-rcv-${esc(String(b.seq))}"${cur.received?' checked':''} onchange="dlOoEv(${Number(b.seq)},{received:this.checked})"> התשלום התקבל</label>`
+      : b.need==='ref'
+        ? `<input type="text" class="oo-ref" id="oo-ref-${esc(String(b.seq))}" maxlength="120" autocomplete="off" placeholder="מספר אסמכתא" aria-label="אסמכתא — ${esc(b.label||'')}" value="${esc(cur.ref||'')}" oninput="dlOoEv(${Number(b.seq)},{ref:this.value})">`
+      : `<span class="oo-mut">${b.method==='שוטף' ? 'לפי תנאי השוטף' : 'ייגבה בהמשך'}</span>`;
+    return `<div class="oo-row${b.need?' oo-need':''}">`
+      + `<div class="oo-n"><span class="oo-idx">${esc(String(b.seq))}</span>${esc(b.label||'')}</div>`
+      + `<div class="oo-amt">${b.amount!=null ? esc(DL_OO_F2(b.amount)) : '—'}</div>`
+      + `<div class="oo-m">${esc((b.method||'—') + det)}</div>`
+      + `<div class="oo-x">${need}</div></div>`;
+  }).join('');
+  const pc = plan.paycode ? esc(plan.paycode) + ' · ' + esc(plan.paydes||'') : 'ללא קוד';
+  const info = [];
+  if(pv.existing) info.push(`<div class="oo-info warn">בפריוריטי כבר קיימת הזמנה ${esc(pv.existing.order_number)} (${esc(pv.existing.erp_status||'—')}) מההצעה — היא תאומץ ולא תיפתח שנייה. תנאי התשלום והסטטוס ייכתבו בה רק אם היא עדיין בטיוטא.</div>`);
+  if(pv.last && pv.last.status==='failed') info.push(`<div class="oo-info warn">הניסיון הקודם נכשל: ${esc(pv.last.error||'')}</div>`);
+  if(beats.length && !plan.paycode) info.push(`<div class="oo-info warn">לאמצעי «${esc(plan.basis_method||'')}» אין עדיין תנאי תשלום מוגדר בפריוריטי — ההזמנה תיפתח בלי קוד תשלום.</div>`);
+  (pv.blockers||[]).forEach(t=>info.push(`<div class="oo-info bad">${esc(t)}</div>`));
+  box.innerHTML = `<div class="oo-head"><span>הצעה <b dir="ltr">${esc(pv.quote||'')}</b></span>`
+      + (pv.total!=null ? `<span>סה"כ כולל מע"מ <b>${esc(DL_OO_F2(pv.total))}</b></span>` : '') + `</div>`
+    + `<div class="oo-sub">לפני פתיחת ההזמנה: לסמן שהתשלום התקבל (אשראי / מזומן), או להזין אסמכתא (העברה / שקים / הוראת קבע).</div>`
+    + `<div class="oo-sched">${rows}</div>`
+    + `<div class="oo-facts">`
+      + `<div><span class="oo-k">תנאי התשלום בהזמנה${beats.length > 1 ? ' (לפי היתרה)' : ''}</span><span class="oo-v" id="oo-pc">${pc}</span></div>`
+      + `<div><span class="oo-k">סטטוס ההזמנה בפריוריטי</span><span class="oo-v" id="oo-st">${esc(plan.target_status||'—')}</span></div>`
+      + `<div><span class="oo-k">שלב העסקה</span><span class="oo-v">הזמנה</span></div></div>`
+    + info.join('') + `<div id="oo-msg" class="oo-msg" aria-live="polite"></div>`;
+  dlOoGate();
+}
+window.dlOoEv = (seq, patch)=>{
+  if(!DL_OO || DL_OO.busy) return;
+  DL_OO.ev[seq] = Object.assign({}, DL_OO.ev[seq] || {}, patch);
+  dlOoGate();
+};
+function dlOoReady(){
+  const pv = DL_OO && DL_OO.pv; if(!pv || !pv.can_open) return false;
+  const beats = (pv.plan && pv.plan.beats) || []; if(!beats.length) return false;
+  return beats.every(b=>{ const v = DL_OO.ev[b.seq] || {};
+    return !b.need || (b.need==='received' ? v.received === true : String(v.ref||'').trim().length > 0); });
+}
+function dlOoGate(){ const b = document.getElementById('oo-go'); if(b) b.disabled = !dlOoReady() || !!(DL_OO && DL_OO.busy); }
+function dlOoBusy(on){
+  if(!DL_OO) return;
+  DL_OO.busy = !!on;
+  const e = document.getElementById('dlOrdModal');
+  if(e){ if(on) e.dataset.must = '1'; else delete e.dataset.must; }
+  document.querySelectorAll('#oo-body input').forEach(i=>{ i.disabled = !!on; });
+  const cn = document.getElementById('oo-cancel'); if(cn) cn.disabled = !!on;
+  dlOoGate();
+}
+window.dlOrdOpenGo = async ()=>{
+  if(!DL_OO || DL_OO.busy || !dlOoReady()) return;
+  const tok = DL_OO, id = tok.id, beats = (tok.pv.plan && tok.pv.plan.beats) || [];
+  /* רק מה שהשרת ביקש (need), בצורה שהשער מכיר. האימות עצמו — ב-crm.deal_order_open_claim. */
+  const evidence = beats.filter(b=>b.need).map(b=> b.need==='received'
+    ? { seq:b.seq, received:true } : { seq:b.seq, ref:String((tok.ev[b.seq]||{}).ref||'').trim() });
+  const msg = document.getElementById('oo-msg');
+  dlOoBusy(true);
+  if(msg){ msg.className = 'oo-msg busy'; msg.textContent = 'פותח הזמנה בפריוריטי… זה לוקח עד דקה — לא לסגור את החלון.'; }
+  /* ⚠️ timeout בצד הלקוח: קריאה תלויה הייתה נועלת את החלון (Esc/רקע/ביטול) עד רענון הדף. */
+  let data = null, error = null, tm = null;
+  const guard = new Promise(res=>{ tm = setTimeout(()=>res({ data:null, error:{ message:'לא התקבלה תשובה תוך 2.5 דקות — ייתכן שההזמנה נפתחה. רעננו את הכרטיס לפני ניסיון נוסף.' } }), 150000); });
+  try{ ({ data, error } = await Promise.race([sb.functions.invoke('deal-open-order', { body:{ deal_id:id, evidence } }), guard])); }catch(x){ error = x; }
+  clearTimeout(tm);
+  let emsg = '';
+  if(error || !data || data.ok !== true){
+    /* 🔴 invoke מחזיר על 4xx/5xx הודעה גנרית — ההודעה בעברית בגוף התשובה (הלקח של 6.167.0). */
+    emsg = (data && data.error) || '';
+    if(!emsg && error && error.context && typeof error.context.json === 'function'){
+      try{ const j = await error.context.json(); emsg = (j && j.error) || ''; }catch(_e){}
+    }
+    emsg = emsg || (error && error.message) || 'שגיאה לא ידועה';
+  }
+  const e = document.getElementById('dlOrdModal');
+  const shown = !!(e && !e.classList.contains('hidden') && DL_OO === tok);
+  dlOoBusy(false);
+  if(emsg){
+    if(shown && msg){ msg.className = 'oo-msg bad'; msg.textContent = 'פתיחת ההזמנה נכשלה — ' + emsg; }
+    else toast('פתיחת ההזמנה נכשלה — ' + emsg, 'err', 9000);
+    return;
+  }
+  if(e) e.classList.add('hidden');
+  dlOoCleanup();
+  await dlOrdOpenAfter(id, data);
+};
+/* אחרי פתיחה: ההזמנה נמשכת מה-view (המיסוך לפי הרשאה — הדפוס של ordSyncOne) יחד עם שורת הכספים ואופן החיוב
+   שהשרת זרע; העסקה — מהשרת (השלב 'הזמנה' נקבע שם ולא כאן), גם כשהכרטיס סגור (פתיחה מהטבלה).
+   ⚠️ לא openDeal — הוא מאפס גלילה ולשונית. */
+async function dlOrdOpenAfter(id, r){
+  if(r && r.order) window.DL_OO_DONE[id] = r.order;
+  try{
+    const { data:rows } = await sb.schema('ord').from('orders_v').select('*').eq('order_number', r.order);
+    (rows||[]).forEach(row=>{ const o = (ORDS||[]).find(x=>x.id===row.id); if(o) Object.assign(o, row); else ORDS.push(row); });
+  }catch(_e){}
+  try{ await finRefreshRow(r.order, true); }catch(_e){}
+  try{
+    const { data:m } = await sb.schema('ord').from('order_finance_meta').select('*').eq('order_number', r.order).maybeSingle();
+    if(m) finmApply(r.order, m);
+  }catch(_e){}
+  try{
+    if(DLIVE_ID === id) await dlLivePoll();
+    else {
+      const { data:row } = await sb.schema('crm').from('deals').select(DLIVE_COLS).eq('id', id).maybeSingle();
+      const d = (DEALS||[]).find(x=>x.id===id); if(row && d) Object.assign(d, row);
+    }
+  }catch(_e){}
+  try{ dlOrdSecSync(); renderDeals(); renderStats(); }catch(_e){}
+  const w = (r.warnings||[]).length ? ' · ' + r.warnings.join(' · ') : '';
+  toast((r.created === false ? 'אומצה הזמנה קיימת ' : 'נפתחה הזמנה ') + r.order + ' ✓'
+        + (r.status ? ' · ' + r.status : '') + (r.paycode ? ' · קוד ' + r.paycode : '')
+        + (r.seeded === false ? ' · לוח התשלומים יועתק להזמנה כשהיא תיקלט (עד 10 דקות)' : '') + w,
+        ((r.warnings||[]).length || r.seeded === false) ? 'warn' : 'ok', (r.warnings||[]).length ? 12000 : 8000);
+}
 /* ===== פגישות ===== */
 let MEET_FILTER = 'mine';   /* 7.2.0 — כל המסכים נפתחים ב"שלי" (רומן) */
 const meetStClass = s => s==='התקיימה'?'st-rel' : (['בוטלה','לא התקיימה','נדחתה'].includes(s)?'st-no' : 'st-new');
