@@ -1867,8 +1867,8 @@
   .ist-soon{ background:#fff7ed; color:var(--warn-ink); }
   /* 6.8.0 — בנייה מחדש של מסך החיבורים: מצב סנכרון אמיתי, שגיאה שמסבירה את עצמה, אישור בתוך הכרטיס */
   .int-hero{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-2); margin-bottom:var(--sp-3); }
-  .int-hero .h{ background:#fff; border:1px solid var(--line); border-right:3px solid var(--navy); border-radius:var(--r-lg); padding:var(--sp-2h) var(--sp-3); }
-  .int-hero .h .n{ font-size:20px; font-weight:800; color:var(--navy); line-height:1.25; }
+  .int-hero .h{ background:#fff; border:1px solid var(--line); border-right:3px solid var(--navy); border-radius:var(--r-lg); padding:var(--sp-2) var(--sp-3); }
+  .int-hero .h .n{ font-size:var(--fs-lg); font-weight:800; color:var(--navy); line-height:1.25; }
   .int-hero .h .l{ font-size:var(--fs-sm); color:var(--ink-3); margin-top:var(--sp-0h); }
   .int-hero .h.bad{ border-right-color:var(--red); }
   .int-hero .h.bad .n{ color:var(--red); }
@@ -1988,6 +1988,128 @@
   .set-nav button:last-child{ border-bottom:none; }
   .set-nav button.active{ background:#f2f8f5; color:var(--navy); font-weight:800; border-inline-start:4px solid var(--green); }
   .set-body{ flex:1; min-width:0; }
+  /* 7.21.0 — round3: שפה אחת לכל מסכי ההגדרות (רומן, 10/10/2026: "תמשיך לבניה חכמה ועיצובית של יתר כל המסכים בהגדרות";
+     18/10/2026: "תעשה סבב 3 עכשיו ותוסיף את מסך ההגדרות לסבב"). נבנה מתוך 6.235.0 (setui) שלא נפרס.
+     כרטיס = קבוצה; שורה = הגדרה (תווית+הסבר מימין, פקד משמאל). הפריסה לפי רוחב גוף ההגדרות (container) ולא המסך —
+     בצד יושבים שני תפריטים. ⚠️ אפס נקודת שבירה חדשה (dstest סופרת). */
+  /* ⚠️ width:100% — בטלפון .set-layout הוא עמודה עם align-items:flex-start, והכלה ב-inline-size מכווצת את הגוף לרוחב אפס */
+  .set-body{ container:st / inline-size; width:100%; }
+  .st-top{ display:flex; align-items:center; gap:var(--sp-2h); flex-wrap:wrap; margin:var(--sp-4h) 0 var(--sp-2); }
+  .set-body > .st-top:first-child{ margin-top:0; }
+  .st-top h2.sec{ margin:0; }
+  .st-cnt{ font-size:var(--fs-sm); color:var(--ink-3); }
+  .st-sp{ flex:1; }
+  .st-lead{ font-size:var(--fs-sm); color:var(--ink-3); line-height:1.65; margin:0 0 var(--sp-3); }
+  .st-lead b{ color:var(--ink-2); }
+  .st-card{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-card); margin-bottom:var(--sp-3); overflow:hidden; }
+  .st-hd{ display:flex; align-items:baseline; gap:var(--sp-2h); flex-wrap:wrap; padding:var(--sp-2h) var(--sp-4); background:var(--bg-subtle); border-bottom:1px solid var(--line-soft); }
+  .st-hd h3{ margin:0; font-size:var(--fs-md); font-weight:800; color:var(--navy); }
+  .st-hd small{ font-size:var(--fs-xs); color:var(--ink-3); }
+  .st-row{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:var(--sp-2) var(--sp-4h); align-items:center; padding:var(--sp-2h) var(--sp-4); border-bottom:1px solid var(--line-soft); }
+  .st-row:last-child{ border-bottom:none; }
+  .st-row[hidden]{ display:none; }
+  .st-row.st-wide{ grid-template-columns:minmax(0,1fr); }
+  .st-row.st-dirty{ box-shadow:inset -3px 0 0 var(--amber); background:#fffdf7; }
+  .st-l{ min-width:0; }
+  .st-l > b{ display:block; font-size:var(--fs-md); font-weight:700; color:var(--ink-1); }
+  .st-l > small{ display:block; font-size:var(--fs-xs); color:var(--ink-3); line-height:1.55; margin-top:var(--sp-0h); }
+  .st-l > small b{ color:var(--ink-2); }
+  .st-k{ display:inline-block; margin-top:var(--sp-1); font-size:var(--fs-2xs); color:var(--ink-3); background:var(--bg-muted); border-radius:var(--r-sm); padding:0 var(--sp-1h); font-family:ui-monospace,Menlo,monospace; }
+  .st-c{ display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap; justify-content:flex-end; }
+  .st-wide .st-c{ justify-content:flex-start; flex-wrap:nowrap; }
+  #tab-set .set-body .st-num, #tab-set .set-body .st-txt, #tab-set .set-body .st-sel, #tab-set .set-body .st-ta{ width:auto; min-width:0; min-height:var(--ctl-h-sm); padding:var(--sp-1h) var(--sp-2h); border:1px solid var(--field-bd); border-radius:var(--r-md); font-family:inherit; font-size:var(--fs-md); background:#fff; color:var(--ink-1); box-sizing:border-box; }
+  #tab-set .set-body .st-num{ width:96px; text-align:center; }
+  #tab-set .set-body .st-txt{ width:320px; }
+  .st-top .btn{ width:auto; }
+  #tmWrap .err:empty{ display:none; }
+  #tab-set .set-body .st-sel{ min-width:220px; }
+  #tab-set .set-body .st-wide .st-txt{ flex:1; width:auto; }
+  #tab-set .set-body .st-ta{ width:100%; }
+  .st-wide .st-c:has(.st-ta){ flex-wrap:wrap; }
+  #tab-set .set-body .st-ta{ resize:vertical; line-height:1.7; min-height:58px; }
+  #tab-set .set-body :is(.st-num,.st-txt,.st-sel,.st-ta):focus{ outline:none; border-color:var(--navy); box-shadow:var(--sh-focus); }
+  #tab-set .set-body :is(.st-num,.st-txt,.st-sel,.st-ta):disabled{ background:var(--bg-subtle); color:var(--ink-2); }
+  .st-unit{ font-size:var(--fs-xs); color:var(--ink-3); min-width:66px; }
+  .st-ta-f{ display:flex; align-items:center; gap:var(--sp-2); width:100%; }
+  .st-vars{ flex:1; display:flex; gap:var(--sp-1); flex-wrap:wrap; align-items:center; font-size:var(--fs-xs); color:var(--ink-3); }
+  .st-vars code{ background:#eef4f9; color:var(--navy); border-radius:var(--r-pill); padding:1px 8px; font-size:var(--fs-xs); font-family:inherit; }
+  .st-ro{ font-size:var(--fs-sm); color:var(--ink-2); background:var(--bg-subtle); border:1px dashed var(--line); border-radius:var(--r-md); padding:var(--sp-1) var(--sp-2h); }
+  .st-note{ font-size:var(--fs-xs); color:var(--ink-3); }
+  .st-miss .st-l > b{ color:var(--ink-3); }
+  .st-save{ min-height:var(--ctl-h-sm); border:1px solid var(--line); background:#fff; color:var(--ink-3); border-radius:var(--r-md); padding:0 var(--sp-3); font-size:var(--fs-sm); font-weight:700; font-family:inherit; cursor:pointer; flex:none; transition:background-color .12s, color .12s, border-color .12s; }
+  .st-save:hover{ border-color:var(--navy); color:var(--navy); }
+  .st-dirty .st-save, .st-save.st-go{ background:var(--navy); border-color:var(--navy); color:#fff; }
+  .st-msg{ font-size:var(--fs-xs); }
+  .st-msg:empty{ display:none; }   /* ריק עדיין תופס gap ב-flex — הסיט את "שמירה" של סימון החדשים ב-8px מול שאר השורות (נמדד בצילום) */
+  #tab-set .st-sw{ -webkit-appearance:none; appearance:none; width:34px; height:20px; min-height:0; margin:0; border-radius:var(--r-pill); background:var(--line-strong); position:relative; cursor:pointer; flex:none; transition:background-color .15s; }
+  #tab-set .st-sw::before{ content:''; position:absolute; top:2px; inset-inline-start:2px; width:16px; height:16px; border-radius:50%; background:#fff; box-shadow:0 1px 2px rgba(15,23,42,.3); transition:transform .15s; }
+  #tab-set .st-sw:checked{ background:var(--green); }
+  #tab-set .st-sw:checked::before{ transform:translateX(-14px); }
+  #tab-set .st-sw:disabled{ opacity:.5; cursor:default; }
+  #tab-set .st-sw:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+  .st-swl{ display:inline-flex; align-items:center; gap:var(--sp-1h); font-size:var(--fs-sm); color:var(--ink-2); cursor:pointer; }
+  #tab-set .st-color{ -webkit-appearance:none; appearance:none; width:30px; height:30px; min-height:0; padding:0; border:2px solid #fff; border-radius:50%; box-shadow:0 0 0 1px var(--line); cursor:pointer; background:none; flex:none; }
+  #tab-set .st-color::-webkit-color-swatch-wrapper{ padding:0; }
+  #tab-set .st-color::-webkit-color-swatch{ border:none; border-radius:50%; }
+  #tab-set .st-color::-moz-color-swatch{ border:none; border-radius:50%; }
+  #tab-set .st-color:disabled{ cursor:default; }
+  .st-row.st-trow{ grid-template-columns:30px minmax(0,1fr) auto auto; gap:var(--sp-2) var(--sp-3); padding:var(--sp-2) var(--sp-4); }
+  .st-row.st-tmrow{ grid-template-columns:minmax(0,1fr) 150px auto auto; gap:var(--sp-2) var(--sp-3); padding:var(--sp-2) var(--sp-4); }
+  #tab-set .set-body .st-trow .st-txt, #tab-set .set-body .st-tmrow .st-txt, #tab-set .set-body .st-add .st-txt{ width:100%; }
+  .st-add{ display:grid; grid-template-columns:minmax(0,1fr) 150px auto auto; gap:var(--sp-2); padding:var(--sp-2h) var(--sp-4); border-top:1px dashed var(--line); background:var(--bg-subtle); align-items:center; }
+  .st-add[hidden]{ display:none; }
+  .st-empty{ padding:var(--sp-4); text-align:center; color:var(--ink-3); font-size:var(--fs-sm); }
+  .st-errline{ margin:0 var(--sp-4) var(--sp-2h); }
+  .st-grp{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-card); margin-bottom:var(--sp-2h); overflow:hidden; }
+  .st-grp[hidden]{ display:none; }
+  .st-grp > summary{ display:flex; align-items:center; gap:var(--sp-3); padding:var(--sp-3) var(--sp-4); cursor:pointer; list-style:none; }
+  .st-grp > summary::-webkit-details-marker{ display:none; }
+  .st-grp > summary:hover{ background:var(--bg-subtle); }
+  .st-grp[open] > summary{ border-bottom:1px solid var(--line-soft); background:var(--bg-subtle); }
+  .st-gt{ flex:1; min-width:0; }
+  .st-gt b{ display:block; font-size:var(--fs-md); font-weight:800; color:var(--navy); }
+  .st-gt small{ display:block; font-size:var(--fs-xs); color:var(--ink-3); margin-top:var(--sp-0h); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .st-gn{ font-size:var(--fs-xs); font-weight:700; color:var(--ink-2); background:var(--bg-muted); border-radius:var(--r-pill); padding:var(--sp-0h) var(--sp-2); flex:none; }
+  .st-gch{ width:16px; height:16px; color:var(--ink-3); transition:transform .15s; flex:none; }
+  .st-grp[open] > summary .st-gch{ transform:rotate(-90deg); }
+  .st-adv > summary .st-gt b{ color:var(--ink-2); }
+  .st-warn{ margin:var(--sp-2h) var(--sp-4) var(--sp-0h); padding:var(--sp-2) var(--sp-3); border-radius:var(--r-md); background:var(--amber-bg); border:1px solid #f5d9a8; color:var(--warn-ink); font-size:var(--fs-xs); line-height:1.6; }
+  #tab-set .st-q{ width:min(260px,100%); min-height:var(--ctl-h-sm); padding:0 var(--sp-3); border:1px solid var(--field-bd); border-radius:var(--r-pill); font-family:inherit; font-size:var(--fs-md); background:#fff; }
+  .st-tiles{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--sp-2h); margin-bottom:var(--sp-3); }
+  .st-tile{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-card); padding:var(--sp-2h) var(--sp-3); min-width:0; }
+  .st-tile small{ display:block; font-size:var(--fs-xs); color:var(--ink-3); }
+  .st-tile b{ display:block; font-size:var(--fs-lg); font-weight:800; color:var(--navy); margin-top:var(--sp-0h); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .st-tile span{ display:block; font-size:var(--fs-xs); color:var(--ink-3); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .st-flow{ list-style:none; margin:0; padding:var(--sp-1) var(--sp-4) var(--sp-2); }
+  .st-flow li{ display:grid; grid-template-columns:170px minmax(0,1fr); gap:var(--sp-3); padding:var(--sp-2) 0; border-bottom:1px dashed var(--line-soft); font-size:var(--fs-sm); line-height:1.6; }
+  .st-flow li:last-child{ border-bottom:none; }
+  .st-flow li b{ color:var(--navy); }
+  .st-flow li span{ color:var(--ink-2); }
+  .int-more{ margin-top:var(--sp-3); }
+  .int-more .int-grid{ padding:var(--sp-3); }
+  .int-more .int-card{ box-shadow:none; }
+  .ic-cat{ font-size:var(--fs-2xs); font-weight:700; color:var(--ink-3); background:var(--bg-muted); border-radius:var(--r-pill); padding:var(--sp-0h) var(--sp-2); flex:none; }
+  .sl-card.bad{ border-right:3px solid var(--red); }
+  @container st (max-width:620px){
+    .st-row{ grid-template-columns:minmax(0,1fr); }
+    .st-row.st-yn{ grid-template-columns:minmax(0,1fr) auto; }
+    .st-c{ justify-content:flex-start; }
+    #tab-set .set-body .st-txt{ width:auto; flex:1; min-width:0; }
+    .st-row.st-trow{ grid-template-columns:30px minmax(0,1fr) auto; }
+    .st-trow .st-save{ grid-column:2 / -1; justify-self:end; }
+    .st-row.st-tmrow, .st-add{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+    .st-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .st-flow li{ grid-template-columns:minmax(0,1fr); gap:var(--sp-0h); }
+    #tab-set .st-q{ width:100%; }
+  }
+  @media(max-width:1024px){
+    #tab-set .st-sw{ width:44px; height:26px; }
+    #tab-set .st-sw::before{ width:22px; height:22px; }
+    #tab-set .st-sw:checked::before{ transform:translateX(-18px); }
+    #tab-set .st-save{ min-height:40px; }
+    #tab-set .st-color{ width:36px; height:36px; }
+    .st-grp > summary{ min-height:48px; }
+  }
   @media(max-width:759.98px){ .set-layout{ flex-direction:column; } .set-nav{ width:100%; position:static; display:flex; overflow-x:auto; } .set-nav button{ border-bottom:none; border-inline-end:1px solid var(--line-soft); white-space:nowrap; } }
   /* 6.232.0 — מסך המשתמשים מעוצב מחדש (רומן, 10/10/2026: "קומפקטית יותר … תאחד כפתורים … יותר ידידותי").
      שורה אחת עד ~780px של תיבה (ב-1440 התיבה ~900 — עדיין שורה אחת), כרטיס עם תוויות כשהיא צרה יותר. ההכרעה לפי רוחב **התיבה** (container query) ולא המסך:
@@ -2106,7 +2228,7 @@
   .sl-row .dt{ color:#334155; white-space:nowrap; font-variant-numeric:tabular-nums; }
   .sl-row .dt small{ color:var(--ink-3); margin-inline-start:var(--sp-1); }
   .sl-row .fnm{ font-weight:700; color:var(--navy); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .sl-row .fnm small{ font-weight:500; color:var(--ink-3); margin-inline-start:var(--sp-1h); }
+  .sl-row .fnm small{ display:block; font-weight:500; color:var(--red); overflow:hidden; text-overflow:ellipsis; }
   .sl-tag{ display:inline-block; border-radius:var(--r-pill); padding:5px 11px; font-size:var(--fs-xs); font-weight:800; }
   .sl-tag.ok{ background:#e8f5ee; color:var(--ok); }
   .sl-tag.no{ background:#fdeceb; color:var(--red); }
@@ -3591,7 +3713,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.20.0</div>
+      <div class="ver">גרסה 7.21.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3722,7 +3844,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="spacing-2026-10-18a">גרסה 7.20.0</div>
+    <div class="side-foot" title="round3-2026-10-18a">גרסה 7.21.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -13174,7 +13296,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'spacing-2026-10-18a';
+const BUILD_ID = 'round3-2026-10-18a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -13210,35 +13332,35 @@ const PV_CSS = `
 /* 6.209.0 — M1: ה-alias של 6.201.0 ירד — 189 שימושים עברו לטוקני השורש ישירות. נשאר ליטרל אחד שאין לו טוקן (--pv-card: אפס שימושים, ירד). פלטת המחירון המודפס --pv-pl-* נפרדת ולא נגעה. */
 #tab-prc{ --pv-brand2:#0b3f63; }
 #tab-prc, #tab-prc input, #tab-prc select, #tab-prc button, #tab-prc textarea{ font-family:'Heebo',-apple-system,"Segoe UI",Rubik,Arial,sans-serif }
-#tab-prc .pv-bar{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; width:100% }
-#tab-prc .pv-chips{ display:flex; gap:8px; flex-wrap:wrap }
-#tab-prc .pv-chip{ flex:none; border:1px solid var(--line); background:#fff; border-radius:20px; padding:6px 14px; cursor:pointer; font-size:13px; color:var(--ink-2); display:inline-flex; align-items:center; gap:7px; min-height:var(--ctl-h-sm); box-sizing:border-box; transition:background .12s, color .12s, transform .08s }
+#tab-prc .pv-bar{ display:flex; flex-wrap:wrap; gap:var(--sp-2); align-items:center; width:100% }
+#tab-prc .pv-chips{ display:flex; gap:var(--sp-2); flex-wrap:wrap }
+#tab-prc .pv-chip{ flex:none; border:1px solid var(--line); background:#fff; border-radius:20px; padding:6px 14px; cursor:pointer; font-size:var(--fs-md); color:var(--ink-2); display:inline-flex; align-items:center; gap:var(--sp-1h); min-height:var(--ctl-h-sm); box-sizing:border-box; transition:background .12s, color .12s, transform .08s }
 #tab-prc .pv-chip:active{ transform:translateY(1px) }
 #tab-prc .pv-chip .pv-dot{ width:9px; height:9px; border-radius:50%; display:inline-block; flex:none }
-#tab-prc .pv-chip:hover{ background:#f1f5f9 }
+#tab-prc .pv-chip:hover{ background:var(--bg-muted) }
 #tab-prc .pv-chip.on{ color:var(--dark); font-weight:600 }
 #tab-prc .pv-chip.all.on{ background:var(--navy); border-color:var(--navy); color:#fff; font-weight:600 }
-#tab-prc .pv-gtag{ display:inline-block; font-size:12px; line-height:1.15; padding:7px 12px; border-radius:20px; white-space:nowrap; font-weight:700; color:var(--dark) }
-#tab-prc .pv-gtag .pv-dot{ width:9px; height:9px; border-radius:50%; display:inline-block; margin-inline-end:7px; vertical-align:0 }
+#tab-prc .pv-gtag{ display:inline-block; font-size:var(--fs-sm); line-height:1.15; padding:7px 12px; border-radius:20px; white-space:nowrap; font-weight:700; color:var(--dark) }
+#tab-prc .pv-gtag .pv-dot{ width:9px; height:9px; border-radius:50%; display:inline-block; margin-inline-end:var(--sp-1h); vertical-align:0 }
 #tab-prc .pv-sep{ width:1px; height:26px; background:var(--line) }
-#tab-prc input[type=search].pv-q{ border:1px solid var(--line); border-radius:9px; padding:7px 12px; width:220px; font-size:12.5px; color:#334155; background:#fff; min-height:var(--ctl-h-md); box-sizing:border-box }
-#tab-prc select.pv-f{ border:1px solid var(--line); border-radius:9px; padding:7px 10px; background:#fff; font-size:12.5px; color:#334155; cursor:pointer; max-width:190px }
+#tab-prc input[type=search].pv-q{ border:1px solid var(--field-bd); border-radius:var(--r-md); padding:7px 12px; width:220px; font-size:var(--fs-sm); color:#334155; background:#fff; min-height:var(--ctl-h-md); box-sizing:border-box }
+#tab-prc select.pv-f{ border:1px solid var(--field-bd); border-radius:var(--r-md); padding:7px 10px; background:#fff; font-size:var(--fs-sm); color:#334155; cursor:pointer; max-width:190px }
 #tab-prc input[type=search].pv-q:focus, #tab-prc select.pv-f:focus{ border-color:var(--navy); outline:none; box-shadow:var(--sh-focus) }
-#tab-prc label.pv-tgl{ display:flex; align-items:center; gap:6px; color:var(--ink-2); font-size:12.5px; font-weight:600; cursor:pointer }
-#tab-prc .pv-vbtn{ background:#fff; border:1px solid var(--line); border-radius:9px; padding:7px 14px; cursor:pointer; font-size:12.5px; font-weight:600; color:var(--ink-2); white-space:nowrap; min-height:var(--ctl-h-md); box-sizing:border-box }
-#tab-prc .pv-vbtn:hover{ background:#f1f5f9 }
+#tab-prc label.pv-tgl{ display:flex; align-items:center; gap:var(--sp-1h); color:var(--ink-2); font-size:var(--fs-sm); font-weight:600; cursor:pointer }
+#tab-prc .pv-vbtn{ background:#fff; border:1px solid var(--line); border-radius:var(--r-md); padding:7px 14px; cursor:pointer; font-size:var(--fs-sm); font-weight:600; color:var(--ink-2); white-space:nowrap; min-height:var(--ctl-h-md); box-sizing:border-box }
+#tab-prc .pv-vbtn:hover{ background:var(--bg-muted) }
 #tab-prc .pv-vbtn.on{ background:var(--navy); border-color:var(--navy); color:#fff; font-weight:700 }
 /* פס סטטיסטיקות קומפקטי — כל שורה שהוא חוסך היא שורת טבלה שנראית. */
-#tab-prc .pv-stats{ display:flex; gap:8px; margin:10px 0; flex-wrap:wrap; align-items:stretch }
-#tab-prc .pv-stat{ flex:0 1 auto; background:#fff; border:1px solid var(--line); border-radius:9px; padding:5px 11px; border-inline-start:3px solid var(--navy); display:flex; align-items:baseline; gap:7px }
-#tab-prc .pv-stat .v{ font-size:15px; font-weight:800; color:var(--dark) }
-#tab-prc .pv-stat .l{ font-size:12px; color:var(--ink-3); margin-top:0 }
+#tab-prc .pv-stats{ display:flex; gap:var(--sp-2); margin:var(--sp-2h) 0; flex-wrap:wrap; align-items:stretch }
+#tab-prc .pv-stat{ flex:0 1 auto; background:#fff; border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-1) var(--sp-2h); border-inline-start:3px solid var(--navy); display:flex; align-items:baseline; gap:var(--sp-1h) }
+#tab-prc .pv-stat .v{ font-size:var(--fs-lg); font-weight:800; color:var(--dark) }
+#tab-prc .pv-stat .l{ font-size:var(--fs-sm); color:var(--ink-3); margin-top:0 }
 #tab-prc .pv-tblwrap{ background:#fff; border:1px solid var(--line); border-radius:12px; overflow:auto; max-height:calc(100vh - 205px); min-height:360px }
-#tab-prc .pv-tblwrap table{ border-collapse:collapse; width:100%; min-width:900px; font-size:13.5px; background:#fff }
+#tab-prc .pv-tblwrap table{ border-collapse:collapse; width:100%; min-width:900px; font-size:var(--fs-md); background:#fff }
 #tab-prc .pv-tblwrap thead, #tab-prc .pv-tblwrap thead tr{ background:var(--navy) }
-#tab-prc .pv-tblwrap thead th{ position:sticky; top:0; background:var(--navy); color:#fff; font-weight:700; font-size:12.5px; padding:7px 6px; text-align:center; vertical-align:middle; white-space:nowrap; z-index:5; box-shadow:inset 0 -1px 0 rgba(255,255,255,.14) }
+#tab-prc .pv-tblwrap thead th{ position:sticky; top:0; background:var(--navy); color:#fff; font-weight:700; font-size:var(--fs-sm); padding:7px 6px; text-align:center; vertical-align:middle; white-space:nowrap; z-index:5; box-shadow:inset 0 -1px 0 rgba(255,255,255,.14) }
 #tab-prc .pv-tblwrap thead th + th{ border-inline-start:1px solid rgba(255,255,255,.08) }
-#tab-prc .pv-tblwrap tbody td{ padding:5px 6px; border-bottom:1px solid #eef1f4; white-space:nowrap; font-variant-numeric:tabular-nums; text-align:center; vertical-align:middle; font-size:13.5px; line-height:1.28 }
+#tab-prc .pv-tblwrap tbody td{ padding:5px 6px; border-bottom:1px solid var(--line-soft); white-space:nowrap; font-variant-numeric:tabular-nums; text-align:center; vertical-align:middle; font-size:var(--fs-md); line-height:1.28 }
 /* ---- מודל צביעה אחיד (6.39.0) ----
    עד כה כל רקע של שורה נצבע על ה-tr. תא sticky אינו יורש את רקע ה-tr, ולכן
    עמודה מוקפאת הייתה שקופה והתוכן שנגלל היה זולג מתחתיה. מעכשיו כל צבע עובר
@@ -13260,15 +13382,15 @@ const PV_CSS = `
    שורה נמוכה יותר, תמונה קטנה יותר, וקיפול השורות המשניות בתאים. הקיפול
    נעשה ב-CSS בלבד (.pv-fold) כדי שלא ייווצרו שני מסלולי בנייה לאותו תא —
    כל המידע שנקפל נשאר ב-title של האלמנט שמעליו. */
-#tab-prc .pv-tblwrap.pv-dense tbody td{ height:34px; padding:3px 5px; font-size:12.5px; line-height:1.25 }
+#tab-prc .pv-tblwrap.pv-dense tbody td{ height:34px; padding:3px 5px; font-size:var(--fs-sm); line-height:1.25 }
 #tab-prc .pv-tblwrap.pv-dense tbody tr{ height:34px }
-#tab-prc .pv-tblwrap.pv-dense .pv-imgbox{ width:26px; height:26px; min-width:26px; min-height:26px; font-size:11px }
+#tab-prc .pv-tblwrap.pv-dense .pv-imgbox{ width:26px; height:26px; min-width:26px; min-height:26px; font-size:var(--fs-xs) }
 #tab-prc .pv-tblwrap.pv-dense td.pv-imgtd, #tab-prc .pv-tblwrap.pv-dense th.pv-imgtd{ width:38px; min-width:38px; max-width:38px }
 #tab-prc .pv-tblwrap.pv-dense .pv-fold{ display:none }
 #tab-prc .pv-tblwrap.pv-dense > table > tbody > tr > td br{ display:none }
-#tab-prc .pv-tblwrap.pv-dense .pv-role.part{ margin-inline-start:5px }
+#tab-prc .pv-tblwrap.pv-dense .pv-role.part{ margin-inline-start:var(--sp-1) }
 #tab-prc .pv-tblwrap.pv-dense .pv-revd{ display:none }
-#tab-prc .pv-tblwrap.pv-dense .pv-dprice{ font-size:12.5px; margin-top:1px }
+#tab-prc .pv-tblwrap.pv-dense .pv-dprice{ font-size:var(--fs-sm); margin-top:1px }
 #tab-prc .pv-tblwrap.pv-dense .pv-dmg{ margin-top:1px }
 /* תא של מק״ט מוחרג ריק לגמרי (6.73.2). הפס האלכסוני הוא מה שמבדיל אותו
    מתא שפשוט אין בו נתון — בלי להציג מספר שאין לו קיום. */
@@ -13281,25 +13403,25 @@ const PV_CSS = `
 #tab-prc .pv-frz.pv-dense > table > thead > tr > th:nth-child(4),
 #tab-prc .pv-frz.pv-dense > table > tbody > tr:not(.pv-bomrow):not(.pv-edrow2):not(.pv-nestrow) > td:nth-child(4){ inset-inline-start:218px; width:186px; min-width:186px; max-width:186px }
 /* ---- בורר העמודות ושמירת ברירת מחדל (6.40.0) ---- */
-#tab-prc .pv-colsum{ cursor:pointer; user-select:none; list-style:none; border:1px solid var(--line); border-radius:8px; padding:6px 10px; font-size:12.5px; font-weight:600; color:var(--ink-2); background:#fff; white-space:nowrap }
+#tab-prc .pv-colsum{ cursor:pointer; user-select:none; list-style:none; border:1px solid var(--line); border-radius:8px; padding:var(--sp-1h) var(--sp-2h); font-size:var(--fs-sm); font-weight:600; color:var(--ink-2); background:#fff; white-space:nowrap }
 #tab-prc .pv-colsum::-webkit-details-marker{ display:none }
 #tab-prc .pv-colsum:hover{ border-color:var(--navy); color:var(--navy) }
 #tab-prc .pv-colsum.on{ border-color:var(--navy); color:var(--navy); font-weight:800 }
-#tab-prc .pv-colspop{ position:absolute; z-index:45; inset-inline-end:0; top:calc(100% + 5px); background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:0 12px 30px rgba(6,24,39,.18); padding:9px 11px; min-width:230px; max-height:330px; overflow:auto }
-#tab-prc .pv-colspop h6{ margin:2px 0 5px; font-size:11px; font-weight:800; color:var(--ink-3); letter-spacing:.2px }
-#tab-prc .pv-colspop label{ display:flex; align-items:center; gap:7px; padding:3px 2px; font-size:12.5px; cursor:pointer; white-space:nowrap }
+#tab-prc .pv-colspop{ position:absolute; z-index:45; inset-inline-end:0; top:calc(100% + 5px); background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:0 12px 30px rgba(6,24,39,.18); padding:var(--sp-2) var(--sp-2h); min-width:230px; max-height:330px; overflow:auto }
+#tab-prc .pv-colspop h6{ margin:var(--sp-0h) 0 var(--sp-1); font-size:var(--fs-xs); font-weight:800; color:var(--ink-3); letter-spacing:.2px }
+#tab-prc .pv-colspop label{ display:flex; align-items:center; gap:var(--sp-1h); padding:var(--sp-0h) var(--sp-0h); font-size:var(--fs-sm); cursor:pointer; white-space:nowrap }
 #tab-prc .pv-colspop label input{ width:15px; height:15px; cursor:pointer; accent-color:var(--navy) }
-#tab-prc .pv-colspop .sep{ height:1px; background:var(--line); margin:7px 0 }
-#tab-prc .pv-colspop button{ width:100%; background:#fff; border:1px solid var(--line); border-radius:8px; padding:4px 8px; font-size:12px; font-weight:700; color:var(--ink-2); cursor:pointer; font-family:inherit; margin-top:3px }
+#tab-prc .pv-colspop .sep{ height:1px; background:var(--line); margin:var(--sp-1h) 0 }
+#tab-prc .pv-colspop button{ width:100%; background:#fff; border:1px solid var(--line); border-radius:8px; padding:4px 8px; font-size:var(--fs-sm); font-weight:700; color:var(--ink-2); cursor:pointer; font-family:inherit; margin-top:var(--sp-0h) }
 #tab-prc .pv-colspop button:hover{ border-color:var(--navy); color:var(--navy) }
-#tab-prc .pv-defbtn{ border:1px solid var(--line); border-radius:8px; padding:6px 10px; font-size:12.5px; font-weight:600; color:var(--ink-2); background:#fff; cursor:pointer; font-family:inherit; white-space:nowrap }
+#tab-prc .pv-defbtn{ border:1px solid var(--line); border-radius:8px; padding:6px 10px; font-size:var(--fs-sm); font-weight:600; color:var(--ink-2); background:#fff; cursor:pointer; font-family:inherit; white-space:nowrap }
 #tab-prc .pv-defbtn:hover{ border-color:var(--navy); color:var(--navy) }
 #tab-prc .pv-colspop .pv-dot{ width:9px; height:9px; border-radius:50%; display:inline-block; flex:none }
 /* הפאנלים המקוננים אינם מושפעים מהצפיפות — כלל החריג שלהם מפסיד בספציפיות
    מול כללי הצפוף, ולכן הוא נכתב כאן שוב בצורה שמנצחת אותם. */
 #tab-prc .pv-tblwrap.pv-dense .pv-bomedit td, #tab-prc .pv-tblwrap.pv-dense .pv-bomedit tr,
 #tab-prc .pv-tblwrap.pv-dense .pv-bomedit th, #tab-prc .pv-tblwrap.pv-dense .pv-mfg td,
-#tab-prc .pv-tblwrap.pv-dense .pv-mfg tr, #tab-prc .pv-tblwrap.pv-dense .pv-mfg th{ height:auto; padding:5px 9px; font-size:12.5px; line-height:1.35 }
+#tab-prc .pv-tblwrap.pv-dense .pv-mfg tr, #tab-prc .pv-tblwrap.pv-dense .pv-mfg th{ height:auto; padding:5px 9px; font-size:var(--fs-sm); line-height:1.35 }
 #tab-prc .pv-tblwrap.pv-dense .pv-bomedit .pv-imgbox, #tab-prc .pv-tblwrap.pv-dense .pv-mfg .pv-imgbox{ width:47px; height:47px; min-width:47px; min-height:47px }
 /* מה שמתקפל בצפוף וצריך להישאר נגיש — גרסה מקוצרת שמופיעה רק בצפוף */
 #tab-prc .pv-onlydense{ display:none }
@@ -13316,17 +13438,17 @@ const PV_CSS = `
 #tab-prc .pv-tblwrap tbody tr.pv-edrow2 td{ height:auto; padding:4px 8px; --cell-bg:#f0f6fb; border-bottom:2px solid var(--navy); text-align:start; white-space:normal }
 /* שורת העריכה: כל שדה נושא תווית קטנה משלו, כדי שלא צריך להרים עיניים
    לכותרת הטבלה ולנחש איזה תא זה. */
-#tab-prc .pv-edf{ display:inline-flex; flex-direction:column; gap:2px; align-items:stretch; text-align:start }
-#tab-prc .pv-edf > i{ font-style:normal; font-size:10px; font-weight:800; color:var(--navy); letter-spacing:.2px; white-space:nowrap }
-#tab-prc .pv-edx{ display:flex; flex-wrap:wrap; gap:10px 14px; align-items:flex-end; padding:2px 0 4px }
-#tab-prc .pv-edx .f{ display:flex; flex-direction:column; gap:3px }
-#tab-prc .pv-edx .f > label{ font-size:11px; font-weight:800; color:var(--navy); margin:0 }
-#tab-prc .pv-edx .f > small{ font-size:10.5px; color:var(--ink-3); line-height:1.45; max-width:260px }
-#tab-prc .pv-edx .sep{ width:1px; align-self:stretch; background:var(--line); margin:0 2px }
-#tab-prc .pv-edx .acts{ display:flex; gap:7px; align-items:center }
+#tab-prc .pv-edf{ display:inline-flex; flex-direction:column; gap:var(--sp-0h); align-items:stretch; text-align:start }
+#tab-prc .pv-edf > i{ font-style:normal; font-size:var(--fs-2xs); font-weight:800; color:var(--navy); letter-spacing:.2px; white-space:nowrap }
+#tab-prc .pv-edx{ display:flex; flex-wrap:wrap; gap:var(--sp-2h) var(--sp-3); align-items:flex-end; padding:var(--sp-0h) 0 var(--sp-1) }
+#tab-prc .pv-edx .f{ display:flex; flex-direction:column; gap:var(--sp-0h) }
+#tab-prc .pv-edx .f > label{ font-size:var(--fs-xs); font-weight:800; color:var(--navy); margin:0 }
+#tab-prc .pv-edx .f > small{ font-size:var(--fs-2xs); color:var(--ink-3); line-height:1.45; max-width:260px }
+#tab-prc .pv-edx .sep{ width:1px; align-self:stretch; background:var(--line); margin:0 var(--sp-0h) }
+#tab-prc .pv-edx .acts{ display:flex; gap:var(--sp-1h); align-items:center }
 #tab-prc td .pv-edin.long{ width:230px }
 #tab-prc td .pv-edin.mid{ width:150px }
-#tab-prc .pv-edcalc{ font-size:12.5px; font-weight:700; color:var(--ink-2); white-space:nowrap }
+#tab-prc .pv-edcalc{ font-size:var(--fs-sm); font-weight:700; color:var(--ink-2); white-space:nowrap }
 /* הבהוב אישור על השורה שנשמרה — סעיף 13.
    מ-6.39.0 זו טבעת ולא רקע: רקע ירוק על שורה שכבר צבועה ירוק (מק״ט שנסקר)
    נתן ניגודיות 1.09:1 ולא נראה כלל, ורקע גם נדרס על ידי תא sticky. טבעת
@@ -13340,7 +13462,7 @@ const PV_CSS = `
 #tab-prc td.pv-imgtd, #tab-prc th.pv-imgtd{ width:62px; padding-inline:6px }
 #tab-prc .pv-imgbox{ width:47px; height:47px; min-width:47px; min-height:47px; flex:0 0 auto; border-radius:6px; border:1px solid var(--line); background:#fff; display:inline-flex; align-items:center; justify-content:center; overflow:hidden; box-sizing:border-box; vertical-align:middle }
 #tab-prc .pv-imgbox img{ max-width:100%; max-height:100%; object-fit:contain; display:block }
-#tab-prc .pv-imgbox.empty{ border-style:dashed; border-color:#dde4ec; color:#c3ccd6; font-size:15px; background:#fbfcfd }
+#tab-prc .pv-imgbox.empty{ border-style:dashed; border-color:#dde4ec; color:#c3ccd6; font-size:var(--fs-lg); background:#fbfcfd }
 #tab-prc .pv-tblwrap tbody td.pv-name, #tab-prc .pv-tblwrap thead th.pv-name{ white-space:normal; min-width:165px; max-width:300px; text-align:right; unicode-bidi:plaintext; overflow:hidden; overflow-wrap:anywhere }
 /* ---- ארבע העמודות הפותחות מוקפאות (6.39.0) ----
    טבלת ההשוואה רחבה 19 עמודות, ותא בקצה הנגלל היה מנותק מזהות המק״ט.
@@ -13386,46 +13508,46 @@ const PV_CSS = `
 /* אין להחזיר כאן direction:ltr — התכונה משנה את המשמעות של inset-inline-start
    על התא עצמו, ולכן עמודת המק״ט נצמדה לצד ההפוך ופשוט לא הוקפאה.
    unicode-bidi:plaintext נותן בדיוק את אותה תצוגה למחרוזת לטינית. */
-#tab-prc .pv-sku{ font-family:ui-monospace,Consolas,monospace; font-size:12px; color:var(--ink-2); direction:rtl; unicode-bidi:plaintext }
-#tab-prc .pv-catcell{ color:var(--ink-3); font-size:11.5px }
+#tab-prc .pv-sku{ font-family:ui-monospace,Consolas,monospace; font-size:var(--fs-sm); color:var(--ink-2); direction:rtl; unicode-bidi:plaintext }
+#tab-prc .pv-catcell{ color:var(--ink-3); font-size:var(--fs-xs) }
 #tab-prc .pv-price{ font-weight:800; color:var(--dark) }
 #tab-prc .pv-price.vat{ color:var(--navy) }
 #tab-prc .pv-cost{ color:var(--ink-3) }
-#tab-prc .pv-mult{ color:#3f7a5e; font-size:12.5px; font-weight:600 }
-#tab-prc .pv-badge{ display:inline-block; font-size:10px; font-weight:700; border-radius:5px; padding:1px 6px; margin-inline-start:4px; vertical-align:1px }
+#tab-prc .pv-mult{ color:var(--ok); font-size:var(--fs-sm); font-weight:600 }
+#tab-prc .pv-badge{ display:inline-block; font-size:var(--fs-2xs); font-weight:700; border-radius:var(--r-sm); padding:1px 6px; margin-inline-start:var(--sp-1); vertical-align:1px }
 #tab-prc .pv-badge.ov{ background:#e8effa; color:var(--navy) }
-#tab-prc .pv-badge.mx{ background:#e8f2ed; color:#3f7a5e }
+#tab-prc .pv-badge.mx{ background:#e8f2ed; color:var(--ok) }
 #tab-prc .pv-badge.df{ background:#eef1f4; color:var(--ink-3) }
 #tab-prc .pv-mcell{ cursor:pointer; border-radius:6px }
 #tab-prc .pv-mcell:hover{ --cell-bg:#eaf1f6; outline:1.5px dashed #b9c4d8 }
 #tab-prc .pv-mcell:focus-visible{ outline:2px solid var(--navy); outline-offset:-2px }
 #tab-prc .pv-cmpmg.ed:focus-visible{ outline:2px solid var(--navy); outline-offset:1px; border-radius:6px }
-#tab-prc .pv-mcell input{ width:64px; border:1.5px solid var(--navy); border-radius:8px; padding:4px 6px; direction:ltr; text-align:left; font-size:12.5px }
-#tab-prc .pv-nocost{ color:var(--red); font-size:12px; font-weight:600 }
-#tab-prc .pv-noprice{ color:var(--ink-3); font-style:italic; font-size:12.5px }
+#tab-prc .pv-mcell input{ width:64px; border:1.5px solid var(--navy); border-radius:8px; padding:4px 6px; direction:ltr; text-align:left; font-size:var(--fs-sm) }
+#tab-prc .pv-nocost{ color:var(--red); font-size:var(--fs-sm); font-weight:600 }
+#tab-prc .pv-noprice{ color:var(--ink-3); font-style:italic; font-size:var(--fs-sm) }
 #tab-prc .pv-tblwrap > table > tbody > tr.pv-inactive{ --row-bg:#fbfcfd }
 #tab-prc .pv-tblwrap > table > tbody > tr.pv-inactive:nth-child(even){ --row-bg:#f4f6f8 }
 #tab-prc .pv-tblwrap tbody tr.pv-inactive > td{ color:#99a3af }
 #tab-prc .pv-tblwrap tbody tr.pv-inactive > td > *{ opacity:.62 }
-#tab-prc .pv-src{ font-size:10.5px; font-weight:700; border-radius:5px; padding:2px 7px; background:#eef1f4; color:var(--ink-2) }
+#tab-prc .pv-src{ font-size:var(--fs-2xs); font-weight:700; border-radius:var(--r-sm); padding:var(--sp-0h) var(--sp-1h); background:#eef1f4; color:var(--ink-2) }
 #tab-prc .pv-src.s1{ background:#e8effa; color:var(--navy) }
-#tab-prc .pv-src.s2{ background:#e8f2ed; color:#3f7a5e }
+#tab-prc .pv-src.s2{ background:#e8f2ed; color:var(--ok) }
 #tab-prc .pv-src.s3{ background:#efeafa; color:#5b4bb0 }
-#tab-prc .pv-role{ font-size:10.5px; font-weight:700; border-radius:5px; padding:2px 7px; background:#eef1f4; color:var(--ink-2); display:inline-block }
+#tab-prc .pv-role{ font-size:var(--fs-2xs); font-weight:700; border-radius:var(--r-sm); padding:var(--sp-0h) var(--sp-1h); background:#eef1f4; color:var(--ink-2); display:inline-block }
 #tab-prc .pv-role.part{ background:#fdf1e0; color:#8a6100 }
 #tab-prc .pv-role.gap{ background:#fdeaea; color:#9b1c1c }
 #tab-prc .pv-bad{ color:var(--red); font-weight:700 }
-#tab-prc .pv-warn{ background:#fdf1e0; border:1px solid #f0d9ae; color:#8a6100; border-radius:10px; padding:10px 12px; font-size:12.5px; margin:10px 0; line-height:1.6 }
-#tab-prc .pv-usedin{ font-size:11.5px; color:var(--ink-3); direction:ltr; text-align:right; display:inline-block }
+#tab-prc .pv-warn{ background:#fdf1e0; border:1px solid #f0d9ae; color:#8a6100; border-radius:10px; padding:var(--sp-2h) var(--sp-3); font-size:var(--fs-sm); margin:var(--sp-2h) 0; line-height:1.6 }
+#tab-prc .pv-usedin{ font-size:var(--fs-xs); color:var(--ink-3); direction:ltr; text-align:right; display:inline-block }
 #tab-prc .pv-diff.up{ color:var(--red); font-weight:700 }
-#tab-prc .pv-diff.dn{ color:#3f7a5e; font-weight:700 }
-#tab-prc .pv-sub2{ font-weight:400; color:var(--ink-3); font-size:10.5px; display:block; margin-top:2px }
+#tab-prc .pv-diff.dn{ color:var(--ok); font-weight:700 }
+#tab-prc .pv-sub2{ font-weight:400; color:var(--ink-3); font-size:var(--fs-2xs); display:block; margin-top:var(--sp-0h) }
 #tab-prc .pv-cmpmain{ font-weight:700 }
-#tab-prc .pv-cmpsub{ font-size:11px; color:var(--ink-3); margin-top:1px }
-#tab-prc .pv-cmpmg{ font-size:11.5px; color:var(--ink-2); margin-top:3px; display:inline-flex; align-items:center; gap:4px; border-radius:6px; padding:1px 6px; line-height:1.5 }
-#tab-prc .pv-cmpmg.ed{ cursor:pointer; background:#eef2f6; border:1px solid #e2e8f0 }
+#tab-prc .pv-cmpsub{ font-size:var(--fs-xs); color:var(--ink-3); margin-top:1px }
+#tab-prc .pv-cmpmg{ font-size:var(--fs-xs); color:var(--ink-2); margin-top:var(--sp-0h); display:inline-flex; align-items:center; gap:var(--sp-1); border-radius:6px; padding:1px var(--sp-1h); line-height:1.5 }
+#tab-prc .pv-cmpmg.ed{ cursor:pointer; background:#eef2f6; border:1px solid var(--line) }
 #tab-prc .pv-cmpmg.ed:hover{ background:#dce8f2; border-color:var(--navy) }
-#tab-prc .pv-cmpmg input{ width:56px; border:1.5px solid var(--navy); border-radius:6px; padding:2px 4px; direction:ltr; text-align:left; font-size:11.5px }
+#tab-prc .pv-cmpmg input{ width:56px; border:1.5px solid var(--navy); border-radius:6px; padding:2px 4px; direction:ltr; text-align:left; font-size:var(--fs-xs) }
 #tab-prc .pv-mgdot{ width:6px; height:6px; border-radius:50%; display:inline-block; flex:0 0 auto }
 #tab-prc .pv-mgdot.ov{ background:var(--navy) }
 #tab-prc .pv-mgdot.mx{ background:#3f7a5e }
@@ -13435,68 +13557,68 @@ const PV_CSS = `
 #tab-prc .pv-cmpmg.locked{ cursor:default; background:#fdf6ec; border:1px solid #f0dfc4 }
 #tab-prc .pv-badge.ds{ background:#fdf1e0; color:#8a6100; border-color:#f0dfc4 }
 /* המלצת העיגול לאתר — הצעה, ולכן חלשה מהמחיר עצמו ולא מתחרה בו על העין. */
-#tab-prc .pv-charm{ display:block; font-size:10.5px; font-weight:700; color:var(--ink-2); background:#eef2f6; border-radius:10px; padding:1px 6px; margin:3px auto 0; width:fit-content; white-space:nowrap }
+#tab-prc .pv-charm{ display:block; font-size:var(--fs-2xs); font-weight:700; color:var(--ink-2); background:#eef2f6; border-radius:10px; padding:1px var(--sp-1h); margin:var(--sp-0h) auto 0; width:fit-content; white-space:nowrap }
 /* הכפתור קטן ושקט — הוא יושב בתוך הצעה, לא בתוך פעולה ראשית. */
-#tab-prc .pv-charmb{ border:1px solid var(--navy); background:#fff; color:var(--navy); border-radius:8px; padding:0 6px; margin-inline-start:4px; font-size:10px; font-weight:800; cursor:pointer; font-family:inherit; line-height:1.5 }
+#tab-prc .pv-charmb{ border:1px solid var(--navy); background:#fff; color:var(--navy); border-radius:8px; padding:0 var(--sp-1h); margin-inline-start:var(--sp-1); font-size:var(--fs-2xs); font-weight:800; cursor:pointer; font-family:inherit; line-height:1.5 }
 #tab-prc .pv-charmb:hover{ background:var(--navy); color:#fff }
 /* שדה מחיר היעד (6.78.0). רוחב קבוע כדי ש-489 ו-11,190 יתפסו אותו מקום
    ושורת ההמלצה לא תקפוץ בין מק״טים; tabular-nums מיישר את הספרות. */
 #tab-prc .pv-charmi{ width:58px; border:1px solid var(--line); background:#fff; color:inherit;
-  border-radius:6px; padding:0 4px; font:inherit; font-size:10.5px; font-weight:800;
+  border-radius:6px; padding:0 var(--sp-1); font:inherit; font-size:var(--fs-2xs); font-weight:800;
   text-align:center; font-variant-numeric:tabular-nums }
 #tab-prc .pv-charmi:focus{ outline:2px solid var(--navy); outline-offset:0 }
-#tab-prc .pv-chev{ width:21px; height:21px; line-height:1; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; font-size:11px; color:var(--navy); margin-inline-end:6px; padding:0; vertical-align:middle; transition:transform .12s ease }
+#tab-prc .pv-chev{ width:21px; height:21px; line-height:1; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; font-size:var(--fs-xs); color:var(--navy); margin-inline-end:var(--sp-1h); padding:0; vertical-align:middle; transition:transform .12s ease }
 #tab-prc .pv-chev:hover{ border-color:var(--navy); background:#eaf1f6 }
 #tab-prc .pv-chev.on{ background:var(--navy); color:#fff; border-color:var(--navy); transform:rotate(180deg) }
 #tab-prc .pv-chev.sp{ visibility:hidden; cursor:default }
 #tab-prc .pv-skuin{ direction:ltr; display:inline-block; font-weight:600; letter-spacing:.2px }
-#tab-prc .pv-kidn{ font-size:10px; font-weight:700; background:#eef1f4; color:var(--ink-3); border-radius:20px; padding:1px 6px; margin-inline-start:5px }
-#tab-prc .pv-bomedit.nested{ border-inline-start:3px solid var(--green); background:#fbfdfe; border-radius:8px; margin:4px 0 2px }
+#tab-prc .pv-kidn{ font-size:var(--fs-2xs); font-weight:700; background:#eef1f4; color:var(--ink-3); border-radius:20px; padding:1px var(--sp-1h); margin-inline-start:var(--sp-1) }
+#tab-prc .pv-bomedit.nested{ border-inline-start:3px solid var(--green); background:#fbfdfe; border-radius:8px; margin:var(--sp-1) 0 var(--sp-0h) }
 #tab-prc .pv-tblwrap .pv-nestrow > td{ background:#fbfdfe; padding:0 0 6px 0 !important; border-bottom:none !important }
 /* מעטפת קבועה: שורת ניווט למעלה, שורת הקשר מתחתיה שלעולם אינה נעלמת. */
 #tab-prc .pv-shell{ position:relative; z-index:8 }
-#tab-prc .pv-ctxrow{ min-height:38px; margin-top:9px; padding-top:9px; border-top:1px solid var(--line) }
+#tab-prc .pv-ctxrow{ min-height:38px; margin-top:var(--sp-2); padding-top:var(--sp-2); border-top:1px solid var(--line) }
 #tab-prc .pv-ctxrow > .tools-bar{ margin-bottom:0 }
 #tab-prc .pv-vbtn:focus-visible, #tab-prc .pv-chip:focus-visible{ outline:2px solid var(--navy); outline-offset:2px }
 /* בורר רכיב בעץ המוצר — חיפוש לפי מק״ט או שם עם תצוגת תמונה, מקור ועלות. */
 #tab-prc .pv-bnwrap{ position:relative; flex:1 1 280px; min-width:230px }
-#tab-prc .pv-bnq{ width:100%; box-sizing:border-box; border:1px solid var(--line); border-radius:8px; padding:6px 9px; font-size:12.5px; font-family:inherit }
+#tab-prc .pv-bnq{ width:100%; box-sizing:border-box; border:1px solid var(--line); border-radius:8px; padding:var(--sp-1h) var(--sp-2); font-size:var(--fs-sm); font-family:inherit }
 #tab-prc .pv-bnq:focus{ border-color:var(--navy); outline:none; box-shadow:var(--sh-focus) }
-#tab-prc .pv-bnpop{ position:fixed; z-index:60; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:0 10px 28px rgba(6,24,39,.16); max-height:340px; overflow:auto }
-#tab-prc .pv-bnitem{ display:flex; align-items:center; gap:9px; width:100%; text-align:start; background:none; border:none; border-bottom:1px solid #f1f5f9; padding:6px 9px; cursor:pointer; font-family:inherit }
+#tab-prc .pv-bnpop{ position:fixed; z-index:60; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--sh-pop); max-height:340px; overflow:auto }
+#tab-prc .pv-bnitem{ display:flex; align-items:center; gap:var(--sp-2); width:100%; text-align:start; background:none; border:none; border-bottom:1px solid var(--line-soft); padding:var(--sp-1h) var(--sp-2); cursor:pointer; font-family:inherit }
 #tab-prc .pv-bnitem:last-child{ border-bottom:none }
 #tab-prc .pv-bnitem:hover, #tab-prc .pv-bnitem.on{ background:#eaf1f6 }
-#tab-prc .pv-bnitem .nm{ font-size:13px; font-weight:700; color:var(--dark); flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
-#tab-prc .pv-bnitem .sk{ font-size:11.5px; color:var(--ink-3); direction:ltr; flex:0 0 auto; font-weight:600 }
-#tab-prc .pv-bnitem .ct{ font-size:11.5px; color:var(--ink-2); flex:0 0 auto; font-weight:600; min-width:64px; text-align:end }
-#tab-prc .pv-bnempty{ padding:9px 12px; color:var(--ink-3); font-size:12.5px }
+#tab-prc .pv-bnitem .nm{ font-size:var(--fs-md); font-weight:700; color:var(--dark); flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+#tab-prc .pv-bnitem .sk{ font-size:var(--fs-xs); color:var(--ink-3); direction:ltr; flex:0 0 auto; font-weight:600 }
+#tab-prc .pv-bnitem .ct{ font-size:var(--fs-xs); color:var(--ink-2); flex:0 0 auto; font-weight:600; min-width:64px; text-align:end }
+#tab-prc .pv-bnempty{ padding:var(--sp-2) var(--sp-3); color:var(--ink-3); font-size:var(--fs-sm) }
 #tab-prc .pv-menu{ position:relative; display:inline-block }
 /* מספור שורות, מיון בכותרות, סימון סקירה ומווסת מקדם ההעמסה — 6.35.0 */
-#tab-prc .pv-tblwrap th.pv-rn, #tab-prc .pv-tblwrap td.pv-rn{ width:34px; min-width:34px; text-align:center; color:var(--ink-3); font-size:11.5px; font-weight:600; padding-inline:4px }
+#tab-prc .pv-tblwrap th.pv-rn, #tab-prc .pv-tblwrap td.pv-rn{ width:34px; min-width:34px; text-align:center; color:var(--ink-3); font-size:var(--fs-xs); font-weight:600; padding-inline:4px }
 #tab-prc .pv-tblwrap th.pv-so{ cursor:pointer; user-select:none; white-space:nowrap }
 /* כותרת הטבלה כהה, ולכן צביעת העמודה הממוינת בצבע המותג הפכה אותה לבלתי
    נראית לגמרי (ניגודיות 1.0:1). מ-6.39.0 הסימון נעשה בלבן ובקו תחתון. */
 #tab-prc .pv-tblwrap th.pv-so:hover{ background:rgba(255,255,255,.10) }
 #tab-prc .pv-tblwrap th.pv-so:focus-visible{ outline:2px solid #fff; outline-offset:-3px }
-#tab-prc .pv-tblwrap th.pv-so .pv-ar{ margin-inline-start:5px; font-size:10px; color:rgba(255,255,255,.74); font-weight:700 }
+#tab-prc .pv-tblwrap th.pv-so .pv-ar{ margin-inline-start:var(--sp-1); font-size:var(--fs-2xs); color:rgba(255,255,255,.74); font-weight:700 }
 #tab-prc .pv-tblwrap th.pv-so.on{ color:#fff; box-shadow:inset 0 -3px 0 0 #fff }
 #tab-prc .pv-tblwrap th.pv-so.on .pv-ar{ color:#fff }
 #tab-prc .pv-tblwrap tbody tr.pv-rev > td{ border-bottom-color:#d8ebe0 }
 #tab-prc .pv-tblwrap td.pv-revtd{ text-align:center; white-space:nowrap }
 #tab-prc .pv-tblwrap td.pv-revtd input{ width:16px; height:16px; cursor:pointer; accent-color:#3f7a5e }
-#tab-prc .pv-revd{ display:block; font-size:10.5px; color:#3f7a5e; font-weight:700; margin-top:2px }
+#tab-prc .pv-revd{ display:block; font-size:var(--fs-2xs); color:var(--ok); font-weight:700; margin-top:var(--sp-0h) }
 #tab-prc .pv-tblwrap th.pv-revh{ white-space:nowrap; text-align:center }
 #tab-prc .pv-revso{ cursor:pointer; user-select:none; color:#fff }
 #tab-prc .pv-revso:hover{ color:#fff; text-decoration:underline }
 #tab-prc .pv-revso.on{ color:#fff; box-shadow:inset 0 -3px 0 0 #fff }
 #tab-prc .pv-revso:focus-visible{ outline:2px solid #fff; outline-offset:2px }
-#tab-prc .pv-revall{ display:block; margin:3px auto 0; background:#fff; border:1px solid var(--line); border-radius:14px; padding:1px 8px; font-size:10.5px; font-weight:700; color:var(--ink-2); cursor:pointer; font-family:inherit }
-#tab-prc .pv-revall:hover{ background:#eef7f1; border-color:#3f7a5e; color:#3f7a5e }
-#tab-prc .pv-step{ display:inline-flex; align-items:center; gap:4px }
-#tab-prc .pv-stepb{ width:26px; height:26px; border:1px solid var(--line); background:#fff; border-radius:7px; font-size:15px; font-weight:800; line-height:1; color:var(--ink-2); cursor:pointer; font-family:inherit }
+#tab-prc .pv-revall{ display:block; margin:var(--sp-0h) auto 0; background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:1px var(--sp-2); font-size:var(--fs-2xs); font-weight:700; color:var(--ink-2); cursor:pointer; font-family:inherit }
+#tab-prc .pv-revall:hover{ background:#eef7f1; border-color:#3f7a5e; color:var(--ok) }
+#tab-prc .pv-step{ display:inline-flex; align-items:center; gap:var(--sp-1) }
+#tab-prc .pv-stepb{ width:26px; height:26px; border:1px solid var(--line); background:#fff; border-radius:var(--r-md); font-size:var(--fs-lg); font-weight:800; line-height:1; color:var(--ink-2); cursor:pointer; font-family:inherit }
 #tab-prc .pv-stepb:hover{ background:#eef2f6; border-color:var(--navy); color:var(--navy) }
 #tab-prc .pv-step input{ text-align:center; direction:ltr }
-#tab-prc .pv-lovtag{ font-size:10.5px; font-weight:700; border-radius:12px; padding:2px 8px; white-space:nowrap }
+#tab-prc .pv-lovtag{ font-size:var(--fs-2xs); font-weight:700; border-radius:12px; padding:2px 8px; white-space:nowrap }
 #tab-prc .pv-lovtag.df{ background:#eef2f6; color:var(--ink-2) }
 #tab-prc .pv-lovtag.ov{ background:#fdf0d9; color:#8a5b12 }
 /* שלוש עמודות הסימון — נסקר / שונה במחירון / שונה באתר (6.36.0) */
@@ -13507,32 +13629,32 @@ const PV_CSS = `
 #tab-prc .pv-revall.mk-prc:hover{ background:#eaf2f8; border-color:#2f6f9f; color:#2f6f9f }
 #tab-prc .pv-revall.mk-site:hover{ background:#fdf6e9; border-color:#8a5b12; color:#8a5b12 }
 /* פאנל מדרגות ייצור (6.37.0) — אותה שפה חזותית של פאנל עץ המוצר */
-#tab-prc .pv-mfg{ padding:10px 6px }
-#tab-prc .pv-mfg h4{ font-size:13px; font-weight:800; margin-bottom:8px; color:var(--navy) }
+#tab-prc .pv-mfg{ padding:var(--sp-2h) var(--sp-1h) }
+#tab-prc .pv-mfg h4{ font-size:var(--fs-md); font-weight:800; margin-bottom:var(--sp-2); color:var(--navy) }
 #tab-prc .pv-mfg table{ min-width:0; width:auto; border-collapse:collapse }
-#tab-prc .pv-mfg td, #tab-prc .pv-mfg th{ padding:5px 9px; font-size:12.5px; height:auto }
+#tab-prc .pv-mfg td, #tab-prc .pv-mfg th{ padding:5px 9px; font-size:var(--fs-sm); height:auto }
 #tab-prc .pv-mfg tr, #tab-prc .pv-mfg td, #tab-prc .pv-mfg th{ height:auto }
-#tab-prc .pv-mfg input{ border:1px solid var(--line); border-radius:8px; padding:5px 7px; font-size:12.5px; font-family:inherit }
+#tab-prc .pv-mfg input{ border:1px solid var(--field-bd); border-radius:8px; padding:5px 7px; font-size:var(--fs-sm); font-family:inherit }
 #tab-prc .pv-mfgin{ width:92px; direction:ltr; text-align:center }
 #tab-prc .pv-mfgin.wide{ width:150px; text-align:start }
 #tab-prc .pv-mfg tbody tr.pv-mfgon > td{ background:#eaf4ee; font-weight:600 }
-#tab-prc .pv-mfgadd{ display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap }
+#tab-prc .pv-mfgadd{ display:flex; gap:var(--sp-2); align-items:center; margin-top:var(--sp-2); flex-wrap:wrap }
 #tab-prc .pv-mfgadd input{ width:120px; direction:ltr }
-#tab-prc .pv-sup{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:9px }
-#tab-prc .pv-supc{ border:1px solid var(--line); border-radius:10px; padding:7px 12px; background:#fff; min-width:180px }
+#tab-prc .pv-sup{ display:flex; gap:var(--sp-2h); flex-wrap:wrap; margin-bottom:var(--sp-2) }
+#tab-prc .pv-supc{ border:1px solid var(--line); border-radius:10px; padding:var(--sp-1h) var(--sp-3); background:#fff; min-width:180px }
 #tab-prc .pv-supc.on{ border-color:var(--navy); box-shadow:inset 0 0 0 1px var(--navy); background:#f4f8fb }
-#tab-prc .pv-supc .t{ font-size:11.5px; color:var(--ink-3); font-weight:700 }
-#tab-prc .pv-supc .v{ font-size:14px; font-weight:800; color:var(--dark) }
-#tab-prc .pv-supc .a{ font-size:11px; color:#3f7a5e; font-weight:800 }
-#tab-prc .pv-tierbadge{ background:#eef2f6; color:var(--ink-2); border-radius:12px; padding:1px 7px; font-size:10.5px; font-weight:700; margin-inline-start:5px; white-space:nowrap }
+#tab-prc .pv-supc .t{ font-size:var(--fs-xs); color:var(--ink-3); font-weight:700 }
+#tab-prc .pv-supc .v{ font-size:var(--fs-md); font-weight:800; color:var(--dark) }
+#tab-prc .pv-supc .a{ font-size:var(--fs-xs); color:var(--ok); font-weight:800 }
+#tab-prc .pv-tierbadge{ background:#eef2f6; color:var(--ink-2); border-radius:12px; padding:1px 7px; font-size:var(--fs-2xs); font-weight:700; margin-inline-start:var(--sp-1); white-space:nowrap }
 /* עמודות ההנחה בטבלת ההשוואה (6.38.0) */
-#tab-prc .pv-discin{ width:66px; direction:ltr; text-align:center; border:1px solid var(--line); border-radius:8px; padding:3px 5px; font-size:12.5px; font-family:inherit; font-weight:800 }
+#tab-prc .pv-discin{ width:66px; direction:ltr; text-align:center; border:1px solid var(--line); border-radius:8px; padding:var(--sp-0h) var(--sp-1); font-size:var(--fs-sm); font-family:inherit; font-weight:800 }
 #tab-prc .pv-discin:focus{ border-color:var(--navy); outline:none; box-shadow:var(--sh-focus) }
-#tab-prc .pv-discrow{ display:inline-flex; align-items:center; gap:3px }
-#tab-prc .pv-discrow .pct{ font-size:11px; color:var(--ink-3); font-weight:700 }
-#tab-prc .pv-dprice{ font-size:13px; font-weight:800; color:var(--dark); margin-top:3px }
+#tab-prc .pv-discrow{ display:inline-flex; align-items:center; gap:var(--sp-0h) }
+#tab-prc .pv-discrow .pct{ font-size:var(--fs-xs); color:var(--ink-3); font-weight:700 }
+#tab-prc .pv-dprice{ font-size:var(--fs-md); font-weight:800; color:var(--dark); margin-top:var(--sp-0h) }
 /* קו מתאר דק — בלעדיו התג נבלע בשורה צבועה (מק״ט שנסקר, או תא באזהרה) */
-#tab-prc .pv-dmg{ font-size:11px; font-weight:800; border-radius:12px; padding:1px 7px; display:inline-block; margin-top:2px; white-space:nowrap; border:1px solid rgba(6,24,39,.10) }
+#tab-prc .pv-dmg{ font-size:var(--fs-xs); font-weight:800; border-radius:12px; padding:1px var(--sp-1h); display:inline-block; margin-top:var(--sp-0h); white-space:nowrap; border:1px solid rgba(6,24,39,.10) }
 #tab-prc .pv-dmg.ok{ background:#dcefe4; color:#2f6b50; border-color:rgba(47,107,80,.30) }
 #tab-prc .pv-dmg.warn{ background:#fdf0d9; color:#8a5b12 }
 #tab-prc .pv-dmg.bad{ background:#fdeaea; color:#a13030 }
@@ -13541,58 +13663,58 @@ const PV_CSS = `
 /* בהקשר RTL סימן שקדם לספרות נדחף לצדן השני והוצג כ-"12%+". בידוד דו-כיווני
    מחזיר אותו למקומו. */
 #tab-prc .pv-sdiff, #tab-prc .pv-diff{ unicode-bidi:isolate; direction:ltr }
-#tab-prc .pv-sdiff{ font-size:10.5px; font-weight:800; border-radius:10px; padding:1px 6px; margin-inline-start:5px; white-space:nowrap }
-#tab-prc .pv-sdiff.up{ background:#eef7f1; color:#3f7a5e }
+#tab-prc .pv-sdiff{ font-size:var(--fs-2xs); font-weight:800; border-radius:10px; padding:1px var(--sp-1h); margin-inline-start:var(--sp-1); white-space:nowrap }
+#tab-prc .pv-sdiff.up{ background:#eef7f1; color:var(--ok) }
 #tab-prc .pv-sdiff.dn{ background:#fdeaea; color:#a13030 }
 #tab-prc .pv-sdiff.eq{ background:#eef2f6; color:var(--ink-2) }
-#tab-prc .pv-dsum{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; align-items:stretch }
-#tab-prc .pv-dsumc{ border:1px solid var(--line); border-radius:12px; padding:10px 14px; background:#fff; min-width:250px }
-#tab-prc .pv-dsumc h5{ font-size:12.5px; font-weight:800; color:var(--navy); margin:0 0 7px }
-#tab-prc .pv-dsumc .l{ display:flex; justify-content:space-between; gap:16px; font-size:12px; padding:2px 0; color:var(--ink-2) }
+#tab-prc .pv-dsum{ display:flex; gap:var(--sp-3); flex-wrap:wrap; margin-top:var(--sp-3); align-items:stretch }
+#tab-prc .pv-dsumc{ border:1px solid var(--line); border-radius:12px; padding:var(--sp-2h) var(--sp-3); background:#fff; min-width:250px }
+#tab-prc .pv-dsumc h5{ font-size:var(--fs-sm); font-weight:800; color:var(--navy); margin:0 0 var(--sp-1h) }
+#tab-prc .pv-dsumc .l{ display:flex; justify-content:space-between; gap:var(--sp-4); font-size:var(--fs-sm); padding:var(--sp-0h) 0; color:var(--ink-2) }
 #tab-prc .pv-dsumc .l b{ font-weight:800; color:var(--dark) }
 #tab-prc .pv-dsumc .l b.give{ color:#a13030 }
-#tab-prc .pv-dsumc .l b.keep{ color:#3f7a5e }
-#tab-prc .pv-thr{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:10px; font-size:12px; color:var(--ink-2) }
-#tab-prc .pv-thr input{ width:62px; direction:ltr; text-align:center; border:1px solid var(--line); border-radius:8px; padding:3px 5px; font-family:inherit; font-weight:700 }
+#tab-prc .pv-dsumc .l b.keep{ color:var(--ok) }
+#tab-prc .pv-thr{ display:flex; gap:var(--sp-3); align-items:center; flex-wrap:wrap; margin-top:var(--sp-2h); font-size:var(--fs-sm); color:var(--ink-2) }
+#tab-prc .pv-thr input{ width:62px; direction:ltr; text-align:center; border:1px solid var(--field-bd); border-radius:8px; padding:3px 5px; font-family:inherit; font-weight:700 }
 #tab-prc .pv-menu > summary{ list-style:none; display:inline-block }
 #tab-prc .pv-menu > summary::-webkit-details-marker{ display:none }
-#tab-prc .pv-menupop{ position:absolute; inset-inline-start:0; top:calc(100% + 6px); background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:0 6px 20px rgba(15,23,42,.12); padding:6px; z-index:20; min-width:170px; display:flex; flex-direction:column; gap:4px }
+#tab-prc .pv-menupop{ position:absolute; inset-inline-start:0; top:calc(100% + 6px); background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:0 6px 20px rgba(15,23,42,.12); padding:var(--sp-1h); z-index:20; min-width:170px; display:flex; flex-direction:column; gap:var(--sp-1) }
 #tab-prc .pv-menupop .pv-vbtn{ border:none; text-align:start; width:100% }
 #tab-prc details.pv-warn{ padding:0 }
 #tab-prc details.pv-warn > summary{ cursor:pointer; padding:8px 12px; font-weight:700; list-style:none }
 #tab-prc details.pv-warn > summary::-webkit-details-marker{ display:none }
 #tab-prc details.pv-warn > summary::before{ content:'▾ '; display:inline-block; transition:transform .12s }
 #tab-prc details.pv-warn[open] > summary::before{ transform:rotate(180deg) }
-#tab-prc details.pv-warn > div{ padding:0 12px 10px }
-#tab-prc .pv-panelgrid{ display:grid; grid-template-columns:340px 1fr; gap:16px; align-items:start }
-#tab-prc .pv-panel{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px }
-#tab-prc .pv-panel h3{ font-size:15px; font-weight:800; color:var(--navy); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--line) }
-#tab-prc .pv-frow{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:9px }
-#tab-prc .pv-frow label{ color:var(--ink-2); font-size:13px; font-weight:600 }
-#tab-prc .pv-frow input{ border:1px solid var(--line); border-radius:8px; padding:7px 9px; width:90px; direction:ltr; text-align:left; font-size:13px }
+#tab-prc details.pv-warn > div{ padding:0 var(--sp-3) var(--sp-2h) }
+#tab-prc .pv-panelgrid{ display:grid; grid-template-columns:340px 1fr; gap:var(--sp-4); align-items:start }
+#tab-prc .pv-panel{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:var(--sp-4) }
+#tab-prc .pv-panel h3{ font-size:var(--fs-lg); font-weight:800; color:var(--navy); margin-bottom:var(--sp-3); padding-bottom:var(--sp-2); border-bottom:1px solid var(--line) }
+#tab-prc .pv-frow{ display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2h); margin-bottom:var(--sp-2) }
+#tab-prc .pv-frow label{ color:var(--ink-2); font-size:var(--fs-md); font-weight:600 }
+#tab-prc .pv-frow input{ border:1px solid var(--field-bd); border-radius:8px; padding:7px 9px; width:90px; direction:ltr; text-align:left; font-size:var(--fs-md) }
 #tab-prc .pv-frow input:focus{ border-color:var(--navy); outline:none; box-shadow:var(--sh-focus) }
 #tab-prc .pv-mtx{ overflow:auto; max-height:60vh }
 #tab-prc .pv-mtx table{ min-width:0 }
-#tab-prc .pv-mtx td input{ width:58px; border:1px solid transparent; background:none; border-radius:6px; padding:4px 5px; direction:ltr; text-align:left; font-size:12.5px }
+#tab-prc .pv-mtx td input{ width:58px; border:1px solid transparent; background:none; border-radius:6px; padding:4px 5px; direction:ltr; text-align:left; font-size:var(--fs-sm) }
 #tab-prc .pv-mtx td input:hover{ border-color:var(--line); background:#fff }
 #tab-prc .pv-mtx td input:focus{ border-color:var(--navy); background:#fff; outline:none; box-shadow:var(--sh-focus) }
-#tab-prc .pv-hint{ font-size:12px; color:var(--ink-3); margin-top:10px; line-height:1.6 }
-#tab-prc .pv-clientbar{ display:flex; gap:10px; align-items:center; margin-bottom:14px; flex-wrap:wrap }
+#tab-prc .pv-hint{ font-size:var(--fs-sm); color:var(--ink-3); margin-top:var(--sp-2h); line-height:1.6 }
+#tab-prc .pv-clientbar{ display:flex; gap:var(--sp-2h); align-items:center; margin-bottom:var(--sp-3); flex-wrap:wrap }
 /* ⚠️ width ו-height חייבים להיות כאן במפורש. בגיליון הראשי יש
    select{ width:100%; padding:12px 14px; font-size:16px } — כלל על שם
    תגית — ותכונה שהכלל המקומי אינו מצהיר עליה **אינה נדרסת**. בלי
    width:auto כל תיבה תפסה את מלוא רוחב הסרגל (נמדד 1,185px) וכל אחת
    קפצה לשורה משלה. עם תיבה אחת זה נראה כמו עיצוב; השנייה חשפה את זה. */
 #tab-prc .pv-clientbar input, #tab-prc .pv-clientbar select{ width:auto; flex:0 0 auto;
-  border:1px solid var(--line); border-radius:9px; padding:5px 8px; font-size:12.5px;
+  border:1px solid var(--field-bd); border-radius:var(--r-md); padding:5px 8px; font-size:var(--fs-sm);
   line-height:1.3; color:#334155; background:#fff }
 #tab-prc .pv-clientbar select{ max-width:170px }
 #tab-prc .pv-clientbar input{ width:190px }
 #tab-prc .pv-clientbar input:focus, #tab-prc .pv-clientbar select:focus{ border-color:var(--navy); outline:none; box-shadow:var(--sh-focus) }
-#tab-prc .pv-btn{ background:var(--navy); color:#fff; border:1px solid var(--navy); border-radius:10px; padding:8px 16px; cursor:pointer; font-size:12.5px; font-weight:800; white-space:nowrap; min-height:var(--ctl-h-md); box-sizing:border-box }
+#tab-prc .pv-btn{ background:var(--navy); color:#fff; border:1px solid var(--navy); border-radius:10px; padding:8px 16px; cursor:pointer; font-size:var(--fs-sm); font-weight:800; white-space:nowrap; min-height:var(--ctl-h-md); box-sizing:border-box }
 #tab-prc .pv-btn:hover{ background:var(--pv-brand2); border-color:var(--pv-brand2) }
 #tab-prc .pv-btn.ghost{ background:#fff; color:var(--ink-2); border:1px solid var(--line); font-weight:600 }
-#tab-prc .pv-btn.ghost:hover{ background:#f1f5f9 }
+#tab-prc .pv-btn.ghost:hover{ background:var(--bg-muted) }
 /* ══ המחירון ללקוח (6.77.0) — המסמך המודפס ══════════════════════════
    עוצב בשיתוף fable לפי הכרעת רומן. היעד האמיתי הוא A4, ולכן היחידות
    ב-mm/pt; על המסך הן נראות נכון גם כן.
@@ -13694,7 +13816,7 @@ const PV_CSS = `
    ורקע אפור. בלי זה תא מלא יוצא בלי מסגרת ותא ריק עם מקווקוות — הפוך מהרצוי.
    הרקע הלבן מכוון: הוא מנתק את התמונה מסימן המים שמאחוריה. */
 #tab-prc .pv-plrow .pv-c-img .pv-imgbox{ display:flex; align-items:center; justify-content:center;
-  overflow:hidden; padding:2px; border:.6pt solid var(--pv-pl-line); border-radius:1mm;
+  overflow:hidden; padding:var(--sp-0h); border:.6pt solid var(--pv-pl-line); border-radius:1mm;
   background:#fff; color:var(--pv-pl-gray); font-size:8pt }
 /* המקף של "אין תמונה" מגיע מ-imgCell ואינו משתנה כאן — מוסתר ב-CSS, כדי שתא
    ריק ייראה בדיוק כמו תא מלא בלי התמונה, ובלי לגעת ב-imgCell או ב-PV.imgFb. */
@@ -13718,41 +13840,41 @@ const PV_CSS = `
   white-space:nowrap; font-variant-numeric:tabular-nums }
 #tab-prc .pv-plfoot{ margin-top:9mm; padding-top:2.5mm; border-top:.5pt solid var(--pv-pl-line);
   font-size:8.5pt; color:var(--pv-pl-gray); line-height:1.6; text-align:center }
-#tab-prc .pv-dbbar{ display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap }
-#tab-prc .pv-addform{ background:#fff; border:1px solid var(--line); border-inline-start:3px solid var(--navy); border-radius:12px; padding:16px 18px; margin-bottom:14px }
-#tab-prc .pv-addform h3{ font-size:14px; font-weight:800; margin-bottom:12px; color:var(--navy) }
-#tab-prc .pv-afgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px }
-#tab-prc .pv-afgrid label{ display:block; font-size:11.5px; font-weight:600; color:var(--ink-3); margin-bottom:3px }
-#tab-prc .pv-afgrid input, #tab-prc .pv-afgrid select{ width:100%; box-sizing:border-box; border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:13px; background:#fff; color:#334155 }
+#tab-prc .pv-dbbar{ display:flex; gap:var(--sp-2h); align-items:center; margin-bottom:var(--sp-3); flex-wrap:wrap }
+#tab-prc .pv-addform{ background:#fff; border:1px solid var(--line); border-inline-start:3px solid var(--navy); border-radius:12px; padding:var(--sp-4) var(--sp-4); margin-bottom:var(--sp-3) }
+#tab-prc .pv-addform h3{ font-size:var(--fs-md); font-weight:800; margin-bottom:var(--sp-3); color:var(--navy) }
+#tab-prc .pv-afgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--sp-2h) }
+#tab-prc .pv-afgrid label{ display:block; font-size:var(--fs-xs); font-weight:600; color:var(--ink-3); margin-bottom:var(--sp-0h) }
+#tab-prc .pv-afgrid input, #tab-prc .pv-afgrid select{ width:100%; box-sizing:border-box; border:1px solid var(--field-bd); border-radius:8px; padding:8px 10px; font-size:var(--fs-md); background:#fff; color:#334155 }
 #tab-prc .pv-afgrid input:focus, #tab-prc .pv-afgrid select:focus{ border-color:var(--navy); outline:none; box-shadow:var(--sh-focus) }
-#tab-prc .pv-afactions{ display:flex; gap:8px; margin-top:12px; align-items:center }
-#tab-prc .pv-aferr{ color:var(--red); font-size:12.5px; font-weight:600 }
-#tab-prc .pv-rowbtn{ border:1px solid var(--line); background:#fff; border-radius:8px; padding:3px 9px; cursor:pointer; font-size:11.5px; font-weight:600; color:var(--ink-2) }
-#tab-prc .pv-rowbtn:hover{ background:#f1f5f9; border-color:#c2ccd6 }
+#tab-prc .pv-afactions{ display:flex; gap:var(--sp-2); margin-top:var(--sp-3); align-items:center }
+#tab-prc .pv-aferr{ color:var(--red); font-size:var(--fs-sm); font-weight:600 }
+#tab-prc .pv-rowbtn{ border:1px solid var(--line); background:#fff; border-radius:8px; padding:3px 9px; cursor:pointer; font-size:var(--fs-xs); font-weight:600; color:var(--ink-2) }
+#tab-prc .pv-rowbtn:hover{ background:var(--bg-muted); border-color:#c2ccd6 }
 #tab-prc .pv-rowbtn.danger{ color:var(--red); border-color:#f0bcbc; background:#fbe0e0 }
 #tab-prc .pv-rowbtn.danger.arm{ background:var(--red); color:#fff; border-color:var(--red) }
 #tab-prc .pv-rowbtn.primary{ background:var(--navy); color:#fff; border-color:var(--navy); font-weight:700 }
-#tab-prc td .pv-edin{ border:1px solid var(--navy); border-radius:8px; padding:5px 7px; width:110px; font-size:12.5px }
+#tab-prc td .pv-edin{ border:1px solid var(--navy); border-radius:8px; padding:5px 7px; width:110px; font-size:var(--fs-sm) }
 #tab-prc td .pv-edin:focus{ outline:none; box-shadow:var(--sh-focus) }
 #tab-prc td .pv-edin:focus-visible, #tab-prc .pv-mfgin:focus-visible, #tab-prc .pv-discin:focus-visible,
 #tab-prc .pv-rowbtn:focus-visible, #tab-prc .pv-btn:focus-visible{ outline:2px solid var(--navy); outline-offset:2px }
 #tab-prc td .pv-edin.wide{ width:230px }
 #tab-prc td .pv-edin.narrow{ width:70px; direction:ltr; text-align:left }
 #tab-prc .pv-bomrow td{ --cell-bg:#f4f8fb; border-bottom:2px solid var(--navy) !important }
-#tab-prc .pv-bomedit{ padding:10px 6px }
-#tab-prc .pv-bomedit h4{ font-size:13px; font-weight:800; margin-bottom:8px; color:var(--navy) }
+#tab-prc .pv-bomedit{ padding:var(--sp-2h) var(--sp-1h) }
+#tab-prc .pv-bomedit h4{ font-size:var(--fs-md); font-weight:800; margin-bottom:var(--sp-2); color:var(--navy) }
 #tab-prc .pv-bomedit table{ min-width:0; width:auto; border-collapse:collapse }
-#tab-prc .pv-bomedit td, #tab-prc .pv-bomedit th{ padding:5px 9px; font-size:12.5px }
-#tab-prc .pv-bomedit input{ border:1px solid var(--line); border-radius:8px; padding:5px 7px; font-size:12.5px }
+#tab-prc .pv-bomedit td, #tab-prc .pv-bomedit th{ padding:5px 9px; font-size:var(--fs-sm) }
+#tab-prc .pv-bomedit input{ border:1px solid var(--field-bd); border-radius:8px; padding:5px 7px; font-size:var(--fs-sm) }
 #tab-prc .pv-skulink{ color:var(--navy); text-decoration:none; cursor:pointer; font-weight:600; border-bottom:1px dashed transparent }
 #tab-prc .pv-skulink:hover{ border-bottom-color:var(--navy) }
 #tab-prc .pv-badge.up{ background:#fdf1e0; color:var(--amber) }
-#tab-prc .pv-floorbox{ border:1px dashed var(--line); border-radius:10px; padding:10px 12px; margin-top:10px; background:#fbfcfd }
-#tab-prc .pv-floorbox .pv-frow{ margin-bottom:6px }
-#tab-prc .pv-floorbox .pv-hint{ margin-top:4px }
+#tab-prc .pv-floorbox{ border:1px dashed var(--line); border-radius:10px; padding:var(--sp-2h) var(--sp-3); margin-top:var(--sp-2h); background:#fbfcfd }
+#tab-prc .pv-floorbox .pv-frow{ margin-bottom:var(--sp-1h) }
+#tab-prc .pv-floorbox .pv-hint{ margin-top:var(--sp-1) }
 #tab-prc .pv-chk{ width:15px; height:15px; cursor:pointer; accent-color:var(--navy) }
-#tab-prc .pv-missbar{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:12px }
-@media (max-width:1024px){ #tab-prc .pv-panelgrid{ grid-template-columns:1fr } #tab-prc .pv-pricelist{ padding:18px } }
+#tab-prc .pv-missbar{ display:flex; gap:var(--sp-2h); align-items:center; flex-wrap:wrap; margin-bottom:var(--sp-3) }
+@media (max-width:1024px){ #tab-prc .pv-panelgrid{ grid-template-columns:1fr } #tab-prc .pv-pricelist{ padding:var(--sp-4) } }
 /* שוליים של 10.5mm = בדיוק 5% מרוחב A4 (210mm), ובנוסף 4.2mm ריפוד פנימי
    (עוד ~2% מכל צד) — רומן ביקש "טיפה רווח" כי התוכן ישב צמוד לשוליים.
    סך הכניסה ~7% מכל צד.
@@ -13785,36 +13907,36 @@ const PV_CSS = `
    על פאנל ה-BOM ופאנל מדרגות הייצור שנכנסים לתוכו כמות שהם. .modal הוא
    position:fixed, ולכן מיקומו ב-DOM אינו משנה את מיקומו על המסך. */
 #pv-card .sheet{ max-width:min(1020px,96vw); width:100%; padding:0; max-height:94vh; display:flex; flex-direction:column; overflow:hidden }
-#pv-card .pvc-head{ display:flex; gap:11px; align-items:center; padding:12px 16px; background:var(--navy); color:#fff }
+#pv-card .pvc-head{ display:flex; gap:var(--sp-2h); align-items:center; padding:var(--sp-3) var(--sp-4); background:var(--navy); color:#fff }
 #pv-card .pvc-ttl{ display:flex; flex-direction:column; min-width:0 }
 #pv-card .pvc-ttl b{ font-size:16.5px; font-weight:800; letter-spacing:.4px; direction:ltr; text-align:right }
-#pv-card .pvc-ttl span{ font-size:12.5px; opacity:.85; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; unicode-bidi:plaintext; text-align:right }
-#pv-card .pvc-off{ background:var(--red); color:#fff; border-radius:20px; padding:4px 11px; font-size:11.5px; font-weight:700; white-space:nowrap }
-#pv-card .pvc-x{ margin-inline-start:auto; background:transparent; border:0; color:#fff; font-size:19px; line-height:1; padding:4px 8px; cursor:pointer; font-family:inherit }
-#pv-card .pvc-tabs{ display:flex; gap:4px; padding:8px 12px 0; background:#f1f5f9; border-bottom:1px solid var(--line); overflow-x:auto }
-#pv-card .pvc-tab{ flex:none; background:transparent; border:0; border-bottom:3px solid transparent; padding:9px 14px; font-size:13px; font-weight:600; color:var(--ink-2); white-space:nowrap; cursor:pointer; font-family:inherit }
+#pv-card .pvc-ttl span{ font-size:var(--fs-sm); opacity:.85; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; unicode-bidi:plaintext; text-align:right }
+#pv-card .pvc-off{ background:var(--red); color:#fff; border-radius:20px; padding:var(--sp-1) var(--sp-2h); font-size:var(--fs-xs); font-weight:700; white-space:nowrap }
+#pv-card .pvc-x{ margin-inline-start:auto; background:transparent; border:0; color:#fff; font-size:19px; line-height:1; padding:var(--sp-1) var(--sp-2); cursor:pointer; font-family:inherit }
+#pv-card .pvc-tabs{ display:flex; gap:var(--sp-1); padding:var(--sp-2) var(--sp-3) 0; background:var(--bg-muted); border-bottom:1px solid var(--line); overflow-x:auto }
+#pv-card .pvc-tab{ flex:none; background:transparent; border:0; border-bottom:3px solid transparent; padding:var(--sp-2) var(--sp-3); font-size:var(--fs-md); font-weight:600; color:var(--ink-2); white-space:nowrap; cursor:pointer; font-family:inherit }
 #pv-card .pvc-tab:hover{ color:var(--dark) }
 #pv-card .pvc-tab.on{ color:var(--navy); border-bottom-color:var(--navy); font-weight:800 }
-#pv-card .pvc-tab i{ font-style:normal; background:var(--line); color:var(--ink-2); border-radius:20px; padding:1px 7px; font-size:11px; margin-inline-start:5px }
+#pv-card .pvc-tab i{ font-style:normal; background:var(--line); color:var(--ink-2); border-radius:20px; padding:1px var(--sp-1h); font-size:var(--fs-xs); margin-inline-start:var(--sp-1) }
 #pv-card .pvc-tab.on i{ background:var(--navy); color:#fff }
-#pv-card .pvc-body{ flex:1 1 auto; overflow:auto; padding:16px 18px; background:#fff }
-#pv-card .pvc-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px }
+#pv-card .pvc-body{ flex:1 1 auto; overflow:auto; padding:var(--sp-4) var(--sp-4); background:#fff }
+#pv-card .pvc-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:var(--sp-3) }
 #pv-card .pvc-f.span2{ grid-column:1/-1 }
-#pv-card .pvc-f label{ display:block; font-size:12px; font-weight:700; color:var(--ink-2); margin-bottom:4px }
-#pv-card .pvc-f input, #pv-card .pvc-f select, #pv-card .pvc-f textarea{ width:100%; border:1px solid var(--line); border-radius:9px; padding:8px 10px; font-size:13.5px; color:#334155; background:#fff; font-family:inherit }
+#pv-card .pvc-f label{ display:block; font-size:var(--fs-sm); font-weight:700; color:var(--ink-2); margin-bottom:var(--sp-1) }
+#pv-card .pvc-f input, #pv-card .pvc-f select, #pv-card .pvc-f textarea{ width:100%; border:1px solid var(--field-bd); border-radius:var(--r-md); padding:8px 10px; font-size:var(--fs-md); color:#334155; background:#fff; font-family:inherit }
 #pv-card .pvc-f input:focus, #pv-card .pvc-f select:focus, #pv-card .pvc-f textarea:focus{ border-color:var(--navy); outline:none; box-shadow:var(--sh-focus) }
 #pv-card .pvc-f input[disabled], #pv-card .pvc-f select[disabled], #pv-card .pvc-f textarea[disabled],
-#pv-card .pvc-f input[readonly]{ background:#f8fafc; color:var(--ink-3) }
+#pv-card .pvc-f input[readonly]{ background:var(--bg-subtle); color:var(--ink-3) }
 #pv-card .pvc-f .pv-step input{ width:auto }
-#pv-card .pvc-h{ display:block; margin-top:5px; font-size:11.5px; color:var(--ink-3); line-height:1.5 }
-#pv-card .pvc-lists{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:9px }
-#pv-card .pvc-list{ display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:13px; cursor:pointer }
-#pv-card .pvc-list:hover{ background:#f8fafc }
-#pv-card .pvc-lp{ margin-inline-start:auto; color:var(--ink-3); font-size:12px; font-variant-numeric:tabular-nums }
-#pv-card .pvc-foot{ display:flex; gap:9px; align-items:center; flex-wrap:wrap; padding:11px 16px; border-top:1px solid var(--line); background:#f8fafc }
+#pv-card .pvc-h{ display:block; margin-top:var(--sp-1); font-size:var(--fs-xs); color:var(--ink-3); line-height:1.5 }
+#pv-card .pvc-lists{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:var(--sp-2) }
+#pv-card .pvc-list{ display:flex; align-items:center; gap:var(--sp-2); border:1px solid var(--line); border-radius:10px; padding:var(--sp-2h) var(--sp-3); font-size:var(--fs-md); cursor:pointer }
+#pv-card .pvc-list:hover{ background:var(--bg-subtle) }
+#pv-card .pvc-lp{ margin-inline-start:auto; color:var(--ink-3); font-size:var(--fs-sm); font-variant-numeric:tabular-nums }
+#pv-card .pvc-foot{ display:flex; gap:var(--sp-2); align-items:center; flex-wrap:wrap; padding:var(--sp-2h) var(--sp-4); border-top:1px solid var(--line); background:var(--bg-subtle) }
 #pv-card .pvc-foot .pv-hint{ flex:1 1 220px; min-width:0; margin:0 }
 #pv-card .pv-bomedit, #pv-card .pv-mfg{ border:0; padding:0; margin:0; background:transparent }
-#pv-card .pv-stepb.wide{ width:auto; padding:0 11px; font-size:12px }
+#pv-card .pv-stepb.wide{ width:auto; padding:0 var(--sp-2h); font-size:var(--fs-sm) }
 /* תיבת התמונה בכותרת נמתחה לגובה השורה — הסגנון הכללי שלה מיועד לתא
    בטבלה, לא לפריט flex. כאן היא מקובעת. */
 #pv-card .pvc-head .pv-imgbox{ width:44px; height:44px; min-width:44px; min-height:44px; flex:0 0 auto; align-self:center; border-color:rgba(255,255,255,.35) }
@@ -17166,7 +17288,33 @@ const SYNC_FNS = {
   'priority-sync':      { ic:'📦', label:'סנכרון הזמנות מפריוריטי',   sub:'טופס ORDERS + CUSTOMERS — פעמיים ביום, 07:00 ו-13:00' },
   'orders-detail-sync': { ic:'📋', label:'סנכרון שורות ודו-שיח',       sub:'שורות ההזמנה והדו-שיח הפנימי — חצי שעה אחרי הסנכרון הראשי' },
   'inventory-sync':     { ic:'🏷️', label:'סנכרון מק״טים ומלאי',        sub:'מחירים, מלאי, הזמנות רכש ומכירות — פעם ביום' },
-  'sku-images-sync':    { ic:'🖼️', label:'סנכרון תמונות מק״טים',       sub:'תמונות המוצרים' }
+  'sku-images-sync':    { ic:'🖼️', label:'סנכרון תמונות מק״טים',       sub:'תמונות המוצרים' },
+  /* 7.21.0 — round3: עד כאן אלה הוצגו בשמם הטכני (hook-watch · po-sync · finance-sync …). נמדד: 27 שמות ב-14 ימים. */
+  'priority-images-sync':        { ic:'', label:'סנכרון תמונות מפריוריטי',     sub:'תמונות המוצרים' },
+  'priority-customers-sync':     { ic:'', label:'סנכרון לקוחות',               sub:'לקוחות, אנשי קשר ואתרים מפריוריטי' },
+  'priority-customers-sync-one': { ic:'', label:'סנכרון לקוח בודד',            sub:'לקוח אחד מפריוריטי' },
+  'priority-cust-activate':      { ic:'', label:'הפיכת לקוח זמני לפעיל',       sub:'בפריוריטי' },
+  'deal-approved-activate':      { ic:'', label:'הפעלת לקוח אחרי אישור הצעה',  sub:'' },
+  'deal-quote-approve':          { ic:'', label:'אישור הצעה בפריוריטי',        sub:'' },
+  'finance-sync':                { ic:'', label:'סנכרון כספים',                sub:'חשבוניות, קבלות ותעודות משלוח מפריוריטי' },
+  'finance-deep':                { ic:'', label:'סריקה עמוקה של הכספים',       sub:'' },
+  'po-sync':                     { ic:'', label:'סנכרון הזמנות רכש',           sub:'PORDERS — כל הספקים' },
+  'pricelist-sync':              { ic:'', label:'סנכרון מחירונים',             sub:'מחירוני הלקוחות מפריוריטי' },
+  'yahav-sync':                  { ic:'', label:'סנכרון משלוחי יהב',           sub:'' },
+  'priority-quote-hook':         { ic:'', label:'וובהוקים מפריוריטי',          sub:'הצעות, הזמנות, כספים ורכש — ברגע השינוי' },
+  'hook-watch':                  { ic:'', label:'ניטור הוובהוקים',             sub:'מתריע על שתיקה בשעות העבודה ועל וובהוק שנכשל' },
+  'cron-wake':                   { ic:'', label:'פעימות תזמון',                sub:'יקיצת המשימות המתוזמנות' },
+  'cron-wake-customers':         { ic:'', label:'פעימות תזמון — לקוחות',       sub:'' },
+  'outbox-dispatch':             { ic:'', label:'שליחת הודעות',                sub:'וואטסאפ, מייל והתראות מהתור' },
+  'ensure-lead-tasks':           { ic:'', label:'משימות לידים',                sub:'מוודא שלכל ליד פעיל יש משימה' },
+  'crm-quote-watch':             { ic:'', label:'סוקר הצעות המחיר',            sub:'הצעות שנשלחו בפריוריטי ⇐ שלב העסקה' },
+  'crm-quote-watch-wake':        { ic:'', label:'יקיצת סוקר ההצעות',           sub:'' },
+  'outlook_calendar':            { ic:'', label:'סנכרון יומן Outlook',         sub:'פגישות היומן המשותף' },
+  'outlook-calendar-sync':       { ic:'', label:'סנכרון יומן Outlook',         sub:'פגישות היומן המשותף' },
+  'meeting-invite':              { ic:'', label:'זימוני פגישות',               sub:'' },
+  'booking':                     { ic:'', label:'קביעת פגישות מהאתר',          sub:'book.ironfitness.co.il' },
+  'monday-import':               { ic:'', label:'ייבוא ממאנדיי',               sub:'הוסר 17/10/2026 — רשומות היסטוריות' },
+  'monday-align':                { ic:'', label:'יישור סטטוסים ממאנדיי',       sub:'הוסר 17/10/2026 — רשומות היסטוריות' }
 };
 const SYNC_KEYS = {
   orders_seen:'הזמנות שנסרקו', customers_seen:'לקוחות שנסרקו',
@@ -17191,12 +17339,12 @@ let SYNCLOG_F={fn:'',st:'',days:'30'};
    לפני 15 דקות" לנצח. תוקן בשרת ב-17/08; זה הצד של הלקוח. */
 function syncFnOf(r){ const d = r && r.details || {};
   return String(d.fn||'').trim() || String(d.source||'').trim() || 'priority-sync'; }
-function syncMeta(fn){ return SYNC_FNS[fn] || { ic:'🔄', label:fn, sub:'' }; }
+function syncMeta(fn){ return SYNC_FNS[fn] || { ic:'', label:fn, sub:'' }; }
 function syncDur(ms){ if(ms==null||ms==='') return '—'; const s=Number(ms)/1000; return s<60 ? s.toFixed(1)+' שנ׳' : Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0')+' דק׳'; }
 function syncWhen(ts){ if(!ts) return '—'; return new Date(ts).toLocaleString('he-IL',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}); }
 function syncLogHtml(){
-  return `<h2 class="sec" style="margin-top:0">יומן סנכרון</h2>
-    <div class="note">כל ריצה של סנכרון מפריוריטי נרשמת כאן — מתי רצה, אם הצליחה, כמה זמן לקחה ומה בדיוק התעדכן. היומן גלוי לאדמיניסטרטור בלבד ונשמר בטבלה <b dir="ltr">ord.sync_log</b> במסד.</div>
+  return `<div class="st-top"><h2 class="sec">יומן סנכרון</h2></div>
+    <div class="st-lead">כל ריצה של סנכרון נרשמת כאן — מתי רצה, אם הצליחה, כמה זמן לקחה ומה התעדכן. לחיצה על שורה פותחת את הפירוט. נשמר בטבלה <b dir="ltr">ord.sync_log</b>.</div>
     <div id="synclogBox">${crmLoading('טוען את יומן הסנכרון…')}</div>`;
 }
 window.loadSyncLog = async function(force){
@@ -17225,8 +17373,8 @@ function paintSyncLog(){
     const last=mine[0], lastOk=mine.find(r=>r.ok);
     const fails=mine.filter(r=>!r.ok && (Date.now()-new Date(r.ran_at).getTime())<7*864e5).length;
     const m=syncMeta(f);
-    return `<div class="sl-card">
-      <b class="t">${m.ic} ${esc(m.label)}</b>
+    return `<div class="sl-card${last && last.ok ? '' : ' bad'}">
+      <b class="t">${m.ic ? m.ic + ' ' : ''}${esc(m.label)}</b>
       <div class="v">${last&&last.ok?'<span class="sl-tag ok">תקין</span>':'<span class="sl-tag no">נכשל</span>'} <span style="font-size:13px;font-weight:700;color:#334155">${esc(syncWhen(last&&last.ran_at))}</span></div>
       <div class="s">${esc(m.sub)}${lastOk&&lastOk!==last?'<br>הצלחה אחרונה: '+esc(syncWhen(lastOk.ran_at)):''}${fails?'<br><b style="color:var(--red)">'+fails+' כישלונות ב-7 הימים האחרונים</b>':''}</div>
     </div>`;
@@ -17274,7 +17422,7 @@ function paintSyncLog(){
     return `<div class="sl-row ${r.ok?'':'bad'}" onclick="syncLogToggle(${Number(r.id)})">
         <span class="arw">${SYNCLOG_OPEN[r.id]?'▾':'◂'}</span>
         <span class="dt">${esc(syncWhen(r.ran_at))}</span>
-        <span class="fnm">${m.ic} ${esc(m.label)}${err?'<small>'+esc(String(err).slice(0,70))+'</small>':''}</span>
+        <span class="fnm">${m.ic ? m.ic + ' ' : ''}${esc(m.label)}${err?'<small>'+esc(String(err).slice(0,90))+'</small>':''}</span>
         <span>${r.ok?'<span class="sl-tag ok">הצליח</span>':'<span class="sl-tag no">נכשל</span>'}</span>
         <span class="sl-ms">${esc(syncDur(d.ms))}</span>
       </div>${det}`;
@@ -17672,6 +17820,8 @@ window.buildSetSubmenu = ()=>{
    ל-core.integrations. סודות (מפתחות, סיסמאות, טוקנים) אינם נשמרים שם לעולם
    אלא ב-Edge Function Secrets, ולכן אינם מוצגים ואינם ניתנים לעריכה מהמסך. */
 
+let INT_MORE = false;
+window.intMore = o => { INT_MORE = !!o; };
 let INTEGS = [], INT_LOADING = false, INT_ERR = '', INT_CONFIRM = '';
 
 const INT_ST = {
@@ -17723,8 +17873,8 @@ function intErrText(e, verb){
 }
 
 function integHtml(){
-  return `<h2 class="sec" style="margin-top:0">חיבורים</h2>
-    <div class="note">כל חיבור לאפליקציה חיצונית מנוהל כאן בנפרד, יחד עם מצב הסנכרון שלו בפועל. פרטי ההתחברות עצמם — מפתחות, סיסמאות וטוקנים — נשמרים בכספת המערכת ואינם מוצגים כאן ואינם ניתנים לעריכה מהמסך.</div>
+  return `<div class="st-top"><h2 class="sec">חיבורים</h2></div>
+    <div class="st-lead">כל חיבור לאפליקציה חיצונית, יחד עם מצב הסנכרון שלו בפועל. מפתחות, סיסמאות וטוקנים נשמרים בכספת המערכת — אינם מוצגים כאן ואינם ניתנים לעריכה מהמסך.</div>
     <div id="integBox">${crmLoading('טוען חיבורים…')}</div>`;
 }
 
@@ -17782,11 +17932,16 @@ function renderIntegs(){
   h += '<div class="int-bar"><button class="chip" onclick="loadIntegrations(true)">רענון מצב</button>'
     + '<span class="int-hint">מצב הסנכרון מתעדכן מ-<b dir="ltr">ord.sync_log</b>. חיבור ללא תהליך סנכרון אוטומטי אינו מציג מצב.</span></div>';
 
-  const cats = [...new Set(INTEGS.map(i => i.category || 'כללי'))];
-  h += cats.map(c => '<div class="int-cat">' + esc(c) + '</div>'
-    + '<div class="int-grid">'
-    + INTEGS.filter(i => (i.category || 'כללי') === c).map(i => intCard(i, admin)).join('')
-    + '</div>').join('');
+  /* 7.21.0 — round3 (מ-setui 6.235.0): בכל קטגוריה היה חיבור אחד, ולכן כל "גריד" היה עמודה צרה אחת וגלילה ארוכה.
+     הפעילים בגריד אחד והקטגוריה עברה לתגית בכרטיס; השאר — לא מחוברים, בקרוב, הוצאו משימוש — מקופלים. */
+  const isLive = i => i.status === 'connected' || i.status === 'error';
+  const liveL = INTEGS.filter(isLive), restL = INTEGS.filter(i => !isLive(i));
+  if(restL.some(i => i.key === INT_CONFIRM)) INT_MORE = true;
+  h += liveL.length ? '<div class="int-grid">' + liveL.map(i => intCard(i, admin)).join('') + '</div>' : '<div class="empty">אין חיבורים פעילים</div>';
+  if(restL.length) h += '<details class="st-grp int-more"' + (INT_MORE ? ' open' : '') + ' ontoggle="intMore(this.open)"><summary>'
+    + '<span class="st-gt"><b>חיבורים שאינם פעילים</b><small>' + esc(restL.map(i => i.name).join(' · ')) + '</small></span>'
+    + '<span class="st-gn">' + fmtNum(restL.length) + '</span>' + ST_CHEV + '</summary>'
+    + '<div class="int-grid">' + restL.map(i => intCard(i, admin)).join('') + '</div></details>';
 
   box.innerHTML = h;
 }
@@ -17836,13 +17991,14 @@ function intCard(i, admin){
     + '<div class="ic-top">'
       + '<span class="ic-ico">' + (INT_ICO[i.provider] || '🔌') + '</span>'
       + '<span class="ic-name">' + esc(i.name) + '</span>'
+      + (i.category ? '<span class="ic-cat">' + esc(i.category) + '</span>' : '')
       + '<span class="int-st ' + cls + '">' + lbl + '</span>'
     + '</div>'
     + '<div class="ic-desc">' + esc(i.description || '') + '</div>'
     + (hl ? '<div class="ic-health ' + hc + '">' + hl + '</div>' : '')
     + (i.last_error ? '<div class="ic-err">' + esc(i.last_error) + '</div>' : '')
     + (meta.length ? '<div class="ic-meta">' + meta.join(' · ') + '</div>' : '')
-    + (fns.length ? '<div class="ic-fns">תהליכים: ' + fns.map(f => '<code dir="ltr">' + esc(f) + '</code>').join(' ') + '</div>' : '')
+    + (fns.length ? '<div class="ic-fns" title="' + esc(fns.join(' · ')) + '">' + fmtNum(fns.length) + (fns.length === 1 ? ' תהליך סנכרון' : ' תהליכי סנכרון') + '</div>' : '')
     + (i.doc_url ? '<div class="ic-meta"><a href="' + esc(safeUrl(i.doc_url)) + '" target="_blank" rel="noopener">מסמך ההגדרה</a></div>' : '')
     + '<div class="ic-act">' + act + '</div>'
   + '</div>';
@@ -17928,10 +18084,293 @@ window.intOutlookSync = async () => {
   }catch(e){ toast(intErrText(e, 'סנכרון')); }
 };
 
+/* ═══ 7.21.0 — round3: רישום ההגדרות (נבנה מתוך 6.235.0 setui) ══════════════════
+   רומן, 10/10/2026: "תמשיך לבניה חכמה ועיצובית של יתר כל המסכים בהגדרות"; 18/10/2026: "תעשה סבב 3 עכשיו ותוסיף את
+   מסך ההגדרות לסבב".
+   לכל מפתח ב-ord.settings: [מפתח, מסך, קבוצה, שם, הסבר, סוג, אפשרויות]. המסך הוא **המקום היחיד** שבו הוא נערך;
+   מפתח שאינו כאן מופיע ב"טקסטים ← מתקדם" בשמו הגולמי — אף מפתח אינו נעלם בשקט. book_* נערכים במסך "תיאום פגישות
+   מהאתר" (BOOK_KEYS) ולכן אינם מוצגים כאן כלל. נבנה מ-105 המפתחות שהיו במסד ב-18/10/2026.
+   סוגים: yn מתג (נשמר מיד) · num מספר · txt שורה · area טקסט ארוך · list רשימה (נשמרת כפי שהוקלדה, trim בלבד) ·
+   json (נבדק לפני שמירה) · ro חותמת שהמערכת כותבת — קריאה בלבד.
+   ⚠️ הכתיבה: stSave בלבד, `.select('key')` ושורה אחת בדיוק — RLS שדוחה מחזיר 0 שורות בלי שגיאה (6.191.0).
+   ⚠️ כל רשומה בשורה משלה: crmsettest/notifsettest קוראות את הרישום שורה-שורה. */
+const ST_REG = [
+  ['wa_coord','texts','wa','אישור תיאום התקנה','נשלחת ללקוח כשההתקנה תואמה.','area'],
+  ['wa_service','texts','wa','אישור תיאום קריאת שירות','נשלחת ללקוח כשקריאת השירות תואמה.','area'],
+  ['wa_protocol','texts','wa','שליחת פרוטוקול לחתימה','{קישור} מוחלף בקישור לדף החתימה.','area'],
+  ['protocol_intro','texts','proto','פתיח','השורה הראשונה בדף הפרוטוקול.','area'],
+  ['protocol_sections','texts','proto','הנחיות ההכנה','כותרת סעיף בשורה, ומתחתיה שורות שמתחילות ב-"- ". שורה ריקה בין סעיפים.','area'],
+  ['protocol_warning','texts','proto','אזהרה','מוצגת מעל החתימה.','area'],
+  ['protocol_agree','texts','proto','הצהרת הלקוח','הטקסט שליד תיבת האישור — הלקוח חייב לסמן אותה כדי לחתום.','area'],
+  ['protocol_authorized','texts','proto','הצהרת מורשה חתימה','','area'],
+  ['quote_agree','texts','quote','הצהרת הלקוח','הטקסט שליד תיבת האישור בחתימה על הצעת מחיר.','area'],
+  ['quote_payterms_agree','texts','quote','אישור תנאי התשלום','','area'],
+  ['quote_warning','texts','quote','הערה מעל החתימה','','area'],
+  ['sign_bank_details','texts','quote','פרטי חשבון הבנק','מוצגים ללקוח בדף החתימה.','area'],
+  ['report150_checks','texts','r150','בדיקות התקינות','בדיקה בכל שורה — כל שורה היא תיבה שהטכנאי מסמן.','area'],
+  ['report150_training','texts','r150','נושאי ההדרכה','כותרת בשורה, ושורות "- " מתחתיה.','area'],
+  ['report150_maintenance','texts','r150','הוראות תחזוקה','','area'],
+  ['report150_warning','texts','r150','אזהרה','','area'],
+  ['report150_customer_statement','texts','r150','הצהרת הלקוח','','area'],
+  ['report150_tech_statement','texts','r150','הצהרת הטכנאי','','area'],
+  ['svc_report_statement','texts','svc','הצהרת הלקוח','בדוח שנחתם בסיום קריאת שירות.','area'],
+  ['po_doc_types','texts','lists','סוגי מסמכי ספק (רכש)','הסוגים שאפשר לבחור בהעלאת מסמך להזמנת רכש. מופרד בפסיקים.','list'],
+  ['crm_gap_new_min','crm','gaps','ליד חדש','ממועד פתיחת הליד. באיפיון: שעתיים (120).','num',{min:0,max:20160,step:15,unit:'min'}],
+  ['crm_gap_noanswer1_min','crm','gaps','ללא מענה','באיפיון: 4 שעות (240).','num',{min:0,max:20160,step:15,unit:'min'}],
+  ['crm_gap_noanswer2_min','crm','gaps','ללא מענה2','באיפיון: יום (1440).','num',{min:0,max:20160,step:15,unit:'min'}],
+  ['crm_gap_noanswer3_min','crm','gaps','ללא מענה3','באיפיון: יום (1440).','num',{min:0,max:20160,step:15,unit:'min'}],
+  ['crm_gap_quote_min','crm','gaps','אחרי שליחת הצעת מחיר','מרגע שפריוריטי מדווחת שההצעה נשלחה, בשליחה הראשונה. באיפיון: 4 שעות (240).','num',{min:0,max:20160,step:15,unit:'min'}],
+  ['crm_gap_quote_revised_min','crm','gaps','אחרי עדכון מהדורה של הצעה','מרגע שפריוריטי מדווחת שמהדורה חדשה נשלחה: המשימה הפתוחה זזה למועד הזה (ואם אין — נפתחת חדשה). ברירת מחדל: שעתיים (120).','num',{min:0,max:20160,step:15,unit:'min'}],
+  ['crm_task_name_new','crm','names','ליד חדש','{שם} מוחלף בשם הליד.','txt'],
+  ['crm_task_name_noanswer','crm','names','אין מענה','{שם} = שם הליד · {סטטוס} = הסטטוס החדש.','txt'],
+  ['crm_task_name_meeting','crm','names','פגישה','{שם} = שם הליד. המשימה נפתחת על שעת הפגישה.','txt'],
+  ['crm_task_name_followup','crm','names','פולואפ','{שם} = שם הליד. המועד נבחר ידנית.','txt'],
+  ['crm_task_name_quote','crm','names','אחרי שליחת הצעה','{שם} = שם הלקוח.','txt'],
+  ['crm_q_purpose','crm','q','לאן מיועד הציוד?','','list'],
+  ['crm_q_place_status','crm','q','סטטוס המקום','','list'],
+  ['crm_q_concept','crm','q','הקונספט (לעסקים)','','list'],
+  ['crm_q_knows','crm','q','מכיר את איירון פיטנס?','','list'],
+  ['crm_q_equipment','crm','q','ציוד קיים?','','list'],
+  ['crm_q_intent','crm','q','במה מתעניין?','אותן אפשרויות כמו בדף קביעת הפגישות באתר — הלקוח עונה שם בעצמו.','list'],
+  ['crm_meet_location','crm','meet','מיקום ברירת מחדל','לפגישה **פרונטלית** בלבד, כשלא הוקלד מיקום.','txt'],
+  ['crm_meet_subject','crm','meet','נושא הפגישה','{שם} = שם הליד או הלקוח.','txt'],
+  ['crm_quote_watch_enabled','crm','qw','סוקר ההצעות פעיל','רץ כל 15 דקות, 08:00–20:00, לא בשבת.','yn'],
+  ['crm_quote_sent_statdes','crm','qw','סטטוס "נשלחה"','הצעה שעוברת אליו ⇐ העסקה עולה ל"נשלחה הצעת מחיר ראשונית" ונפתחת משימה.','txt'],
+  ['crm_quote_draft_statdes','crm','qw','סטטוס "טיוטא"','הצעה בטיוטא אינה נמשכת כמסמך.','txt'],
+  ['crm_quote_cancel_statdes','crm','qw','סטטוס "מבוטלת"','מסומן על העסקה ומתריע לבעלים — העסקה עצמה אינה נסגרת.','txt'],
+  ['crm_quote_approved_in_statdes','crm','qw','סטטוס "אושרה" (נקרא מפריוריטי)','הצעה שאושרה בפריוריטי מקדמת את העסקה ל"אושרה ע״י לקוח".','txt'],
+  ['crm_quote_approved_statdes','crm','qw','הסטטוס שנכתב לפריוריטי כשהלקוח חותם','ריק = לא כותבים לפריוריטי.','txt'],
+  ['crm_payterms_required','crm','deal','תנאי תשלום חובה','כשפעיל — מסמך ההצעה אינו מופק בלי «תנאי תשלום» בכרטיס התהליך (התנאים נצרבים במסמך). השרת אוכף באותו מתג.','yn'],
+  ['wa_quote_text','crm','crmwa','הודעת וואטסאפ עם הצעת המחיר','נשלחת מ"שליחה בוואטסאפ" ליד מספר ההצעה בכרטיס העסקה. {שם} = שם פרטי של הנמען · {מעודכנת} = " מעודכנת" ממהדורה 2 · {קישור} = קישור קצר ל-PDF (אם לא מופיע — מתווסף בסוף) · {נציג} = שם השולח · {הצעה} · {מהדורה}. ריק = ברירת המחדל.','area'],
+  ['notif_task_due_lead_min','notif','notif','כמה זמן לפני מועד המשימה להתריע','0–1440 דקות. ערך ריק או פגום ⇐ 60.','num',{min:0,max:1440,step:5,unit:'min'}],
+  ['notif_task_due_enabled','notif','notif','התראה על מועד משימה','ההתראה המוקדמת לכל משימה, ושורת "להיום" בסיכום הבוקר (08:30).','yn'],
+  ['notif_task_overdue_enabled','notif','notif','משימות באיחור בסיכום הבוקר','שורת "באיחור" בסיכום הבוקר (08:30) — התראה אחת לכל איש, לא אחת לכל משימה.','yn'],
+  ['notif_lead_assigned_enabled','notif','notif','התראה על הקצאת ליד','למי שהוקצה לו ליד. לקיחה עצמית אינה מתריעה.','yn'],
+  ['nf_popup_kinds','notif','nfpop','סוגי ההתראות שקופצות בחלון','מופרד בפסיקים. ריק = ברירת המחדל (הצעה מוכנה · הצעה נכשלה · הצעה בוטלה · הזמנה בוטלה); לכיבוי מלא — none.','list',{ltr:1}],
+  ['new_mark_workdays','general','nm','סימון רשומות חדשות','','num'],
+  ['supply_days_std','general','gen','זמן אספקה סטנדרטי','ימי עבודה — רשת אחרונה כשאין להזמנה חוק אספקה.','num',{min:1,max:400,step:1,unit:'wd'}],
+  ['dash_age_contact_days','general','gen','לובי: "טרם נוצר קשר" ותיק','הזמנה פעילה בלי קשר, ותיקה מ-N ימים, נספרת כחריגה.','num',{min:0,max:90,step:1,unit:'d'}],
+  ['dash_age_sched_days','general','gen','לובי: ממתינה לשיבוץ','הזמנה פעילה בלי תאריך שיבוץ, ותיקה מ-N ימים, נספרת כחריגה.','num',{min:0,max:90,step:1,unit:'d'}],
+  ['hook_watch_enabled','general','mon','ניטור הוובהוקים מפריוריטי','מתריע על שתיקה בשעות העבודה ועל וובהוק שנכשל.','yn'],
+  ['hook_watch_gap_hours','general','mon','התראה אחרי שתיקה של','שעות בלי אף וובהוק — א׳–ה׳, 12:00–18:00.','num',{min:1,max:48,step:1,unit:'h'}],
+  ['leads_default_view','adv','adv','לידים: תצוגת ברירת מחדל (לא פעיל)','מ-7.2.0 הבורד נפתח תמיד ב"שלי" — הערך אינו קובע עוד את תצוגת הפתיחה.','txt',{ltr:1}],
+  ['crm_source_of_truth','adv','adv','CRM: מקור האמת','"system" מדויק בלבד מציג את משיכת ההצעה מפריוריטי בכרטיס העסקה — אותו תנאי של השרת.','txt',{ltr:1}],
+  ['supply_service_skus','adv','adv','מק"טי שירות','התקנה, משלוח וסבלות — אינם נספרים כפריטים פתוחים באספקה.','list'],
+  ['strategic_customers','adv','adv','לקוחות אסטרטגיים','מערך JSON.','json',{ltr:1}],
+  ['wa_allow','adv','adv','וואטסאפ — רשימת היתר (פילוט)','רק מספרים ברשימה מקבלים הודעות. ריק = אף הודעה אינה נשלחת.','list',{danger:'שינוי ברשימת ההיתר קובע מי מקבל הודעות וואטסאפ אמיתיות. לשמור?'}],
+  ['wa_channel_id','adv','adv','וואטסאפ — ערוץ Heyy','','txt',{ltr:1}],
+  ['wa_templates','adv','adv','וואטסאפ — מיפוי תבניות Heyy','JSON: מפתח ⇐ מזהה תבנית. מפתח חסר נכשל בקול בשליחה.','json',{ltr:1}],
+  ['wa_quote_link_base','adv','adv','וואטסאפ — בסיס הקישור להצעה','רק https://q.ironfitness.co.il/ או https://app.ironfitness.co.il/q# — כל ערך אחר נופל לברירת המחדל.','txt',{ltr:1}],
+  ['mail_allow','adv','adv','מייל — רשימת היתר (פילוט)','','list',{ltr:1,danger:'שינוי ברשימת ההיתר קובע מי מקבל מיילים אמיתיים. לשמור?'}],
+  ['mail_templates','adv','adv','מייל — תבניות','JSON.','json',{ltr:1}],
+  ['push_allow','adv','adv','התראות טלפון — רשימת היתר (פילוט)','','list',{ltr:1,danger:'שינוי ברשימת ההיתר קובע מי מקבל התראות טלפון. לשמור?'}],
+  ['push_vapid_public','adv','adv','התראות טלפון — מפתח ציבורי (VAPID)','','txt',{ltr:1,danger:'שינוי המפתח הציבורי עלול לנתק את המכשירים הרשומים להתראות. להמשיך?'}],
+  ['hook_auth_mode','adv','adv','וובהוקים: מצב אימות','log ⇐ secret ⇐ enforce. שינוי — מנהל מערכת בלבד.','txt',{ltr:1,danger:'מצב האימות קובע אילו וובהוקים מפריוריטי נקלטים. להמשיך?'}],
+  ['hook_auth_ips','adv','adv','וובהוקים: כתובות מאושרות','כתובת חדשה — רק באישור פריוריטי.','list',{ltr:1,danger:'רשימת הכתובות קובעת מאיפה וובהוק נחשב מאומת. לשמור?'}],
+  ['tranzila_terminal','adv','adv','טרנזילה: מסוף','ריק בכוונה עד מפתחות API v2 — קישורי התשלום חסומים.','txt',{ltr:1,danger:'מילוי המסוף מפעיל קישורי תשלום ללקוחות. להמשיך?'}],
+  ['finance_deep_from','adv','adv','כספים: סריקה עמוקה מתאריך','','txt',{ltr:1}],
+  ['finance_doc_floor','adv','adv','כספים: רצפת תאריך מסמכים','','txt',{ltr:1}],
+  ['finance_exclude_doers','adv','adv','כספים: משתמשים מוחרגים','','list'],
+  ['finance_exclude_statuses','adv','adv','כספים: סטטוסי הזמנה שאינם נספרים','','list'],
+  ['finance_receipt_series','adv','adv','כספים: סדרת הקבלות','','txt',{ltr:1}],
+  ['finance_sync_from','adv','adv','כספים: סימן המים של הסנכרון','מתעדכן אוטומטית.','ro'],
+  ['finance_sync_last_ok','adv','adv','כספים: ריצה תקינה אחרונה','מתעדכן אוטומטית.','ro'],
+  ['finance_deep_last_ok','adv','adv','כספים: סריקה עמוקה אחרונה','מתעדכן אוטומטית.','ro'],
+  ['sinv_ai_enabled','adv','adv','חשבוניות ספק: חילוץ אוטומטי','','yn'],
+  ['sinv_push_enabled','adv','adv','חשבוניות ספק: שליחה לפריוריטי','כשפעיל — חשבוניות מאושרות נשלחות לפריוריטי.','yn',{danger:'שינוי השליחה של חשבוניות הספק לפריוריטי. להמשיך?'}],
+  ['sinv_push_daily_cap','adv','adv','חשבוניות ספק: תקרת שליחה יומית','','num',{min:0,max:1000,step:1,unit:''}],
+  ['sinv_max_amount','adv','adv','חשבוניות ספק: סכום מרבי','₪','num',{min:0,max:100000000,step:1,unit:''}],
+  ['sinv_vat_rate','adv','adv','חשבוניות ספק: שיעור מע"מ','','txt',{ltr:1}],
+  ['sinv_date_floor','adv','adv','חשבוניות ספק: רצפת תאריך','','txt',{ltr:1}],
+  ['sinv_default_ownerlogin','adv','adv','חשבוניות ספק: משתמש ברירת מחדל בפריוריטי','','txt'],
+];
+const ST_GROUPS = {
+  wa:['הודעות וואטסאפ ללקוח','{שם} · {תאריך} · {שעה} · {קישור} מוחלפים אוטומטית.'],
+  proto:['פרוטוקול הכנה להתקנה','מוצג ללקוח בדף החתימה.'],
+  quote:['אישור הצעת מחיר','מוצג ללקוח בדף החתימה על ההצעה.'],
+  r150:['דוח אישור תקינות ציוד','נחתם בשטח בידי הלקוח והטכנאי.'],
+  svc:['דוח קריאת שירות',''],
+  lists:['רשימות',''],
+  adv:['מתקדם — פרמטרים טכניים','סנכרונים, חיבורים, תשלומים וחשבוניות ספק'],
+  gaps:['מתי תיפתח המשימה הבאה','בדקות — מוצג גם כשעות/ימים'],
+  names:['שמות המשימות','{שם} מוחלף בשם הליד'],
+  q:['תשאול הליד — אפשרויות הבחירה','מופרד בפסיקים'],
+  meet:['פגישות',''],
+  qw:['הצעות מחיר בפריוריטי','הסטטוסים חייבים להיות זהים לשמם בפריוריטי'],
+  deal:['תהליך מכירה',''],
+  crmwa:['וואטסאפ מכרטיס העסקה',''],
+  notif:['',''],
+  nfpop:['חלון קופץ להתראות דחופות','ההתראות האחרות מגיעות לפעמון בלבד'],
+  gen:['תצוגה וזמנים',''],
+  mon:['ניטור',''],
+};
+/* view_as_allow — שער ההתחקות (6.227.0). אינו מוצג בשום מסך: נערך במסד בלבד. */
+const ST_HIDE = new Set(['view_as_allow']);
+const ST_BY = {};
+ST_REG.forEach(r=>{ ST_BY[r[0]] = Object.assign({ key:r[0], screen:r[1], group:r[2], label:r[3], hint:r[4], kind:r[5] }, r[6] || {}); });
+const ST_CHEV = '<svg class="st-gch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+let ST_OPEN = new Set();
+function stIdx(key){ return (OSET || []).findIndex(s => s && s.key === key); }
+function stVal(key){ const i = stIdx(key); return i < 0 ? null : String(OSET[i].value ?? ''); }
+/* מפתח שאינו ברישום — מוצג ב"מתקדם" בשמו הגולמי, בסוג שנגזר מהערך. book_* — במסך התיאום (BOOK_KEYS). */
+function stDefOf(key){
+  if(ST_BY[key]) return ST_BY[key];
+  if(/^book_/.test(key)) return { key, screen:'booking', group:'book', label:key, hint:'', kind:'txt' };
+  const v = stVal(key) || '';
+  return { key, screen:'adv', group:'adv', label:key, hint:'', kind:(v.length > 70 || v.indexOf('\n') >= 0) ? 'area' : 'txt', raw:1 };
+}
+function stMd(h){ return esc(h || '').replace(/[*]{2}(.+?)[*]{2}/g, '<b>$1</b>'); }
+function stHuman(d, v){
+  const n = Number(String(v).trim());
+  if(String(v).trim() === '' || !isFinite(n)) return '';
+  if(d.unit === 'min'){
+    if(n < 60) return n + ' דק׳';
+    if(n % 1440 === 0) return n === 1440 ? '= יום' : '= ' + (n / 1440) + ' ימים';
+    if(n % 60 === 0) return n === 60 ? '= שעה' : n === 120 ? '= שעתיים' : '= ' + (n / 60) + ' שעות';
+    return '= ' + Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0') + ' שעות';
+  }
+  if(d.unit === 'd') return n === 1 ? 'יום' : 'ימים';
+  if(d.unit === 'wd') return 'ימי עבודה';
+  if(d.unit === 'h') return n === 1 ? 'שעה' : 'שעות';
+  return '';
+}
+function stVars(v){
+  const m = [...new Set(String(v || '').match(/\{[^{}\n]{1,20}\}/g) || [])];
+  return m.length ? '<span class="st-vars">משתנים: ' + m.map(x => '<code>' + esc(x) + '</code>').join('') + '</span>' : '<span class="st-vars"></span>';
+}
+function stRows(v){
+  const n = String(v || '').split('\n').reduce((a, l) => a + Math.max(1, Math.ceil(l.length / 95)), 0);
+  return Math.min(14, Math.max(2, n));
+}
+function stRoFmt(v){
+  if(/^\d{4}-\d{2}-\d{2}T/.test(v)){ try{ return new Date(v).toLocaleString('he-IL', {day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}); }catch(_e){} }
+  return v || '—';
+}
+function stRowHtml(d, ed){
+  const i = stIdx(d.key);
+  /* שם המפתח מוצג ב"מתקדם", במפתח שאינו ברישום, ובמפתח חסר — שם הוא מה שצריך כדי לאבחן. */
+  const lbl = `<div class="st-l"><b>${esc(d.label)}</b>${d.hint ? `<small>${stMd(d.hint)}</small>` : ''}${d.raw || d.group === 'adv' || i < 0 ? `<code class="st-k" dir="ltr">${esc(d.key)}</code>` : ''}</div>`;
+  if(i < 0) return `<div class="st-row st-miss" data-st="${esc(d.key)}">${lbl}<div class="st-c"><span class="st-note">לא מוגדר — השרת משתמש בברירת המחדל שלו</span></div></div>`;
+  const v = String(OSET[i].value ?? ''), dis = ed ? '' : 'disabled', id = 'stv-' + d.key, ltr = d.ltr ? ' dir="ltr"' : '';
+  const save = ed ? `<button type="button" class="st-save" onclick="stSave('${d.key}')">שמירה</button>` : '';
+  let ctl, cls = '';
+  if(d.kind === 'yn'){
+    cls = ' st-yn';
+    ctl = `<input type="checkbox" class="st-sw" id="${id}" ${v === 'כן' ? 'checked' : ''} ${dis} aria-label="${esc(d.label)}" onchange="stSave('${d.key}')">`;
+  } else if(d.kind === 'num'){
+    ctl = `<input type="number" class="st-num" id="${id}" value="${esc(v)}" min="${d.min ?? ''}" max="${d.max ?? ''}" step="${d.step ?? 1}" ${dis}><span class="st-unit" id="stu-${d.key}">${esc(stHuman(d, v))}</span>${save}`;
+  } else if(d.kind === 'txt'){
+    ctl = `<input type="text" class="st-txt" id="${id}" value="${esc(v)}" ${dis}${ltr}>${save}`;
+  } else if(d.kind === 'ro'){
+    cls = ' st-ro-row';
+    ctl = `<span class="st-ro" dir="ltr" title="${esc(v)}">${esc(stRoFmt(v))}</span>`;
+  } else if(d.kind === 'list'){
+    cls = ' st-wide';
+    ctl = `<input type="text" class="st-txt" id="${id}" value="${esc(v)}" ${dis}${ltr}>${save}`;
+  } else {
+    cls = ' st-wide';
+    ctl = `<textarea class="st-ta" id="${id}" rows="${stRows(v)}" ${dis}${ltr}>${esc(v)}</textarea><div class="st-ta-f">${d.kind === 'json' ? '<span class="st-vars"></span>' : stVars(v)}${save}</div>`;
+  }
+  return `<div class="st-row${cls}" data-st="${esc(d.key)}">${lbl}<div class="st-c">${ctl}</div></div>`;
+}
+function stCard(g, ed, keys){
+  const [t, s] = ST_GROUPS[g] || ['', ''];
+  const ks = keys || ST_REG.filter(r => r[2] === g).map(r => r[0]);
+  return `<section class="st-card">${t ? `<div class="st-hd"><h3>${esc(t)}</h3>${s ? `<small>${esc(s)}</small>` : ''}</div>` : ''}<div class="st-rows">${ks.map(k => stRowHtml(stDefOf(k), ed)).join('')}</div></section>`;
+}
+/* השוואה מול OSET — האמת שנשמרה — ולא מול data-o: אחרי שמירה הצבע נעלם בלי לעדכן תכונה. */
+function stDirtyOf(key){
+  const d = stDefOf(key), el = document.getElementById('stv-' + key);
+  if(!el || d.kind === 'yn' || d.kind === 'ro') return false;
+  const b = stVal(key); if(b === null) return false;
+  return d.kind === 'num' ? String(el.value).trim() !== b.trim() : String(el.value) !== b;
+}
+function stLive(key){
+  const d = stDefOf(key), el = document.getElementById('stv-' + key); if(!el) return;
+  const row = el.closest('.st-row'); if(row) row.classList.toggle('st-dirty', stDirtyOf(key));
+  if(d.kind === 'num'){ const u = document.getElementById('stu-' + key); if(u) u.textContent = stHuman(d, el.value); }
+  if(d.kind === 'area'){ const f = el.parentNode.querySelector('.st-vars'); if(f) f.outerHTML = stVars(el.value); }
+}
+/* שורות שאינן מפתח ב-ord.settings (צוותים · עובדים זמניים · סימון חדשים): הפקדים נושאים data-o. */
+function stRowPaint(row){
+  if(!row) return;
+  const ch = [...row.querySelectorAll('[data-o]')].some(e => (e.type === 'checkbox' ? (e.checked ? '1' : '0') : String(e.value).toLowerCase()) !== String(e.dataset.o).toLowerCase());
+  row.classList.toggle('st-dirty', ch);
+}
+function stWire(el){
+  if(!el || el.__stWired) return;
+  el.__stWired = true;
+  const h = ev=>{
+    const t = ev.target, row = t && t.closest && t.closest('.st-row');
+    if(!row) return;
+    if(row.dataset.st && t.id === 'stv-' + row.dataset.st) stLive(row.dataset.st);
+    else if(row.dataset.row) stRowPaint(row);
+  };
+  el.addEventListener('input', h); el.addEventListener('change', h);
+}
+window.stGrp = (g, o)=>{ if(o) ST_OPEN.add(g); else ST_OPEN.delete(g); };
+/* חיפוש בטקסטים: מסתיר שורות שאינן תואמות, ופותח קבוצה שיש בה התאמה. ריק — חוזר למצב הקודם. */
+window.stFilter = q=>{
+  q = String(q || '').trim().toLowerCase();
+  document.querySelectorAll('#set-wrap .st-grp[data-g]').forEach(gr=>{
+    let n = 0;
+    gr.querySelectorAll('.st-row[data-st]').forEach(r=>{
+      const k = r.dataset.st, d = stDefOf(k);
+      const hit = !q || [d.label, d.hint, k, stVal(k)].some(x => String(x || '').toLowerCase().indexOf(q) >= 0);
+      r.hidden = !hit; if(hit) n++;
+    });
+    gr.hidden = !!q && !n;
+    gr.open = q ? n > 0 : ST_OPEN.has(gr.dataset.g);
+  });
+};
+window.stSave = async key=>{
+  const d = stDefOf(key), el = document.getElementById('stv-' + key); if(!el) return;
+  const back = ()=>{ if(d.kind === 'yn') el.checked = stVal(key) === 'כן'; };
+  let v = d.kind === 'yn' ? (el.checked ? 'כן' : 'לא') : String(el.value);
+  if(d.kind === 'num'){
+    v = v.trim(); const n = Number(v);
+    if(v === '' || !isFinite(n) || (d.min != null && n < d.min) || (d.max != null && n > d.max)){
+      toast('ערך לא תקין' + (d.min != null ? ' — ' + d.min + '–' + d.max : ''), 'err'); return;
+    }
+  }
+  if(d.kind === 'list') v = v.trim();
+  if(d.kind === 'json'){ try{ JSON.parse(v); }catch(_e){ toast('JSON לא תקין — לא נשמר', 'err'); return; } }
+  if(d.danger && !(await sysConfirm(d.danger, { danger:true, ok:'שמירה' }))){ back(); return; }
+  const { data, error } = await sb.schema('ord').from('settings').update({ value:v }).eq('key', key).select('key');
+  if(error || !Array.isArray(data) || data.length !== 1){
+    back();
+    toast(error ? 'שמירה נכשלה: ' + error.message : 'השמירה לא בוצעה — אין הרשאה לעדכן הגדרה זו', 'err');
+    return;
+  }
+  const i = stIdx(key); if(i >= 0) OSET[i].value = v;
+  if(d.kind !== 'yn' && el.value !== v) el.value = v;
+  stLive(key);
+  /* ⚠️ "ישתקף במסמכים" נכון לנוסחים בלבד (הודעות התיאום · פרוטוקול · דוחות · הצעה · פרטי הבנק בדף החתימה) — לכל השאר
+     זה שקר (6.125.0). wa_quote_text אינו מסמך: הוא נקרא בלחיצה על "שליחה בוואטסאפ". */
+  const doc = /^(wa_coord|wa_service|wa_protocol|protocol_|report150_|svc_report_|quote_|sign_bank_details)/.test(key);
+  toast(d.kind === 'yn' ? (v === 'כן' ? 'הופעל ✓' : 'כובה ✓') : doc ? 'נשמר ✓ — ישתקף במסמכים הבאים שיישלחו' : 'נשמר ✓');
+};
+function textsHtml(){
+  const ed = canEdit('set.texts');
+  const keys = (OSET || []).map(s => s && s.key).filter(k => k && !ST_HIDE.has(k));
+  const by = g => keys.filter(k => stDefOf(k).screen === 'texts' && stDefOf(k).group === g);
+  const adv = keys.filter(k => stDefOf(k).screen === 'adv');
+  const grp = (g, ks, extra) => {
+    if(!ks.length) return '';
+    const [t, s] = ST_GROUPS[g];
+    return `<details class="st-grp${g === 'adv' ? ' st-adv' : ''}" data-g="${g}" ${ST_OPEN.has(g) ? 'open' : ''} ontoggle="stGrp('${g}', this.open)">
+      <summary><span class="st-gt"><b>${esc(t)}</b>${s ? `<small>${esc(s)}</small>` : ''}</span><span class="st-gn">${ks.length}</span>${ST_CHEV}</summary>
+      ${extra || ''}<div class="st-rows">${ks.map(k => stRowHtml(stDefOf(k), ed)).join('')}</div></details>`;
+  };
+  const n = keys.filter(k => stDefOf(k).screen === 'texts').length;
+  return `<div class="st-top"><h2 class="sec">טקסטים ומסמכים</h2><span class="st-cnt">${n} נוסחים</span><span class="st-sp"></span>
+      <input type="search" id="stQ" class="st-q" placeholder="חיפוש בנוסחים…" oninput="stFilter(this.value)" aria-label="חיפוש בנוסחים"></div>
+    <div class="st-lead">הנוסחים שהלקוח רואה בהודעות ובדפי החתימה. שינוי נשמר בכפתור "שמירה" שבשורה, ומופיע במסמך או בהודעה הבאים — בלי פריסה.</div>
+    ${['wa','proto','quote','r150','svc','lists'].map(g => grp(g, by(g))).join('')}
+    ${grp('adv', adv, '<div class="st-warn">פרמטרים שמשפיעים על סנכרונים, על שליחת הודעות, על תשלומים ועל חשבוניות הספק. לשנות רק כשיודעים מה הערך עושה. חותמות שהמערכת כותבת — לקריאה בלבד.</div>')}`;
+}
 function renderSettings(){
   const el=$('#set-wrap'); if(!el) return;
-  const admin=['admin','manager'].includes(ME.role);
-  const isAdmin=ME.role==='admin';
   const cats=settingsCats();
   if(!cats.length){ el.innerHTML='<div class="empty">אין לך הרשאה למסך ההגדרות</div>'; return; }
   if(!cats.some(c=>c[0]===SET_VIEW)) SET_VIEW=cats[0][0];
@@ -17962,41 +18401,28 @@ function renderSettings(){
       <div id="pmGroups" class="tbl-wrap" style="padding:4px 0 12px">${crmLoading('טוען קבוצות…')}</div>
       <div id="pmPanel"></div>`;
   } else if(SET_VIEW==='teams'){
-    body = `<h2 class="sec" style="margin-top:0">צוותי לוגיסטיקה (צבע · שם · פעיל)</h2>
-    <div class="tbl-wrap" style="padding:12px">
-      ${OTEAMS.map(t=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
-        <input type="color" value="${esc(t.color||'#64748b')}" id="tc-${t.id}" ${admin?'':'disabled'} style="width:42px;height:34px;border:none;background:none;padding:0">
-        <input value="${esc(t.name)}" id="tn-${t.id}" ${admin?'':'disabled'} style="flex:1;min-width:120px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit">
-        <label style="font-size:12px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="ta-${t.id}" ${t.active!==false?'checked':''} ${admin?'':'disabled'}>פעיל</label>
-        ${admin?`<button class="chip" onclick="saveTeam('${t.id}')">שמירה</button>`:''}
-      </div>`).join('')||'<div class="empty">אין צוותים</div>'}
-    </div>
-    <h2 class="sec">עובדים זמניים</h2>
-    <div class="note">אנשים שאינם משתמשי המערכת — למשל קבלן שעובד תחת חשבונית. אפשר לשבץ אותם בשיבוץ היומי בנתיבי החברה (משאית, סקודו), ואין להם חשבון התחברות ואין להם הרשאות.</div>
-    <div class="tbl-wrap" style="padding:12px" id="tmWrap">${crmLoading()}</div>
+    /* 7.21.0 — round3 (setui): שורה קומפקטית: צבע · שם · פעיל · שמירה שנצבעת. 🔴 השער canEdit('set.teams') ולא ME.role —
+       עד כאן הצוותים היו לפי התפקיד (המחלקה של 6.24.17) בעוד העובדים הזמניים באותו מסך כבר היו לפי ההרשאה. */
+    const ted = canEdit('set.teams'), tdis = ted ? '' : 'disabled';
+    const tRow = t => { const col = String(t.color || '#64748b').toLowerCase(); return `<div class="st-row st-trow" data-row="team" data-id="${t.id}">
+      <input type="color" class="st-color" id="tc-${t.id}" value="${esc(col)}" data-o="${esc(col)}" ${tdis} aria-label="צבע הצוות ${esc(t.name)}" title="צבע הצוות ביומן ובשיבוץ">
+      <input class="st-txt" id="tn-${t.id}" value="${esc(t.name)}" data-o="${esc(t.name)}" ${tdis} aria-label="שם הצוות">
+      <label class="st-swl"><input type="checkbox" class="st-sw" id="ta-${t.id}" ${t.active!==false?'checked':''} data-o="${t.active!==false?'1':'0'}" ${tdis}><span>פעיל</span></label>
+      ${ted?`<button type="button" class="st-save" onclick="saveTeam('${t.id}')">שמירה</button>`:''}
+    </div>`; };
+    const tOn = OTEAMS.filter(t=>t.active!==false).length;
+    body = `<div class="st-top"><h2 class="sec">צוותי לוגיסטיקה</h2><span class="st-cnt">${tOn} פעילים${OTEAMS.length>tOn?' · '+(OTEAMS.length-tOn)+' לא פעילים':''}</span></div>
+    <div class="st-lead">הצבע מסמן את הצוות ביומן, בשיבוץ ובטבלאות. שינוי נשמר בכפתור "שמירה" שבשורה, שנצבע כשיש מה לשמור.</div>
+    <section class="st-card"><div class="st-rows">${OTEAMS.map(tRow).join('')||'<div class="st-empty">אין צוותים</div>'}</div></section>
+    <div class="st-top"><h2 class="sec">עובדים זמניים</h2><span class="st-cnt" id="tmCnt"></span><span class="st-sp"></span>
+      ${ted?`<button type="button" class="btn" id="tmNewBtn" aria-expanded="false" onclick="tmNewToggle()">＋ עובד זמני</button>`:''}</div>
+    <div class="st-lead">אנשים שאינם משתמשי המערכת — למשל קבלן שעובד תחת חשבונית. אפשר לשבץ אותם בשיבוץ היומי בנתיבי החברה (משאית, סקודו); אין להם חשבון התחברות ואין להם הרשאות.</div>
+    <section class="st-card" id="tmWrap">${crmLoading()}</section>
     ${(setTimeout(tmLoad,0),'')}`;
   } else if(SET_VIEW==='texts'){
-    /* טקסטים מקובצים לפי קטגוריה (הערות 5–6, סבב 3) */
-    const tbox = s => { const i=OSET.indexOf(s); return `<div class="tbl-wrap" style="padding:12px;margin-bottom:10px">
-      <b style="font-size:13px">${esc(s.key)}</b>
-      <textarea id="sv-${i}" ${admin?'':'disabled'} style="width:100%;min-height:90px;margin-top:6px;padding:10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13.5px;box-sizing:border-box">${esc(s.value||'')}</textarea>
-      ${admin?`<button class="chip" onclick="saveSetting(${i})">שמירה</button>`:''}
-    </div>`; };
-    const groups=[
-      ['פרוטוקול התקנה', s=>String(s.key).startsWith('protocol')],
-      ['דוח אישור תקינות ציוד (150)', s=>String(s.key).startsWith('report150')],
-      ['הודעות וואטסאפ', s=>String(s.key).startsWith('wa')],
-    ];
-    const used=new Set();
-    let gHtml='';
-    for(const [title,match] of groups){
-      const items=OSET.filter(s=>match(s)&&!used.has(s.key));
-      items.forEach(s=>used.add(s.key));
-      if(items.length) gHtml+=`<h2 class="sec">${title}</h2>`+items.map(tbox).join('');
-    }
-    const rest=OSET.filter(s=>!used.has(s.key));
-    if(rest.length) gHtml+=`<h2 class="sec">אחר</h2>`+rest.map(tbox).join('');
-    body = `<h2 class="sec" style="margin-top:0">טקסטים ומסמכים — מקובץ לפי קטגוריה</h2>`+(gHtml||'<div class="empty">אין טקסטים מוגדרים</div>');
+    /* 7.21.0 — round3 (setui): קבוצות מקופלות + חיפוש; הפרמטרים הטכניים ב"מתקדם". עד כאן כל 105 המפתחות שב-ord.settings
+       הוצגו כאן כתיבה עם שם טכני — כולל book_*, crm_* ו-notif_* שנערכים במסכים שלהם (אותו מפתח, שני מסכים). */
+    body = textsHtml();
   } else if(SET_VIEW==='notif' && canView('set.notif')){
     body = notifSettingsHtml();
   } else if(SET_VIEW==='booking' && canView('set.crm')){
@@ -18012,25 +18438,22 @@ function renderSettings(){
   } else if(SET_VIEW==='errors' && canView('set.errors')){
     body = errLogHtml();
   } else {
+    /* 7.21.0 — round3 (setui): כללי — ארבעה אריחי מצב, ושתי קבוצות הגדרות שהיו עד כאן מפתח גולמי ב"טקסטים ← אחר". */
     const lastSync = $('#lastSync').textContent || '—';
-    body = `<h2 class="sec" style="margin-top:0">כללי</h2>
-      <div class="tbl-wrap" style="padding:14px">
-        <div class="row"><span class="k">גרסת מערכת</span><span class="v">${esc((document.querySelector('.ver')||{}).textContent||'').replace('גרסה ','')||'—'}</span></div>
-        <div class="row"><span class="k">${esc(lastSync.includes(':')?'סנכרון פריוריטי':'סנכרון')}</span><span class="v">${esc(lastSync||'—')}</span></div>
-        <div class="row"><span class="k">משתמש מחובר</span><span class="v">${esc(ME.email)}</span></div>
-        <div class="row"><span class="k">לקוחות · לידים · הזמנות</span><span class="v">${CUSTS.length.toLocaleString()} · ${LEADS.length.toLocaleString()} · ${ORDS.length.toLocaleString()}</span></div>
+    const ged = canEdit('set.general'), nm = String(osetNum('new_mark_workdays', window.NEW_MARK_DEFAULT_DAYS));
+    const nmRow = `<div class="st-row" data-row="nm"><div class="st-l"><b>סימון רשומות חדשות</b><small>בגוון כתום ובשבב "חדש" — בהזמנות, בקריאות השירות ובלידים. נמדד ב<b>ימי עבודה</b>, בלי תלות בשעת הסנכרון; שבת אינה נספרת. 0 = רק מה שנקלט היום.</small></div>
+      <div class="st-c"><input id="nmDays" class="st-num" type="number" min="0" max="30" step="1" value="${esc(nm)}" data-o="${esc(nm)}" ${ged?'':'disabled'} aria-label="ימי עבודה לסימון רשומה כחדשה"><span class="st-unit">ימי עבודה</span>
+        ${ged?'<button type="button" class="st-save" onclick="nmSave()">שמירה</button>':''}<span id="nm-msg" class="st-msg"></span></div></div>`;
+    const genRows = ST_REG.filter(r=>r[2]==='gen').map(r=>stRowHtml(ST_BY[r[0]], ged)).join('');
+    body = `<div class="st-top"><h2 class="sec">כללי</h2></div>
+      <div class="st-tiles">
+        <div class="st-tile"><small>גרסת מערכת</small><b>${esc((document.querySelector('.ver')||{}).textContent||'').replace('גרסה ','')||'—'}</b><span>${esc(window.BUILD_ID||'')}</span></div>
+        <div class="st-tile"><small>${esc(lastSync.includes(':')?'סנכרון פריוריטי':'סנכרון')}</small><b>${esc(lastSync||'—')}</b><span>ראו "יומן סנכרון"</span></div>
+        <div class="st-tile"><small>משתמש מחובר</small><b>${esc(ME.full_name||ME.email)}</b><span dir="ltr">${esc(ME.email)}</span></div>
+        <div class="st-tile"><small>לקוחות · לידים · הזמנות</small><b>${CUSTS.length.toLocaleString()} · ${LEADS.length.toLocaleString()} · ${ORDS.length.toLocaleString()}</b><span>בזיכרון המסך</span></div>
       </div>
-      <h2 class="sec">סימון רשומות חדשות</h2>
-      <div class="note">רשומה שנקלטה לאחרונה מסומנת ברשימות בגוון כתום ובשבב "חדש · נכנס לאחרונה" — בהזמנות, בקריאות השירות ובלידים. הסימון נמדד ב<b>ימי עבודה</b>: הערך 1 פירושו שכל מה שנקלט ביום העבודה הקודם נשאר מסומן עד סוף היום, בלי תלות בשעה שבה הסנכרון רץ. שבת אינה נספרת. 0 = רק מה שנקלט היום.</div>
-      <div class="tbl-wrap" style="padding:14px">
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-          <label style="font-size:13px">ימי עבודה אחורה:</label>
-          <input id="nmDays" type="number" min="0" max="30" step="1" value="${esc(String(osetNum('new_mark_workdays', window.NEW_MARK_DEFAULT_DAYS)))}" ${canEdit('set.general')?'':'disabled'} style="width:80px;padding:8px;border:1px solid var(--line);border-radius:8px;font-family:inherit;text-align:center">
-          ${canEdit('set.general')?'<button class="chip" onclick="nmSave()">שמירה</button>':''}
-          <span id="nm-msg" style="font-size:12.5px;color:var(--ink-3)"></span>
-        </div>
-      </div>
-      <div class="note" style="margin-top:12px">קטגוריות נוספות (אוטומציות והתראות) ייפתחו כאן בהמשך. חיבורים לאפליקציות חיצוניות מנוהלים בקטגוריית "חיבורים".</div>`;
+      <section class="st-card"><div class="st-hd"><h3>תצוגה וזמנים</h3><small>חל מיד, בלי פריסה</small></div><div class="st-rows">${nmRow}${genRows}</div></section>
+      ${stCard('mon', ged)}`;
   }
   el.innerHTML = `<div class="set-layout">
     <div class="set-nav">${cats.map(([v,l])=>`<button class="${SET_VIEW===v?'active':''}" onclick="setMode('${v}')">${l}<span class="nav-arrow" style="color:var(--ink-3)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>`).join('')}</div>
@@ -18041,6 +18464,7 @@ function renderSettings(){
   if(SET_VIEW==='hooks' && canView('set.hooks')) hooksLogInit();
   if(SET_VIEW==='errors' && canView('set.errors')) errLogInit();
   if(SET_VIEW==='conn') loadIntegrations();
+  stWire(el);
 }
 /* ===== 6.238.0 — statdoc: "סטטוסי פריוריטי מול הלוח" (הגדרות ← CRM ולוגיסטיקה) =====
    רומן (10/10/2026): תיעוד טבלאי במערכת של מה שקורה לכל סטטוס הזמנה בפריוריטי מול הלוח אצלנו,
@@ -18133,56 +18557,10 @@ async function espLoad(){
     <tbody>${rows || '<tr><td colspan="6">אין שורות במדיניות — הסנכרון אינו קולט דבר</td></tr>'}</tbody></table></div>`;
 }
 
-/* ===== הגדרות ← התראות (6.96.0) =====
-   רומן, 18/08/2026: "משימה שמגיע מועד זמנה, אפשר גם לבקש התראה זמן מסוים
-   לפני ושיהיה ממש הגדרות להתראות לניהול של האדמין בלבד."
-
-   המסך אינו מחזיק לוגיקה — הוא עורך ארבע שורות ב-ord.settings שהשרת כבר
-   קורא: core.automation_tick (המעבר החמישי, task_due_soon) והטריגר
-   crm.zz_notify_lead_assigned. שינוי כאן משפיע על התיקתוק הבא, בלי פריסה.
-
-   ⚠️ מפתח שאינו קיים ב-OSET מוצג כשורה מושבתת עם הסבר, ולא נעלם בשקט —
-   אחרת אדמין היה רואה מסך חלקי בלי לדעת למה. */
-const NOTIF_SETTINGS = [
-  ['notif_task_due_lead_min','כמה דקות לפני מועד המשימה להתריע','מספר בדקות, 0–1440. ברירת המחדל בשרת היא 60 אם הערך ריק או פגום.','num'],
-  /* 6.265.0 — ההתנהגות השתנתה בשרת (סקירת ההתראות, רומן "א+ב+ג"): סיכום בוקר אחד במקום התראה לכל משימה. */
-  ['notif_task_due_enabled','התראה על מועד משימה','ההתראה המוקדמת לכל משימה, ושורת "להיום" בסיכום הבוקר (08:30).','yn'],
-  ['notif_task_overdue_enabled','משימות באיחור בסיכום הבוקר','שורת "באיחור" בסיכום הבוקר (08:30) — התראה אחת לכל איש, לא אחת לכל משימה.','yn'],
-  ['notif_lead_assigned_enabled','התראה על הקצאת ליד','נשלחת למי שהוקצה לו ליד. לקיחה עצמית אינה מתריעה.','yn'],
-];
-/* ═══ מסך ההגדרות CRM (6.125.0) ═══════════════════════════════════
-   רומן, 22/08/2026: "את כל ה-flow הזה אני רוצה מסודר בתוך מסך ההגדרות
-   שלנו. תיצור תת מסך שיקרא CRM ושם נרכז את כל הגדרות מערכת ה-CRM."
-   🔴 **מה שכאן משתנה מיד ואינו דורש פריסה** — פונקציות המסד קוראות את
-      אותם מפתחות דרך crm.cfg_int/crm.cfg_txt בכל קריאה.
-   ⚠️ הסיווגים (ליד · פולואפ · פגישה · תהליך מכירה) **אינם** כאן
-      בכוונה: הכרעת רומן הייתה "מרווחי הזמן + שמות המשימות". שינוי שם
-      סיווג היה מנתק אותו מ-3,400 השורות ההיסטוריות.
-   ⚠️ מפתח חסר מוצג כשורה מוסברת ולא נעלם — הדפוס מ-notifSettingsHtml.
-      שם ריק/פגום גורם לשרת ליפול לברירת המחדל שלו, לא לשם ריק. */
-const CRM_SETTINGS = [
-  ['—','מרווחי זמן — מתי תיפתח המשימה הבאה','sep'],
-  ['crm_gap_new_min','ליד חדש','דקות קדימה ממועד פתיחת הליד. באיפיון: שעתיים (120).','num'],
-  ['crm_gap_noanswer1_min','ללא מענה','דקות קדימה. באיפיון: 4 שעות (240).','num'],
-  ['crm_gap_noanswer2_min','ללא מענה2','דקות קדימה. באיפיון: יום (1440).','num'],
-  ['crm_gap_noanswer3_min','ללא מענה3','דקות קדימה. באיפיון: יום (1440).','num'],
-  ['crm_gap_quote_min','אחרי שליחת הצעת מחיר','דקות קדימה מרגע שפריוריטי מדווחת שההצעה נשלחה, בשליחה הראשונה. באיפיון: 4 שעות (240).','num'],
-  /* 7.9.1 — רומן, 15/10/2026: "תגדיר 120 דקות מרגע השליחה כאשר מדובר על עדכון מהדורה של הצעה". נקרא ב-crm.deal_quote_revised. */
-  ['crm_gap_quote_revised_min','אחרי עדכון מהדורה של הצעה','דקות קדימה מרגע שפריוריטי מדווחת שמהדורה חדשה של ההצעה נשלחה. המשימה הפתוחה זזה למועד הזה (ואם אין — נפתחת חדשה). ברירת מחדל: שעתיים (120).','num'],
-  ['—','שמות המשימות','sep'],
-  ['crm_task_name_new','משימת ליד חדש','{שם} מוחלף בשם הליד.','txt'],
-  ['crm_task_name_noanswer','משימת "אין מענה"','{שם} = שם הליד · {סטטוס} = הסטטוס החדש.','txt'],
-  ['crm_task_name_meeting','משימת פגישה','{שם} = שם הליד. המשימה נפתחת על שעת הפגישה.','txt'],
-  ['crm_task_name_followup','משימת פולואפ','{שם} = שם הליד. המועד נבחר ידנית.','txt'],
-  ['crm_task_name_quote','משימה אחרי שליחת הצעה','{שם} = שם הלקוח.','txt'],
-  ['—','פגישות','sep'],
-  ['crm_meet_location','מיקום ברירת מחדל לפגישה','חל על פגישה **פרונטלית** בלבד, וכשלא הוקלד מיקום. עד 6.160.0 הערך היה מקודד בסכימה (בלי פסיק) ולא ניתן לשינוי בלי פריסה.','txt'],
-  ['—','וואטסאפ','sep'],
-  ['wa_quote_text','הודעת וואטסאפ עם הצעת המחיר','נשלחת מ"שליחה בוואטסאפ" ליד מספר ההצעה בכרטיס העסקה. {שם} = שם פרטי של הנמען · {מעודכנת} = " מעודכנת" ממהדורה 2 · {קישור} = קישור קצר ל-PDF (אם לא מופיע — מתווסף בסוף) · {נציג} = שם השולח · {הצעה} · {מהדורה}. ריק = ברירת המחדל.','area'],
-  ['—','סוקר הצעות המחיר בפריוריטי','sep'],
-  ['crm_quote_watch_enabled','הסוקר פעיל','"כן" או "לא". רץ כל 15 דקות, 08:00–20:00, לא בשבת.','yn'],
-  ['crm_quote_sent_statdes','הסטטוס בפריוריטי שמסמן "נשלחה"','⚠️ הערך הזה לא נמדד מול פריוריטי. הסוקר רושם ביומן הסנכרון את כל ערכי STATDES שהוא רואה — אחרי הריצה הראשונה על הצעה אמיתית אפשר לתקן אותו כאן.','txt'],
-];
+/* ===== הגדרות ← התראות (6.96.0) · CRM (6.125.0) — מ-7.21.0 (round3) שניהם נבנים מ-ST_REG =====
+   התראות: המסך אינו מחזיק לוגיקה — הוא עורך שורות ב-ord.settings שהשרת כבר קורא (core.automation_tick,
+   crm.zz_notify_lead_assigned). CRM: פונקציות המסד קוראות את המפתחות בכל פעולה (crm.cfg_int/cfg_txt).
+   ⚠️ מפתח שאינו קיים ב-OSET מוצג כשורה עם הסבר, ולא נעלם בשקט. הפונקציות עצמן — אחרי קוד מסך התיאום. */
 /* ═══ 7.4.0 — הגדרות ← תיאום פגישות מהאתר (booking1) ═════════════════════
    רומן, 14/10/2026: "תכין לי במערכת אפשרות לפתוח שעות מוגדרות לשיחות ייעוץ", וההכרעות:
    ראשון–חמישי 09:00–17:00 "תאפשר בהגדרות לשנות", 24 שעות מראש, 10 ימים קדימה, פגישה אחת ביום.
@@ -18500,70 +18878,27 @@ window.bookSave = async ()=>{
 };
 function crmSettingsHtml(){
   const ed = canEdit('set.crm');
-  const rows = CRM_SETTINGS.map(([key,label,hint,kind])=>{
-    if(kind==='sep' || hint==='sep') return `<h2 class="sec">${esc(label)}</h2>`;
-    const i = OSET.findIndex(s=>s&&s.key===key);
-    if(i < 0) return `<div class="tbl-wrap" style="padding:12px;margin-bottom:10px">
-      <b style="font-size:13px">${esc(label)}</b>
-      <div class="note" style="margin-top:6px">ההגדרה <code>${esc(key)}</code> אינה קיימת ב-ord.settings, ולכן השרת משתמש בברירת המחדל שלו.</div></div>`;
-    const val = String(OSET[i].value ?? '');
-    const dis = ed ? '' : 'disabled';
-    const box = 'padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13.5px';
-    const ctl = kind==='yn'
-      ? `<select id="sv-${i}" ${dis} style="width:auto;min-width:110px;${box}">
-           <option ${val==='כן'?'selected':''}>כן</option><option ${val==='לא'?'selected':''}>לא</option></select>`
-      : kind==='num'
-      ? `<input id="sv-${i}" type="number" min="0" max="20160" step="15" value="${esc(val)}" ${dis} style="width:130px;${box}">`
-      : kind==='area'
-      ? `<textarea id="sv-${i}" rows="4" ${dis} style="flex:1;min-width:260px;${box};resize:vertical">${esc(val)}</textarea>`   /* 7.1.0 — תבנית רב-שורתית */
-      : `<input id="sv-${i}" type="text" value="${esc(val)}" ${dis} style="flex:1;min-width:260px;${box}">`;
-    return `<div class="tbl-wrap" style="padding:12px;margin-bottom:10px">
-      <b style="font-size:13px">${esc(label)}</b>
-      <div class="note" style="margin:4px 0 8px">${esc(hint)}</div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${ctl}
-        ${ed?`<button class="chip" onclick="saveSetting(${i})">שמירה</button>`:''}</div>
-    </div>`;
-  }).join('');
-  return `<h2 class="sec" style="margin-top:0">CRM — מחזור חיי המשימה</h2>
-    <div class="note" style="margin-bottom:12px">כל שינוי כאן חל <b>מיד ובלי פריסה</b> — פונקציות המסד קוראות את הערכים בכל פעולה.</div>
-    ${rows}
-    <h2 class="sec">מה קורה בכל שלב</h2>
-    <div class="tbl-wrap" style="padding:12px">
-      <div class="note" style="line-height:1.9">
-        <b>ליד חדש</b> — נפתחת משימה. נפתח ידנית: הפותח הוא הבעלים של הליד ושל המשימה. הגיע ממקור אחר: ללא בעלים.<br>
-        <b>ללא מענה / 2 / 3</b> — המשימה הקיימת נסגרת ונפתחת חדשה. סיווג <b>ליד</b>.<br>
-        <b>צור פגישה</b> — המשימה נסגרת, ונפתחת משימה על <b>יום ושעת הפגישה</b>. סיווג <b>פגישה</b>.<br>
-        <b>פולואפ</b> — המשימה נסגרת, ונפתחת משימה במועד שנבחר. סיווג <b>פולואפ</b>.<br>
-        <b>סירוב / לא רלוונטי</b> — המשימה נסגרת. לא נפתחת חדשה.<br>
-        <b>פתח לקוח והצעת מחיר</b> — המשימה נסגרת, נפתחים לקוח זמני והצעה בפריוריטי, ונוצר תהליך מכירה בשלב <b>תהליך חדש</b>.<br>
-        כשההצעה עוברת בפריוריטי ל"נשלחה" — השלב עולה ל<b>נשלחה הצעת מחיר ראשונית</b> ונפתחת משימה. סיווג <b>תהליך מכירה</b>.
-      </div>
-    </div>`;
+  return `<div class="st-top"><h2 class="sec">CRM — מחזור חיי המשימה</h2></div>
+    <div class="st-lead">כל שינוי כאן חל <b>מיד ובלי פריסה</b> — פונקציות המסד קוראות את הערכים בכל פעולה.</div>
+    ${['gaps','names','q','meet','qw','deal','crmwa'].map(g => stCard(g, ed)).join('')}
+    <section class="st-card"><div class="st-hd"><h3>מה קורה בכל שלב</h3><small>ההתנהגות שההגדרות למעלה שולטות בה</small></div>
+      <ol class="st-flow">
+        <li><b>ליד חדש</b><span>נפתחת משימה. נפתח ידנית — הפותח הוא הבעלים של הליד ושל המשימה; הגיע ממקור אחר — ללא בעלים.</span></li>
+        <li><b>ללא מענה / 2 / 3</b><span>המשימה הקיימת נסגרת ונפתחת חדשה. סיווג <b>ליד</b>.</span></li>
+        <li><b>צור פגישה</b><span>המשימה נסגרת, ונפתחת משימה על <b>יום ושעת הפגישה</b>. סיווג <b>פגישה</b>.</span></li>
+        <li><b>פולואפ</b><span>המשימה נסגרת, ונפתחת משימה במועד שנבחר. סיווג <b>פולואפ</b>.</span></li>
+        <li><b>סירוב / לא רלוונטי</b><span>המשימה נסגרת. לא נפתחת חדשה.</span></li>
+        <li><b>פתח לקוח והצעת מחיר</b><span>המשימה נסגרת, נפתחים לקוח זמני והצעה בפריוריטי, ונוצר תהליך מכירה בשלב <b>תהליך חדש</b>.</span></li>
+        <li><b>ההצעה "נשלחה" בפריוריטי</b><span>השלב עולה ל<b>נשלחה הצעת מחיר ראשונית</b> ונפתחת משימה. סיווג <b>תהליך מכירה</b>.</span></li>
+        <li><b>מהדורה חדשה נשלחה</b><span>המשימה הפתוחה זזה למועד "אחרי עדכון מהדורה של הצעה" (ואם אין — נפתחת חדשה).</span></li>
+      </ol></section>`;
 }
 function notifSettingsHtml(){
-  const rows = NOTIF_SETTINGS.map(([key,label,hint,kind])=>{
-    const i = OSET.findIndex(s=>s&&s.key===key);
-    if(i < 0) return `<div class="tbl-wrap" style="padding:12px;margin-bottom:10px">
-      <b style="font-size:13px">${esc(label)}</b>
-      <div class="note" style="margin-top:6px">ההגדרה <code>${esc(key)}</code> אינה קיימת ב-ord.settings ולכן השרת משתמש בברירת המחדל שלו. אפשר להוסיף אותה במסך "טקסטים ומסמכים".</div>
-    </div>`;
-    const val = String(OSET[i].value ?? '');
-    const ctl = kind==='yn'
-      ? `<select id="sv-${i}" ${canEdit('set.notif')?'':'disabled'} style="width:auto;min-width:120px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13.5px">
-           <option ${val==='כן'?'selected':''}>כן</option><option ${val==='לא'?'selected':''}>לא</option></select>`
-      : `<input id="sv-${i}" type="number" min="0" max="1440" step="5" value="${esc(val)}" ${canEdit('set.notif')?'':'disabled'}
-              style="width:120px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13.5px">`;
-    return `<div class="tbl-wrap" style="padding:12px;margin-bottom:10px">
-      <b style="font-size:13px">${esc(label)}</b>
-      <div class="note" style="margin:4px 0 8px">${esc(hint)}</div>
-      <div style="display:flex;gap:8px;align-items:center">${ctl}
-        ${canEdit('set.notif')?`<button class="chip" onclick="saveSetting(${i})">שמירה</button>`:''}</div>
-    </div>`;
-  }).join('');
-  return `<h2 class="sec" style="margin-top:0">התראות</h2>
-    <div class="note" style="margin-bottom:12px">ההתראות מגיעות לפעמון שבסרגל העליון. השינוי חל על התיקתוק הבא של המערכת (כל 15 דקות) ואינו דורש פריסה.</div>
-    ${rows}
-    <div class="note" style="margin-top:14px">התראות הפגישות (יום לפני, ובוקר הפגישה) נשלחות בוואטסאפ ומנוהלות בנפרד — הנוסחים במסך "טקסטים ומסמכים".</div>`;
+  const ed = canEdit('set.notif');
+  return `<div class="st-top"><h2 class="sec">התראות</h2></div>
+    <div class="st-lead">ההתראות מגיעות לפעמון שבסרגל העליון. מתג נשמר מיד; השינוי חל על התיקתוק הבא של המערכת (כל 15 דקות) ואינו דורש פריסה.</div>
+    ${stCard('notif', ed)}${stCard('nfpop', ed)}
+    <div class="st-lead">התראות הפגישות (יום לפני, ובוקר הפגישה) נשלחות בוואטסאפ ומנוהלות בנפרד — הנוסחים במסך "טקסטים ומסמכים".</div>`;
 }
 /* הצהרת function ולא const — היא נקראת מתוך תבנית ב-renderUsers, ו-const
    היה נמצא ב-TDZ אילו סדר ההגדרות היה משתנה. */
@@ -19100,23 +19435,32 @@ window.tmLoad = async ()=>{
   }
   tmRender();
 };
+let TM_NEW = false;
 function tmRender(){
   const w = document.getElementById('tmWrap'); if(!w) return;
-  const ad = canEdit('set.teams');
+  const ad = canEdit('set.teams'), dis = ad ? '' : 'disabled';
+  const on = TM_LIST.filter(m=>m.active!==false).length;
+  const cn = document.getElementById('tmCnt'); if(cn) cn.textContent = TM_LIST.length ? on + ' פעילים' + (TM_LIST.length>on ? ' · ' + (TM_LIST.length-on) + ' לא פעילים' : '') : '';
   w.innerHTML =
-    TM_LIST.map(m=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
-      <input value="${esc(m.full_name||'')}" id="tmn-${m.id}" ${ad?'':'disabled'} placeholder="שם מלא" style="flex:1;min-width:130px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit">
-      <input value="${esc(m.phone||'')}" id="tmp-${m.id}" ${ad?'':'disabled'} placeholder="טלפון" style="width:130px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit">
-      <label style="font-size:12px;display:flex;align-items:center;gap:4px"><input type="checkbox" id="tma-${m.id}" ${m.active!==false?'checked':''} ${ad?'':'disabled'}>פעיל</label>
-      ${ad?`<button class="chip" onclick="tmSave('${m.id}')">שמירה</button>`:''}
-    </div>`).join('')
-    + (TM_LIST.length?'':'<div class="empty">אין עובדים זמניים</div>')
-    + (ad?`<div style="display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px">
-      <input id="tmNewName" placeholder="שם מלא" style="flex:1;min-width:130px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit">
-      <input id="tmNewPhone" placeholder="טלפון" style="width:130px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit">
-      <button class="chip" onclick="tmAdd()">הוספה</button></div>`:'')
-    + '<div class="err" id="tm-err"></div>';
+    (TM_LIST.length ? '<div class="st-rows">' + TM_LIST.map(m=>`<div class="st-row st-tmrow" data-row="tm" data-id="${m.id}">
+      <input class="st-txt" id="tmn-${m.id}" value="${esc(m.full_name||'')}" data-o="${esc(m.full_name||'')}" ${dis} placeholder="שם מלא" aria-label="שם מלא">
+      <input class="st-txt" id="tmp-${m.id}" value="${esc(m.phone||'')}" data-o="${esc(m.phone||'')}" ${dis} placeholder="טלפון" dir="ltr" aria-label="טלפון">
+      <label class="st-swl"><input type="checkbox" class="st-sw" id="tma-${m.id}" ${m.active!==false?'checked':''} data-o="${m.active!==false?'1':'0'}" ${dis}><span>פעיל</span></label>
+      ${ad?`<button type="button" class="st-save" onclick="tmSave('${m.id}')">שמירה</button>`:''}
+    </div>`).join('') + '</div>' : '<div class="st-empty">אין עובדים זמניים</div>')
+    + (ad?`<div class="st-add" id="tmNew" ${TM_NEW?'':'hidden'}>
+      <input id="tmNewName" class="st-txt" placeholder="שם מלא" aria-label="שם מלא">
+      <input id="tmNewPhone" class="st-txt" placeholder="טלפון" dir="ltr" aria-label="טלפון">
+      <button type="button" class="st-save st-go" onclick="tmAdd()">הוספה</button>
+      <button type="button" class="st-save" onclick="tmNewToggle(false)">ביטול</button></div>`:'')
+    + '<div class="err st-errline" id="tm-err"></div>';
 }
+window.tmNewToggle = on=>{
+  TM_NEW = (on === undefined) ? !TM_NEW : !!on;
+  const b = document.getElementById('tmNew'), t = document.getElementById('tmNewBtn');
+  if(b) b.hidden = !TM_NEW; if(t) t.setAttribute('aria-expanded', TM_NEW ? 'true' : 'false');
+  if(TM_NEW) setTimeout(()=>{ try{ document.getElementById('tmNewName').focus(); }catch(_e){} }, 30);
+};
 window.tmAdd = async ()=>{
   const eb = document.getElementById('tm-err'); if(eb) eb.textContent='';
   const nm = (document.getElementById('tmNewName')||{}).value || '';
@@ -19125,6 +19469,7 @@ window.tmAdd = async ()=>{
   const { error } = await sb.schema('ord').from('team_members')
     .insert({ full_name: nm.trim(), phone: ph.trim() || null, active: true });
   if(error){ if(eb){ eb.style.display='block'; eb.textContent='ההוספה נכשלה: '+error.message; } return; }
+  TM_NEW = false;
   await tmLoad();
 };
 window.tmSave = async id=>{
@@ -19140,9 +19485,14 @@ window.tmSave = async id=>{
 };
 window.saveTeam = async id=>{
   const upd={ name:$('#tn-'+id).value.trim(), color:$('#tc-'+id).value, active:$('#ta-'+id).checked };
-  const { error } = await sb.schema('ord').from('teams').update(upd).eq('id', id);
+  if(!upd.name){ toast('יש להזין שם לצוות', 'err'); return; }
+  /* 7.21.0 — .select('id'): RLS שדוחה מחזיר 0 שורות בלי שגיאה, ו"הצוות נשמר" היה שקר (6.191.0). */
+  const { data:_sv, error } = await sb.schema('ord').from('teams').update(upd).eq('id', id).select('id');
   if(error){ toast('שמירה נכשלה: '+error.message); return; }
+  if(!Array.isArray(_sv) || _sv.length !== 1){ toast('השמירה לא בוצעה — אין הרשאה לעדכן את הצוות', 'err'); return; }
   const t=OTEAMS.find(x=>x.id===id); if(t) Object.assign(t,upd);
+  try{ const row = document.querySelector('.st-trow[data-id="' + id + '"]');
+    if(row){ $('#tn-'+id).dataset.o = upd.name; $('#tc-'+id).dataset.o = String(upd.color).toLowerCase(); $('#ta-'+id).dataset.o = upd.active ? '1' : '0'; stRowPaint(row); } }catch(_e){}
   renderCal(); renderOps(); toast('הצוות נשמר ✓');
 };
 /* 6.142.0 — שמירת סף הסימון. משנה התנהגות מיד בציור הבא, בלי פריסה. */
@@ -19161,24 +19511,11 @@ window.nmSave = async ()=>{
     if(row) row.value = String(n); else OSET.push({key:'new_mark_workdays', value:String(n)});
   }catch(_e){}
   if(msg){ msg.style.color='#006300'; msg.textContent='נשמר ✓ הסימון יתעדכן בציור הבא'; }
+  try{ el.value = String(n); el.dataset.o = String(n); stRowPaint(el.closest('.st-row')); }catch(_e){}
   try{ renderLeads(); }catch(_e){}
   try{ renderLogi(); }catch(_e){}
 };
-window.saveSetting = async i=>{
-  const s=OSET[i]; const v=$('#sv-'+i).value;
-  const { error } = await sb.schema('ord').from('settings').update({value:v}).eq('key', s.key);
-  if(error){ toast('שמירה נכשלה: '+error.message); return; }
-  s.value=v;
-  /* ⚠️ הסיומת "ישתקף במסמכים הבאים שיישלחו" נכונה למפתחות של טקסטים
-     ומסמכים (wa_* · protocol_* · report150_* · svc_report_*) — ו**שקר**
-     לכל השאר. היא כבר הופיעה כך במסך ההתראות וב"כללי", ועם מסך ה-CRM
-     היא הייתה אומרת לרומן שמרווח זמן של משימה "ישתקף במסמכים".
-     הודעת אישור שמתארת תופעה שלא תקרה היא אותה מחלקה של רשומת יומן
-     על פעולה שלא בוצעה: היא נראית כמו ראיה. */
-  const _doc = /^(wa_|protocol_|report150_|svc_report_)/.test(s.key || '');
-  toast(_doc ? 'נשמר ✓ — ישתקף במסמכים הבאים שיישלחו' : 'נשמר ✓');
-};
-
+/* 7.21.0 — round3: saveSetting(i) הוחלף ב-stSave(key): האינדקס ב-OSET היה המפתח, ונשאר כותב אחד בלבד. */
 
 let CUSTS=[], TASKS=[], DEALS=[], MEETS=[], CONTS=[], PAYS=[], ORDS=[], SCALLS=[], OTEAMS=[], SKUS=[], PROTS=[], OSET=[];
 /* 6.47.0 — מסך התשלומים עבר להישען על ההזמנה. FIN היא התצוגה המסונכרנת
@@ -30808,51 +31145,51 @@ function numIn(raw){
    העלאה → חילוץ → בדיקה → אישור. הקודים מגיעים מהמסד ולא מהמסך.
    🔴 השליחה לפריוריטי מכובה ב-ord.settings.sinv_push_enabled. */
 const SPI_CSS = `
-#tab-sinv .spi-bar{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:0 0 12px; }
-#tab-sinv .spi-up{ background:var(--navy); color:#fff; padding:9px 18px; border-radius:9px;
-  cursor:pointer; font-size:13.5px; font-weight:600; }
+#tab-sinv .spi-bar{ display:flex; gap:var(--sp-3); align-items:center; flex-wrap:wrap; margin:0 0 var(--sp-3); }
+#tab-sinv .spi-up{ background:var(--navy); color:#fff; padding:var(--sp-2) var(--sp-4); border-radius:var(--r-md);
+  cursor:pointer; font-size:var(--fs-md); font-weight:600; }
 #tab-sinv .spi-up.off{ background:#cbd5e1; cursor:not-allowed; }
 #tab-sinv .spi-warn{ background:#fff7e6; border:1px solid #f0c36d; border-radius:10px;
-  padding:10px 14px; margin:0 0 12px; font-size:13px; line-height:1.5; }
-#tab-sinv .spi-st{ display:inline-block; padding:1px 9px; border-radius:999px;
-  font-size:11.5px; font-weight:700; white-space:nowrap; }
-#tab-sinv .spi-st.ok{ background:#e7f6ec; color:#15803d; }
-#tab-sinv .spi-st.wait{ background:#eef2f5; color:#475569; }
-#tab-sinv .spi-st.bad{ background:#fdf1f1; color:#b91c1c; }
+  padding:var(--sp-2h) var(--sp-3); margin:0 0 var(--sp-3); font-size:var(--fs-md); line-height:1.5; }
+#tab-sinv .spi-st{ display:inline-block; padding:1px var(--sp-2); border-radius:999px;
+  font-size:var(--fs-xs); font-weight:700; white-space:nowrap; }
+#tab-sinv .spi-st.ok{ background:#e7f6ec; color:var(--ok); }
+#tab-sinv .spi-st.wait{ background:#eef2f5; color:var(--ink-2); }
+#tab-sinv .spi-st.bad{ background:#fdf1f1; color:var(--red); }
 #tab-sinv .spi-st.sent{ background:#e6f0ff; color:#1d4ed8; }
 #tab-sinv tr.spi-row{ cursor:pointer; }
 #tab-sinv .spi-two{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
-  gap:16px; align-items:start; }
+  gap:var(--sp-4); align-items:start; }
 #tab-sinv .spi-prev{ background:#fff; border:1px solid var(--line); border-radius:12px;
   overflow:hidden; position:sticky; top:12px; }
 #tab-sinv .spi-prev iframe{ width:100%; height:78vh; border:0; display:block; }
 #tab-sinv .spi-prev img{ width:100%; display:block; }
 #tab-sinv .spi-card{ background:#fff; border:1px solid var(--line); border-radius:12px;
-  padding:16px 18px; }
-#tab-sinv .spi-sep{ font-weight:700; font-size:13px; color:var(--navy);
-  border-top:1px solid var(--line); padding-top:12px; margin:16px 0 10px; }
+  padding:var(--sp-4) var(--sp-4); }
+#tab-sinv .spi-sep{ font-weight:700; font-size:var(--fs-md); color:var(--navy);
+  border-top:1px solid var(--line); padding-top:var(--sp-3); margin:var(--sp-4) 0 var(--sp-2h); }
 #tab-sinv .spi-sep:first-child{ border-top:0; padding-top:0; margin-top:0; }
 #tab-sinv .spi-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:10px 14px; }
-#tab-sinv .spi-f label{ display:block; font-size:11.5px; color:var(--ink-3); margin:0 0 3px; }
+  gap:var(--sp-2h) var(--sp-3); }
+#tab-sinv .spi-f label{ display:block; font-size:var(--fs-xs); color:var(--ink-3); margin:0 0 var(--sp-0h); }
 #tab-sinv .spi-f input, #tab-sinv .spi-f select{ width:100%; padding:6px 9px;
-  border:1px solid var(--line); border-radius:7px; font:inherit; font-size:13px;
+  border:1px solid var(--field-bd); border-radius:var(--r-md); font:inherit; font-size:var(--fs-md);
   box-sizing:border-box; }
-#tab-sinv .spi-f.ro input{ background:#f6f8fa; color:#475569; }
-#tab-sinv .spi-iss{ font-size:12.5px; padding:7px 10px; border-radius:8px; margin:0 0 6px; }
+#tab-sinv .spi-f.ro input{ background:#f6f8fa; color:var(--ink-2); }
+#tab-sinv .spi-iss{ font-size:var(--fs-sm); padding:var(--sp-1h) var(--sp-2h); border-radius:8px; margin:0 0 var(--sp-1h); }
 #tab-sinv .spi-iss.block{ background:#fdf1f1; color:#991b1b; border:1px solid #f3c6c6; }
 #tab-sinv .spi-iss.warn{ background:#fff7e6; color:#92400e; border:1px solid #f0c36d; }
-#tab-sinv .spi-act{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
-#tab-sinv .spi-act button{ padding:9px 20px; border-radius:9px; border:1px solid var(--line);
-  background:#fff; cursor:pointer; font:inherit; font-size:13.5px; }
+#tab-sinv .spi-act{ display:flex; gap:var(--sp-2h); flex-wrap:wrap; margin-top:var(--sp-4); }
+#tab-sinv .spi-act button{ padding:9px 20px; border-radius:var(--r-md); border:1px solid var(--line);
+  background:#fff; cursor:pointer; font:inherit; font-size:var(--fs-md); }
 #tab-sinv .spi-act button.pri{ background:var(--navy); color:#fff; border-color:var(--navy);
   font-weight:600; }
 #tab-sinv .spi-act button[disabled]{ opacity:.45; cursor:not-allowed; }
-#tab-sinv .spi-back{ cursor:pointer; color:#1d4ed8; font-size:13px; margin:0 0 12px;
+#tab-sinv .spi-back{ cursor:pointer; color:#1d4ed8; font-size:var(--fs-md); margin:0 0 var(--sp-3);
   display:inline-block; }
-#tab-sinv .spi-hint{ font-size:12px; color:var(--ink-3); margin-top:6px; line-height:1.5; }
-#tab-sinv pre.spi-pay{ background:#0f172a; color:#e2e8f0; padding:14px; border-radius:10px;
-  font-size:11.5px; overflow:auto; max-height:60vh; direction:ltr; text-align:left; }
+#tab-sinv .spi-hint{ font-size:var(--fs-sm); color:var(--ink-3); margin-top:var(--sp-1h); line-height:1.5; }
+#tab-sinv pre.spi-pay{ background:#0f172a; color:#e2e8f0; padding:var(--sp-3); border-radius:10px;
+  font-size:var(--fs-xs); overflow:auto; max-height:60vh; direction:ltr; text-align:left; }
 @media (max-width:1024px){ #tab-sinv .spi-two{ grid-template-columns:1fr; }
   #tab-sinv .spi-prev{ position:static; } #tab-sinv .spi-prev iframe{ height:52vh; } }
 `;
@@ -31175,31 +31512,31 @@ window.spiRender = async function(){
    🔴 אין כאן לוגיקת קידוד. החשבון והנימוק מגיעים מ-ord.sinv_suggest,
       כדי שלא תיווצר הגדרה שנייה של "מה החשבון של הספק הזה". */
 const SI_CSS = `
-#tab-sup .si-bar{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:0 0 12px; }
-#tab-sup .si-q{ flex:0 0 320px; max-width:100%; padding:8px 12px; border:1px solid var(--line);
-  border-radius:9px; font:inherit; }
+#tab-sup .si-bar{ display:flex; gap:var(--sp-2h); align-items:center; flex-wrap:wrap; margin:0 0 var(--sp-3); }
+#tab-sup .si-q{ flex:0 0 320px; max-width:100%; padding:var(--sp-2) var(--sp-3); border:1px solid var(--line);
+  border-radius:var(--r-md); font:inherit; }
 #tab-sup .si-warn{ background:#fff7e6; border:1px solid #f0c36d; border-radius:10px;
-  padding:10px 14px; margin:0 0 12px; font-size:13px; line-height:1.5; }
-#tab-sup .si-kind{ display:inline-block; padding:1px 9px; border-radius:999px; font-size:11.5px;
+  padding:var(--sp-2h) var(--sp-3); margin:0 0 var(--sp-3); font-size:var(--fs-md); line-height:1.5; }
+#tab-sup .si-kind{ display:inline-block; padding:1px 9px; border-radius:999px; font-size:var(--fs-xs);
   font-weight:700; }
 #tab-sup .si-kind.goods{ background:#e6f0ff; color:#1d4ed8; }
-#tab-sup .si-kind.exp{ background:#eef2f5; color:#475569; }
-#tab-sup .si-kind.none{ background:#fdf1f1; color:#b91c1c; }
+#tab-sup .si-kind.exp{ background:#eef2f5; color:var(--ink-2); }
+#tab-sup .si-kind.none{ background:#fdf1f1; color:var(--red); }
 #tab-sup .si-inactive td{ color:var(--ink-3); }
 #tab-sup tr.si-row{ cursor:pointer; }
 #tab-sup .si-card{ background:#fff; border:1px solid var(--line); border-radius:12px;
-  padding:16px 18px; margin:0 0 14px; }
-#tab-sup .si-card h3{ margin:0 0 4px; font-size:17px; }
-#tab-sup .si-sub{ color:var(--ink-3); font-size:12.5px; margin:0 0 14px; }
+  padding:var(--sp-4) var(--sp-4); margin:0 0 var(--sp-3); }
+#tab-sup .si-card h3{ margin:0 0 var(--sp-1); font-size:17px; }
+#tab-sup .si-sub{ color:var(--ink-3); font-size:var(--fs-sm); margin:0 0 var(--sp-3); }
 #tab-sup .si-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-  gap:10px 18px; margin:0 0 16px; }
-#tab-sup .si-f label{ display:block; font-size:11.5px; color:var(--ink-3); margin:0 0 2px; }
-#tab-sup .si-f div{ font-size:13.5px; }
-#tab-sup .si-sep{ font-weight:700; font-size:13px; color:var(--navy);
-  border-top:1px solid var(--line); padding-top:12px; margin:16px 0 10px; }
-#tab-sup .si-rule{ font-size:12.5px; padding:5px 0; border-bottom:1px dashed #eef1f4; }
+  gap:var(--sp-2h) var(--sp-4); margin:0 0 var(--sp-4); }
+#tab-sup .si-f label{ display:block; font-size:var(--fs-xs); color:var(--ink-3); margin:0 0 var(--sp-0h); }
+#tab-sup .si-f div{ font-size:var(--fs-md); }
+#tab-sup .si-sep{ font-weight:700; font-size:var(--fs-md); color:var(--navy);
+  border-top:1px solid var(--line); padding-top:var(--sp-3); margin:var(--sp-4) 0 var(--sp-2h); }
+#tab-sup .si-rule{ font-size:var(--fs-sm); padding:var(--sp-1) 0; border-bottom:1px dashed var(--line-soft); }
 #tab-sup .si-rule b{ color:var(--navy); }
-#tab-sup .si-back{ cursor:pointer; color:#1d4ed8; font-size:13px; margin:0 0 12px;
+#tab-sup .si-back{ cursor:pointer; color:#1d4ed8; font-size:var(--fs-md); margin:0 0 var(--sp-3);
   display:inline-block; }
 @media (max-width:759.98px){ #tab-sup .si-q{ flex:1 1 100%; } }
 @media (max-width:1024px){ #tab-sup .si-q{ min-height:var(--ctl-h-touch); box-sizing:border-box; } }   /* 6.208.0 — H7 (SI_CSS מוזרק אחרי הגיליון) */
