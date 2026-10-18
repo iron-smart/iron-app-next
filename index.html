@@ -3240,8 +3240,28 @@ td.lb-today .lb-dt{ background-color:transparent; }
 #dl-deal .dd-note{ font-size:var(--fs-xs); color:var(--ink-3); margin-top:var(--sp-1h); }
 #dl-deal .dd-note.warn{ color:var(--warn-ink); }
 #dl-deal .dd-pay{ padding-top:var(--sp-4); border-top:1px solid var(--line); }
+/* 7.26.0 dealcard — כותרות השלבים במקטע "פרטי העסקה": מספר בעיגול + שם, אותו מראה לשלושתם (גם "תנאי תשלום" שבתוך dl-paybox) */
+#dl-deal .dd-h{ display:flex; align-items:center; gap:var(--sp-2); font-size:var(--fs-md); font-weight:800; color:var(--ink-1); }
+#dl-deal .dd-h-sep{ padding-top:var(--sp-4); border-top:1px solid var(--line); margin-bottom:calc(-1 * var(--sp-2)); }
+#dl-deal .dd-hn{ width:22px; height:22px; border-radius:50%; background:var(--navy); color:#fff; font-size:var(--fs-xs); font-weight:800;
+  display:inline-grid; place-items:center; flex:none; font-variant-numeric:tabular-nums; }
+#dl-deal .dd-bar{ padding-top:0; border-top:0; }
+/* פירוט תשלומי האשראי — שורה משלו מתחת לסכום, עוטף ולא נשפך לעמודת המועד (נמדד 18/10: חפף את "עם אישור הצעה") */
+#dl-deal .dd-pr-amt{ white-space:normal; min-width:0; }
+#dl-deal .dd-pr-amt .dl-pp-inst{ display:block; white-space:normal; }
+#dl-deal .dl-pp-inst .dl-pp-i{ white-space:nowrap; }
+/* תשלום ששולם */
+#dl-deal .dd-pr.paid .dd-pr-pct, #dl-deal .dd-pr.paid .dd-pr-amt{ color:var(--ok); }
+#dl-deal .dd-paid{ font-size:var(--fs-xs); font-weight:700; }
+/* סטטוס החתימה כשבב, ושורת הקישור והתאריכים כרצועה אחת מתחתיו */
+#dl-deal .dd-bar .st{ display:inline-flex; align-items:center; font-size:var(--fs-sm); font-weight:700; line-height:1.4;
+  padding:var(--sp-0h) var(--sp-2h); border-radius:var(--r-pill); white-space:nowrap; }
+#dl-deal .dd-bar .lb-mut{ font-size:var(--fs-sm); }
+#dl-deal .dd-bar .dd-meta{ flex-basis:100%; margin-inline-start:0; padding:var(--sp-2h) var(--sp-3); background:var(--bg-subtle);
+  border-radius:var(--r-md); gap:var(--sp-2) var(--sp-5); }
 #dl-deal .dd-pay-h{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2) var(--sp-3); }
 #dl-deal .dd-pay-h .dd-t{ font-size:var(--fs-md); font-weight:800; color:var(--ink-1); }
+#dl-deal .dd-pay-h .dd-hn{ margin-inline-end:calc(-1 * var(--sp-1)); }
 #dl-deal .dd-help{ flex-basis:100%; font-size:var(--fs-xs); color:var(--ink-3); }
 #dl-deal select, #dl-deal input.dl-pp-pct, #dl-deal input.dl-pp-days{ min-height:var(--ctl-h-sm); padding:3px 8px; font:inherit; font-size:var(--fs-sm);
   border:1px solid var(--field-bd); border-radius:var(--r-sm); background:#fff; color:var(--ink-1); box-sizing:border-box; }
@@ -3249,7 +3269,7 @@ td.lb-today .lb-dt{ background-color:transparent; }
 #dl-deal select:disabled, #dl-deal input:disabled{ background:var(--bg-subtle); color:var(--ink-3); }
 #dl-deal #dl-paysplit{ width:auto; min-width:260px; flex:0 0 auto; font-weight:600; }
 #dl-deal .dd-sched{ margin-top:var(--sp-3); }
-#dl-deal .dd-pr{ display:grid; grid-template-columns:112px 84px 128px minmax(215px,1.4fr) minmax(130px,1fr) minmax(120px,1fr) 124px;
+#dl-deal .dd-pr{ display:grid; grid-template-columns:112px 72px minmax(150px,1fr) minmax(190px,1.3fr) minmax(130px,1fr) minmax(120px,1fr) 124px;   /* 7.26.0 — הסכום רחב יותר (פירוט התשלומים) */
   align-items:center; gap:var(--sp-2) var(--sp-3); padding:var(--sp-2h) var(--sp-0h); border-bottom:1px solid var(--line-soft); }
 #dl-deal .dd-pr:first-child{ border-top:1px solid var(--line-soft); }
 #dl-deal .dd-pr-n{ display:flex; align-items:center; gap:var(--sp-2); font-size:var(--fs-sm); font-weight:600; color:var(--ink-2); min-width:0; }
@@ -3724,7 +3744,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.25.0</div>
+      <div class="ver">גרסה 7.26.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3797,16 +3817,16 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <nav aria-label="תפריט ראשי">
     <button class="nav-item active" data-tab="today"><span>דשבורד</span></button>
     <!-- CRM — שבעת מסכי ניהול הלקוחות והמכירה תחת קטגוריית אב אחת (רומן 29/07/2026) -->
-    <div class="nav-wrap" data-tabs="tasks,leads,deals,paylinks,customers,contacts,meets,mkt">
+    <div class="nav-wrap" data-tabs="tasks,leads,deals,customers,contacts,meets,paylinks,mkt">
       <button class="nav-item" data-tab="tasks" aria-expanded="false">CRM <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
       <div class="submenu">
         <button data-tab="tasks"     onclick="gotoTab('tasks')">משימות</button>
         <button data-tab="leads"     onclick="gotoTab('leads')">לידים</button>
         <button data-tab="deals"     onclick="gotoTab('deals')">תהליכי מכירה</button>
-        <button data-tab="paylinks"  onclick="gotoTab('paylinks')">קישורי תשלום</button>
         <button data-tab="customers" onclick="gotoTab('customers')">לקוחות</button>
         <button data-tab="contacts"  onclick="gotoTab('contacts')">אנשי קשר</button>
         <button data-tab="meets"     onclick="gotoTab('meets')">פגישות</button>
+        <button data-tab="paylinks"  onclick="gotoTab('paylinks')">קישורי תשלום</button>
         <button data-tab="mkt"       onclick="gotoTab('mkt')">דשבורד שיווק</button>
       </div>
     </div>
@@ -3856,7 +3876,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="paylog-2026-10-18a">גרסה 7.25.0</div>
+    <div class="side-foot" title="dealcard-2026-10-18a">גרסה 7.26.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5196,7 +5216,7 @@ window.navCanTab = t=>{
   const k = TAB_PERM[t];
   return k ? canView(k) : true;
 };
-window.NAV_LAND_ORDER = ['today','tasks','leads','deals','paylinks','customers','contacts','meets','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt'];
+window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt'];
 window.navLanding = ()=> NAV_LAND_ORDER.find(t=>navCanTab(t)) || null;
 window.canView = k => window.pLevel(k) >= 1;
 window.canEdit = k => window.pLevel(k) >= 2;
@@ -12331,8 +12351,11 @@ let DOC_FILTER='sent';
 let DOC_CAT='all';
 /* 6.23.0 — מחולל האסימונים בדפדפן הוסר. אסימוני מסמכים נוצרים אך ורק
    בשרת, ב-ord.gen_doc_token, ולעולם אינם מגיעים ל-DOM. */
-const signUrl = t => new URL('sign.html?t='+t, location.href).href;
-const viewUrl = t => new URL('sign.html?view='+t, location.href).href;
+/* 7.26.0 — רומן: "צפייה במסמך החתום מובילה ל-404" ב-next: sign.html נפרס רק לאתר האמיתי (gh-deploy: next אינו מקבל
+   sign/q/book), ולכן מ-iron-smart.github.io הקישור הולך לדומיין שלנו. בפרודקשן — יחסי, כמו תמיד. */
+const SIGN_BASE = () => location.hostname === 'iron-smart.github.io' ? 'https://app.ironfitness.co.il/' : location.href;
+const signUrl = t => new URL('sign.html?t='+t, SIGN_BASE()).href;
+const viewUrl = t => new URL('sign.html?view='+t, SIGN_BASE()).href;
 function waLink(phone, text){ let d=phoneNorm(phone); if(!d){ d=digitsOf(phone); if(d.startsWith('0')) d='972'+d.slice(1); } return 'https://wa.me/'+d+'?text='+encodeURIComponent(text); }
 /* 6.242.0 — msg/kind/ms אופציונליים: מי שיש לו מה להוסיף (אזהרת שלב) מעביר כאן, כי ההודעה הזאת
    מוצגת אחרי ה-await של הלוח ודורסת כל toast שקדם לה. */
@@ -12365,6 +12388,11 @@ const DOC_VIA = { whatsapp:'וואטסאפ', link:'העתקת קישור' };
 const docPending = p => p.status!=='נחתם' && p.status!=='בוטל' && !p.signed_at;
 function docStatus(p){
   const d = x => x ? fmtIso(x) : '';
+  /* 7.26.0 — הצעה שנחתמה ואישורה בוטל (ord.protocol_superseded): המסמך נשאר «נחתם» במסד — ראיה, טריגר ההקפאה לא זז —
+     אבל אינו "חתום" לשום צורך עסקי. התווית אומרת את שניהם. */
+  if(p.superseded_at)
+    return { label:'נחתם · בוטל', cls:'st-def',
+             title:'נחתם ' + d(p.signed_at) + ', האישור בוטל ' + d(p.superseded_at) + (p.superseded_reason ? ' — ' + p.superseded_reason : '') + '. המסמך החתום נשמר לתיעוד.' };
   if(p.status==='בוטל')
     return { label:'בוטל', cls:'st-def',
              title:'נותר ממתין כשמסמך אחר של אותו לקוח נחתם. נשמר לתיעוד.' };
@@ -13192,7 +13220,7 @@ window.dlSignBox = (d)=>{
   if(!d) return '';
   const rows   = window.dlQuoteRows(d.id);
   /* 7.24.0 — מסמך שבוטל (ביטול אישור) נושא signed_at ואינו "חתום" */
-  const signed = rows.find(p => p.status!=='בוטל' && (p.status==='נחתם' || p.signed_at));
+  const signed = rows.find(p => p.status!=='בוטל' && !p.superseded_at && (p.status==='נחתם' || p.signed_at));   /* 7.26.0 — גם לא «נחתם · בוטל» */
   const live   = rows.find(docPending);
   const row    = signed || live;
   if(row){
@@ -13245,10 +13273,11 @@ window.dlUnapprove = (id)=>{
   const d = (DEALS||[]).find(x=>x.id===id); if(!d) return;
   if(!window.canEdit('crm.deals.payterms')){ toast('ביטול אישור — בהרשאת «תנאי תשלום מיוחדים» בלבד'); return; }
   const signed = d.stage === 'אושרה ע״י לקוח';
+  /* 7.26.0 — רומן: "תשאיר רק ״הסיבה חובה…״" ו"למה יש כפתור דילוג אם חובה לרשום?" ⇒ משפט אחד, ו"דילוג" מוסתר כאן בלבד
+     (lurOpen מחזיר אותו לכל שאר החלוניות). Esc/רקע = ביטול בלי שינוי, כמו קודם. */
   lurOpen('deal', id, signed ? 'ביטול אישור ההצעה' : 'ביטול השליחה לחתימה',
-    (signed ? 'ההצעה «' + (d.name || '—') + '» אושרה. הביטול מחזיר את העסקה לשלב «נשלחה הצעת מחיר ראשונית», מסמן את המסמך החתום «בוטל» (הקובץ נשמר) ומחזיר את ההצעה בפריוריטי ל«נשלחה».'
-            : 'קישור החתימה של «' + (d.name || '—') + '» יבוטל והעסקה תחזור לשלב «נשלחה הצעת מחיר ראשונית».')
-    + ' הסיבה חובה — היא נרשמת ביומן ונשלחת לבעלים ולמנהל המכירות.', null, '', null);
+    'הסיבה חובה — היא נרשמת ביומן ונשלחת לבעלים ולמנהל המכירות.', null, '', null);
+  $('#lur-skip').style.display = 'none';
   $('#lur-body').placeholder = 'למה מבטלים? לדוגמה: הלקוח ביקש לשנות פריטים · נחתם בטעות · המחיר השתנה';
   /* lurOpen מאפס את LUR_CUSTOM — לכן ההצבה אחריו. Esc/רקע = ביטול בלי שינוי (אין data-must). */
   LUR_CUSTOM = async (reason)=>{
@@ -13260,7 +13289,14 @@ window.dlUnapprove = (id)=>{
       $('#lur-err').textContent = 'הביטול נכשל — ' + (msg || (error && error.message) || 'שגיאה'); return false;
     }
     d.stage = data.new_stage || 'נשלחה הצעת מחיר ראשונית'; d.approved_at = null; d.sign_link = null; d.quote_status = null; d.closed_at = null;
-    (PROTS||[]).forEach(p=>{ if(p.deal_id===id && (p.category||'protocols')==='quotes' && (p.status==='נחתם' || p.status==='נשלח')) p.status = 'בוטל'; });
+    /* 7.26.0 — כמו השרת: הממתין ⇒ 'בוטל'; החתום נשאר «נחתם» ומסומן superseded_at (deal_unapprove v2) */
+    const _now = new Date().toISOString();
+    (PROTS||[]).forEach(p=>{ if(p.deal_id===id && (p.category||'protocols')==='quotes'){
+      if(p.status==='נשלח') p.status = 'בוטל';
+      else if(p.status==='נחתם' && !p.superseded_at){ p.superseded_at = _now; p.superseded_reason = reason; } } });
+    /* וקישורי תשלום פתוחים בוטלו בשרת באותה טרנזקציה */
+    (PAYL||[]).forEach(l=>{ if(l.deal_id===id && (l.status==='נוצר' || l.status==='נפתח')){ l.status = 'בוטל'; l.cancelled_at = _now; l.cancel_reason = 'ביטול אישור ההצעה — ' + reason; } });
+    Object.keys(DL_PL).forEach(k=>{ if(k.indexOf(id + ':') === 0) delete DL_PL[k]; });
     try{ dlPipeDraw(id); dlOrdSecDraw(d); }catch(_e){}
     try{ const e1 = document.getElementById('dl-signlink'); if(e1) e1.innerHTML = dlSignLinkHtml(d);
          const e2 = document.getElementById('dl-dates'); if(e2) e2.innerHTML = dlDatesHtml(d);
@@ -13364,7 +13400,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'paylog-2026-10-18a';
+const BUILD_ID = 'dealcard-2026-10-18a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -19830,7 +19866,7 @@ const LOAD_NAMES = ['לידים','לקוחות','משימות','עסקאות','�
 /* 7.10.0 — עמודות המסמכים ל-protsRefreshFor. ⚠️ שלושה עותקים מילוליים זהים בכוונה: הטוען (CRM_Q.prots),
    DL_PROT_COLS (הכרטיס החי, 6.250.0) וזה — dealtest אוכפת את השוויון כטקסט, והבנייה אוכפת את שלושתם.
    expires_at נוסף — בלעדיו "פג תוקף" אינו ניתן לחישוב. */
-const PROTS_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at';
+const PROTS_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason';
 const CRM_Q = {
   leads: () => sb.schema('crm').from('leads').select('id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,send_whatsapp_catalog,owner_id,updated_at,contact_id').order('created_at',{ascending:false}).limit(10000),
   custs: () => sb.schema('core').from('customers').select('id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes').order('created_at',{ascending:false}).limit(10000),
@@ -19842,7 +19878,7 @@ const CRM_Q = {
          כחסרי בעלים. RLS: can_view('crm.leads'). */
       sb.schema('crm').from('lead_owners').select('lead_id,profile_id,legacy_owner,is_primary').limit(10000),
   /* 6.241.0 — מסמכי החתימה. הגדרה אחת לשני צרכנים: loadLeads ורענון מסך המסמכים (CRM_AUTO_REG). */
-  prots: () => sb.schema('ord').from('protocols_v').select('id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at').order('sent_at',{ascending:false}).limit(10000),
+  prots: () => sb.schema('ord').from('protocols_v').select('id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason').order('sent_at',{ascending:false}).limit(10000),
   /* 7.11.0 — הבעלות ברענון האוטומטי (רומן, 16/10/2026: "צריך עדכון מהיר יותר למסך תהליכי מכירה").
      עד כאן נטענה ב-loadLeads בלבד, ולכן תהליך שנפתח אחרי הכניסה הוצג בלי בעלים ומחוץ ל"שלי"
      (נמדד: PQ26001194 ב-15:06 — במסד רומן ראשי, במסך עיגול ריק). אותן שאילתות בדיוק של loadLeads. */
@@ -19851,6 +19887,8 @@ const CRM_Q = {
   /* 7.25.0 — קישורי התשלום (crm.deal_pay_links). RLS: can_view('crm.deals'). לכרטיס העסקה ולמסך «קישורי תשלום». */
   payl: () => sb.schema('crm').from('deal_pay_links').select('id,deal_id,seq,amount,installments,status,source,created_by,created_at,opened_at,open_count,paid_at,paid_amount,txn_ref,sent_at,sent_via,sent_by,sent_count,cancelled_at,cancelled_by,cancel_reason,override_by,override_at').order('created_at',{ascending:false}).limit(5000),
   payl1: (id) => sb.schema('crm').from('deal_pay_links').select('id,deal_id,seq,amount,installments,status,source,created_by,created_at,opened_at,open_count,paid_at,paid_amount,txn_ref,sent_at,sent_via,sent_by,sent_count,cancelled_at,cancelled_by,cancel_reason,override_by,override_at').eq('id', id).limit(1),
+  /* 7.26.0 — קישורי עסקה אחת: כרטיס העסקה (dlPaylSync) */
+  payld: (id) => sb.schema('crm').from('deal_pay_links').select('id,deal_id,seq,amount,installments,status,source,created_by,created_at,opened_at,open_count,paid_at,paid_amount,txn_ref,sent_at,sent_via,sent_by,sent_count,cancelled_at,cancelled_by,cancel_reason,override_by,override_at').eq('deal_id', id).order('created_at',{ascending:false}).limit(50),
   mown: () => sb.schema('crm').from('meeting_owners').select('meeting_id,profile_id,is_primary').limit(10000)
 };
 async function loadLeads(){
@@ -25414,7 +25452,7 @@ function ordQuoteBar(o){
   const d = deals[0] || null;
   const docs = (PROTS||[]).filter(p => (p.category||'protocols') === 'quotes'
     && ((d && p.deal_id === d.id) || String(p.order_number||'').trim() === q));
-  const signed = docs.find(p => p.status !== 'בוטל' && (p.status === 'נחתם' || p.signed_at));   /* 7.24.0 */
+  const signed = docs.find(p => p.status !== 'בוטל' && !p.superseded_at && (p.status === 'נחתם' || p.signed_at));   /* 7.24.0 · 7.26.0 superseded */
   const pend = signed ? null : docs.find(p => docPending(p));
   const qn = d && window.canView('crm.deals')
     ? '<a href="#" onclick="event.preventDefault();goCard(()=>openDeal(\'' + jsq(d.id) + '\'))" title="פתיחת כרטיס תהליך המכירה">' + esc(q) + ' ↗</a>'
@@ -26488,6 +26526,19 @@ window.dlLiveApply = (row)=>{
   return changed;
 };
 
+/* 7.26.0 — רומן: "התשלום הראשון הושלם. למה לא רשום שולם עבור המקדמה?" — הקישור נוצר בדף החתימה (sign v26) ושולם
+   בטרנזילה, ו-PAYL נטען רק בכניסה ובמסך «קישורי תשלום» (CRM_AUTO_REG). ⇒ קישורי העסקה מהשרת בפתיחת הכרטיס ובכל סקירה
+   חיה; dlMerge מחליף רק את שורות העסקה הזאת, וציור רק כשמשהו השתנה. */
+async function dlPaylSync(id){
+  let r; try{ r = await CRM_Q.payld(id); }catch(_e){ return false; }
+  if(!r || r.error || !Array.isArray(r.data)) return false;
+  const ch = dlMerge(PAYL, r.data, l => l.deal_id === id);
+  if(ch){
+    try{ dlPayDraw(id); }catch(_e){}
+    try{ if(typeof CUR_TAB !== 'undefined' && CUR_TAB==='paylinks') renderPayLinks(); }catch(_e){}
+  }
+  return ch;
+}
 window.dlLivePoll = async ()=>{
   if(!DLIVE_ID) return null;
   const id = DLIVE_ID;
@@ -26498,6 +26549,7 @@ window.dlLivePoll = async ()=>{
   const ch = (error || !data) ? null : dlLiveApply(data);
   /* 6.250.0 — ומה שאינו בשורת העסקה: משימות, פגישות, חתימה, לקוח/ליד/איש קשר, עדכונים. */
   try{ await dlLiveRel(id); }catch(_e){}
+  try{ if(DLIVE_ID === id) await dlPaylSync(id); }catch(_e){}   /* 7.26.0 */
   try{ dlUpdRefresh(); }catch(_e){}
   return ch;
 };
@@ -26509,7 +26561,7 @@ window.dlLivePoll = async ()=>{
       מיקוד ומחזיר ללשונית הראשית. בכרטיס העסקה אין שדה הקלדה מלבד תיבת העדכון, שאינה נוגעת כאן. */
 const DL_TASK_COLS = 'id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id';
 const DL_MEET_COLS = 'id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone';
-const DL_PROT_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at';
+const DL_PROT_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason';
 const DL_CUST_COLS = 'id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes';
 const DL_LEAD_COLS = 'id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,send_whatsapp_catalog,owner_id,updated_at,contact_id';
 window.dlDatesHtml = (d)=>{
@@ -26882,6 +26934,8 @@ window.openDeal = async (id)=>{
       <!-- 7.15.0 dealui — מקטע אחד לפי סדר העבודה: סיכום → מסמך + שליחה → לוח תשלומים → פעולה (רומן, 17/10/2026).
            המזהים לא זזו: dlLivePaint · dlPull · dlSignAfterLink מציירים אותם אחד-אחד. -->
       <div class="span4" id="dl-deal">
+        <!-- 7.26.0 dealcard — סדר העבודה כשלבים ממוספרים: ההצעה ← תנאי תשלום ← חתימה ואישור (רומן, 18/10/2026: "שיב יפה בכרטיס") -->
+        <div class="dd-h"><span class="dd-hn">1</span>ההצעה</div>
         <div class="dd-sum">
           <div id="dl-qcell">${dlQCell(d)}</div>
           <div id="dl-amt">${dlAmtCell(d)}</div>
@@ -26893,6 +26947,7 @@ window.openDeal = async (id)=>{
           <div><label>שליחת ההצעה<span class="req">*</span></label><div id="dl-chanbox"></div></div>
         </div>
         <div class="dd-pay" id="dl-paycell"><div id="dl-paybox"></div></div>
+        <div class="dd-h dd-h-sep"><span class="dd-hn">3</span>חתימה ואישור</div>
         <div class="dd-bar">
           <div id="dl-ordopen">${window.dlOrdOpenBox(d)}</div>
           <div id="dl-signbox">${dlSignBox(d)}</div>
@@ -26928,6 +26983,7 @@ window.openDeal = async (id)=>{
   /* 🔴 אחרי הציור ולא לפניו: dlLiveApply קורא ל-dlPipeDraw, וקריאה
      על כרטיס שטרם צויר הייתה נופלת בשקט ל-catch. */
   try{ dlLiveStart(id); }catch(_e){}
+  try{ dlPaylSync(id); }catch(_e){}   /* 7.26.0 — מיד בפתיחה, לא אחרי 20 ש׳ */
   DLIVE_CONTACT = contact ? { id: d.contact_id, full_name: contact.full_name ?? null, phone: contact.phone ?? null, email: contact.email ?? null } : null;
   mountCard('dealModal', ()=>openDeal(id));
   /* 6.135.0 — תמיד, ולא רק כשיש ליד. 51 עסקאות במסד אין להן לא ליד ולא
@@ -27041,9 +27097,10 @@ function dlInstLine(amount, b){
   if((b||{}).method!=='אשראי' || n < 2 || !(Number(amount) > 0)) return '';
   const f = x => '₪' + Number(x).toLocaleString('he-IL', { minimumFractionDigits: Number.isInteger(Number(x)) ? 0 : 2, maximumFractionDigits:2 });
   const rows = dlInstRows(amount, n);
-  const txt = n <= 6 ? rows.map((a,i)=>'תשלום ' + (i+1) + ': ' + f(a)).join(' · ')
-                     : n + ' × ' + f(rows[0]) + (rows[n-1] !== rows[0] ? ' (האחרון ' + f(rows[n-1]) + ')' : '');
-  return `<div class="dl-pp-inst" title="פירוט התשלומים באשראי">${esc(txt)}</div>`;
+  /* 7.26.0 — כל תשלום ביחידה שאינה נשברת, כך שהשבירה נופלת רק בין "תשלום 1: ₪25" ל"תשלום 2: ₪25" */
+  const html = n <= 6 ? rows.map((a,i)=>'<span class="dl-pp-i">' + esc('תשלום ' + (i+1) + ': ' + f(a)) + '</span>').join(' · ')
+                      : esc(n + ' × ' + f(rows[0]) + (rows[n-1] !== rows[0] ? ' (האחרון ' + f(rows[n-1]) + ')' : ''));
+  return `<div class="dl-pp-inst" title="פירוט התשלומים באשראי">${html}</div>`;
 }                     /* `${id}:${seq}` ⇒ { url, amount, installments, ready } — קישור תשלום שהופק */
 let DL_NTID = {};                     /* 7.22.1 — deal_id ⇒ task_id של המשימה הבאה (dlTable), לעורך המועד בטבלה */
 function dlPpWhen(b){
@@ -27077,7 +27134,7 @@ function dlPayDraw(id){
   const sp = window.canEdit('crm.deals.payterms');
   const can = window.canEdit('crm.deals');
   const ed = can && (sp || DEAL_PAY_LOCKED.indexOf(d.stage||'') < 0);
-  const S = dlPpState(d), cus = S.term === '__custom', dis = ed ? '' : ' disabled';
+  const S = dlPpState(d), cus = S.term === '__custom', dis = ed ? '' : ' disabled', dis0 = dis;
   const offer = (PTERMS||[]).filter(t=> t.deal_offer || t.code===S.term);
   const sel = `<select id="dl-paysplit" aria-label="חלוקת התשלום"${dis} onchange="dlPpSplit('${jsq(id)}',this.value)">`
     + `<option value="">בחרו חלוקה…</option>`
@@ -27091,6 +27148,9 @@ function dlPayDraw(id){
   const saved = !S.dirty && Array.isArray(d.pay_plan) && d.pay_plan.length;
   /* 7.15.0 — שורה לכל תשלום, בלי מסגרת: # ושם · % · סכום (שני הבולטים) · מועד · אמצעי · פרטים · פעולות. */
   const rows = S.beats.map((b, i)=>{
+    /* 7.26.0 — תשלום ששולם (crm.deal_pay_links, מהמסד): אין קישור חדש להפיק ואין מה לשנות בשורה — היא ננעלת. */
+    const paid = (PAYL||[]).some(l => l.deal_id===id && l.seq===i+1 && l.status==='שולם');
+    const dis = paid ? ' disabled' : dis0;
     const meth = `<select class="dl-pp-m${(S.dirty && !b.method) ? ' need' : ''}" aria-label="אמצעי תשלום ${i+1}"${dis} onchange="dlPpSet('${jsq(id)}',${i},{method:this.value})">`
       + `<option value="">אמצעי תשלום…</option>`
       + DEAL_PAY_METHODS.map(o=>{ const lock = (o==='שוטף' || o==='שקים') && !sp && b.method!==o;   /* 7.25.0 — שקים נעול כמו שוטף (רומן, 18/10/2026) */
@@ -27112,15 +27172,16 @@ function dlPayDraw(id){
          + `<input class="dl-pp-days" type="number" min="0" max="365" aria-label="ימים"${dis} value="${esc(String(b.offset_days||0))}" title="ימים אחרי המועד" onchange="dlPpSet('${jsq(id)}',${i},{offset_days:+this.value},1)"> ימים`
       : esc(dlPpWhen(b));
     const L = DL_PL[id + ':' + (i+1)];
-    const act = ((saved && b.method==='אשראי') ? `<button type="button" class="dd-lnk" onclick="dlPayLink('${jsq(id)}',${i+1})" title="קישור לתשלום באשראי">${ico('link')} קישור תשלום</button>` : '')
+    const act = (paid ? `<span class="pill st-rel dd-paid">שולם ✓</span>`
+        : (saved && b.method==='אשראי') ? `<button type="button" class="dd-lnk" onclick="dlPayLink('${jsq(id)}',${i+1})" title="קישור לתשלום באשראי">${ico('link')} קישור תשלום</button>` : '')
       + ((cus && ed && S.beats.length > 1) ? `<button type="button" class="dd-icon" onclick="dlPpDel('${jsq(id)}',${i})" title="הסרת התשלום" aria-label="הסרת התשלום">✕</button>` : '');
     /* 7.25.0 — הקישור הקצר (q) מוצג ונשלח; העתקה/וואטסאפ נרשמות (crm.pay_link_sent). שורת הסטטוס — מ-PAYL (המסד), גם בלי קישור בזיכרון. */
-    const lk = L ? `<div class="dl-pp-link"><code>${esc(L.short || L.url)}</code>`
+    const lk = (L && !paid) ? `<div class="dl-pp-link"><code>${esc(L.short || L.url)}</code>`
       + `<button type="button" class="dd-btn" onclick="payLinkCopy('${jsq(id)}',${i+1})">העתקה</button>`
       + (payLinkPhone(d) ? `<a class="dd-btn" style="display:inline-flex;align-items:center;text-decoration:none" href="${esc(waLink(payLinkPhone(d), payWaText(d, i+1, L)))}" target="_blank" rel="noopener" onclick="payLinkSent('${jsq(L.id||'')}','whatsapp','${jsq(id)}')">וואטסאפ</a>` : '')
       + (L.override ? `<span class="dd-warn">הופק ללא חתימה על ההצעה — באישורך, נרשם ביומן העסקה.</span>` : '')
       + (L.ready ? '' : `<span class="dd-warn">המסוף בטרנזילה טרם הוגדר — הקישור ייפתח ללקוח ברגע שיוגדר.</span>`) + `</div>` : '';
-    return `<div class="dd-pr dl-pp-row">`
+    return `<div class="dd-pr dl-pp-row${paid ? ' paid' : ''}">`
       + `<div class="dd-pr-n"><span class="dd-idx">${i+1}</span><span>${esc(dlPpLabel(S.beats, i))}</span></div>`
       + `<div class="dd-pr-pct">${pct}</div>`
       + `<div class="dd-pr-amt">${am.length ? esc(f2(am[i])) : '—'}${am.length ? dlInstLine(am[i], b) : ''}</div>`
@@ -27137,7 +27198,7 @@ function dlPayDraw(id){
       + (tot != null ? `<span class="dd-total">סה"כ לתשלום (כולל מע"מ)<b>${esc(f2(tot))}</b></span>` : '')
       + `</div>` : '';
   const miss = !(Array.isArray(d.pay_plan) && d.pay_plan.length);
-  box.innerHTML = `<div class="dd-pay-h"><span class="dd-t">תנאי תשלום<span class="req">*</span></span>${sel}`
+  box.innerHTML = `<div class="dd-pay-h"><span class="dd-hn">2</span><span class="dd-t">תנאי תשלום<span class="req">*</span></span>${sel}`
     + `<span class="dd-help">חלוקת התשלום — פנימי, לא בפריוריטי · אמצעי לכל תשלום — מתורגם לתנאי התשלום בפריוריטי</span></div>`
     + (S.beats.length ? `<div class="dd-sched">${rows}</div>` : `<div class="dd-empty">בחרו חלוקה כדי להגדיר את לוח התשלומים.</div>`)
     + foot
@@ -27303,7 +27364,7 @@ function payLinkStatusHtml(dealId, seq){
   const ls = (PAYL||[]).filter(l=>l.deal_id===dealId && l.seq===seq); if(!ls.length) return '';
   const f2 = x => '₪' + Number(x).toLocaleString('he-IL', { minimumFractionDigits: Number.isInteger(Number(x)) ? 0 : 2, maximumFractionDigits:2 });
   const paid = ls.find(l=>l.status==='שולם'); const live = ls.find(paylOpen);
-  if(paid) return `<div class="dl-pp-st"><span class="pill p-green">שולם ✓</span><span>${esc(f2(paid.paid_amount != null ? paid.paid_amount : paid.amount))} · ${esc(fmtDT(paid.paid_at))}${paid.txn_ref ? ' · ' + esc(paid.txn_ref) : ''}</span></div>`;
+  if(paid) return `<div class="dl-pp-st"><span>שולם ${esc(f2(paid.paid_amount != null ? paid.paid_amount : paid.amount))} · ${esc(fmtDT(paid.paid_at))}${paid.txn_ref ? ' · ' + esc(paid.txn_ref) : ''}</span></div>`;   /* 7.26.0 — השבב בעמודת הפעולה */
   if(live) return `<div class="dl-pp-st"><span class="pill ${live.status==='נפתח' ? 'p-yellow' : 'pc-neutral'}">${live.status==='נפתח' ? 'הלקוח פתח' : 'ממתין לתשלום'}</span>`
     + `<span>${live.sent_at ? 'נשלח ' + esc(fmtDT(live.sent_at)) + ' ' + payViaLabel(live.sent_via) + (live.sent_count > 1 ? ' · ' + live.sent_count + ' פעמים' : '') : 'טרם נשלח'}`
     + (live.open_count ? ' · נפתח ' + live.open_count + (live.open_count===1 ? ' פעם' : ' פעמים') : '') + (live.override_at ? ' · הופק ללא חתימה' : '') + `</span>`
@@ -29715,6 +29776,7 @@ function lurSubPaint(){
 window.lurSubPick = (btn)=>{ $('#lur-sub').value = btn.dataset.v || ''; $('#lur-err').textContent = ''; lurSubPaint(); };
 function lurOpen(t, id, h, note, subOpts, subCur, pal){
   UPD_REQ_T = t; LB_UPD_REQ = id; LUR_PEND = null; LUR_CUSTOM = null;
+  $('#lur-skip').style.display = '';   /* 7.26.0 — dlUnapprove מסתיר אותו; כל פתיחה אחרת מחזירה */
   $('#lur-h').textContent = h;
   $('#lur-note').textContent = note;
   $('#lur-body').placeholder = LUR_PH[t] || '';
