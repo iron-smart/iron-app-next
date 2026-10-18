@@ -3719,7 +3719,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.22.1</div>
+      <div class="ver">גרסה 7.23.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3779,7 +3779,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       <div class="nf-list" id="nfList"><div class="nf-empty">אין התראות חדשות</div></div>
       <div class="nf-push hidden" id="nfPush"></div>
     </div>
-    <button class="out hidden" id="syncBtn" onclick="syncPriority()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-inline-end:5px;"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>סנכרון פריוריטי</button>
+    <button class="out hidden" id="syncBtn" onclick="syncPriority()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;vertical-align:-2px;margin-inline-end:var(--sp-1);"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>סנכרון פריוריטי</button>
     <button class="gs-btn" id="gsBtn" onclick="GS.open()" title="חיפוש בכל המערכת — שם, טלפון או אימייל (Ctrl/Cmd + S)" aria-label="חיפוש בכל המערכת">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:17px;height:17px"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4-4"/></svg>
     </button>
@@ -3850,7 +3850,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="cancelmove-2026-10-18a">גרסה 7.22.1</div>
+    <div class="side-foot" title="inline-2026-10-18a">גרסה 7.23.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -4000,7 +4000,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
         <span id="payFresh" class="pay-fresh" title="הלוח נטען מחדש לבד כל שתי דקות כשהמסך פתוח. רענון נדחה כשכרטיס פתוח, כשיש בחירה מרוכזת או כשעורך הפעימות פעיל — כדי לא למשוך את השטיח באמצע פעולה."></span>
         <button class="ghost" id="payAddBtn" onclick="payManOpen(null)">+ שורה ידנית</button>
         <button class="ghost" id="payTermsBtn" onclick="ptOpen()">תבניות תנאי תשלום</button>
-        <span class="who2" id="paySync" style="color:var(--ink-3);font-size:12px"></span>
+        <span class="who2" id="paySync" style="color:var(--ink-3);font-size:var(--fs-sm)"></span>
       </div>
       <div class="pay-bulk hidden" id="pay-bulk"></div>
       <div id="pays-list"></div>
@@ -4226,7 +4226,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 <div class="modal modal-over hidden" id="lbFupModal">
   <div class="sheet">
     <h3>פולואפ</h3>
-    <div class="note" style="margin-bottom:10px">המשימה הפתוחה תיסגר, ותיפתח משימה חדשה במועד שתבחר. הליד יעבור ל«רלוונטי · פולואפ».<span class="fu-hint">אפשר לשנות את המועד למתי שנוח לך</span></div>
+    <div class="note" style="margin-bottom:var(--sp-2h)">המשימה הפתוחה תיסגר, ותיפתח משימה חדשה במועד שתבחר. הליד יעבור ל«רלוונטי · פולואפ».<span class="fu-hint">אפשר לשנות את המועד למתי שנוח לך</span></div>
     <div class="field"><label>תאריך<span class="req">*</span></label><input id="fu-date" type="date"></div>
     <div class="field"><label>שעה</label><input id="fu-time" type="time" value="09:00"></div>
     <div class="field"><label>מה קרה בשיחה?</label><textarea id="fu-upd" rows="3" placeholder="העדכון ייכנס ליומן העדכונים של הליד"></textarea></div>
@@ -4243,7 +4243,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 <div class="modal modal-over hidden" id="lbUpdReqModal">
   <div class="sheet">
     <h3 id="lur-h">מה קרה עם הליד?</h3>
-    <div class="note" id="lur-note" style="margin-bottom:10px"></div>
+    <div class="note" id="lur-note" style="margin-bottom:var(--sp-2h)"></div>
     <div class="field" id="lur-subw" style="display:none"><label>סיבה <span class="req">*</span></label><input type="hidden" id="lur-sub"><div class="lb-psub" id="lur-subchips" role="radiogroup" aria-label="סיבה"></div></div>
     <div class="field"><textarea id="lur-body" rows="4" placeholder="לדוגמה: דיברתי איתו, הוא מחפש מתחם בהרצליה, נחזור אליו בשבוע הבא"></textarea></div>
     <div class="actions">
@@ -4258,7 +4258,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 <div class="modal modal-over hidden" id="lbRelModal" data-must="1">
   <div class="sheet">
     <h3>רלוונטי — באיזה שלב?</h3>
-    <div class="note" id="lrel-note" style="margin-bottom:10px"></div>
+    <div class="note" id="lrel-note" style="margin-bottom:var(--sp-2h)"></div>
     <div class="field"><label>תת-סטטוס <span class="req">*</span></label><div class="lb-psub" id="lrel-chips" role="radiogroup" aria-label="תת-סטטוס"></div></div>
     <div class="actions"><button type="button" class="ghost" id="lrel-cancel">ביטול</button></div>
   </div>
@@ -4271,7 +4271,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <h3>איפוס סיסמה</h3>
     <div class="note" id="pw-who"></div>
     <div class="field"><label>סיסמה חדשה *</label>
-      <div style="display:flex;gap:6px;align-items:center">
+      <div style="display:flex;gap:var(--sp-1h);align-items:center">
         <input id="pw-a" type="password" autocomplete="new-password" style="flex:1">
         <button type="button" class="ghost" id="pw-eye" style="width:auto;padding:6px 10px">הצג</button>
       </div>
@@ -4484,7 +4484,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 <div class="modal modal-over hidden" id="mtSendModal">
   <div class="sheet">
     <h3>שיגור זימון לפגישה</h3>
-    <div class="note" style="margin-bottom:10px">ההודעה תיכנס לתור השליחה ותצא בדקה הקרובה.</div>
+    <div class="note" style="margin-bottom:var(--sp-2h)">ההודעה תיכנס לתור השליחה ותצא בדקה הקרובה.</div>
     <div id="mt-sn-body"></div>
     <div class="actions">
       <button class="btn green" id="mt-sn-go">שיגור</button>
@@ -4534,7 +4534,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 <div class="modal modal-over hidden" id="calPickModal">
   <div class="sheet">
     <h3>שיבוץ הזמנה ליום <span id="calPickDay"></span></h3>
-    <div class="note" style="margin:0 0 10px">הזמנות פתוחות שטרם תואמו. הבחירה פותחת את כרטיס ההזמנה עם התאריך ממולא — השיבוץ נשמר רק בלחיצה על שמירה.</div>
+    <div class="note" style="margin:0 0 var(--sp-2h)">הזמנות פתוחות שטרם תואמו. הבחירה פותחת את כרטיס ההזמנה עם התאריך ממולא — השיבוץ נשמר רק בלחיצה על שמירה.</div>
     <input id="calPickQ" class="cal-pick-q" autocomplete="off" placeholder="חיפוש לפי לקוח, מספר הזמנה, עיר או טלפון…" oninput="calPickSearch(this.value)">
     <div id="calPickList" class="cal-pick-list"></div>
   </div>
@@ -4592,10 +4592,10 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 if(!window.supabase){document.write('<scr'+'ipt src="https://unpkg.com/@supabase/supabase-js@2.110.9/dist/umd/supabase.js" integrity="sha384-6foGJ1oz/y3anEo0BXRtTgBK1GvpnR0GbJZb0ijG+nBAJ4rYT+VqlD/9e3CSiFIA" crossorigin="anonymous"><\/scr'+'ipt>');}</script>
 <script>
 if(!window.supabase){
-  document.body.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:24px;border:1px solid #e5e0d8;border-radius:14px;font-family:system-ui,Segoe UI,Arial;direction:rtl;text-align:center;line-height:1.9">'
-    + '<div style="font-size:40px">⚠️</div><h2 style="margin:8px 0">טעינת המערכת נכשלה</h2>'
+  document.body.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:var(--sp-5);border:1px solid var(--line);border-radius:var(--r-lg);font-family:system-ui,Segoe UI,Arial;direction:rtl;text-align:center;line-height:1.9">'
+    + '<div style="font-size:40px">⚠️</div><h2 style="margin:var(--sp-2) 0">טעינת המערכת נכשלה</h2>'
     + '<p>לא הצלחנו לטעון רכיב חיצוני הדרוש להתחברות. בדקו את חיבור האינטרנט ורעננו את הדף.</p>'
-    + '<button onclick="location.reload()" style="padding:10px 22px;border-radius:8px;border:0;background:#1f6f4a;color:#fff;font-size:15px;cursor:pointer">רענון</button></div>';
+    + '<button onclick="location.reload()" style="padding:10px 22px;border-radius:var(--r-md);border:0;background:#1f6f4a;color:#fff;font-size:var(--fs-lg);cursor:pointer">רענון</button></div>';
   throw new Error('supabase-js failed to load');
 }
 const SB_URL = "https://hjibpfavkjqocjvffsbq.supabase.co";
@@ -5075,7 +5075,7 @@ const mdPill = (v, colors, k) => {
   if(!v) return '';
   const bg = (colors && colors[v]) || '';
   return bg ? `<span class="pill" style="${selSty(v,colors,k)}" title="${esc(v)}">${esc(vLbl(v))}</span>`
-            : `<span class="pill" style="background:#f1f5f9;color:#475569">${esc(vLbl(v))}</span>`;
+            : `<span class="pill" style="background:var(--bg-muted);color:var(--ink-2)">${esc(vLbl(v))}</span>`;
 };
 
 /* ===== התחברות — נבנתה מחדש בסבב 4 (28/07/2026) =====
@@ -5358,7 +5358,7 @@ function blockOverlay(id, html){
     o.style.cssText='position:fixed;inset:0;z-index:9999;background:#0f172a;display:flex;align-items:center;justify-content:center;padding:18px;direction:rtl';
     document.body.appendChild(o);
   }
-  o.innerHTML='<div style="background:#fff;border-radius:16px;max-width:440px;width:100%;padding:26px;box-shadow:0 18px 50px rgba(0,0,0,.35);font-family:inherit">'+html+'</div>';
+  o.innerHTML='<div style="background:#fff;border-radius:var(--r-xl);max-width:440px;width:100%;padding:var(--sp-5);box-shadow:var(--sh-modal);font-family:inherit">'+html+'</div>';
   o.style.display='flex';
   return o;
 }
@@ -5370,19 +5370,19 @@ window.forceLogout = async ()=>{
   location.reload();
 };
 window.showPermFail = ()=>{ blockOverlay('permFail',
-  '<h2 style="margin:0 0 8px">טעינת ההרשאות נכשלה</h2>'+
-  '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:16px">לא הצלחנו לטעון את ההרשאות שלך מהשרת. אין זו חסימה — זו תקלת תקשורת. נסו שוב, ואם התקלה חוזרת פנו למנהל המערכת.</div>'+
-  '<div style="display:flex;gap:8px"><button class="chip" onclick="permRetry()">נסה שוב</button>'+
+  '<h2 style="margin:0 0 var(--sp-2)">טעינת ההרשאות נכשלה</h2>'+
+  '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:var(--sp-4)">לא הצלחנו לטעון את ההרשאות שלך מהשרת. אין זו חסימה — זו תקלת תקשורת. נסו שוב, ואם התקלה חוזרת פנו למנהל המערכת.</div>'+
+  '<div style="display:flex;gap:var(--sp-2)"><button class="chip" onclick="permRetry()">נסה שוב</button>'+
   '<button class="chip" onclick="forceLogout()">יציאה</button></div>'); };
 window.permRetry = async ()=>{ hideOverlay('permFail'); try{ await afterLogin(); }catch(e){ console.error('permRetry', e); showPermFail(); } };
 window.showForcePw = ()=>{ blockOverlay('forcePw',
-  '<h2 style="margin:0 0 8px">החלפת סיסמה נדרשת</h2>'+
-  '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:14px">זו הכניסה הראשונה שלך עם הסיסמה שמסר לך מנהל המערכת. כדי להמשיך יש לבחור סיסמה אישית — לפחות 10 תווים, הכוללים אות וספרה.</div>'+
-  '<input id="fp-cur" type="password" dir="ltr" placeholder="הסיסמה הנוכחית" autocomplete="current-password" style="width:100%;padding:10px;margin-bottom:8px;border:1px solid #cbd5e1;border-radius:9px;font-family:inherit">'+
-  '<input id="fp-new" type="password" dir="ltr" placeholder="סיסמה חדשה" autocomplete="new-password" style="width:100%;padding:10px;margin-bottom:8px;border:1px solid #cbd5e1;border-radius:9px;font-family:inherit">'+
-  '<input id="fp-new2" type="password" dir="ltr" placeholder="אימות הסיסמה החדשה" autocomplete="new-password" style="width:100%;padding:10px;margin-bottom:6px;border:1px solid #cbd5e1;border-radius:9px;font-family:inherit">'+
-  '<div id="fp-err" style="color:#c0392b;min-height:18px;font-size:13px;margin-bottom:10px"></div>'+
-  '<div style="display:flex;gap:8px"><button class="chip" id="fp-btn" onclick="submitForcePw()">עדכון הסיסמה</button>'+
+  '<h2 style="margin:0 0 var(--sp-2)">החלפת סיסמה נדרשת</h2>'+
+  '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:var(--sp-3)">זו הכניסה הראשונה שלך עם הסיסמה שמסר לך מנהל המערכת. כדי להמשיך יש לבחור סיסמה אישית — לפחות 10 תווים, הכוללים אות וספרה.</div>'+
+  '<input id="fp-cur" type="password" dir="ltr" placeholder="הסיסמה הנוכחית" autocomplete="current-password" style="width:100%;padding:10px;margin-bottom:var(--sp-2);border:1px solid var(--field-bd);border-radius:var(--r-md);font-family:inherit">'+
+  '<input id="fp-new" type="password" dir="ltr" placeholder="סיסמה חדשה" autocomplete="new-password" style="width:100%;padding:10px;margin-bottom:var(--sp-2);border:1px solid var(--field-bd);border-radius:var(--r-md);font-family:inherit">'+
+  '<input id="fp-new2" type="password" dir="ltr" placeholder="אימות הסיסמה החדשה" autocomplete="new-password" style="width:100%;padding:10px;margin-bottom:var(--sp-1h);border:1px solid var(--field-bd);border-radius:var(--r-md);font-family:inherit">'+
+  '<div id="fp-err" style="color:var(--red);min-height:18px;font-size:var(--fs-md);margin-bottom:var(--sp-2h)"></div>'+
+  '<div style="display:flex;gap:var(--sp-2)"><button class="chip" id="fp-btn" onclick="submitForcePw()">עדכון הסיסמה</button>'+
   '<button class="chip" onclick="forceLogout()">יציאה</button></div>');
   setTimeout(()=>{ try{ document.getElementById('fp-cur').focus(); }catch(_){} }, 60); };
 window.submitForcePw = async ()=>{
@@ -5709,7 +5709,7 @@ window.showNoAccess = ()=>{
     if(!box){
       box=document.createElement('div'); box.id='noAccessBox';
       box.style.cssText='margin:40px auto;max-width:520px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;direction:rtl';
-      box.innerHTML='<h2 style="margin:0 0 10px">אין לך הרשאה לאף מסך</h2><div style="color:var(--ink-3);line-height:1.7">החשבון נוצר אך טרם שויכה לו קבוצת הרשאות. פנו למנהל המערכת.</div>';
+      box.innerHTML='<h2 style="margin:0 0 var(--sp-2h)">אין לך הרשאה לאף מסך</h2><div style="color:var(--ink-3);line-height:1.7">החשבון נוצר אך טרם שויכה לו קבוצת הרשאות. פנו למנהל המערכת.</div>';
       const host = ($('#tab-today') && $('#tab-today').parentNode) || document.body;
       host.appendChild(box);
     }
@@ -6262,7 +6262,7 @@ async function mfaGate(user, prof){
   return true;
 }
 const MFA_IN = 'width:100%;padding:10px;margin-bottom:8px;border:1px solid #cbd5e1;border-radius:9px;font-family:inherit;font-size:20px;letter-spacing:6px;text-align:center';
-const MFA_ERR = '<div id="mfa-err" role="alert" style="color:#c0392b;min-height:18px;font-size:13px;margin-bottom:10px"></div>';
+const MFA_ERR = '<div id="mfa-err" role="alert" style="color:var(--red);min-height:18px;font-size:var(--fs-md);margin-bottom:var(--sp-2h)"></div>';
 function mfaCodeInput(){ return '<input id="mfa-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" dir="ltr" placeholder="000000" aria-label="קוד אימות" style="' + MFA_IN + '">'; }
 function mfaWire(){
   setTimeout(()=>{ try{ const i = document.getElementById('mfa-code'); i.focus(); i.onkeydown = e => { if(e.key === 'Enter'){ const b = document.getElementById('mfa-btn'); if(b) b.click(); } }; }catch(_){} }, 60);
@@ -6270,14 +6270,14 @@ function mfaWire(){
 function mfaShowChallenge(fs, after){
   MFA_FS = fs; MFA_AFTER = after || afterLogin;
   const pick = fs.length > 1
-    ? '<select id="mfa-f" aria-label="בחירת מאמת" style="width:100%;padding:8px;margin-bottom:8px;border:1px solid #cbd5e1;border-radius:9px;font-family:inherit">'
+    ? '<select id="mfa-f" aria-label="בחירת מאמת" style="width:100%;padding:8px;margin-bottom:var(--sp-2);border:1px solid var(--field-bd);border-radius:var(--r-md);font-family:inherit">'
         + fs.map(f => '<option value="' + esc(f.id) + '">' + esc(f.friendly_name || 'מאמת') + '</option>').join('') + '</select>'
     : '';
   blockOverlay('mfaGate',
-    '<h2 style="margin:0 0 8px">אימות דו-שלבי</h2>' +
-    '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:14px">הזינו את הקוד בן 6 הספרות מאפליקציית המאמת.</div>' +
+    '<h2 style="margin:0 0 var(--sp-2)">אימות דו-שלבי</h2>' +
+    '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:var(--sp-3)">הזינו את הקוד בן 6 הספרות מאפליקציית המאמת.</div>' +
     pick + mfaCodeInput() + MFA_ERR +
-    '<div style="display:flex;gap:8px"><button class="chip" id="mfa-btn" onclick="mfaSubmit()">אישור</button>' +
+    '<div style="display:flex;gap:var(--sp-2)"><button class="chip" id="mfa-btn" onclick="mfaSubmit()">אישור</button>' +
     '<button class="chip" onclick="forceLogout()">יציאה</button></div>');
   mfaWire();
 }
@@ -6309,26 +6309,26 @@ window.mfaSubmit = async ()=>{
   finally{ btn.disabled = false; btn.textContent = 'אישור'; }
 };
 async function mfaShowEnroll(){
-  blockOverlay('mfaGate', '<h2 style="margin:0 0 8px">הפעלת אימות דו-שלבי</h2><div style="color:var(--ink-3)">טוען…</div>');
+  blockOverlay('mfaGate', '<h2 style="margin:0 0 var(--sp-2)">הפעלת אימות דו-שלבי</h2><div style="color:var(--ink-3)">טוען…</div>');
   try{
     const { data:lf } = await sb.auth.mfa.listFactors();
     for(const f of ((lf && lf.all) || [])) if(f.status !== 'verified'){ try{ await sb.auth.mfa.unenroll({ factorId:f.id }); }catch(_e){} }
   }catch(_e){}
   const { data, error } = await sb.auth.mfa.enroll({ factorType:'totp', friendlyName:'איירון ' + Date.now() });
   if(error || !data){
-    blockOverlay('mfaGate', '<h2 style="margin:0 0 8px">הפעלת אימות דו-שלבי</h2>' +
-      '<div style="color:#c0392b;line-height:1.7;margin-bottom:14px">הרישום נכשל: ' + esc((error && error.message) || '') + '</div>' +
-      '<div style="display:flex;gap:8px"><button class="chip" onclick="mfaShowEnroll()">נסה שוב</button><button class="chip" onclick="forceLogout()">יציאה</button></div>');
+    blockOverlay('mfaGate', '<h2 style="margin:0 0 var(--sp-2)">הפעלת אימות דו-שלבי</h2>' +
+      '<div style="color:var(--red);line-height:1.7;margin-bottom:var(--sp-3)">הרישום נכשל: ' + esc((error && error.message) || '') + '</div>' +
+      '<div style="display:flex;gap:var(--sp-2)"><button class="chip" onclick="mfaShowEnroll()">נסה שוב</button><button class="chip" onclick="forceLogout()">יציאה</button></div>');
     return;
   }
   MFA_ENROLL_ID = data.id;
   blockOverlay('mfaGate',
-    '<h2 style="margin:0 0 8px">הפעלת אימות דו-שלבי נדרשת</h2>' +
-    '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:10px">לחשבון מנהל המערכת חובה מאמת. סרקו את הקוד באפליקציית מאמת והזינו את הקוד בן 6 הספרות. סריקה ואישור מאותה רשת.</div>' +
+    '<h2 style="margin:0 0 var(--sp-2)">הפעלת אימות דו-שלבי נדרשת</h2>' +
+    '<div style="color:var(--ink-3);line-height:1.7;margin-bottom:var(--sp-2h)">לחשבון מנהל המערכת חובה מאמת. סרקו את הקוד באפליקציית מאמת והזינו את הקוד בן 6 הספרות. סריקה ואישור מאותה רשת.</div>' +
     '<img src="' + esc(data.totp.qr_code) + '" alt="קוד QR לאימות דו-שלבי" style="display:block;width:180px;height:180px;margin:0 auto 8px">' +
-    '<div style="text-align:center;font-size:12px;color:var(--ink-3);margin-bottom:10px">מפתח ידני: <span dir="ltr">' + esc(data.totp.secret) + '</span></div>' +
+    '<div style="text-align:center;font-size:var(--fs-sm);color:var(--ink-3);margin-bottom:var(--sp-2h)">מפתח ידני: <span dir="ltr">' + esc(data.totp.secret) + '</span></div>' +
     mfaCodeInput() + MFA_ERR +
-    '<div style="display:flex;gap:8px"><button class="chip" id="mfa-btn" onclick="mfaEnrollSubmit()">אישור</button>' +
+    '<div style="display:flex;gap:var(--sp-2)"><button class="chip" id="mfa-btn" onclick="mfaEnrollSubmit()">אישור</button>' +
     '<button class="chip" onclick="forceLogout()">יציאה</button></div>');
   mfaWire();
 }
@@ -6382,7 +6382,7 @@ window.pfMfaStart = async (btn)=>{
        <div class="st">סרקו את הקוד באפליקציית המאמת והזינו את הקוד בן 6 הספרות</div>
        <img id="pfQr" src="${esc(qr)}" alt="קוד QR לאימות דו-שלבי">
        <div class="pf-note" style="text-align:center">מפתח ידני: <span dir="ltr">${esc(secret)}</span></div>
-       <div class="pf-act" style="justify-content:center;margin-top:8px">
+       <div class="pf-act" style="justify-content:center;margin-top:var(--sp-2)">
          <input class="pf-code" id="pfCode" inputmode="numeric" maxlength="6" placeholder="000000">
          <button class="pf-save" onclick="pfMfaVerify('${esc(fid)}',this)">אישור</button>
          <button class="pf-lnk" onclick="pfMfaCancel('${esc(fid)}')">ביטול</button>
@@ -6439,7 +6439,7 @@ window.openProfile = ()=>{
           <div class="pf-f"><label>הרשאה</label><input readonly value="${esc(ME.perm_group||ROLE_HE[ME.role]||ME.role||'')}"></div>
         </div>
         <p class="pf-note">תפקיד, מחלקה, הרשאה ודוא"ל נקבעים על ידי מנהל המערכת ואינם ניתנים לעריכה עצמית. הדשבורד נגזר מההרשאות.</p>
-        <div class="pf-act" style="margin-top:10px">
+        <div class="pf-act" style="margin-top:var(--sp-2h)">
           <button class="pf-save" onclick="pfSave(this)">שמירה</button>
           ${ME.avatar_url?`<button class="pf-lnk" onclick="pfClearAva()">הסרת תמונה</button>`:''}
         </div>
@@ -6451,7 +6451,7 @@ window.openProfile = ()=>{
           <div class="pf-f"><label for="pfP1">סיסמה חדשה</label><input id="pfP1" type="password" autocomplete="new-password" dir="ltr"></div>
           <div class="pf-f"><label for="pfP2">אימות סיסמה</label><input id="pfP2" type="password" autocomplete="new-password" dir="ltr"></div>
         </div>
-        <div class="pf-act" style="margin-top:10px"><button class="pf-lnk" onclick="pfPass(this)">עדכון סיסמה</button>
+        <div class="pf-act" style="margin-top:var(--sp-2h)"><button class="pf-lnk" onclick="pfPass(this)">עדכון סיסמה</button>
           <span class="pf-note">לפחות 8 תווים.</span></div>
       </div>
 
@@ -6873,7 +6873,7 @@ function renderStaleBlock(){
   const st = dashStale();
   if(!st.length){ el.innerHTML = dbHead('עבר המועד ולא נסגרו', 0)+'<div class="db-empty">כל הביקורים שעברו נסגרו ✓</div>'; return; }
   const today = isoD(new Date());
-  el.innerHTML = dbHead('עבר המועד ולא נסגרו', '<span style="color:#c0392b">'+st.length+'</span>', "gotoLogiPreset({scope:'all'})", 'ללוח') +
+  el.innerHTML = dbHead('עבר המועד ולא נסגרו', '<span style="color:var(--red)">'+st.length+'</span>', "gotoLogiPreset({scope:'all'})", 'ללוח') +
     st.slice(0,DB_CAP).map(o=>{ const days = Math.round((new Date(today+'T12:00:00')-new Date(o.scheduled_date+'T12:00:00'))/864e5);
       return dbRow("openOrd('"+jsq(o.id)+"')", esc(o.customer_name||''),
         esc([o.order_number, o.team||'ללא צוות', o.erp_status==='הושלם' ? 'הושלם בפריוריטי' : (o.followup_date ? 'דורשת השלמה' : (o.order_status||''))].filter(Boolean).join(' · ')),
@@ -7143,7 +7143,7 @@ function renderCoordQueue(){
   rows.forEach(r=>{ (by[r.supply_state] = by[r.supply_state]||[]).push(r); });
   const late = rows.filter(r=>r.next_due && r.next_due < today).length;
   /* ארבעה דליים בשורה אחת — המספר הראשי כבר בקוקפיט */
-  el.innerHTML = dbHead('תור השלמות', 'נותר לספק' + (late ? ' · <span style="color:#c0392b">'+late+' באיחור</span>' : ''), "gotoLogiPreset({scope:'open'})", 'לרשימה') +
+  el.innerHTML = dbHead('תור השלמות', 'נותר לספק' + (late ? ' · <span style="color:var(--red)">'+late+' באיחור</span>' : ''), "gotoLogiPreset({scope:'open'})", 'לרשימה') +
     '<div class="db-fin" style="grid-template-columns:repeat(4,minmax(0,1fr))">' +
     buckets.map(b=>'<div><b>'+((by[b]||[]).length)+'</b><small>'+b+'</small></div>').join('') + '</div>';
 }
@@ -7156,7 +7156,7 @@ function renderCallsBlock(){
   const past = open.filter(s=>s.deadline && s.deadline < today).length;
   const top = open.slice().sort((a,b)=>String(a.deadline||'9').localeCompare(String(b.deadline||'9'))).slice(0,DB_CAP);
   /* המונים בקוקפיט — כאן הדחופות בלבד, לפי הדדליין */
-  el.innerHTML = dbHead('קריאות שירות', open.length+' פתוחות'+(past?' · <span style="color:#c0392b">'+past+' אחרי דדליין</span>':''), "gotoCalls()", 'לקריאות') +
+  el.innerHTML = dbHead('קריאות שירות', open.length+' פתוחות'+(past?' · <span style="color:var(--red)">'+past+' אחרי דדליין</span>':''), "gotoCalls()", 'לקריאות') +
     (top.map(s=>dbRow("openScall('"+jsq(s.id)+"')", esc(s.customer_name||''),
         esc(s.call_number||'')+' · '+esc(s.urgency||'רגילה')+(s.scheduled_date?' · תואם '+fmtD(s.scheduled_date):''),
         '<span class="pill '+(s.status==='חדש'?'p-red':'p-green')+'">'+esc(s.status)+'</span>',
@@ -7370,7 +7370,7 @@ function renderStrategicBlock(){
   el.classList.add('db-block');
   el.innerHTML = dbHead('לקוחות אסטרטגיים', rows.length)+rows.slice(0,DB_CAP).map(r=>
     dbRow('', esc(r.label||r.customer_number||''), 'שנה: '+ilsK(r.rev_ytd)+' · חודש: '+ilsK(r.rev_mtd)+(r.last_invoice?' · חשבונית אחרונה '+fmtD(r.last_invoice):''),
-      (r.open_balance>0?'<span class="v" style="color:#b45309">'+ilsK(r.open_balance)+'</span>':''))).join('');
+      (r.open_balance>0?'<span class="v" style="color:var(--warn-ink)">'+ilsK(r.open_balance)+'</span>':''))).join('');
 }
 function renderInvBlock(){
   const el=$('#db-inv'); if(!el) return;
@@ -7394,9 +7394,9 @@ function renderPoBlock(){
   el.innerHTML = dbHead('הזמנות רכש', null, "gotoTab('po')", 'לרכש')+
     '<div class="db-fin" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+
     '<div><b>'+(d.open_n||0)+'</b><small>פתוחות</small></div>'+
-    '<div><b'+(d.overdue_lines?' style="color:#b45309"':'')+'>'+(d.overdue_lines||0)+'</b><small>שורות אחרי תאריך יעד</small></div>'+
+    '<div><b'+(d.overdue_lines?' style="color:var(--warn-ink)"':'')+'>'+(d.overdue_lines||0)+'</b><small>שורות אחרי תאריך יעד</small></div>'+
     '</div>'+
-    (stale?'<div class="db-empty" style="color:#b91c1c;font-weight:700">נתוני הרכש אינם מסונכרנים'+(!d.scheduled?' — הסנכרון אינו מתוזמן':'')+'</div>':'')+
+    (stale?'<div class="db-empty" style="color:var(--red);font-weight:700">נתוני הרכש אינם מסונכרנים'+(!d.scheduled?' — הסנכרון אינו מתוזמן':'')+'</div>':'')+
     dashAsOf(d.data_as_of, 48);
 }
 function renderRemBlock(){
@@ -7412,7 +7412,7 @@ function renderRemBlock(){
   el.innerHTML = '<h3>תזכורות <span class="cnt">טסטים, אגרות ותשלומים'+((d.pending_sum||0)>0?' · ממתין '+ilsK(d.pending_sum):'')+'</span>'+(canE?' <button type="button" class="chip" onclick="remFormToggle()">＋ חדשה</button>':'')+'</h3>'+
     ((d.next||[]).slice(0,DB_CAP).map(r=>
       '<div class="db-row'+(r.due_date<today?' lb-ovr':'')+'"><span class="w">'+fmtD(r.due_date)+'</span><span class="t"><b>'+esc(r.title||'')+'</b><small>'+esc(r.kind||'')+(r.amount?' · '+ilsK(+r.amount):'')+(r.due_date<today?' · באיחור':'')+'</small></span>'+
-      (canE?'<button type="button" class="chip" style="padding:4px 10px;font-size:12px" onclick="remPaid(\''+r.id+'\')">שולם</button>':'')+'</div>').join('')
+      (canE?'<button type="button" class="chip" style="padding:4px 10px;font-size:var(--fs-sm)" onclick="remPaid(\''+r.id+'\')">שולם</button>':'')+'</div>').join('')
      ||'<div class="db-empty">אין תזכורות ממתינות</div>')+
     '<div id="rem-form" hidden></div>';
   dashAlert('rem','rem', d.overdue_n||0);
@@ -7712,7 +7712,7 @@ function renderRepsBlock(){
   el.innerHTML = dbHead('לפי איש מכירות', rows.length, "gotoTab('deals')", 'לתהליכים') +
     (rows.slice(0,DB_CAP).map(k=>{ const b = by[k];
       return dbRow("gotoTab('deals')", lbAva(k,1)+' '+esc(LOWN_BY[k].name||''),
-        esc(b.leads+' לידים פתוחים')+(b.late?' · <span style="color:#c0392b">'+b.late+' משימות באיחור</span>':''),
+        esc(b.leads+' לידים פתוחים')+(b.late?' · <span style="color:var(--red)">'+b.late+' משימות באיחור</span>':''),
         '<span class="v">'+ilsK(b.sum)+'</span>', b.n+' תהליכים'); }).join('')
      || '<div class="db-empty">אין תהליכים פתוחים</div>');
 }
@@ -8584,7 +8584,7 @@ function tgChip(e){
   const ref=e.kind==='svc'?(o.product||''):((o.order_number||'') + (mts.length?' +'+mts.length:''));
   const line2=[ref, o.city, o.address].filter(Boolean).map(x=>esc(String(x))).join(' · ');
   return `<div class="tg-chip" style="border-inline-start-color:${col};${evDone(e)?'opacity:.55':''}" onclick="${evOpen(e)}" title="${esc(o.customer_name||'')} · ${esc(o.time_slot||'ללא שעה')} · ${esc(e.kind==='fup'?'ביקור השלמה — נותרו פריטים לאספקה':(evStatus(e)||''))} · ${esc(o.team||'ללא צוות')}${o.team2?' + '+esc(o.team2):''}${o.phone?' · '+esc(o.phone):''}">
-    <div class="c1"><span class="tm">${esc(o.time_slot||'ללא שעה')}</span>${e.kind==='svc'?ico('wrench'):''}<span style="overflow:hidden;text-overflow:ellipsis">${esc(o.customer_name||'')}</span>${mark?`<span style="color:${col};font-size:10.5px;flex:none">${mark}</span>`:''}</div>
+    <div class="c1"><span class="tm">${esc(o.time_slot||'ללא שעה')}</span>${e.kind==='svc'?ico('wrench'):''}<span style="overflow:hidden;text-overflow:ellipsis">${esc(o.customer_name||'')}</span>${mark?`<span style="color:${col};font-size:var(--fs-2xs);flex:none">${mark}</span>`:''}</div>
     <div class="c2">${line2||'—'}${o.team?` · <span class="team">${esc(o.team)}</span>`:''}${o.team2?` + <span class="team">${esc(o.team2)}</span>`:''}${(tdNames(e.ds,o.team).length?` · ${ico('crew')} ${esc(tdNames(e.ds,o.team).map(tdShort).join(', '))}`:'')}${(o.team2&&tdNames(e.ds,o.team2).length?` · ${ico('crew')} ${esc(tdNames(e.ds,o.team2).map(tdShort).join(', '))}`:'')}${o.phone?` · ${evPh(o.phone)}`:''}</div>
   </div>`;
 }
@@ -8918,14 +8918,14 @@ function tdRender(){
   sh.innerHTML = `
     <h3>${ico('crew')} שיבוץ יומי — ${esc(dayNameHe(TD_DATE))}, ${esc(fmtD(TD_DATE))}</h3>
     ${tdSegHtml()}
-    <div class="note" style="margin:4px 0 12px">מי עבד בכל נתיב ביום הזה. הנתיבים עצמם (משאית, סקודו, קבלן) מוגדרים בהגדרות הצוותים. מבין אנשי החברה מוצעים טכנאים ומנהלי לוגיסטיקה בלבד; בנוסף אפשר לשבץ <b>עובדים זמניים</b> — אנשים שאינם משתמשי המערכת — בנתיבי החברה, ואותם מגדירים בהגדרות → צוותים.</div>
+    <div class="note" style="margin:var(--sp-1) 0 var(--sp-3)">מי עבד בכל נתיב ביום הזה. הנתיבים עצמם (משאית, סקודו, קבלן) מוגדרים בהגדרות הצוותים. מבין אנשי החברה מוצעים טכנאים ומנהלי לוגיסטיקה בלבד; בנוסף אפשר לשבץ <b>עובדים זמניים</b> — אנשים שאינם משתמשי המערכת — בנתיבי החברה, ואותם מגדירים בהגדרות → צוותים.</div>
     <div class="td-bar">
       <button class="nav-b" onclick="tdGo(-1)" title="יום קודם">▸</button>
       <input type="date" id="tdDate" value="${esc(TD_DATE)}" onchange="openTeamDay(this.value)">
       <button class="nav-b" onclick="tdGo(1)" title="יום הבא">◂</button>
       <button class="ghost" style="width:auto;padding:5px 12px" onclick="openTeamDay('${isoD(new Date())}')">היום</button>
       <span class="grow" style="flex:1"></span>
-      ${ed?`<span style="font-size:12.5px;color:var(--ink-3)">העתקה מיום:</span>
+      ${ed?`<span style="font-size:var(--fs-sm);color:var(--ink-3)">העתקה מיום:</span>
       <input type="date" id="tdSrc" value="${esc(addDaysIso(TD_DATE,-1))}">
       <button class="ghost" style="width:auto;padding:5px 12px" onclick="tdCopyFrom()">העתקה</button>`:''}
     </div>
@@ -9001,7 +9001,7 @@ window.tdToday = ()=>{
   TD_DATE = t; tdRender();
 };
 function tdSegHtml(){
-  return `<div class="td-bar" style="margin:2px 0 12px">
+  return `<div class="td-bar" style="margin:var(--sp-0h) 0 var(--sp-3)">
       <div class="cal-seg">
         <button class="${TD_VIEW==='day'?'on':''}" onclick="tdView('day')">יומי</button>
         <button class="${TD_VIEW==='week'?'on':''}" onclick="tdView('week')">שבועי</button>
@@ -9021,13 +9021,13 @@ function tdRenderRange(){
   sh.innerHTML = `
     <h3>${ico('crew')} שיבוץ צוותים — ${esc(ttl)}</h3>
     ${tdSegHtml()}
-    <div class="note" style="margin:2px 0 12px">תצוגה מרוכזת של מי עבד בכל נתיב. לחיצה על תא פותחת את היום הזה לעריכה.</div>
+    <div class="note" style="margin:var(--sp-0h) 0 var(--sp-3)">תצוגה מרוכזת של מי עבד בכל נתיב. לחיצה על תא פותחת את היום הזה לעריכה.</div>
     <div class="td-bar">
       <button class="nav-b" onclick="tdGo(-1)" title="הקודם">▸</button>
       <button class="ghost" style="width:auto;padding:5px 12px" onclick="tdToday()">היום</button>
       <button class="nav-b" onclick="tdGo(1)" title="הבא">◂</button>
     </div>
-    ${(!miss && tdRangeErr(r))?'<div class="td-warn">⚠️ טעינת השיבוץ לטווח הזה נכשלה. <button class="ghost" style="width:auto;padding:3px 10px;margin-inline-start:6px" onclick="tdRetry()">ניסיון חוזר</button></div>':''}
+    ${(!miss && tdRangeErr(r))?'<div class="td-warn">⚠️ טעינת השיבוץ לטווח הזה נכשלה. <button class="ghost" style="width:auto;padding:3px 10px;margin-inline-start:var(--sp-1h)" onclick="tdRetry()">ניסיון חוזר</button></div>':''}
     ${miss ? crmLoading('טוען שיבוץ…') : (TD_VIEW==='week' ? tdWeekHtml(r) : tdMonthHtml(r))}
     <div class="err" id="td-err"></div>`;
   mountCard('ordModal', ()=>openTeamDay(TD_DATE));
@@ -9098,21 +9098,21 @@ function tdMonthHtml(r){
   order.sort((a,b)=> String(ppl[a].name).localeCompare(String(ppl[b].name),'he'));
   const gc = `minmax(122px,162px) repeat(${days.length},22px) minmax(46px,56px)`;
   let h = `<div class="td-grid-wrap"><div class="td-mgrid" style="grid-template-columns:${gc}">`;
-  h += `<div class="td-mh" style="font-size:11.5px">עובד</div>`;
+  h += `<div class="td-mh" style="font-size:var(--fs-xs)">עובד</div>`;
   days.forEach(d=>{ h += `<div class="td-mh${d===today?' today':''}${dowOf(d)>=CAL_FRIDAY?' nw':''}" title="${esc(dayNameHe(d))} ${esc(fmtD(d))}">${Number(d.slice(8,10))}</div>`; });
   h += `<div class="td-mh">ימים</div>`;
   order.forEach(pid=>{
     const e = ppl[pid];
-    h += `<div class="td-gl" style="padding:4px 9px">${esc(e.name)}</div>`;
+    h += `<div class="td-gl" style="padding:var(--sp-1) var(--sp-2)">${esc(e.name)}</div>`;
     days.forEach(d=>{
       const ln = e.days[d]||[];
       h += `<div class="td-mc" onclick="tdPick('${d}')" title="${esc(fmtD(d))}${ln.length?' — '+esc(ln.join(', ')):''}">`
         + ln.map(n=>`<span class="td-sq" style="background:${esc(colOf[n]||'#64748b')}">${esc(String(n).charAt(0))}</span>`).join('')
         + `</div>`;
     });
-    h += `<div class="td-gt" style="font-size:12px">${Object.keys(e.days).length}</div>`;
+    h += `<div class="td-gt" style="font-size:var(--fs-sm)">${Object.keys(e.days).length}</div>`;
   });
-  h += `<div class="td-gl" style="padding:4px 9px"><strong>סה״כ</strong></div>`;
+  h += `<div class="td-gl" style="padding:var(--sp-1) var(--sp-2)"><strong>סה״כ</strong></div>`;
   days.forEach(d=>{ const t = tdDayTotal(d); h += `<div class="td-mh" style="font-weight:800">${t||''}</div>`; });
   h += `<div class="td-gt"></div></div></div>`;
   h += `<div class="td-sum">` + lanes.map(n=>{
@@ -9823,27 +9823,27 @@ function renderSkuAdv(){
       <div><label>מלאי זמין — מינימום</label><input id="skuQmin" inputmode="decimal" dir="ltr" placeholder="0" value="${esc(SKU_F.qmin)}"></div>
       <div><label>מלאי זמין — מקסימום</label><input id="skuQmax" inputmode="decimal" dir="ltr" placeholder="ללא הגבלה" value="${esc(SKU_F.qmax)}"></div>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-      <b style="font-size:13px;color:var(--navy)">משפחות — ${SKU_F.fams.length?SKU_F.fams.length+(famEx?' להסתרה':' להצגה'):'הכול'}</b>
-      <span style="display:flex;gap:6px;align-items:center">
-        <select id="skuFamMode" style="width:auto;padding:6px 9px;border:1px solid var(--line);border-radius:9px;font-size:12.5px"><option value="in"${sel('in',SKU_F.famMode)}>הצגת הנבחרות</option><option value="ex"${sel('ex',SKU_F.famMode)}>הסתרת הנבחרות</option></select>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--sp-2);flex-wrap:wrap;margin-bottom:var(--sp-2)">
+      <b style="font-size:var(--fs-md);color:var(--navy)">משפחות — ${SKU_F.fams.length?SKU_F.fams.length+(famEx?' להסתרה':' להצגה'):'הכול'}</b>
+      <span style="display:flex;gap:var(--sp-1h);align-items:center">
+        <select id="skuFamMode" style="width:auto;padding:6px 9px;border:1px solid var(--field-bd);border-radius:var(--r-md);font-size:var(--fs-sm)"><option value="in"${sel('in',SKU_F.famMode)}>הצגת הנבחרות</option><option value="ex"${sel('ex',SKU_F.famMode)}>הסתרת הנבחרות</option></select>
         <button class="tb-clear" onclick="skuFamAll(1)">בחירת הכול</button><button class="tb-clear" onclick="skuFamAll(0)">ניקוי הבחירה</button>
       </span>
     </div>
     <div class="sku-fams">${fams.map(f=>`<button class="fam-chip${SKU_F.fams.includes(f)?(famEx?' ex':' on'):''}" onclick="skuFamTgl('${jsq(f)}')">${esc(f)}</button>`).join('')}</div>
     ${skuMgr()?`
-    <div style="border-top:1px solid var(--line);margin-top:12px;padding-top:12px">
-      <b style="font-size:13px;color:var(--navy);display:block;margin-bottom:8px">תצוגות שמורות — הגדרת מנהל</b>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-        <input id="skuViewName" placeholder="שם התצוגה החדשה" style="width:auto;min-width:180px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-size:13px">
-        <label class="tb-lbl" style="display:flex;align-items:center;gap:5px"><input type="checkbox" id="skuViewDef" style="width:auto"> ברירת מחדל לכל המשתמשים</label>
+    <div style="border-top:1px solid var(--line);margin-top:var(--sp-3);padding-top:var(--sp-3)">
+      <b style="font-size:var(--fs-md);color:var(--navy);display:block;margin-bottom:var(--sp-2)">תצוגות שמורות — הגדרת מנהל</b>
+      <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;align-items:center">
+        <input id="skuViewName" placeholder="שם התצוגה החדשה" style="width:auto;min-width:180px;padding:8px 10px;border:1px solid var(--field-bd);border-radius:var(--r-md);font-size:var(--fs-md)">
+        <label class="tb-lbl" style="display:flex;align-items:center;gap:var(--sp-1)"><input type="checkbox" id="skuViewDef" style="width:auto"> ברירת מחדל לכל המשתמשים</label>
         <button class="view-chip" onclick="saveSkuView()">שמירת הסינון הנוכחי</button>
         ${SKU_VIEW_ID?'<button class="view-chip" onclick="setSkuViewDefault()">קביעת הנבחרת כברירת מחדל</button><button class="view-chip" onclick="deleteSkuView()">מחיקת הנבחרת</button>':''}
       </div>
       <div class="err" id="skuViewErr"></div>
       <div class="note">התצוגה שסומנה כברירת מחדל נטענת אוטומטית לכל המשתמשים בכניסה למסך. תצוגה שמורה כוללת גם את ההחרגות והטווחים שכאן.</div>
     </div>`
-    :'<div class="note" style="margin-top:10px">תצוגות שמורות מוגדרות על ידי מנהל המערכת.</div>'}`;
+    :'<div class="note" style="margin-top:var(--sp-2h)">תצוגות שמורות מוגדרות על ידי מנהל המערכת.</div>'}`;
   const bindT=(id,k)=>{ const el=$(id); if(el) debounceSearch(el, ()=>skuSetF(k, el.value)); };
   const bindS=(id,k)=>{ const el=$(id); if(el) el.onchange = e=>skuSetF(k,e.target.value); };
   bindT('#skuQx','qx'); bindT('#skuPmin','pmin'); bindT('#skuPmax','pmax'); bindT('#skuQmin','qmin'); bindT('#skuQmax','qmax');
@@ -10281,11 +10281,11 @@ window.openSkuExport = ()=>{
   const n = filteredSkus().length;
   $('#skuSheet').innerHTML = `
     <h3>ייצוא מק"טים לאקסל</h3>
-    <div class="note" style="margin-bottom:10px">הייצוא כולל את ${fmtNum(n)} המק״טים שבסינון הנוכחי, בסדר המיון שעל המסך. בחר אילו שדות ייכללו — נבחרו <b id="skuExpCnt">${SKU_EXP_COLS.length}</b> שדות.</div>
-    <div style="display:flex;gap:6px;margin-bottom:8px"><button class="tb-clear" onclick="skuExpAll(1)">בחירת הכול</button><button class="tb-clear" onclick="skuExpAll(0)">ניקוי הבחירה</button></div>
+    <div class="note" style="margin-bottom:var(--sp-2h)">הייצוא כולל את ${fmtNum(n)} המק״טים שבסינון הנוכחי, בסדר המיון שעל המסך. בחר אילו שדות ייכללו — נבחרו <b id="skuExpCnt">${SKU_EXP_COLS.length}</b> שדות.</div>
+    <div style="display:flex;gap:var(--sp-1h);margin-bottom:var(--sp-2)"><button class="tb-clear" onclick="skuExpAll(1)">בחירת הכול</button><button class="tb-clear" onclick="skuExpAll(0)">ניקוי הבחירה</button></div>
     <div class="sku-exp">${skuColsAllowed().map(c=>`<label><input type="checkbox" ${SKU_EXP_COLS.includes(c.k)?'checked':''} onchange="skuExpTgl('${jsq(c.k)}')"> ${esc(c.t)}</label>`).join('')}</div>
     <div class="err" id="skuExpErr"></div>
-    <button class="btn green" style="margin-top:10px" onclick="skuExport()">הורדת קובץ אקסל</button>`;
+    <button class="btn green" style="margin-top:var(--sp-2h)" onclick="skuExport()">הורדת קובץ אקסל</button>`;
   mountCard('skuModal', ()=>openSkuExport());
 };
 window.skuExport = async ()=>{
@@ -10397,7 +10397,7 @@ function _openSku(pn){
   const money = v => (v==null||v==='') ? '—' : shekel(v);
   const exp = Number(s.expected_qty||0), expF = Number(s.expected_qty_full||0);
   $('#skuSheet').innerHTML = `
-    <h3 style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">${esc(s.partdes||s.partname)} ${skuActPill(s)}</h3>
+    <h3 style="display:flex;align-items:center;gap:var(--sp-2h);flex-wrap:wrap">${esc(s.partdes||s.partname)} ${skuActPill(s)}</h3>
     <div class="sku-hero">
       ${s.image_url?`<img class="ph" src="${esc(s.image_full||s.image_url)}" loading="lazy" onclick="window.open('${jsq(s.image_full||s.image_url)}','_blank')" title="פתיחת התמונה בגודל מלא">`:'<div class="ph sku-none"></div>'}
       <div class="pi">
@@ -10722,7 +10722,7 @@ function invBody(){
   if(INV_LOADING){ el.innerHTML = crmLoading('טוען נתוני מלאי ורכש…'); return; }
   if(INV_ERR){
     el.innerHTML = '<div class="err">' + esc(INV_ERR) + '</div>'
-      + '<div style="text-align:center;margin-top:12px"><button class="inv-btn" id="inv-retry">נסה שוב</button></div>';
+      + '<div style="text-align:center;margin-top:var(--sp-3)"><button class="inv-btn" id="inv-retry">נסה שוב</button></div>';
     const b = $('#inv-retry'); if(b) b.onclick = ()=> invLoad(true);
     return;
   }
@@ -11094,15 +11094,15 @@ window.openInv = pn => {
     ? '<img src="' + esc(r.image_url) + '" alt="" style="width:64px;height:64px;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:#fff">'
     : '';
   const sub = [invSup(r) || 'ללא ספק משויך', r.family || '', (r.abc_class||'') + (r.xyz_class||'')].filter(Boolean).join(' · ');
-  let h = '<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px">' + img
+  let h = '<div style="display:flex;gap:var(--sp-3);align-items:flex-start;margin-bottom:var(--sp-3)">' + img
     + '<div style="flex:1"><div style="font-size:17px;font-weight:800;color:var(--navy)">' + esc(r.partname) + '</div>'
-    + '<div style="font-size:13px;color:var(--ink-3);margin-top:3px">' + esc(r.partdes||'') + '</div>'
-    + '<div style="margin-top:7px">' + invPill(r.status) + ' ' + invActBadge(r.action_class)
-    + ' <span style="font-size:12.5px;color:var(--ink-3)">' + esc(sub) + '</span></div></div>'
+    + '<div style="font-size:var(--fs-md);color:var(--ink-3);margin-top:var(--sp-0h)">' + esc(r.partdes||'') + '</div>'
+    + '<div style="margin-top:var(--sp-1h)">' + invPill(r.status) + ' ' + invActBadge(r.action_class)
+    + ' <span style="font-size:var(--fs-sm);color:var(--ink-3)">' + esc(sub) + '</span></div></div>'
     + '<button class="tb-clear" onclick="closeCards()">סגירה</button></div>';
 
   if(invActionable(r)){
-    h += '<div class="inv-why" style="border-right:3px solid var(--red);margin-bottom:14px">'
+    h += '<div class="inv-why" style="border-right:3px solid var(--red);margin-bottom:var(--sp-3)">'
       + '<b>' + esc(r.action_class) + (Number(r.action_qty)>0 ? ' — ' + invN(r.action_qty) + ' יחידות' : '') + '.</b> '
       + esc(r.action_reason||'') + '</div>';
   }
@@ -11152,7 +11152,7 @@ window.openInv = pn => {
     + '</div><div class="inv-why">' + invWhy(r) + '</div>';
 
   if(Number(r.po_lines)>0){
-    h += '<div class="inv-sec-h" style="margin-top:14px">רכש פתוח</div><div class="inv-kv">'
+    h += '<div class="inv-sec-h" style="margin-top:var(--sp-3)">רכש פתוח</div><div class="inv-kv">'
       + kv('שורות פתוחות', invN(r.po_lines))
       + kv('באיחור', invN(r.lines_overdue))
       + kv('בלי תאריך אספקה', invN(r.lines_no_due))
@@ -11164,8 +11164,8 @@ window.openInv = pn => {
   if(r.notes) h += '<div class="note">' + esc(r.notes) + '</div>';
 
   if(invMgr()){
-    h += '<div class="inv-sec-h" style="margin-top:14px">פעולות</div>'
-      + '<div style="display:flex;gap:8px;flex-wrap:wrap">'
+    h += '<div class="inv-sec-h" style="margin-top:var(--sp-3)">פעולות</div>'
+      + '<div style="display:flex;gap:var(--sp-2);flex-wrap:wrap">'
       + '<button class="inv-btn' + (r.force_include ? '' : ' ghost') + '" data-inv-act="force" data-inv-pn="' + esc(r.partname) + '">'
       + (r.force_include ? 'בטל כפיית הכללה' : 'כפה הכללה בתכנון') + '</button>'
       + '<button class="inv-btn' + (r.is_excluded ? '' : ' ghost') + '" data-inv-act="excl" data-inv-pn="' + esc(r.partname) + '">'
@@ -11525,7 +11525,7 @@ function poBody(){
   if(PO_LOADING){ el.innerHTML = crmLoading('טוען הזמנות רכש…'); return; }
   if(PO_ERR){
     el.innerHTML = '<div class="err">'+esc(PO_ERR)+'</div>'
-      + '<div style="text-align:center;margin-top:12px"><button class="inv-btn" id="po-retry">נסה שוב</button></div>';
+      + '<div style="text-align:center;margin-top:var(--sp-3)"><button class="inv-btn" id="po-retry">נסה שוב</button></div>';
     const b = $('#po-retry'); if(b) b.onclick = ()=> poLoad(true);
     return;
   }
@@ -11624,7 +11624,7 @@ async function openPo(on){
   const fld = (id,lbl,val,type,cls,extra)=>'<div'+(cls?' class="'+cls+'"':'')+'><label>'+lbl+'</label>'
     + (can ? '<input id="'+id+'" type="'+(type||'text')+'" value="'+esc(val==null?'':String(val))+'">' : roIn(val==null?'':String(val)))+(extra||'')+'</div>';
   sh.innerHTML =
-      '<h3 style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">הזמנת רכש <span dir="ltr">'+esc(r.ordname)+'</span>'
+      '<h3 style="display:flex;align-items:center;gap:var(--sp-2h);flex-wrap:wrap">הזמנת רכש <span dir="ltr">'+esc(r.ordname)+'</span>'
     + '<span id="po-title-pills">'+poPill(r.our_status)+poPriPill(r.priority_status)+'</span></h3>'
     + '<div class="form-grid">'
     /* סקשן 1 — הנמשכים בלבד, כולם ro. 4+4+4 יחידות, אפס תאים ריקים; שדות שכמעט
@@ -11920,7 +11920,7 @@ function openPoSups(){
   const sh = $('#poSupSheet');
   const list = PO_SUPS.slice().sort((a,b)=>String(a.name||a.supplier_no).localeCompare(String(b.name||b.supplier_no), 'he'));
   sh.innerHTML = '<h3>ספריית ספקי הרכש</h3>'
-    + '<p style="font-size:12.5px;color:var(--ink-3);margin:4px 0 12px">הרשימה נזרעת אוטומטית מהסנכרון — כל ספק שיש לו הזמנת רכש מתחילת 2026, ושמו מתמלא מפריוריטי. המטבע כאן קובע את מטבע שדות התשלום בכרטיס ההזמנה.</p>'
+    + '<p style="font-size:var(--fs-sm);color:var(--ink-3);margin:var(--sp-1) 0 var(--sp-3)">הרשימה נזרעת אוטומטית מהסנכרון — כל ספק שיש לו הזמנת רכש מתחילת 2026, ושמו מתמלא מפריוריטי. המטבע כאן קובע את מטבע שדות התשלום בכרטיס ההזמנה.</p>'
     + list.map(s=>'<div class="po-sup-row">'
       + '<span class="nm">'+esc(s.name||'(שם יתמלא בסנכרון)')+'</span>'
       + '<span class="no">'+esc(s.supplier_no)+' · '+PO.filter(x=>x.supplier_no===s.supplier_no).length+' הזמנות</span>'
@@ -12699,8 +12699,8 @@ window.reportBlock = (kind, parentId)=>{
   const rows = mine.map(p=>{ const ds=docStatus(p);
     return `<div class="row"><span class="k">${esc(p.doc_type)}${p.sent_at?' · נוצר '+fmtIso(p.sent_at):''}</span><span class="v">${(p.status==='נחתם'||p.signed_at)?`<a href="#" onclick="event.preventDefault();openDocLink('${p.id}','open')">צפייה</a>`:(repExpired(p)?'<span style="color:var(--ink-3)">יש ליצור דוח חדש</span>':may?`<a href="#" onclick="event.preventDefault();openDocLink('${p.id}','open')"><b>פתיחה</b></a> · <a href="#" onclick="event.preventDefault();openDocLink('${p.id}','copy')">קישור</a>${p.phone?` · <a href="#" onclick="event.preventDefault();openDocLink('${p.id}','wa')">וואטסאפ</a>`:''}`:'<span style="color:var(--ink-3)">אין הרשאה לקישור</span>')} <span class="pill ${ds.cls}" title="${esc(ds.title)}">${esc(ds.label)}</span></span></div>` + repPhotosHtml(p.id); }).join('');
   return `<section class="ob-card" id="rep-box-${parentId}"><h2 class="sec">דוח תקינות ותמונות (${mine.length})</h2>${rows}`+
-    (may?`<button class="ghost" style="margin-top:8px" onclick="createReport('${kind}','${parentId}')">יצירת דוח תקינות לחתימה</button>`:'')+
-    (window.canEdit('docs.media.upload')?`<button class="ghost" data-up="${parentId}" style="margin-top:8px" onclick="uploadMedia('${kind}','${parentId}')">העלאת תמונות לדוח</button>`:'')+'</section>';
+    (may?`<button class="ghost" style="margin-top:var(--sp-2)" onclick="createReport('${kind}','${parentId}')">יצירת דוח תקינות לחתימה</button>`:'')+
+    (window.canEdit('docs.media.upload')?`<button class="ghost" data-up="${parentId}" style="margin-top:var(--sp-2)" onclick="uploadMedia('${kind}','${parentId}')">העלאת תמונות לדוח</button>`:'')+'</section>';
 };
 window.createReport = async (kind, parentId)=>{
   if(!window.canEdit('docs.reports')){ toast('אין לך הרשאת עריכה בדוחות התקינות.'); return; }
@@ -12783,7 +12783,7 @@ window.mediaBlock = (kind, parentId)=>{
     : (DOCFILES===null ? crmLoading() : (mediaRowsHtml(mine) || '<div class="note">אין עדיין תמונות מהשטח.</div>'));
   return `<section class="ob-card" id="media-sec-${parentId}"><h2 class="sec">${withRep?'תמונות שאינן משויכות לדוח':'תמונות מהשטח'} (${DOCFILES===null?'…':mine.length})</h2>
     <div id="${boxId}">${body}</div>`+
-    ((!withRep && window.canEdit('docs.media.upload'))?`<button class="ghost" data-up="${parentId}" style="margin-top:8px" onclick="uploadMedia('${kind}','${parentId}')">העלאת תמונות מהשטח</button>`:'')+'</section>';
+    ((!withRep && window.canEdit('docs.media.upload'))?`<button class="ghost" data-up="${parentId}" style="margin-top:var(--sp-2)" onclick="uploadMedia('${kind}','${parentId}')">העלאת תמונות מהשטח</button>`:'')+'</section>';
 };
 window.deleteMediaFile = async (id)=>{
   const f = (DOCFILES||[]).find(x=>x.id===id); if(!f) return;
@@ -12816,8 +12816,8 @@ function mdArchHay(f){
 function mdArchCols(o){
   const e = Object.entries((o && o.columns) || {});
   if(!e.length) return '';
-  return '<div class="meta" style="margin-top:4px"><b>'+esc(o.name||'')+'</b></div>'
-    + '<table class="tbl" style="font-size:12px;margin-top:2px"><tbody>'
+  return '<div class="meta" style="margin-top:var(--sp-1)"><b>'+esc(o.name||'')+'</b></div>'
+    + '<table class="tbl" style="font-size:var(--fs-sm);margin-top:var(--sp-0h)"><tbody>'
     + e.map(([k,v])=>'<tr><td style="white-space:nowrap;color:var(--ink-3)">'+esc(k)+'</td><td>'+esc(v)+'</td></tr>').join('')
     + '</tbody></table>';
 }
@@ -12829,11 +12829,11 @@ function mdArchCard(f){
   return `<div class="lead" style="cursor:default">
     <div style="flex:1"><div class="nm">${isPdf?ico('doc'):ico('image')} ${esc(x.customer_name||f.caption||'—')}${x.contact_name && x.contact_name!==x.customer_name ? ' <small style="color:var(--ink-3);font-weight:400">· '+esc(x.contact_name)+'</small>':''}</div>
     <div class="meta">${bits.map(esc).join(' · ')}</div>
-    <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
+    <div style="margin-top:var(--sp-1h);display:flex;gap:var(--sp-1h);flex-wrap:wrap">
       <button class="chip" onclick="openMediaFile('${f.id}', 300)">${ico('doc')} פתיחת המסמך החתום</button>
       ${x.deal_id && window.canView('crm.deals') ? `<button class="chip" onclick="openDeal('${esc(x.deal_id)}')">לתהליך המכירה</button>` : ''}
     </div>
-    <details style="margin-top:6px"><summary class="meta" style="cursor:pointer">פרטים ממאנדיי</summary>
+    <details style="margin-top:var(--sp-1h)"><summary class="meta" style="cursor:pointer">פרטים ממאנדיי</summary>
       ${mdArchCols(x.monday_customer)}${mdArchCols(x.monday_contact)}${mdArchCols(x.monday_deal)}
     </details></div>
     <span class="pill st-def">הועבר ממאנדיי</span></div>`;
@@ -12879,7 +12879,7 @@ function docChips(){
   const mediaN = (DOCFILES||[]).filter(f=>f.category==='media').length;   /* 6.219.0 — בלי מסמכי הרכש */
   const mondayN = DOCFILES===null ? '…' : DOCFILES.filter(f=>f.category==='monday').length;
   $('#doc-chips').innerHTML = `
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+    <div style="display:flex;gap:var(--sp-1h);flex-wrap:wrap;margin-bottom:var(--sp-2)">
       <button class="chip ${DOC_CAT==='all'?'active':''}" onclick="setDocCat('all')">מסמכים לחתימה ${vis.length}</button>
       ${DOC_CATS.filter(([k])=>window.canView('docs.'+k)).map(([k,lb])=>`<button class="chip ${DOC_CAT===k?'active':''}" onclick="setDocCat('${k}')">${lb} ${k==='media'?mediaN:k==='monday'?mondayN:vis.filter(p=>(p.category||'protocols')===k).length}</button>`).join('')}
     </div>
@@ -12913,7 +12913,7 @@ function docRow(p){
   return `<div class="lead${_new?' row-new':''}" style="cursor:default">
     <div style="flex:1"><div class="nm">${esc(p.customer_name||'—')}${_new?window.newChip({created_at:docStamp(p)}):''} <small style="color:var(--ink-3);font-weight:400">· ${esc(p.doc_type)}${p.order_number?' · '+esc(p.order_number):''}</small></div>
     <div class="meta">${esc(docCatLabel(cat))} · נוצר ${fmtIso(p.sent_at)}${signed?' · נחתם '+fmtIso(p.signed_at)+(p.signer_name?' ע"י '+esc(p.signer_name):''):''}</div>
-    <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
+    <div style="margin-top:var(--sp-1h);display:flex;gap:var(--sp-1h);flex-wrap:wrap">
       ${signed?`<button class="chip" onclick="openDocLink('${p.id}','open')">${ico('doc')} צפייה במסמך החתום</button>`
         :(mayLink?`<button class="chip" onclick="openDocLink('${p.id}','copy')">${ico('link')} העתקת קישור</button>
           ${p.phone?`<button class="chip" onclick="openDocLink('${p.id}','wa')">${ico('chat')} וואטסאפ</button>`:''}`
@@ -12951,7 +12951,7 @@ function renderDocs(){
     if(DOC_MEDIA_REP) ml = ml.filter(f=>f.protocol_id===DOC_MEDIA_REP);
     if(q) ml = ml.filter(f=>(f.file_name||'').includes(q)||mediaParentLabel(f).includes(q)||mediaRepLabel(f).includes(q));
     let _g;   /* 7.10.0 — כותרת קבוצה כשהדוח מתחלף (capped מצייר לפי הסדר) */
-    $('#docs-list').innerHTML = (DOC_MEDIA_REP ? '<div style="margin-bottom:8px"><button class="chip" onclick="docPhotosOf(null)">← כל התמונות</button></div>' : '')
+    $('#docs-list').innerHTML = (DOC_MEDIA_REP ? '<div style="margin-bottom:var(--sp-2)"><button class="chip" onclick="docPhotosOf(null)">← כל התמונות</button></div>' : '')
       + capped(mediaGroupSort(ml), f=>{ const g = f.protocol_id||''; const h = g!==_g ? '<div class="doc-grp">'+esc(mediaParentLabel(f))+' · '+esc(mediaRepLabel(f))+'</div>' : ''; _g = g; return h+mediaCard(f); }, 'אין עדיין תמונות מהשטח');
     return;
   }
@@ -13304,7 +13304,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'cancelmove-2026-10-18a';
+const BUILD_ID = 'inline-2026-10-18a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -14891,7 +14891,7 @@ PV.reload = async ()=>{
 function renderPrcInner(){
   const av = prcAllowedViews();
   if(!av.length){
-    const b=document.getElementById('prc-body'); if(b) b.innerHTML='<div class="pv-hint" style="padding:20px">אין לך הרשאה לצפות במסך התמחור.</div>';
+    const b=document.getElementById('prc-body'); if(b) b.innerHTML='<div class="pv-hint" style="padding:var(--sp-4h)">אין לך הרשאה לצפות במסך התמחור.</div>';
     const sh=document.querySelector('#tab-prc .pv-shell'); if(sh) sh.style.display='none';
     return;
   }
@@ -15042,7 +15042,7 @@ function renderPricing(m){
       '<th class="pv-rn" title="מספר שורה בתצוגה הנוכחית">#</th>'+
       '<th class="pv-imgtd">תמונה</th>'+soTh('sku','מק״ט')+soTh('name','שם מוצר','pv-name')+soTh('cat','קטגוריה · תת קטגוריה')+soTh('src','מקור')+
       soTh('cost','עלות מקור','pv-num')+soTh('ca','עלות בש״ח','pv-num')+soTh('st','סטטוס')+notesTh()+
-      shownGroups().map(x=>'<th style="border-bottom:3px solid '+gcol(x)+'"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+gcol(x)+';margin-inline-end:4px"></span>'+esc(x)+'</th>').join('')+
+      shownGroups().map(x=>'<th style="border-bottom:3px solid '+gcol(x)+'"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+gcol(x)+';margin-inline-end:var(--sp-1)"></span>'+esc(x)+'</th>').join('')+
       revTh(ed)+'<th>פעולות</th></tr></thead><tbody>';
     rows.forEach((p,i)=>{
       const ca=costAfter(p.sku);
@@ -15055,7 +15055,7 @@ function renderPricing(m){
         '<td><span class="pv-src '+(SRC_CLS[p.source]||'')+'">'+esc(p.source||'—')+'</span>'+roleTag(p)+gapTags(p)+'</td>'+
         '<td class="pv-num pv-cost">'+costSrcCell(p)+'</td>'+
         '<td class="pv-num pv-cost" '+(p.loadOv?'title="מקדם העמסה ידני: '+p.loadOv+'"':'')+'>'+(ca==null?'<span class="pv-nocost">—</span>':fmt(ca)+' ₪'+(p.loadOv?' <span style="color:var(--amber)">*</span>':''))+'</td>'+
-        '<td style="font-size:12px">'+esc(p.status)+'</td>'+notesTd(p)+
+        '<td style="font-size:var(--fs-sm)">'+esc(p.status)+'</td>'+notesTd(p)+
         shownGroups().map(x=>'<td><input type="checkbox" style="width:15px;height:15px;cursor:pointer;accent-color:'+gcol(x)+'" '+(isIncluded(p.sku,x)?'checked':'')+' '+(ed?'':'disabled')+' onchange="prcV13.toggleInclude(\''+q1(p.sku)+'\',\''+q1(x)+'\')" title="כלול במחירון '+esc(x)+'"></td>').join('')+
         revTd(p, ed)+
         '<td style="white-space:nowrap">'+rowActions(p, ed)+'</td></tr>';
@@ -15071,7 +15071,7 @@ function renderPricing(m){
       '<th class="pv-imgtd">תמונה</th>'+soTh('sku','מק״ט')+soTh('name','שם מוצר','pv-name')+soTh('cat','קטגוריה · תת קטגוריה')+soTh('ca','עלות בש״ח','pv-num')+
       (colOn('site')? soTh('site','מחיר אתר כיום<small class="pv-sub2">ללא מע״מ · הפרש מול שלנו</small>','pv-num') : '')+
       shownDisc().map(g=>discTh(g)).join('')+
-      shownGroups().map(x=>soTh('px:'+x,'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+gcol(x)+';margin-inline-end:5px"></span>'+esc(x)+'<small class="pv-sub2">'+(x==='אתר'? 'ללא מע״מ · כולל · שולי רווח' : 'ללא מע״מ · שולי רווח')+'</small>','pv-num','border-bottom:3px solid '+gcol(x))).join('')+
+      shownGroups().map(x=>soTh('px:'+x,'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+gcol(x)+';margin-inline-end:var(--sp-1)"></span>'+esc(x)+'<small class="pv-sub2">'+(x==='אתר'? 'ללא מע״מ · כולל · שולי רווח' : 'ללא מע״מ · שולי רווח')+'</small>','pv-num','border-bottom:3px solid '+gcol(x))).join('')+
       revTh(ed)+'</tr></thead><tbody>';
     rows.forEach((p,i)=>{
       const ca=costAfter(p.sku);
@@ -15115,7 +15115,7 @@ function renderPricing(m){
           '<td class="pv-num pv-price">'+(ex==null?'<span class="pv-noprice">'+(mg.v===0?'לפי הצעה':'—')+'</span>':fmt(ex)+' ₪')+'</td>'+
           '<td class="pv-num pv-price vat">'+(inc==null?'':fmt(inc)+' ₪')+((inc!=null && g===DISC_BASE_GRP)? charmLine(p.sku, inc) : '')+'</td>'+
           '<td class="pv-num pv-mult">'+(mult==null?'':fmt(mult,2)+'×')+'</td>'+
-          '<td style="font-size:12px">'+esc(p.status)+'</td>'+
+          '<td style="font-size:var(--fs-sm)">'+esc(p.status)+'</td>'+
           notesTd(p)+
           revTd(p, ed)+
           '<td style="white-space:nowrap">'+rowActions(p, ed)+'</td></tr>';
@@ -15178,11 +15178,11 @@ function bomPanel(sku, path, ed, depth, head){
   const par = usedInList(sku);
   return '<div class="pv-bomedit'+(depth?' nested':'')+'" data-sku="'+esc(sku)+'">'+
     (head? '<h4>עץ המוצר — '+esc(p? (p.name||sku) : sku)+'</h4>' : '')+
-    (par.length? '<div class="pv-hint" style="margin-bottom:8px">המק״ט הזה משמש גם כרכיב ב-'+par.length+' מוצרי אב: '+parentChips(par,8)+'</div>' : '')+
-    (kids.length? '' : '<div class="pv-hint" style="margin-bottom:8px">אין עדיין רכיבים. כל מק״ט — מכל מקור — יכול להיות מורכב מרכיבים; מרגע שיתווסף רכיב אחד, העלות תחושב מהעץ ולא מהשדה הידני.</div>')+
+    (par.length? '<div class="pv-hint" style="margin-bottom:var(--sp-2)">המק״ט הזה משמש גם כרכיב ב-'+par.length+' מוצרי אב: '+parentChips(par,8)+'</div>' : '')+
+    (kids.length? '' : '<div class="pv-hint" style="margin-bottom:var(--sp-2)">אין עדיין רכיבים. כל מק״ט — מכל מקור — יכול להיות מורכב מרכיבים; מרגע שיתווסף רכיב אחד, העלות תחושב מהעץ ולא מהשדה הידני.</div>')+
     '<table><thead><tr><th>מק״ט בן</th><th>שם</th><th>כמות</th><th class="pv-num">עלות יח׳</th><th class="pv-num">סה״כ</th><th></th></tr></thead>'+
     '<tbody>'+rows+'</tbody></table>'+
-    '<div class="pv-bomadd" style="display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap">'+
+    '<div class="pv-bomadd" style="display:flex; gap:var(--sp-2); align-items:center; margin-top:var(--sp-2); flex-wrap:wrap">'+
       (ed? '<div class="pv-bnwrap">'+
         '<input class="pv-bnq" autocomplete="off" placeholder="חיפוש רכיב לפי מק״ט או שם מוצר…"'+
           ' oninput="prcV13.bnSearch(this)" onfocus="prcV13.bnFocus(this)"'+
@@ -15195,7 +15195,7 @@ function bomPanel(sku, path, ed, depth, head){
       '<button class="pv-rowbtn primary" onclick="prcV13.bomAdd(\''+q1(sku)+'\',this)">＋ הוסף רכיב</button>':'')+
       '<span style="margin-inline-start:auto; font-weight:700">עלות כוללת לפני העמסה: '+(total==null?'—':fmt(total)+' ₪')+'</span>'+
     '</div>'+
-    ((kids.length && stored!=null)? '<div class="pv-hint" style="margin-top:6px">עלות שמורה בכרטיס (ערך ביקורת בלבד): '+fmt(stored)+' ₪ · פער מול חישוב העץ: '+diffTag(total,stored)+'</div>' : '')+
+    ((kids.length && stored!=null)? '<div class="pv-hint" style="margin-top:var(--sp-1h)">עלות שמורה בכרטיס (ערך ביקורת בלבד): '+fmt(stored)+' ₪ · פער מול חישוב העץ: '+diffTag(total,stored)+'</div>' : '')+
   '</div>';
 }
 
@@ -15260,9 +15260,9 @@ function mfgPanel(p, ed){
   return '<div class="pv-mfg" data-sku="'+esc(p.sku)+'">'+
     '<h4>מדרגות מחיר ייצור — '+esc(p.name||p.sku)+'</h4>'+
     sup+
-    (tree? '<div class="pv-hint" style="margin-bottom:8px">למק״ט הזה יש עץ מוצר, ולכן העלות נגזרת מהרכיבים והמדרגות כאן נשמרות לעיון והשוואה בלבד.</div>' : '')+
-    (p.source===SRC_IMPORT && list.length? '<div class="pv-hint" style="margin-bottom:8px">הספק הפעיל הוא יבוא, ולכן המדרגות אינן מתמחרות כרגע. החלפת הספק למעלה תעביר את התמחור אליהן.</div>' : '')+
-    (list.length? '' : '<div class="pv-hint" style="margin-bottom:8px">אין עדיין מדרגות. הוסף מדרגה לכל כמות שקיבלת עליה הצעת מחיר מהמסגרייה, וסמן את זו שלפיה מתמחרים.</div>')+
+    (tree? '<div class="pv-hint" style="margin-bottom:var(--sp-2)">למק״ט הזה יש עץ מוצר, ולכן העלות נגזרת מהרכיבים והמדרגות כאן נשמרות לעיון והשוואה בלבד.</div>' : '')+
+    (p.source===SRC_IMPORT && list.length? '<div class="pv-hint" style="margin-bottom:var(--sp-2)">הספק הפעיל הוא יבוא, ולכן המדרגות אינן מתמחרות כרגע. החלפת הספק למעלה תעביר את התמחור אליהן.</div>' : '')+
+    (list.length? '' : '<div class="pv-hint" style="margin-bottom:var(--sp-2)">אין עדיין מדרגות. הוסף מדרגה לכל כמות שקיבלת עליה הצעת מחיר מהמסגרייה, וסמן את זו שלפיה מתמחרים.</div>')+
     '<table><thead><tr><th style="width:34px">בחירה</th><th class="pv-num">כמות</th><th class="pv-num">עלות ייצור</th><th>מק״ט צבע</th><th class="pv-num">עלות צבע</th><th class="pv-num">סה״כ עלות</th><th class="pv-num">אחרי מקדם '+fmt(lf,2)+'</th><th>הערה</th><th></th></tr></thead>'+
     '<tbody>'+rows+'</tbody></table>'+
     (ed? '<div class="pv-mfgadd">'+
@@ -15272,7 +15272,7 @@ function mfgPanel(p, ed){
       '<input class="pv-mfgpc" type="number" min="0" step="0.01" placeholder="עלות צבע ₪">'+
       '<button class="pv-rowbtn primary" onclick="prcV13.mfgAdd(\''+q1(p.sku)+'\',this)">＋ הוסף מדרגה</button>'+
     '</div>' : '')+
-    '<div class="pv-hint" style="margin-top:6px">עלות המדרגה = עלות ייצור + עלות צבע, ומקדם ההעמסה ('+fmt(lf,2)+') מוחל אחריה. עלות הצבע מוקלדת ידנית; מק״ט הצבע נשמר לתיעוד בלבד, כי בפריוריטי עלויות הצבע הן 0.</div>'+
+    '<div class="pv-hint" style="margin-top:var(--sp-1h)">עלות המדרגה = עלות ייצור + עלות צבע, ומקדם ההעמסה ('+fmt(lf,2)+') מוחל אחריה. עלות הצבע מוקלדת ידנית; מק״ט הצבע נשמר לתיעוד בלבד, כי בפריוריטי עלויות הצבע הן 0.</div>'+
   '</div>';
 }
 
@@ -15330,7 +15330,7 @@ function bomLf(){
       '<button class="pv-vbtn" onclick="prcV13.lfCsv()">⤓ הורדת הדוח</button>'+
       '<span class="pv-catcell">'+out.length+' מק״טים שבהם יש הפרש</span>'+
     '</div>';
-  if(!out.length) return h+'<div class="pv-hint" style="padding:20px">אין הפרשים: אין מק״ט שבו שתי הסמנטיקות נותנות עלות שונה.</div>';
+  if(!out.length) return h+'<div class="pv-hint" style="padding:var(--sp-4h)">אין הפרשים: אין מק״ט שבו שתי הסמנטיקות נותנות עלות שונה.</div>';
   if(out.length>cap) h += '<div class="pv-warn">מוצגים '+cap+' מתוך '+out.length+', ממוינים לפי גודל ההפרש היחסי. הקובץ המלא זמין בהורדה.</div>';
   h += '<div class="pv-tblwrap"><table><thead><tr>'+
     '<th style="width:120px">מק״ט</th><th class="pv-name">שם מוצר</th><th>מקור</th>'+
@@ -15830,7 +15830,7 @@ function discSummary(rows, ed){
       '<span>%</span></div>'
     : '';
   return thr+
-    '<div class="pv-hint" style="margin-top:6px" title="הסיכום מחושב על השורות שבתצוגה הנוכחית, ליחידה אחת מכל מק״ט ובלי לשקלל כמויות מכירה.">'+
+    '<div class="pv-hint" style="margin-top:var(--sp-1h)" title="הסיכום מחושב על השורות שבתצוגה הנוכחית, ליחידה אחת מכל מק״ט ובלי לשקלל כמויות מכירה.">'+
     'ההנחה היא אחוז ממחיר האתר <b>שלנו</b> לפני מע״מ, והיא שקובעת את מחיר המחירון.</div>';
 }
 function cmpCell(p, grp, ed){
@@ -15956,9 +15956,9 @@ const missInc = (sku,g)=> !(missState.grp[sku] && missState.grp[sku][g]===false)
 function renderMiss(m){
   const ed = prcEdit();
   if(!MISS){
-    m.innerHTML = '<div class="pv-hint" style="padding:20px">טוען מק״טים…</div>';
+    m.innerHTML = '<div class="pv-hint" style="padding:var(--sp-4h)">טוען מק״טים…</div>';
     missLoad().then(()=>renderBody()).catch(e=>{
-      m.innerHTML='<div class="pv-hint" style="padding:20px;color:var(--red)">שגיאה בטעינה: '+esc(e.message||e)+'</div>';
+      m.innerHTML='<div class="pv-hint" style="padding:var(--sp-4h);color:var(--red)">שגיאה בטעינה: '+esc(e.message||e)+'</div>';
       /* MISS נשאר null, ולכן missBar היה חוזר ל"טוען…" — כותבים את השגיאה ישירות. */
       const c=document.getElementById('prc-ctx2');
       if(c) c.innerHTML='<span class="pv-hint" style="margin:0;color:var(--red)">שגיאה בטעינת הרשימה — נסה ↻ רענון</span>';
@@ -15981,7 +15981,7 @@ function renderMiss(m){
     '<th class="pv-imgtd">תמונה</th><th>מק״ט</th><th class="pv-name">שם מוצר</th><th>משפחה</th><th>סטטוס</th>'+
     '<th class="pv-num">מלאי</th><th class="pv-num">נמכר 6ח׳</th>'+
     '<th class="pv-num">עלות פריוריטי</th><th class="pv-num">מחיר פריוריטי</th>'+
-    GROUPS.map(x=>'<th style="border-bottom:3px solid '+gcol(x)+'"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+gcol(x)+';margin-inline-end:4px"></span>'+esc(x)+'</th>').join('')+
+    GROUPS.map(x=>'<th style="border-bottom:3px solid '+gcol(x)+'"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+gcol(x)+';margin-inline-end:var(--sp-1)"></span>'+esc(x)+'</th>').join('')+
     (ed? '<th>פעולות</th>' : '')+
   '</tr></thead><tbody>';
 
@@ -16076,7 +16076,7 @@ function renderSettings(m){
   const ed = prcEdit();
   const dis = ed? '' : ' disabled';
   const gRows = DATA.groups.map((g,i)=>
-    '<div class="pv-frow"><label><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+gcol(g.key)+';margin-inline-end:6px"></span>'+esc(g.key)+' <small style="color:var(--ink-3)">'+esc(g.desc||'')+'</small></label>'+
+    '<div class="pv-frow"><label><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+gcol(g.key)+';margin-inline-end:var(--sp-1h)"></span>'+esc(g.key)+' <small style="color:var(--ink-3)">'+esc(g.desc||'')+'</small></label>'+
     '<input type="number" step="1" value="'+(g.margin*100).toFixed(1)+'"'+dis+' onchange="prcV13.setG('+i+',this.value)"></div>').join('');
   const mtxHead = '<tr><th>קטגוריה</th><th>תת קטגוריה</th>'+GROUPS.map(g=>'<th class="pv-num" style="border-bottom:3px solid '+gcol(g)+'">'+esc(g)+'</th>').join('')+'</tr>';
   const mtxRows = DATA.matrix.map((r,i)=>'<tr><td>'+esc(r.cat)+'</td><td class="pv-catcell">'+esc(r.sub||'—')+'</td>'+
@@ -16089,19 +16089,19 @@ function renderSettings(m){
         '<div class="pv-frow"><label>שער חליפין USD→ILS</label><input type="number" step="0.01" value="'+S.usdRate+'"'+dis+' onchange="prcV13.setUsd(this.value)"></div>'+
         '<div class="pv-frow"><label>מע״מ %</label><input type="number" step="1" value="'+(S.vat*100).toFixed(0)+'"'+dis+' onchange="prcV13.setVat(this.value)"></div>'+
         '<div class="pv-floorbox">'+
-          '<div class="pv-frow"><label><input type="checkbox" class="pv-chk" style="margin-inline-end:6px" '+(S.usdFloorOn?'checked':'')+dis+' onchange="prcV13.setUsdFloorOn(this.checked)">רצפת שער דולר</label>'+
+          '<div class="pv-frow"><label><input type="checkbox" class="pv-chk" style="margin-inline-end:var(--sp-1h)" '+(S.usdFloorOn?'checked':'')+dis+' onchange="prcV13.setUsdFloorOn(this.checked)">רצפת שער דולר</label>'+
             '<input type="number" step="0.01" value="'+(S.usdFloor==null?'':S.usdFloor)+'" placeholder="ללא"'+dis+' onchange="prcV13.setUsdFloor(this.value)"></div>'+
-          '<div class="pv-frow"><label><input type="checkbox" class="pv-chk" style="margin-inline-end:6px" '+(S.vatFloorOn?'checked':'')+dis+' onchange="prcV13.setVatFloorOn(this.checked)">רצפת מע״מ %</label>'+
+          '<div class="pv-frow"><label><input type="checkbox" class="pv-chk" style="margin-inline-end:var(--sp-1h)" '+(S.vatFloorOn?'checked':'')+dis+' onchange="prcV13.setVatFloorOn(this.checked)">רצפת מע״מ %</label>'+
             '<input type="number" step="0.5" value="'+(S.vatFloor==null?'':(S.vatFloor*100).toFixed(1))+'" placeholder="ללא"'+dis+' onchange="prcV13.setVatFloor(this.value)"></div>'+
           '<div class="pv-hint">רצפה = הערך המינימלי שלפיו מחושב המחיר. אם הערך בפועל ירד מתחת לרצפה — המחיר <b>לא יוזל</b>, '+
             'והפער נבלע במרווח שגדל אוטומטית. העלות המוצגת ממשיכה לפי הערך האמיתי. אם הערך בפועל גבוה מהרצפה — הרצפה אינה משפיעה.'+
             (floorsOn()? '<br><b style="color:var(--amber)">פעיל כעת:</b> מחיר לפי שער '+fmt(usdEff(),2)+' ₪ ומע״מ '+pc(vatEff())+' (בפועל '+fmt(S.usdRate,2)+' ₪ / '+pc(S.vat)+')' : '')+
           '</div>'+
         '</div>'+
-        '<h3 style="margin-top:18px">מקדמי העמסה (עלות → עלות נחיתה)</h3>'+
+        '<h3 style="margin-top:var(--sp-4)">מקדמי העמסה (עלות → עלות נחיתה)</h3>'+
         Object.keys(S.loadFactors).map(k=>'<div class="pv-frow"><label>'+esc(k)+'</label><input type="number" step="0.01" value="'+S.loadFactors[k]+'"'+dis+' onchange="prcV13.setLF(\''+q1(k)+'\',this.value)"></div>').join('')+
       '</div>'+
-      '<div class="pv-panel" style="margin-top:16px">'+
+      '<div class="pv-panel" style="margin-top:var(--sp-4)">'+
         '<h3>אחוזי רווח כלליים לפי קבוצה</h3>'+
         gRows+
         '<div class="pv-hint">משמשים רק כשאין מקדם קטגוריה ואין אחוז ידני למק״ט.<br>סדר עדיפות: <b>אחוז ידני למק״ט</b> ← <b>מקדם קטגוריה</b> ← <b>אחוז כללי</b>.</div>'+
@@ -16607,7 +16607,7 @@ function edCalc(p){
   const fs = finalSrc(p.sku,g);
   const mg = (fs==='mg')? marginFor(p.sku,g) : { v: finalMargin(p.sku,g), src:'ds' };
   const ex = finalEx(p.sku,g), inc = finalInc(p.sku,g);
-  return '<div class="pv-stats" style="margin:16px 0 0">'+
+  return '<div class="pv-stats" style="margin:var(--sp-4) 0 0">'+
     '<div class="pv-stat"><div class="v">'+(cb==null?'—':fmt(cb)+' ₪')+'</div><div class="l">עלות לפני העמסה</div></div>'+
     '<div class="pv-stat"><div class="v">'+(ca==null?'—':fmt(ca)+' ₪')+'</div><div class="l">עלות בש״ח אחרי העמסה</div></div>'+
     '<div class="pv-stat"><div class="v">'+(mg.v==null?'—':pc(mg.v))+'</div><div class="l">% מרווח'+(fs==='mg'? '' : ' (לפי הנחה)')+' · '+esc(g)+'</div></div>'+
@@ -16663,7 +16663,7 @@ function edPaneNote(p, ed){
       '<small class="pvc-h">נקבע ידנית בכל פעם שמתקבל עדכון מחיר מהיבואן. אינו מתעדכן מעצמו בשמירה — להבדיל מ"עודכן לאחרונה" שלמטה, שנדרס בכל שינוי במק״ט.</small></div>'+
     '<div class="pvc-f span2"><label>הערות</label><textarea id="pv-ed-notes" rows="3"'+d+'>'+esc(p.notes||'')+'</textarea></div>'+
   '</div>'+
-  '<div class="pv-stats" style="margin-top:16px">'+
+  '<div class="pv-stats" style="margin-top:var(--sp-4)">'+
     '<div class="pv-stat"><div class="v">'+(p.updated? esc(revDate(p.updated)) : '—')+'</div><div class="l">עודכן לאחרונה (כל שינוי)</div></div>'+sig+
   '</div>';
 }
@@ -17266,15 +17266,15 @@ window.renderPrc = async function(){
   pvInjectCss();
   const b = document.getElementById('prc-body');
   if(!prcAdmin()){
-    if(b) b.innerHTML = '<div class="pv-hint" style="padding:20px">אין לך הרשאה לצפות במסך התמחור.</div>';
+    if(b) b.innerHTML = '<div class="pv-hint" style="padding:var(--sp-4h)">אין לך הרשאה לצפות במסך התמחור.</div>';
     const sh=document.querySelector('#tab-prc .pv-shell'); if(sh) sh.style.display='none';
     return;
   }
   if(!PRC_LOADED){
-    if(b) b.innerHTML = '<div class="pv-hint" style="padding:20px">טוען נתוני תמחור…</div>';
+    if(b) b.innerHTML = '<div class="pv-hint" style="padding:var(--sp-4h)">טוען נתוני תמחור…</div>';
     try{ await prcLoad(); }
     catch(e){
-      if(b) b.innerHTML = '<div class="pv-hint" style="padding:20px; color:var(--red)">שגיאה בטעינת נתוני התמחור: '+esc(e && e.message? e.message : String(e))+'</div>';
+      if(b) b.innerHTML = '<div class="pv-hint" style="padding:var(--sp-4h); color:var(--red)">שגיאה בטעינת נתוני התמחור: '+esc(e && e.message? e.message : String(e))+'</div>';
       return;
     }
     fillCatFilter();
@@ -17383,7 +17383,7 @@ function paintSyncLog(){
     const m=syncMeta(f);
     return `<div class="sl-card${last && last.ok ? '' : ' bad'}">
       <b class="t">${m.ic ? m.ic + ' ' : ''}${esc(m.label)}</b>
-      <div class="v">${last&&last.ok?'<span class="sl-tag ok">תקין</span>':'<span class="sl-tag no">נכשל</span>'} <span style="font-size:13px;font-weight:700;color:#334155">${esc(syncWhen(last&&last.ran_at))}</span></div>
+      <div class="v">${last&&last.ok?'<span class="sl-tag ok">תקין</span>':'<span class="sl-tag no">נכשל</span>'} <span style="font-size:var(--fs-md);font-weight:700;color:var(--ink-2)">${esc(syncWhen(last&&last.ran_at))}</span></div>
       <div class="s">${esc(m.sub)}${lastOk&&lastOk!==last?'<br>הצלחה אחרונה: '+esc(syncWhen(lastOk.ran_at)):''}${fails?'<br><b style="color:var(--red)">'+fails+' כישלונות ב-7 הימים האחרונים</b>':''}</div>
     </div>`;
   }).join('');
@@ -17413,8 +17413,8 @@ function paintSyncLog(){
       <option value="all" ${SYNCLOG_F.days==='all'?'selected':''}>הכל</option>
     </select>
     <span class="sp"></span>
-    <span style="font-size:12.5px;color:var(--ink-3)">${filt.length.toLocaleString('he-IL')} ריצות</span>
-    <button class="ghost" style="width:auto;padding:6px 14px;font-size:12.5px" onclick="loadSyncLog(true)">רענון</button>
+    <span style="font-size:var(--fs-sm);color:var(--ink-3)">${filt.length.toLocaleString('he-IL')} ריצות</span>
+    <button class="ghost" style="width:auto;padding:6px 14px;font-size:var(--fs-sm)" onclick="loadSyncLog(true)">רענון</button>
   </div>`;
   const shown=filt.slice(0,SYNCLOG_LIM);
   const list=shown.map(r=>{
@@ -17436,12 +17436,12 @@ function paintSyncLog(){
       </div>${det}`;
   }).join('');
   const foot = filt.length>shown.length
-    ? `<div class="sl-foot">מוצגות ${shown.length} מתוך ${filt.length} ריצות <button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:8px;font-size:12.5px" onclick="syncLogMore()">הצג עוד</button></div>`
+    ? `<div class="sl-foot">מוצגות ${shown.length} מתוך ${filt.length} ריצות <button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:var(--sp-2);font-size:var(--fs-sm)" onclick="syncLogMore()">הצג עוד</button></div>`
     : `<div class="sl-foot">אלו כל הריצות התואמות לסינון</div>`;
   box.innerHTML = `<div class="sl-cards">${cards||''}</div>${bar}
     <div class="sl-list">
       <div class="sl-head"><span></span><span>מועד הריצה</span><span>הסנכרון</span><span>תוצאה</span><span>משך</span></div>
-      ${list||'<div class="empty" style="padding:18px">אין ריצות התואמות לסינון</div>'}
+      ${list||'<div class="empty" style="padding:var(--sp-4)">אין ריצות התואמות לסינון</div>'}
       ${filt.length?foot:''}
     </div>`;
 }
@@ -17485,9 +17485,9 @@ function hooksLogHtml(){
       <select id="hkDays" onchange="hkSet('days',this.value)">
         <option value="1">24 שעות</option><option value="7" selected>7 ימים</option><option value="30">30 ימים</option><option value="90">90 ימים</option>
       </select>
-      <label style="font-size:13px;display:flex;gap:5px;align-items:center"><input type="checkbox" id="hkBad" onchange="hkSet('bad',this.checked)">כשלים בלבד</label>
+      <label style="font-size:var(--fs-md);display:flex;gap:var(--sp-1);align-items:center"><input type="checkbox" id="hkBad" onchange="hkSet('bad',this.checked)">כשלים בלבד</label>
       <input type="search" id="hkQ" placeholder="חיפוש — מספר הזמנה, הצעה, לקוח, שם…">
-      <button class="ghost" style="width:auto;padding:6px 14px;font-size:12.5px" onclick="loadHooksLog()">רענון</button>
+      <button class="ghost" style="width:auto;padding:6px 14px;font-size:var(--fs-sm)" onclick="loadHooksLog()">רענון</button>
     </div>
     <div id="hkBox">${crmLoading('טוען את יומן הוובהוקים…')}</div>`;
 }
@@ -17579,9 +17579,9 @@ function paintHooksLog(){
       </div>${HK_OPEN[r.iid]?hkItemHtml(r):''}`;
   }).join('');
   const foot = items.length>shown.length
-    ? `<div class="sl-foot">מוצגות ${fmtNum(shown.length)} מתוך ${fmtNum(items.length)} פניות <button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:8px;font-size:12.5px" onclick="hkMore()">הצג עוד</button></div>`
+    ? `<div class="sl-foot">מוצגות ${fmtNum(shown.length)} מתוך ${fmtNum(items.length)} פניות <button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:var(--sp-2);font-size:var(--fs-sm)" onclick="hkMore()">הצג עוד</button></div>`
     : (items.length ? `<div class="sl-foot">${fmtNum(items.length)} פניות${HK.total>items.length?' — מוצגות האחרונות מתוך '+fmtNum(HK.total):''}</div>` : '');
-  box.innerHTML = `<div class="sl-list">${rows||'<div class="empty" style="padding:18px">אין פניות התואמות לסינון</div>'}${foot}</div>`;
+  box.innerHTML = `<div class="sl-list">${rows||'<div class="empty" style="padding:var(--sp-4)">אין פניות התואמות לסינון</div>'}${foot}</div>`;
 }
 
 let ERRL=null, ERRL_ERR=null, ERRL_SEQ=0, ERRL_F={cat:'',st:'open',days:'30'}, ERRL_OPEN={}, ERRL_ITEM={}, ERRL_LIM=100, ERRL_BUSY=false;
@@ -17595,8 +17595,8 @@ function errLogHtml(){
       <select id="errCat" onchange="errSet('cat',this.value)"><option value="">כל הסוגים</option><option value="hook">וובהוקים</option><option value="sync">סנכרונים</option><option value="send">שליחת הודעות</option></select>
       <select id="errDays" onchange="errSet('days',this.value)"><option value="7">7 ימים</option><option value="30">30 ימים</option><option value="90">90 ימים</option><option value="365">שנה</option></select>
       <span class="sp"></span>
-      ${canEdit('set.errors')?'<button class="ghost" id="errAckAll" style="width:auto;padding:6px 14px;font-size:12.5px" onclick="errAckAll()">סמן את המוצגות כטופלו</button>':''}
-      <button class="ghost" style="width:auto;padding:6px 14px;font-size:12.5px" onclick="loadErrLog()">רענון</button>
+      ${canEdit('set.errors')?'<button class="ghost" id="errAckAll" style="width:auto;padding:6px 14px;font-size:var(--fs-sm)" onclick="errAckAll()">סמן את המוצגות כטופלו</button>':''}
+      <button class="ghost" style="width:auto;padding:6px 14px;font-size:var(--fs-sm)" onclick="loadErrLog()">רענון</button>
     </div>
     <div id="errBox">${crmLoading('טוען את יומן השגיאות…')}</div>`;
 }
@@ -17661,7 +17661,7 @@ function errDetHtml(e){
   let ack='';
   if(e.acked_at){
     ack=`<div class="hk-ack"><span class="who">טופל ${esc(syncWhen(e.acked_at))}${e.acked_by?' · '+esc(e.acked_by):''}${e.ack_note?' — '+esc(e.ack_note):''}</span>
-      ${canEdit('set.errors')?`<button class="ghost" style="width:auto;padding:5px 12px;font-size:12.5px" onclick="event.stopPropagation();errUnack('${esc(e.eid)}')">ביטול הסימון</button>`:''}</div>`;
+      ${canEdit('set.errors')?`<button class="ghost" style="width:auto;padding:5px 12px;font-size:var(--fs-sm)" onclick="event.stopPropagation();errUnack('${esc(e.eid)}')">ביטול הסימון</button>`:''}</div>`;
   } else if(canEdit('set.errors')){
     ack=`<div class="hk-ack" onclick="event.stopPropagation()"><input id="errNote_${esc(e.eid)}" placeholder="הערה (לא חובה) — מה נמצא, מה נעשה" maxlength="400">
       <button class="btn" style="width:auto;padding:6px 14px" onclick="errAckOne('${esc(e.eid)}')">סמן כטופל</button></div>`;
@@ -17690,10 +17690,10 @@ function paintErrLog(){
       </div>${ERRL_OPEN[e.eid]?errDetHtml(e):''}`;
   }).join('');
   const foot = items.length>shown.length
-    ? `<div class="sl-foot">מוצגות ${fmtNum(shown.length)} מתוך ${fmtNum(items.length)} <button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:8px;font-size:12.5px" onclick="errMore()">הצג עוד</button></div>`
+    ? `<div class="sl-foot">מוצגות ${fmtNum(shown.length)} מתוך ${fmtNum(items.length)} <button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:var(--sp-2);font-size:var(--fs-sm)" onclick="errMore()">הצג עוד</button></div>`
     : (items.length ? `<div class="sl-foot">${fmtNum(items.length)} רשומות</div>` : '');
   const empty = ERRL_F.st==='open' ? 'אין שגיאות פתוחות' : 'אין רשומות התואמות לסינון';
-  box.innerHTML = `<div class="sl-list">${rows||'<div class="empty" style="padding:18px">'+empty+'</div>'}${foot}</div>`;
+  box.innerHTML = `<div class="sl-list">${rows||'<div class="empty" style="padding:var(--sp-4)">'+empty+'</div>'}${foot}</div>`;
 }
 
 /* ===== הגדרות — תתי-קטגוריות מסודרות + ניהול משתמשים (הערה 10) ===== */
@@ -18435,7 +18435,7 @@ function renderSettings(){
           <label><span>קבוצת הרשאות</span><select id="nu-group"><option value="">— ללא קבוצת הרשאות —</option></select></label>
           <div class="usr-new-a"><button type="button" class="btn" id="nu-btn" onclick="createUser()">יצירה</button><button type="button" class="ghost" onclick="usrNewToggle(false)">ביטול</button></div>
         </div>
-        <div class="note" style="margin:10px 0 0">מסרו למשתמש את הסיסמה הראשונית — המערכת תחייב אותו להחליף אותה בכניסה הראשונה. הדוא"ל חייב להיות בדומיין ironfitness.co.il, והרשאת מנהל מערכת מוענקת בנפרד לאחר היצירה.</div>
+        <div class="note" style="margin:var(--sp-2h) 0 0">מסרו למשתמש את הסיסמה הראשונית — המערכת תחייב אותו להחליף אותה בכניסה הראשונה. הדוא"ל חייב להיות בדומיין ironfitness.co.il, והרשאת מנהל מערכת מוענקת בנפרד לאחר היצירה.</div>
         <div class="err" id="nu-err"></div>
       </div>`:''}
       <div id="usersBox" class="tbl-wrap usr-box">${crmLoading('טוען משתמשים…')}</div>
@@ -18652,23 +18652,23 @@ function bookOpt(vals, cur, unit){ return vals.map(v=>`<option value="${v}" ${St
 function bookInner(){
   const S = BOOK_ST, ed = canEdit('set.crm'), dis = ed ? '' : 'disabled';
   const miss = BOOK_KEYS.filter(k=>bookVal(k)===null);
-  const missNote = miss.length ? `<div class="note" style="margin-bottom:10px">מפתחות שאינם קיימים ב-ord.settings, והשרת ישתמש עבורם בברירת המחדל: <code>${esc(miss.join(', '))}</code></div>` : '';
+  const missNote = miss.length ? `<div class="note" style="margin-bottom:var(--sp-2h)">מפתחות שאינם קיימים ב-ord.settings, והשרת ישתמש עבורם בברירת המחדל: <code>${esc(miss.join(', '))}</code></div>` : '';
   const fld = 'width:100%;padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px;font-family:inherit;font-size:13.5px;box-sizing:border-box;min-height:30px;background:#fff';
   const days = BOOK_DAY_SH.map((n,d)=>`<button type="button" class="chip${S.days.has(d)?' active':''}" ${dis} onclick="bookDay(${d})" aria-pressed="${S.days.has(d)}">${n}</button>`).join(' ');
   const rgRows = [0,1,2,3,4,5,6].filter(d=>S.days.has(d)).map(d=>{
-    const chips = S.rg[d].map((r,i)=>`<span class="chip active" style="gap:6px">${esc(r.replace('-','–'))}${ed?` <button type="button" onclick="bookRgDel(${d},${i})" aria-label="הסרת הטווח" style="background:none;border:0;color:inherit;cursor:pointer;padding:0 2px">✕</button>`:''}</span>`).join(' ');
+    const chips = S.rg[d].map((r,i)=>`<span class="chip active" style="gap:var(--sp-1h)">${esc(r.replace('-','–'))}${ed?` <button type="button" onclick="bookRgDel(${d},${i})" aria-label="הסרת הטווח" style="background:none;border:0;color:inherit;cursor:pointer;padding:0 2px">✕</button>`:''}</span>`).join(' ');
     const adding = S.add === d;
     const addUi = !ed ? '' : adding
-      ? `<span style="display:inline-flex;gap:6px;align-items:center"><input id="bk-ra" type="time" value="09:00" style="${fld};width:auto"> עד <input id="bk-rb" type="time" value="11:00" style="${fld};width:auto">
+      ? `<span style="display:inline-flex;gap:var(--sp-1h);align-items:center"><input id="bk-ra" type="time" value="09:00" style="${fld};width:auto"> עד <input id="bk-rb" type="time" value="11:00" style="${fld};width:auto">
            <button type="button" class="chip" onclick="bookRgAdd(${d})">הוספה</button><button type="button" class="chip" onclick="bookRgCancel()">ביטול</button></span>`
       : `<button type="button" class="chip chip-mode" onclick="bookRgOpen(${d})">＋ טווח</button>`;
-    return `<div style="display:grid;grid-template-columns:90px minmax(0,1fr);gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #eef1f4">
+    return `<div style="display:grid;grid-template-columns:90px minmax(0,1fr);gap:var(--sp-2h);align-items:center;padding:var(--sp-2) 0;border-bottom:1px solid var(--line-soft)">
       <b style="color:var(--navy)">${BOOK_DAY_LN[d]}</b>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${chips || '<span style="color:var(--ink-3)">אין שיחות ייעוץ ביום זה</span>'} ${addUi}</div></div>`;
+      <div style="display:flex;gap:var(--sp-1h);flex-wrap:wrap;align-items:center">${chips || '<span style="color:var(--ink-3)">אין שיחות ייעוץ ביום זה</span>'} ${addUi}</div></div>`;
   }).join('') || '<div class="note">לא נבחרו ימי פעילות.</div>';
-  const blk = S.blk.map((b,i)=>`<span class="chip" style="gap:6px">${esc(b.d.split('-').reverse().join('.'))}${b.why?' · '+esc(b.why):''}${ed?` <button type="button" onclick="bookBlkDel(${i})" aria-label="הסרת החסימה" style="background:none;border:0;color:inherit;cursor:pointer;padding:0 2px">✕</button>`:''}</span>`).join(' ');
+  const blk = S.blk.map((b,i)=>`<span class="chip" style="gap:var(--sp-1h)">${esc(b.d.split('-').reverse().join('.'))}${b.why?' · '+esc(b.why):''}${ed?` <button type="button" onclick="bookBlkDel(${i})" aria-label="הסרת החסימה" style="background:none;border:0;color:inherit;cursor:pointer;padding:0 2px">✕</button>`:''}</span>`).join(' ');
   return `${missNote}
-    <div class="tbl-wrap" style="padding:12px 14px;margin-bottom:12px">
+    <div class="tbl-wrap" style="padding:12px 14px;margin-bottom:var(--sp-3)">
       <div class="form-grid">
         <div class="form-sep">מצב והיומן</div>
         <div><label>הדף באתר פעיל</label><select id="bk-en" ${dis} style="${fld}" onchange="bookSet('enabled',this.value==='כן')"><option ${S.enabled?'selected':''}>כן</option><option ${S.enabled?'':'selected'}>לא</option></select>
@@ -18676,8 +18676,8 @@ function bookInner(){
         <div style="grid-column:span 2"><label>יומן המכירות</label><input id="bk-cal" dir="ltr" ${dis} value="${esc(S.calendar)}" style="${fld};text-align:right" oninput="bookSet('calendar',this.value)"></div>
         <div><label>אירוע "פנוי" ביומן חוסם?</label><select ${dis} style="${fld}" onchange="bookSet('free',this.value==='כן')"><option ${S.free?'selected':''}>כן</option><option ${S.free?'':'selected'}>לא</option></select></div>
         <div class="form-sep">ימים ושעות</div>
-        <div style="grid-column:span 2"><label>ימי פעילות</label><div style="display:flex;gap:4px;flex-wrap:wrap">${days}</div></div>
-        <div style="grid-column:span 2"><label>שעות פעילות</label><div style="display:flex;gap:6px;align-items:center">
+        <div style="grid-column:span 2"><label>ימי פעילות</label><div style="display:flex;gap:var(--sp-1);flex-wrap:wrap">${days}</div></div>
+        <div style="grid-column:span 2"><label>שעות פעילות</label><div style="display:flex;gap:var(--sp-1h);align-items:center">
           <input type="time" ${dis} value="${esc(S.h0)}" style="${fld};width:auto" onchange="bookSet('h0',this.value)"> עד
           <input type="time" ${dis} value="${esc(S.h1)}" style="${fld};width:auto" onchange="bookSet('h1',this.value)"></div></div>
         <div><label>התראה מינימלית <span style="font-weight:400;color:var(--ink-3)">(שעות מראש)</span></label><input type="number" min="0" max="168" step="1" ${dis} value="${esc(S.notice)}" style="${fld}" oninput="bookSet('notice',this.value)"></div>
@@ -18696,15 +18696,15 @@ function bookInner(){
         <div><label>מועדים שמוצגים ביום <span style="font-weight:400;color:var(--ink-3)">(מפוזרים על פני היום)</span></label><input type="number" min="1" max="12" step="1" ${dis} value="${esc(S.maxs)}" style="${fld}" oninput="bookSet('maxs',this.value)"></div>
         <div style="grid-column:span 3"><div class="note" style="margin-top:0">פחות מועדים = הדף נראה מבוקש יותר. הזמינות האמיתית לא משתנה — רק כמה מהמועדים הפנויים מוצגים.</div></div>
         <div class="form-sep">ימים חסומים</div>
-        <div style="grid-column:1/-1;display:flex;flex-direction:row;gap:6px;flex-wrap:wrap;align-items:center">${blk || '<span style="color:var(--ink-3)">אין ימים חסומים</span>'}
-          <span class="chip" style="background:#f1f5f9">חגי ישראל נחסמים אוטומטית</span></div>
-        ${ed?`<div style="grid-column:1/-1;display:flex;flex-direction:row;gap:6px;flex-wrap:wrap;align-items:center">
+        <div style="grid-column:1/-1;display:flex;flex-direction:row;gap:var(--sp-1h);flex-wrap:wrap;align-items:center">${blk || '<span style="color:var(--ink-3)">אין ימים חסומים</span>'}
+          <span class="chip" style="background:var(--bg-muted)">חגי ישראל נחסמים אוטומטית</span></div>
+        ${ed?`<div style="grid-column:1/-1;display:flex;flex-direction:row;gap:var(--sp-1h);flex-wrap:wrap;align-items:center">
           <input id="bk-bd" type="date" style="${fld};width:auto"><input id="bk-bw" type="text" placeholder="סיבה (לא חובה)" style="${fld};width:220px">
           <button type="button" class="chip" onclick="bookBlkAdd()">חסימת יום</button></div>`:''}
       </div>
     </div>
     ${bookTxtHtml(S, ed, fld)}
-    ${ed?`<div style="display:flex;gap:10px;align-items:center"><button type="button" class="btn" style="width:auto" onclick="bookSave()">שמירה</button>
+    ${ed?`<div style="display:flex;gap:var(--sp-2h);align-items:center"><button type="button" class="btn" style="width:auto" onclick="bookSave()">שמירה</button>
       <span id="bk-dirty" class="note" style="margin:0;${BOOK_DIRTY?'':'display:none'}">יש שינויים שלא נשמרו</span></div>`:''}`;
 }
 /* 7.12.0 booktx2 — כל טקסטי הדף בקבוצות לפי מסך (השיווקיות פתוחות), חיפוש, ותצוגה מקדימה.
@@ -18718,23 +18718,23 @@ function bookTxtHtml(S, ed, fld){
     const inp = long
       ? `<textarea ${dis} rows="2" maxlength="400" aria-label="${esc(label)}" placeholder="${esc(def)}" style="${fld};min-height:54px;resize:vertical" oninput="bookTx('${k}',this.value)">${esc(v)}</textarea>`
       : `<input ${dis} maxlength="400" aria-label="${esc(label)}" placeholder="${esc(def)}" value="${esc(v)}" style="${fld}" oninput="bookTx('${k}',this.value)">`;
-    return `<div class="bk-tx" data-s="${esc((label + ' ' + def).toLowerCase())}" style="grid-column:span 2"><label>${esc(label)}${v.trim()?' <span class="sup-chip sup-warm" style="display:inline-block;margin:0 6px 0 0">שונה</span>':''}</label>${inp}
-      ${ed && v.trim() ? `<button type="button" class="chip" style="margin-top:4px" onclick="bookTxReset('${k}')">חזרה לברירת המחדל</button>` : ''}</div>`;
+    return `<div class="bk-tx" data-s="${esc((label + ' ' + def).toLowerCase())}" style="grid-column:span 2"><label>${esc(label)}${v.trim()?' <span class="sup-chip sup-warm" style="display:inline-block;margin:0 var(--sp-1h) 0 0">שונה</span>':''}</label>${inp}
+      ${ed && v.trim() ? `<button type="button" class="chip" style="margin-top:var(--sp-1)" onclick="bookTxReset('${k}')">חזרה לברירת המחדל</button>` : ''}</div>`;
   };
   const gh = groups.map((x,i)=>{
     const ch = x.rows.filter(([k])=>String(S.tx[k]||'').trim()).length;
     const open = BOOK_TXT_G[i] != null ? BOOK_TXT_G[i] : x.open;
-    return `<details class="bk-txg" data-g="${i}" ${open?'open':''} ontoggle="BOOK_TXT_G[${i}]=this.open" style="border-top:1px solid var(--line);padding:8px 0">
+    return `<details class="bk-txg" data-g="${i}" ${open?'open':''} ontoggle="BOOK_TXT_G[${i}]=this.open" style="border-top:1px solid var(--line);padding:var(--sp-2) 0">
       <summary style="cursor:pointer;font-weight:600;color:var(--navy)">${esc(x.title)} <span style="font-weight:400;color:var(--ink-3)">· ${x.rows.length} טקסטים${ch ? ' · ' + ch + ' שונו' : ''}</span></summary>
-      <div class="form-grid" style="margin-top:8px">${x.rows.map(row).join('')}</div></details>`;
+      <div class="form-grid" style="margin-top:var(--sp-2)">${x.rows.map(row).join('')}</div></details>`;
   }).join('');
-  return `<details class="tbl-wrap" style="padding:10px 14px;margin-bottom:12px" ${BOOK_TXT_OPEN?'open':''} ontoggle="BOOK_TXT_OPEN=this.open">
+  return `<details class="tbl-wrap" style="padding:10px 14px;margin-bottom:var(--sp-3)" ${BOOK_TXT_OPEN?'open':''} ontoggle="BOOK_TXT_OPEN=this.open">
     <summary style="cursor:pointer;font-weight:700;color:var(--navy)">טקסטים בדף הקביעה <span style="font-weight:400;color:var(--ink-3)">${n ? '(' + n + ' שונו מתוך ' + (BOOK_TXT.length - groups.length) + ')' : '(כולם בברירת המחדל)'}</span></summary>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0">
+    <div style="display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center;margin:var(--sp-2h) 0">
       <input type="search" id="bk-txq" placeholder="חיפוש טקסט — למשל: כפתור, וואטסאפ, ביטול…" aria-label="חיפוש טקסט בדף הקביעה" value="${esc(BOOK_TXT_Q)}" oninput="bookTxFilter(this.value)" style="${fld};flex:1;min-width:220px">
       <button type="button" class="btn" style="width:auto" onclick="bookPreview()">תצוגה מקדימה</button>
     </div>
-    <div class="note" style="margin:0 0 10px">שדה ריק = הטקסט שמופיע באפור. מצייני מקום: <code>{name}</code> שם פרטי · <code>{min}</code> דקות · <code>{date}</code> יום ושעה · <code>{max}</code> מספר המועדים · <code>{n}</code> מספר השלב · <code>{type}</code> סוג הפגישה. טקסט בלבד, בלי HTML.
+    <div class="note" style="margin:0 0 var(--sp-2h)">שדה ריק = הטקסט שמופיע באפור. מצייני מקום: <code>{name}</code> שם פרטי · <code>{min}</code> דקות · <code>{date}</code> יום ושעה · <code>{max}</code> מספר המועדים · <code>{n}</code> מספר השלב · <code>{type}</code> סוג הפגישה. טקסט בלבד, בלי HTML.
       <b>תצוגה מקדימה</b> פותחת את הדף עם הטקסטים שעל המסך — עוד לפני שמירה — ומתעדכנת תוך כדי הקלדה. הכותרת והתיאור לגוגל ולשיתוף בוואטסאפ מתעדכנים בשמירה (עד כ-2 דקות).</div>
     <div id="bk-txgs">${gh}</div><div id="bk-txnone" class="note" style="display:none">לא נמצא טקסט מתאים.</div></details>`;
 }
@@ -18777,7 +18777,7 @@ function bookSettingsHtml(){
   BOOK_TXT_Q = '';   /* 7.12.0 — מסך חדש = בלי חיפוש ישן */
   return `<div class="st-top"><h2 class="sec">תיאום פגישות מהאתר</h2></div>
     <div class="st-lead">מחליף את Calendly. שינוי חל <b>מיד ובלי פריסה</b> — השרת קורא את ההגדרות בכל בקשה מהאתר. קביעה נכנסת כליד במקור "קביעת פגישה באתר".</div>
-    <div class="tbl-wrap" style="padding:10px 14px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center">
+    <div class="tbl-wrap" style="padding:10px 14px;margin-bottom:var(--sp-3);display:flex;flex-wrap:wrap;gap:var(--sp-1h) var(--sp-3);align-items:center">
       <b style="color:var(--navy)">קישור הדף לאתר</b>
       <a href="${BOOK_URL}" target="_blank" rel="noopener" dir="ltr">${BOOK_URL.replace('https://','')}</a>
       <button type="button" class="chip" onclick="bookCopy('')">העתקה</button>
@@ -18785,7 +18785,7 @@ function bookSettingsHtml(){
       <span style="color:var(--ink-3)">ישירות לאולם</span><button type="button" class="chip" onclick="bookCopy('?type=showroom')">העתקה</button>
     </div>
     <div id="bookBox">${bookInner()}</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:22px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2h);margin-top:var(--sp-4h)">
       <h2 class="sec" style="margin:0">פגישות שנקבעו מהאתר</h2>
       <button type="button" class="chip" onclick="bookListLoad(true)">רענון</button>
     </div>
@@ -18818,7 +18818,7 @@ function bookListHtml(){
       <td>${m.linked_type==='lead' && m.linked_id ? `<a href="#lead=${esc(m.linked_id)}">${esc(nm)}</a>` : esc(nm)}</td>
       <td>${own}</td><td>${mdPill(st,MSTATUS_COLOR,LB_TK)}</td><td>${esc(at)}</td></tr>`;
   };
-  const tbl = (list, title)=> list.length ? `<div style="font-weight:700;color:var(--navy);margin:10px 0 6px">${title} (${list.length})</div>
+  const tbl = (list, title)=> list.length ? `<div style="font-weight:700;color:var(--navy);margin:var(--sp-2h) 0 var(--sp-1h)">${title} (${list.length})</div>
     <div class="tbl-wrap"><table class="tbl"><thead><tr><th>מועד</th><th>סוג</th><th>ליד</th><th>נציג</th><th>סטטוס</th><th>נקבעה</th></tr></thead>
     <tbody>${list.map(tr).join('')}</tbody></table></div>` : '';
   return tbl(up, 'קרובות') + tbl(past, '30 הימים האחרונים') || '<div class="note">אין פגישות להצגה.</div>';
@@ -19173,13 +19173,13 @@ function pmRenderGroups(){
   el.innerHTML = (gs.map(g=>`<div class="pm-grow">
       <span><b>${esc(g.name)}</b>${g.desc?`<br><small style="color:var(--ink-3)">${esc(g.desc)}</small>`:''}</span>
       <span class="pm-cnt">${g.members} ${g.members===1?'משתמש':'משתמשים'}</span>
-      <span style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+      <span style="display:flex;gap:var(--sp-1);flex-wrap:wrap;align-items:center">
         <button class="chip" onclick="pmOpenGroup('${g.id}')">עריכה</button>
         <button class="chip" onclick="pmApplyAll('${g.id}')" title="שכפול ההרשאות של הקבוצה לכל מי שמשויך אליה">⟳ שכפול לחברים</button>
         <button type="button" class="usr-ib u-del" onclick="pmDelGroup('${g.id}')" title="מחיקת הקבוצה" aria-label="מחיקת הקבוצה">${ico('trash')}</button>
       </span>
     </div>`).join('') || '<div class="empty">אין קבוצות</div>')
-    + `<button class="chip" style="margin:10px 14px 0" onclick="pmNewGroup()">＋ קבוצה חדשה</button>`;
+    + `<button class="chip" style="margin:var(--sp-2h) var(--sp-3) 0" onclick="pmNewGroup()">＋ קבוצה חדשה</button>`;
 }
 window.pmSet = (key,lvl)=>{
   if(!PM_DRAFT) return;
@@ -19598,11 +19598,11 @@ function renderPaySync(){
   if(h && h.failing){
     sy.innerHTML = '<span class="sync-bad" title="' + esc(h.last_error || '') +
       '">⚠️ הסנכרון הפיננסי נכשל' + (when ? ' · נתונים מ-' + esc(when) : '') + '</span>' +
-      (canEdit('acc.pays') ? ' <button class="ghost" style="padding:3px 10px;font-size:12px" onclick="finSyncNow()">סנכרון עכשיו</button>' : '');
+      (canEdit('acc.pays') ? ' <button class="ghost" style="padding:3px 10px;font-size:var(--fs-sm)" onclick="finSyncNow()">סנכרון עכשיו</button>' : '');
   } else if(stale != null && stale >= 20){
     sy.innerHTML = '<span class="sync-warn" title="הסנכרון רץ ב-8:00 וב-15:00 שעון ישראל">⏳ לא סונכרן ' +
       Math.round(stale) + ' שעות' + (when ? ' · מ-' + esc(when) : '') + '</span>' +
-      (canEdit('acc.pays') ? ' <button class="ghost" style="padding:3px 10px;font-size:12px" onclick="finSyncNow()">סנכרון עכשיו</button>' : '');
+      (canEdit('acc.pays') ? ' <button class="ghost" style="padding:3px 10px;font-size:var(--fs-sm)" onclick="finSyncNow()">סנכרון עכשיו</button>' : '');
   } else {
     sy.innerHTML = when ? '<span class="sync-ok">סונכרן מפריוריטי ' + esc(when) + '</span>' : '';
   }
@@ -19755,7 +19755,7 @@ function loadErrBanner(names){
     document.body.appendChild(b);
   }
   b.innerHTML='⚠️ חלק מהנתונים לא נטענו ('+esc(names.join(', '))+'). ייתכן שהמוצג חלקי — '
-    +'<button onclick="location.reload()" style="background:rgba(255,255,255,.22);color:#fff;border:0;border-radius:6px;padding:3px 10px;margin-inline-start:8px;cursor:pointer;font-family:inherit">רענון</button>';
+    +'<button onclick="location.reload()" style="background:rgba(255,255,255,.22);color:#fff;border:0;border-radius:var(--r-sm);padding:3px 10px;margin-inline-start:var(--sp-2);cursor:pointer;font-family:inherit">רענון</button>';
 }
 /* חייב להיות באותו אורך ובאותו סדר כמו מערך השאילתות ב-loadLeads —
    אחרת פס השגיאה מציג "undefined" במקום שם השאילתה שנכשלה. */
@@ -20053,7 +20053,7 @@ function mktPaintBar(){
     /* ערך שנשמר ואינו ברשימה עדיין מוצג (מסומן) — אחרת סינון שנשמר לקמפיין שנעלם היה מסנן הכול בשקט */
     const extra = cur.filter(v=>!pairs.some(([k])=>k===v)).map(v=>[v, mktLbl(dim,v)]);
     const items = pairs.concat(extra).map(([k,l])=>`<label class="lf-opt"><input type="checkbox" ${cur.includes(k)?'checked':''} onchange="mktTog('${jsq(dim)}','${jsq(k)}',this.checked)">${esc(l)}</label>`).join('');
-    f += `<details class="lf-multi ${cur.length?'lf-on':''}" data-dim="${esc(dim)}"><summary>${cur.length?esc(lbl)+' ('+cur.length+')':esc(lbl)+' — הכל'}</summary><div class="lf-menu">${items||'<div class="empty" style="padding:8px">אין ערכים</div>'}</div></details>`;
+    f += `<details class="lf-multi ${cur.length?'lf-on':''}" data-dim="${esc(dim)}"><summary>${cur.length?esc(lbl)+' ('+cur.length+')':esc(lbl)+' — הכל'}</summary><div class="lf-menu">${items||'<div class="empty" style="padding:var(--sp-2)">אין ערכים</div>'}</div></details>`;
   });
   if(mktActive()) f += `<button type="button" class="lf-clear" onclick="mktClear()">✕ ניקוי מסננים</button>`;
   h += `<button type="button" class="lf-save" onclick="mktRefresh()" title="טעינה מחדש מהשרת">↻ רענון</button>`;
@@ -20194,7 +20194,7 @@ function mktPaintTrend(){
     '<h3>'+(mktLeadMode()?'לידים לאורך זמן':'עסקאות שנסגרו לאורך זמן')+' <small>'+({day:'יומי',week:'שבועי',month:'חודשי'}[MKT_F.grain]||'')+'</small></h3>'+
     '<div class="mkt-legend">'+series.map(([k,l])=>'<label class="'+(MKT_TREND_ON[k]?'':'off')+'"><input type="checkbox" '+(MKT_TREND_ON[k]?'checked':'')+' onchange="mktTrendTog(\''+k+'\',this.checked)"><span class="mkt-sw" style="background:'+MKT_COL[k]+'"></span>'+l+'</label>').join('')+'</div>'+
     mktSvgLines(rows, series)+
-    '<h3 style="margin-top:14px">הכנסות לאורך זמן <small>'+(MKT_F.date_mode==='close'?'לפי תאריך הסגירה':'לפי תאריך יצירת הליד (קוהורט)')+' · לפני מע"מ</small></h3>'+
+    '<h3 style="margin-top:var(--sp-3)">הכנסות לאורך זמן <small>'+(MKT_F.date_mode==='close'?'לפי תאריך הסגירה':'לפי תאריך יצירת הליד (קוהורט)')+' · לפני מע"מ</small></h3>'+
     mktSvgBars(rows, 'revenue', MKT_COL.revenue, mktMk);
 }
 /* ── טבלאות ממוינות ── */
@@ -20263,7 +20263,7 @@ function mktCross(D){
   const camps=[...new Set(cross.map(x=>x.camp))].map(c=>({c, n:cross.filter(x=>x.camp===c).reduce((a,x)=>a+x.leads,0)})).sort((a,b)=>b.n-a.n).slice(0,8).map(x=>x.c);
   const owns=[...new Set(cross.map(x=>x.own))].map(o=>({o, n:cross.filter(x=>x.own===o).reduce((a,x)=>a+x.leads,0)})).sort((a,b)=>b.n-a.n).slice(0,8).map(x=>x.o);
   const at=(c,o)=>cross.find(x=>x.camp===c&&x.own===o);
-  let h='<h3 style="margin-top:14px">קמפיין × איש מכירות <small>לידים שנסגרו / לידים (המרה) — הכנסות משויכות דרך ליד בלבד · מפריד בעיה בקמפיין מבעיה במכירות · פירוט מלא ב"ניתוח דינמי"</small></h3><div class="tbl-wrap"><table class="tbl mkt-x"><thead><tr><th>קמפיין</th>'+owns.map(o=>'<th class="c">'+esc(mktLbl('owners',o))+'</th>').join('')+'</tr></thead><tbody>';
+  let h='<h3 style="margin-top:var(--sp-3)">קמפיין × איש מכירות <small>לידים שנסגרו / לידים (המרה) — הכנסות משויכות דרך ליד בלבד · מפריד בעיה בקמפיין מבעיה במכירות · פירוט מלא ב"ניתוח דינמי"</small></h3><div class="tbl-wrap"><table class="tbl mkt-x"><thead><tr><th>קמפיין</th>'+owns.map(o=>'<th class="c">'+esc(mktLbl('owners',o))+'</th>').join('')+'</tr></thead><tbody>';
   camps.forEach(c=>{ h+='<tr><td>'+esc(mktLbl('campaigns',c))+'</td>'+owns.map(o=>{ const x=at(c,o); if(!x||!x.leads) return '<td class="c">—</td>'; const cv=x.won_n/x.leads; return '<td class="c'+(cv>=0.15?' hot':'')+'">'+mktN(x.won_n)+'/'+mktN(x.leads)+' <small>('+mktPct(cv)+')</small></td>'; }).join('')+'</tr>'; });
   return h+'</tbody></table></div>';
 }
@@ -20303,12 +20303,12 @@ function mktPaint(){
     mktTile('הכנסות (לפני מע"מ)', mktTM(k.revenue), k.revenue, pv.revenue, 'deals_won', 'money', undefined, k.won_no_amount>0 ? mktN(k.won_no_amount)+' עסקאות בלי סכום' : '')+
     mktTile('עסקה ממוצעת', mktTM(k.avg_deal), k.avg_deal, pv.avg_deal, 'deals_won', 'money')+
     mktTile('הכנסה לליד', mktTM(k.rpl), k.rpl, pv.rpl, lm?'leads':null, 'money')+
-    mktTile('Pipeline פתוח', mktTM(k.open_amount)+' <small style="font-size:12px;color:var(--ink-3)">· '+mktN(k.open_n)+'</small>', k.open_amount, pv.open_amount, 'deals_open', 'money')+
+    mktTile('Pipeline פתוח', mktTM(k.open_amount)+' <small style="font-size:var(--fs-sm);color:var(--ink-3)">· '+mktN(k.open_n)+'</small>', k.open_amount, pv.open_amount, 'deals_open', 'money')+
     mktTile('לידים אבודים', mktN(k.lost_leads), k.lost_leads, pv.lost_leads, lm?'leads_lost':null, 'bad', false)+
     mktTile('עסקאות אבודות', mktN(k.lost_deals), k.lost_deals, pv.lost_deals, 'deals_lost', 'bad', false)+
     (k.spend>0 ? mktTile('הוצאת פרסום', mktTM(k.spend), k.spend, pv.spend, null, 'money', false)+mktTile('CPL — עלות לליד', mktTM(k.cpl), k.cpl, pv.cpl, null, 'money', false)+mktTile('CAC — עלות ללקוח', mktTM(k.cac), k.cac, pv.cac, null, 'money', false)+mktTile('ROAS', mktX(k.roas), k.roas, pv.roas, null, 'money') : ''))+
     (D.mode_note ? '<div class="mkt-modenote">'+esc(D.mode_note)+'</div>' : '')+
-    '<div class="mkt-note" style="margin:-6px 0 12px">השוואה מול '+esc(fmtD(D.kpi.prev_from))+' – '+esc(fmtD(D.kpi.prev_to))+' · '+(MKT_F.date_mode==='close'?'עסקאות לפי תאריך סגירה':'כל העסקאות של הלידים שנוצרו בטווח (קוהורט); עסקה בלי ליד — לפי תאריך סגירתה')+' · לחיצה על כל מספר פותחת את הרשומות</div>'+
+    '<div class="mkt-note" style="margin:-6px 0 var(--sp-3)">השוואה מול '+esc(fmtD(D.kpi.prev_from))+' – '+esc(fmtD(D.kpi.prev_to))+' · '+(MKT_F.date_mode==='close'?'עסקאות לפי תאריך סגירה':'כל העסקאות של הלידים שנוצרו בטווח (קוהורט); עסקה בלי ליד — לפי תאריך סגירתה')+' · לחיצה על כל מספר פותחת את הרשומות</div>'+
     '<div class="mkt-card" id="mkt-trend"></div>'+
     '<div class="mkt-grid2"><div class="mkt-card" id="mkt-funnel"></div><div class="mkt-card" id="mkt-response"></div></div>'+
     '<div class="mkt-card" id="mkt-sources"></div>'+
@@ -20340,7 +20340,7 @@ function mktPaintFunnel(){
     h+='<div class="fun-row" role="button" tabindex="0" data-mkt="funnel:'+esc(s.key)+'" data-title="'+esc(s.label)+'"><span class="fun-l">'+esc(s.label)+'</span><div class="fun-bar"><div style="width:'+(tot?Math.round(s.n/tot*100):0)+'%;background:'+(s.key==='won'?MKT_COL.won_n:'var(--navy)')+'"></div></div><b>'+mktN(s.n)+'</b>'+
        '<span class="fun-a">'+(prev!=null?(prev?mktPct(s.n/prev):'—')+' מהקודם · ':'')+(tot?mktPct(s.n/tot):'—')+' מהכל'+(s.amount!=null&&s.amount>0?' · '+mktMk(s.amount):'')+'</span></div>'; });
   const won=f.find(s=>s.key==='won');
-  if(won && x.attributed_n!=null && +x.attributed_n!==+won.n) h+='<div class="mkt-note" style="margin:2px 0 0">'+esc(mktN(won.n)+' לידים שנסגרו = '+mktN(x.attributed_n)+' עסקאות משויכות (ליד עם יותר מעסקה אחת)')+'</div>';
+  if(won && x.attributed_n!=null && +x.attributed_n!==+won.n) h+='<div class="mkt-note" style="margin:var(--sp-0h) 0 0">'+esc(mktN(won.n)+' לידים שנסגרו = '+mktN(x.attributed_n)+' עסקאות משויכות (ליד עם יותר מעסקה אחת)')+'</div>';
   el.innerHTML=h+recon+'<div class="mkt-note">נוצר קשר = הסטטוס יצא מ"ליד חדש"/"ללא מענה" (או יש עסקה) · רלוונטי = סטטוס "רלוונטי" או עסקה · הצעת מחיר = יש עסקה · לחתימה/אושרה = העסקה הגיעה לשלב חתימה · לידים שנסגרו = ליד עם עסקה בשלב הושלם/הזמנה</div>';
 }
 function mktPaintResponse(){
@@ -20365,12 +20365,12 @@ function mktPaintLost(){
     : mktBarList(L.by_stage||[], r=>r.stage, r=>r.n, 'deals_lost', 'stage', r=>r.stage);
   el.innerHTML='<h3>ניתוח הפסדים <small>לידים אבודים = סירוב / לא רלוונטי בלי עסקה שנסגרה · עסקאות אבודות = לא רלוונטי</small></h3>'+
     '<div class="mkt-grid3">'+
-    '<div><h4 class="mkt-note" style="margin:0 0 6px;font-weight:800">סיבות הפסד — לידים</h4>'+(mktLeadMode()?mktBarList(lr, r=>r.lbl, r=>r.n, 'leads_lost', 'reason', r=>r.reason):'<div class="db-empty">לא חל במצב "לפי סגירה"</div>')+'</div>'+
-    '<div><h4 class="mkt-note" style="margin:0 0 6px;font-weight:800">סיבות הפסד — עסקאות</h4>'+mktBarList(L.deal_reasons||[], r=>r.reason, r=>r.n, 'deals_lost', 'reason', r=>r.reason, r=>mktMk(r.amount))+'</div>'+
-    '<div><h4 class="mkt-note" style="margin:0 0 6px;font-weight:800">השלב שממנו העסקה אבדה <small>('+mktN(kn)+' מתוך '+mktN(tot)+' עם היסטוריה)</small></h4>'+stageBlock+'</div>'+
-    '<div><h4 class="mkt-note" style="margin:0 0 6px;font-weight:800">לפי מקור</h4>'+mktBarList(L.by_source||[], r=>mktLbl('sources',r.k), r=>r.lost_leads+r.lost_deals, 'leads_lost', 'src', r=>r.k, r=>r.lost_leads+' לידים · '+r.lost_deals+' עסקאות')+'</div>'+
-    '<div><h4 class="mkt-note" style="margin:0 0 6px;font-weight:800">לפי קמפיין</h4>'+mktBarList(L.by_campaign||[], r=>mktLbl('campaigns',r.k), r=>r.lost_leads+r.lost_deals, 'leads_lost', 'camp', r=>r.k, r=>r.lost_leads+' לידים · '+r.lost_deals+' עסקאות')+'</div>'+
-    '<div><h4 class="mkt-note" style="margin:0 0 6px;font-weight:800">לפי איש מכירות</h4>'+mktBarList(L.by_owner||[], r=>r.name, r=>r.lost_leads+r.lost_deals, 'leads_lost', 'owner', r=>r.k, r=>r.lost_leads+' לידים · '+r.lost_deals+' עסקאות')+'</div>'+
+    '<div><h4 class="mkt-note" style="margin:0 0 var(--sp-1h);font-weight:800">סיבות הפסד — לידים</h4>'+(mktLeadMode()?mktBarList(lr, r=>r.lbl, r=>r.n, 'leads_lost', 'reason', r=>r.reason):'<div class="db-empty">לא חל במצב "לפי סגירה"</div>')+'</div>'+
+    '<div><h4 class="mkt-note" style="margin:0 0 var(--sp-1h);font-weight:800">סיבות הפסד — עסקאות</h4>'+mktBarList(L.deal_reasons||[], r=>r.reason, r=>r.n, 'deals_lost', 'reason', r=>r.reason, r=>mktMk(r.amount))+'</div>'+
+    '<div><h4 class="mkt-note" style="margin:0 0 var(--sp-1h);font-weight:800">השלב שממנו העסקה אבדה <small>('+mktN(kn)+' מתוך '+mktN(tot)+' עם היסטוריה)</small></h4>'+stageBlock+'</div>'+
+    '<div><h4 class="mkt-note" style="margin:0 0 var(--sp-1h);font-weight:800">לפי מקור</h4>'+mktBarList(L.by_source||[], r=>mktLbl('sources',r.k), r=>r.lost_leads+r.lost_deals, 'leads_lost', 'src', r=>r.k, r=>r.lost_leads+' לידים · '+r.lost_deals+' עסקאות')+'</div>'+
+    '<div><h4 class="mkt-note" style="margin:0 0 var(--sp-1h);font-weight:800">לפי קמפיין</h4>'+mktBarList(L.by_campaign||[], r=>mktLbl('campaigns',r.k), r=>r.lost_leads+r.lost_deals, 'leads_lost', 'camp', r=>r.k, r=>r.lost_leads+' לידים · '+r.lost_deals+' עסקאות')+'</div>'+
+    '<div><h4 class="mkt-note" style="margin:0 0 var(--sp-1h);font-weight:800">לפי איש מכירות</h4>'+mktBarList(L.by_owner||[], r=>r.name, r=>r.lost_leads+r.lost_deals, 'leads_lost', 'owner', r=>r.k, r=>r.lost_leads+' לידים · '+r.lost_deals+' עסקאות')+'</div>'+
     '</div>';
 }
 function mktPaintQuality(){
@@ -20564,7 +20564,7 @@ function mktDrillRender(){
     MKT_DR.rows.map(x=>'<tr data-id="'+esc(x.id)+'" data-kind="'+esc(x.kind)+'" onclick="mktDrillGo(this)"><td><b>'+esc(x.name||'')+'</b>'+(x.phone?'<div class="mkt-note" style="margin:0">'+esc(x.phone)+'</div>':'')+'</td><td><span class="kd '+(x.kind==='deal'?'deal':'')+'">'+(x.kind==='deal'?'עסקה':'ליד')+'</span></td><td>'+esc(x.status||'')+'</td><td>'+esc(x.sub||'')+'</td><td class="num">'+(x.amount!=null&&+x.amount!==0?mktM(x.amount):'—')+'</td><td>'+esc(x.created_at?fmtDT(x.created_at):'')+'</td><td>'+esc(x.closed_at?fmtDT(x.closed_at):'')+'</td><td>'+esc(x.src==='__none__'?'ללא ליד':(x.src||''))+'</td><td>'+esc(x.camp==='__none__'?'':(x.camp||''))+'</td><td>'+esc(x.owner||'')+'</td></tr>').join('')+
     '</tbody></table></div>'+
     (MKT_DR.err?'<div class="mkt-drerr">'+esc(MKT_DR.err)+'</div>':'')+
-    (MKT_DR.rows.length<MKT_DR.total?'<div style="text-align:center;padding:8px"><button type="button" class="chip" id="mktDrillMoreBtn" onclick="mktDrillMore()"'+(MKT_DR.busy?' disabled':'')+'>'+(MKT_DR.busy?'טוען…':'עוד ('+mktN(MKT_DR.total-MKT_DR.rows.length)+')')+'</button></div>':'');
+    (MKT_DR.rows.length<MKT_DR.total?'<div style="text-align:center;padding:var(--sp-2)"><button type="button" class="chip" id="mktDrillMoreBtn" onclick="mktDrillMore()"'+(MKT_DR.busy?' disabled':'')+'>'+(MKT_DR.busy?'טוען…':'עוד ('+mktN(MKT_DR.total-MKT_DR.rows.length)+')')+'</button></div>':'');
 }
 async function mktDrill(kind, dim, title, offset){
   if(!canView('mkt.dash')) return;
@@ -20756,7 +20756,7 @@ function renderAllViews(){
 /* עימוד — כפתור "הצג עוד" בכל מסכי הרשימות (הערת רומן 28/07) */
 const PGSTEP=300; const PGL={};
 function pgLim(k){ return PGL[k]||PGSTEP; }
-function pgBtn(fn,txt){ return `<button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:8px;font-size:12.5px" onclick="${fn}">${txt}</button>`; }
+function pgBtn(fn,txt){ return `<button class="ghost" style="width:auto;display:inline-block;padding:4px 12px;margin-inline-start:var(--sp-2);font-size:var(--fs-sm)" onclick="${fn}">${txt}</button>`; }
 function pgFoot(k,total,noun){
   const shown=Math.min(total,pgLim(k));
   let extra='';
@@ -21869,7 +21869,7 @@ window.openTask = (id)=>{
     </div>
     </div>
     <div id="tk-pn-upd" class="hidden">
-      <div class="note" style="margin-bottom:6px">העדכון נרשם על המשימה, ומוצג גם בכרטיס הפנייה, העסקה והלקוח עם תגית מקור. עריכה ומחיקה — לכותב בלבד.</div>
+      <div class="note" style="margin-bottom:var(--sp-1h)">העדכון נרשם על המשימה, ומוצג גם בכרטיס הפנייה, העסקה והלקוח עם תגית מקור. עריכה ומחיקה — לכותב בלבד.</div>
       ${window.canEdit('crm')?`<div class="lbu-add"><textarea id="tk-upd" rows="2" placeholder="מה קרה?"></textarea><button type="button" class="chip" onclick="lbAddUpdate('${jsq(id)}','task','tk')">הוספה</button></div>`:''}
       <div class="lbu-bar" id="tk-updbar"></div>
       <div class="lbu-list" id="tk-updlist">${crmLoading()}</div>
@@ -22311,14 +22311,14 @@ window.openCust = async (id)=>{
     </section>
 
     <section class="ob-card"><h2 class="sec">עסקאות (${(deals||[]).length})</h2>
-      ${(deals||[]).map(d=>`<div class="row" style="cursor:pointer" onclick="goCard(()=>openDeal('${jsq(d.id)}'))"><span class="k">${esc(d.priority_quote_id||'ללא הצעה')}</span><span class="v">${esc(d.stage)}${d.amount?' · ₪'+Number(d.amount).toLocaleString():''}</span></div>`).join('')||'<div class="empty" style="padding:10px">אין עסקאות</div>'}
+      ${(deals||[]).map(d=>`<div class="row" style="cursor:pointer" onclick="goCard(()=>openDeal('${jsq(d.id)}'))"><span class="k">${esc(d.priority_quote_id||'ללא הצעה')}</span><span class="v">${esc(d.stage)}${d.amount?' · ₪'+Number(d.amount).toLocaleString():''}</span></div>`).join('')||'<div class="empty" style="padding:var(--sp-2h)">אין עסקאות</div>'}
     </section>
 
     ${ordOpen.length?`<section class="ob-card"><h2 class="sec">הזמנות פתוחות (${ordOpen.length})</h2>${ordOpen.map(ordRow).join('')}</section>`:''}
     ${cs.length?`<section class="ob-card"><h2 class="sec">קריאות שירות (${cs.length})</h2>${cs.slice(0,15).map(s=>`<div class="row" style="cursor:pointer" onclick="goCard(()=>openScall('${jsq(s.id)}'))"><span class="k">${esc(s.call_number||'')}${s.opened_date?' · '+fmtD(s.opened_date):''}${s.product?' · '+esc(String(s.product).slice(0,26)):''}</span><span class="v"><span class="pill ${scStClass(s.status)}">${esc(s.status||'—')}</span></span></div>`).join('')}</section>`:''}
 
     <section class="ob-card"><h2 class="sec">אנשי קשר (${(contacts||[]).length})</h2>
-      ${(contacts||[]).map(p=>`<div class="row"><span class="k">${esc(p.full_name)}</span><span class="v">${esc(p.phone||p.email||'—')}</span></div>`).join('')||'<div class="empty" style="padding:10px">אין אנשי קשר</div>'}
+      ${(contacts||[]).map(p=>`<div class="row"><span class="k">${esc(p.full_name)}</span><span class="v">${esc(p.phone||p.email||'—')}</span></div>`).join('')||'<div class="empty" style="padding:var(--sp-2h)">אין אנשי קשר</div>'}
     </section>
 
     ${ss.length?`<section class="ob-card"><h2 class="sec">אתרי הלקוח (${ss.length})</h2>${ss.map(s=>{
@@ -22332,7 +22332,7 @@ window.openCust = async (id)=>{
     </div>
 
     <div id="cu-pn-upd" class="hidden">
-      <div class="note" style="margin-bottom:6px">העדכון נרשם על הלקוח, ומוצג גם בכרטיסי הפניות, העסקאות והמשימות שלו עם תגית מקור.</div>
+      <div class="note" style="margin-bottom:var(--sp-1h)">העדכון נרשם על הלקוח, ומוצג גם בכרטיסי הפניות, העסקאות והמשימות שלו עם תגית מקור.</div>
       ${window.canEdit('crm')?`<div class="lbu-add"><textarea id="cu-upd" rows="2" placeholder="מה קרה עם הלקוח הזה?"></textarea><button type="button" class="chip" onclick="lbAddUpdate('${jsq(id)}','customer','cu')">הוספה</button></div>`:''}
       <div class="lbu-bar" id="cu-updbar"></div>
       <div class="lbu-list" id="cu-updlist">${crmLoading()}</div>
@@ -23305,7 +23305,7 @@ function payOffsetBox(f){
       (fo && fo.order_date ? ' (מ-' + fmtD(fo.order_date) + ')' : '') +
       ' — כנראה תשלום שנקלט בפריוריטי על ההזמנה הראשית. קיזוז של <b>' + shekel(finNum(s.suggest_amt)) + '</b> יסגור את היתרה כאן.' +
       (canEdit('acc.pays')
-        ? ' <button class="ghost" style="padding:3px 10px;font-size:12px" onclick="payOffsetApprove(\'' + jsq(s.from_order) + '\',\'' + jsq(on) + '\')">אשר קיזוז</button>'
+        ? ' <button class="ghost" style="padding:3px 10px;font-size:var(--fs-sm)" onclick="payOffsetApprove(\'' + jsq(s.from_order) + '\',\'' + jsq(on) + '\')">אשר קיזוז</button>'
         : '') + '</div>'; }).join('');
   }
   if(finNum(f.cust_credit) > 1){
@@ -23610,11 +23610,11 @@ function ptRender(){
     '</tr>').join('') : '<tr><td colspan="4"><span class="fin-muted">אין תבניות</span></td></tr>') +
     '</tbody></table>' +
     (ed ? '<div id="ptForm"></div>' +
-      '<div class="modal-actions" style="margin-top:12px">' +
+      '<div class="modal-actions" style="margin-top:var(--sp-3)">' +
         '<button class="btn btnw" onclick="ptNew()">+ תבנית חדשה</button>' +
         '<button class="ghost" style="width:auto;padding:11px 18px" onclick="ptClose()">סגירה</button>' +
       '</div>'
-     : '<div class="modal-actions" style="margin-top:12px">' +
+     : '<div class="modal-actions" style="margin-top:var(--sp-3)">' +
         '<button class="ghost" style="width:auto;padding:11px 18px" onclick="ptClose()">סגירה</button></div>');
   if(PT_EDIT !== null) ptForm();
 }
@@ -23675,7 +23675,7 @@ function ptForm(){
       '<div class="be-sum ' + (Math.abs(ptSum()-100) < 0.01 ? 'ok' : 'bad') + '">סה"כ ' +
         (Math.round(ptSum()*100)/100) + '%' + (Math.abs(ptSum()-100) < 0.01 ? ' ✓' : ' — חייב להיות 100%') + '</div>' +
       '<div class="pt-err" id="pt-err"></div>' +
-      '<div class="modal-actions" style="margin-top:6px">' +
+      '<div class="modal-actions" style="margin-top:var(--sp-1h)">' +
         '<button class="btn btnw" onclick="ptSave()">שמירת התבנית</button>' +
         '<button class="ghost" style="width:auto;padding:11px 18px" onclick="ptCancel()">ביטול</button>' +
         (PT_EDIT.isNew ? '' : '<button class="ghost" style="width:auto;padding:11px 18px" onclick="ptDelete()">מחיקה</button>') +
@@ -24038,7 +24038,7 @@ window.beOpen = on => {
           PTERMS.map(t=>'<option value="'+esc(t.code)+'">'+esc(t.name)+'</option>').join('') + '</select>' +
       '</div>' +
       '<div id="beBody"></div>' +
-      '<div class="modal-actions" style="margin-top:10px">' +
+      '<div class="modal-actions" style="margin-top:var(--sp-2h)">' +
         '<button class="btn btnw" onclick="beSave()">שמירת הלוח</button>' +
         '<button class="ghost" style="width:auto;padding:11px 18px" onclick="beCancel()">ביטול</button>' +
       '</div>' +
@@ -24049,7 +24049,7 @@ window.beOpen = on => {
 window.beCancel = () => { const b = $('#beEditor'); if(b) b.innerHTML = beBtn(BE_ORD); };
 function beBtn(on){
   if(!canEdit('acc.pays')) return '';
-  return '<button class="ghost" style="width:auto;padding:9px 16px;margin-top:8px" onclick="beOpen(\'' + jsq(on) + '\')">עריכת לוח הפעימות</button>';
+  return '<button class="ghost" style="width:auto;padding:9px 16px;margin-top:var(--sp-2)" onclick="beOpen(\'' + jsq(on) + '\')">עריכת לוח הפעימות</button>';
 }
 window.beSave = async () => {
   if(!canEdit('acc.pays')) return finNoEdit();
@@ -24245,8 +24245,8 @@ function payRow(f){
     '<div class="meta">' + (f.order_date?fmtD(f.order_date):'—') +
       (f.scheduled_date ? ' · אספקה ' + fmtD(f.scheduled_date) : '') + ' · סה"כ ' + (c.masked ? '—' : shekel(c.ordered)) +
       (c.rec ? ' · שולם ' + shekel(c.rec) : '') +
-      (!c.masked && c.bal > 1 ? ' · <b style="color:#c0392b">נותר ' + shekel(c.bal) + '</b>' : '') +
-      (!c.masked && c.bal < -1 ? ' · <b style="color:#b45309">' + (c.credit ? 'זיכוי ' + shekel(-c.bal) + ' להשבה' : 'עודף ' + shekel(-c.bal)) + '</b>' : '') +
+      (!c.masked && c.bal > 1 ? ' · <b style="color:var(--red)">נותר ' + shekel(c.bal) + '</b>' : '') +
+      (!c.masked && c.bal < -1 ? ' · <b style="color:var(--warn-ink)">' + (c.credit ? 'זיכוי ' + shekel(-c.bal) + ' להשבה' : 'עודף ' + shekel(-c.bal)) + '</b>' : '') +
       (f.pay_state ? ' · ' + esc(f.pay_state) : '') +
       (f.next_due ? ' · הבא ' + fmtD(f.next_due) + (f.next_is_est ? ' (צפי)' : '') : '') +
       (f.pay_code ? ' · ' + esc(finTermName(f.pay_code)) : '') + '</div>' + c.flags + '</div>' +
@@ -24512,7 +24512,7 @@ const scStClass = s => ['הושלם','הושלמה','סגורה'].includes(s)?'s
 function scRow(s){
   return `<div class="lead${window.isNewRec(s)?' row-new':''}" onclick="openScall('${s.id}')">
     <div><div class="nm">${esc(s.customer_name||'ללא שם')} <small style="color:var(--ink-3);font-weight:400">· קריאה ${esc(s.call_number||'')}</small></div>
-    <div class="meta">${fmtD(s.opened_date)}${s.product?' · '+esc(s.product):''}${s.city?' · '+esc(s.city):''}${s.urgency&&s.urgency!=='רגילה'?' · <b style="color:#c0392b">'+esc(s.urgency)+'</b>':''}</div></div>
+    <div class="meta">${fmtD(s.opened_date)}${s.product?' · '+esc(s.product):''}${s.city?' · '+esc(s.city):''}${s.urgency&&s.urgency!=='רגילה'?' · <b style="color:var(--red)">'+esc(s.urgency)+'</b>':''}</div></div>
     <span class="pill ${scStClass(s.status)}">${esc(s.status||'—')}</span></div>`;
 }
 window.scQuickDone = async (id)=>{
@@ -24666,7 +24666,7 @@ window.scallTechCard = (s)=>{
   const ship = [s.ship_addr1, s.ship_addr2, s.ship_addr3].filter(Boolean).join(', ');
   return `
     <h3>${ico('wrench')} ${esc(s.call_number||'קריאה')} — ${esc(s.customer_name||'')}</h3>
-    <div class="note" style="margin:4px 0 14px">נפתחה ב-${fmtD(s.opened_date)||'—'}</div>
+    <div class="note" style="margin:var(--sp-1) 0 var(--sp-3)">נפתחה ב-${fmtD(s.opened_date)||'—'}</div>
     <div class="form-grid">
       <div class="form-sep">פרטי הקריאה</div>
       <div><label>מס' קריאה</label>${roIn(s.call_number,{ltr:1})}</div>
@@ -24712,7 +24712,7 @@ window.openScall = (id)=>{
   const teamVals = [...new Set([...OTEAMS.filter(t=>t.active!==false).map(t=>t.name), ...uniqVals(SCALLS,'team',s.team)])];
   $('#ordSheet').innerHTML = `
     <h3>${ico('wrench')} ${esc(s.call_number||'קריאה')} — ${esc(s.customer_name||'')}${s.erp_status?` <span class="pill p-violet" title="הסטטוס בפריוריטי — מתעדכן בסנכרון">${PRI_ICO}פריוריטי: ${esc(s.erp_status)}</span>`:''}</h3>
-    <div class="note" style="margin:4px 0 14px">נפתחה ב-${fmtD(s.opened_date)||'—'}</div>
+    <div class="note" style="margin:var(--sp-1) 0 var(--sp-3)">נפתחה ב-${fmtD(s.opened_date)||'—'}</div>
     <div class="form-grid">
       <div class="form-sep">פרטי הקריאה והלקוח${tag}</div>
       <div><label>מס' קריאה</label>${roIn(s.call_number,{ltr:1})}</div>
@@ -24742,7 +24742,7 @@ window.openScall = (id)=>{
       <!-- span4: הבורר מחזיק תווית + תיבת חיפוש + קופסת צ'יפים, ובתא של
            עמודה אחת הוא היה גבוה פי שניים מהשכנים ודוחף את התיבות שלהם.
            נמדד: תיבתו ב-625 מול 596 אצל השכנות. שורה משלו פותרת זאת. -->
-      <div class="span4 ac-wrap"><label>מוצרים <small style="font-weight:400;color:var(--ink-3)">(בחירה מרובה מהקטלוג)</small></label><input id="se-prodpick" autocomplete="off" placeholder="חיפוש מכרטיסי הפריט — כל בחירה מתווספת…" oninput="neProdSearch(this.value,'se')" onfocus="neProdSearch(this.value,'se')" onblur="setTimeout(()=>{const b=document.getElementById('se-prod-results'); if(b) b.hidden=true;},150)"><div id="se-prod-results" class="ac-menu" hidden></div><input type="hidden" id="se-prods"><div id="se-prodchips" class="pchip-box" style="margin-top:5px"></div></div>
+      <div class="span4 ac-wrap"><label>מוצרים <small style="font-weight:400;color:var(--ink-3)">(בחירה מרובה מהקטלוג)</small></label><input id="se-prodpick" autocomplete="off" placeholder="חיפוש מכרטיסי הפריט — כל בחירה מתווספת…" oninput="neProdSearch(this.value,'se')" onfocus="neProdSearch(this.value,'se')" onblur="setTimeout(()=>{const b=document.getElementById('se-prod-results'); if(b) b.hidden=true;},150)"><div id="se-prod-results" class="ac-menu" hidden></div><input type="hidden" id="se-prods"><div id="se-prodchips" class="pchip-box" style="margin-top:var(--sp-1)"></div></div>
       <div><label>מהות הקריאה</label>${selHtml('se-type',CALL_TYPES,s.call_type,true)}</div>
       <div><label>אחריות</label>${selHtml('se-warranty',YESNO,s.warranty,true)}</div>
       <!-- דחיפות ודדליין צמודים במכוון: השינוי באחד גורר את השני. -->
@@ -24874,7 +24874,7 @@ window.openNewScall = ()=>{
   const today = todayStr();
   $('#ordSheet').innerHTML = `
     <h3>${ico('wrench')} פתיחת קריאת שירות חדשה</h3>
-    <div class="note" style="margin:4px 0 14px">בחרו לקוח מהמאגר — <b>הפרטים האפורים יתמלאו אוטומטית</b> ואינם ניתנים לעריכה. חמשת השדות תחת "שדות למילוי" הם חובה.</div>
+    <div class="note" style="margin:var(--sp-1) 0 var(--sp-3)">בחרו לקוח מהמאגר — <b>הפרטים האפורים יתמלאו אוטומטית</b> ואינם ניתנים לעריכה. חמשת השדות תחת "שדות למילוי" הם חובה.</div>
     <div class="form-grid">
       <div class="form-sep">בחירת לקוח</div>
       <div class="span2 ac-wrap"><label>בחירת לקוח מהמאגר</label><input id="ne-custpick" autocomplete="off" placeholder="הקלד שם / טלפון / מספר לקוח…" oninput="neCustSearch(this.value)" onfocus="neCustSearch(this.value)" onblur="setTimeout(()=>{const b=document.getElementById('ne-cust-results'); if(b) b.hidden=true;},150)"><div id="ne-cust-results" class="ac-menu" hidden></div></div>
@@ -24897,7 +24897,7 @@ window.openNewScall = ()=>{
       <div class="span2"><label>${ico('truck')} כתובת הגעה לקריאה <small style="font-weight:400;color:var(--ink-3)">(רק אם כתובת החיוב וגם המשלוח אינן נכונות, או ששתיהן ריקות)</small></label><input id="ne-addr" placeholder="לאן הצוות מגיע בפועל" oninput="neCityReflect()"></div>
 
       <div class="form-sep">שדות למילוי <small style="font-weight:400;color:var(--ink-3)">(כולם חובה)</small></div>
-      <div class="span4 ac-wrap"><label>מק״ט / שם מוצר<span class="req">*</span> <small style="font-weight:400;color:var(--ink-3)">(בחירה מרובה מהקטלוג)</small></label><input id="ne-prodpick" autocomplete="off" placeholder="חיפוש מכרטיסי הפריט — כל בחירה מתווספת…" oninput="neProdSearch(this.value,'ne')" onfocus="neProdSearch(this.value,'ne')" onblur="setTimeout(()=>{const b=document.getElementById('ne-prod-results'); if(b) b.hidden=true;},150)"><div id="ne-prod-results" class="ac-menu" hidden></div><input type="hidden" id="ne-prods"><div id="ne-prodchips" class="pchip-box" style="margin-top:5px"></div></div>
+      <div class="span4 ac-wrap"><label>מק״ט / שם מוצר<span class="req">*</span> <small style="font-weight:400;color:var(--ink-3)">(בחירה מרובה מהקטלוג)</small></label><input id="ne-prodpick" autocomplete="off" placeholder="חיפוש מכרטיסי הפריט — כל בחירה מתווספת…" oninput="neProdSearch(this.value,'ne')" onfocus="neProdSearch(this.value,'ne')" onblur="setTimeout(()=>{const b=document.getElementById('ne-prod-results'); if(b) b.hidden=true;},150)"><div id="ne-prod-results" class="ac-menu" hidden></div><input type="hidden" id="ne-prods"><div id="ne-prodchips" class="pchip-box" style="margin-top:var(--sp-1)"></div></div>
       <div><label>מהות הקריאה<span class="req">*</span></label>${selHtml('ne-type',CALL_TYPES,'',true)}</div>
       <div><label>אחריות<span class="req">*</span></label>${selHtml('ne-warranty',YESNO,'',true)}</div>
       <div><label>רמת דחיפות<span class="req">*</span></label>${selHtml('ne-urgency',URGENCIES,'רגילה',false,"scUrgencyChanged('ne')")}</div>
@@ -25445,7 +25445,7 @@ window.openOrd = (id, ctx)=>{
       const ps=PROTS.filter(p=>p.order_id===o.id && window.canView('docs.'+(p.category||'protocols'))); return `<section class="ob-card"><h2 class="sec">מסמכים וחתימות (${ps.length})</h2>`+
       (ps.map(p=>{ const ds=docStatus(p), may=window.canEdit('docs.'+(p.category||'protocols'));
         return `<div class="row"><span class="k">${esc(p.doc_type)}${p.sent_at?' · נוצר '+fmtIso(p.sent_at):''}</span><span class="v">${(p.status==='נחתם'||p.signed_at)?`<a href="#" onclick="event.preventDefault();openDocLink('${p.id}','open')">צפייה</a>`:(may?`<a href="#" onclick="event.preventDefault();openDocLink('${p.id}','copy')">קישור</a>${p.phone?` · <a href="#" onclick="event.preventDefault();openDocLink('${p.id}','wa')">וואטסאפ</a>`:''}`:'<span style="color:var(--ink-3)">אין הרשאה לקישור</span>')} <span class="pill ${ds.cls}" title="${esc(ds.title)}">${esc(ds.label)}</span></span></div>`; }).join(''))+
-      ((window.canEdit('crm.orders.docs')&&window.canEdit('docs.protocols'))?`<button class="ghost" style="margin-top:8px" onclick="createProtocol('${o.id}','${ctx||''}')">יצירת פרוטוקול הכנה לחתימה</button>`:'')+'</section>'; })():''}
+      ((window.canEdit('crm.orders.docs')&&window.canEdit('docs.protocols'))?`<button class="ghost" style="margin-top:var(--sp-2)" onclick="createProtocol('${o.id}','${ctx||''}')">יצירת פרוטוקול הכנה לחתימה</button>`:'')+'</section>'; })():''}
     ${window.mediaBlock('order', o.id)}
     ${window.payDocsBlock(o.id)}
     ${window.reportBlock('order', o.id)}
@@ -25659,7 +25659,7 @@ async function loadOrderItems(orderNumber){
         <td class="bal${isSvc?' svc':''}"${isSvc?' title="שורת שירות — פריוריטי אינה סוגרת אותה, ולכן אינה נספרת כחוב אספקה"':''}>${bal>0?bal.toLocaleString('he-IL'):'<span style="color:#cbd5e1">—</span>'}</td>
       </tr>`; }).join('')}</tbody>
     </table></div>
-    <div class="count-line">${list.length} שורות · סה"כ ${totalQty.toLocaleString('he-IL')} יח'${openBal>0?` · <b style="color:#b45309">${openLines} שורות שטרם סופקו, ${openBal.toLocaleString('he-IL')} יח'</b>`:''}</div>`;
+    <div class="count-line">${list.length} שורות · סה"כ ${totalQty.toLocaleString('he-IL')} יח'${openBal>0?` · <b style="color:var(--warn-ink)">${openLines} שורות שטרם סופקו, ${openBal.toLocaleString('he-IL')} יח'</b>`:''}</div>`;
   }catch(err){ console.error(err); box.innerHTML='<div class="items-empty">לא ניתן לטעון את פירוט ההזמנה</div>'; }
 }
 debounceSearch($('#logiSearchOrders'), ()=>renderLogi());
@@ -26840,7 +26840,7 @@ window.openDeal = async (id)=>{
     </div>
     </div>
     <div id="dl-pn-upd" class="hidden">
-      <div class="note" style="margin-bottom:6px">העדכון נרשם על העסקה, ומוצג גם בכרטיס הפנייה, המשימה והלקוח עם תגית מקור. עריכה ומחיקה — לכותב בלבד.</div>
+      <div class="note" style="margin-bottom:var(--sp-1h)">העדכון נרשם על העסקה, ומוצג גם בכרטיס הפנייה, המשימה והלקוח עם תגית מקור. עריכה ומחיקה — לכותב בלבד.</div>
       ${window.canEdit('crm')?`<div class="lbu-add"><textarea id="dl-upd" rows="2" placeholder="מה קרה עם העסקה הזאת?"></textarea><button type="button" class="chip" onclick="lbAddUpdate('${jsq(id)}','deal','dl')">הוספה</button></div>`:''}
       <div class="lbu-bar" id="dl-updbar"></div>
       <div class="lbu-list" id="dl-updlist">${crmLoading()}</div>
@@ -28159,14 +28159,14 @@ function mtActs(m){
      Calendars.Read בלבד — כלומר שינוי מועד אצלנו **יוחזר בסנכרון הבא**.
      ההצהרה הזאת חשובה יותר מהפעולה, ולכן היא ליד הכפתור ולא אחריו. */
   const ol = m.source==='outlook';
-  return `<div class="lbu-bar" style="margin-top:12px">`
+  return `<div class="lbu-bar" style="margin-top:var(--sp-3)">`
     + (done ? `<span class="note">הפגישה בוטלה.</span>`
             : `<button type="button" class="chip" onclick="mtSendOpen('${jsq(m.id)}')">שיגור זימון</button>`
             + `<button type="button" class="chip" onclick="mtReschedOpen('${jsq(m.id)}')">✎ שינוי מועד</button>`
             + `<button type="button" class="chip" onclick="mtCancel('${jsq(m.id)}')">✕ ביטול הפגישה</button>`)
     + (ol && m.web_link ? `<a class="chip" href="${esc(safeUrl(m.web_link))}" target="_blank" rel="noopener">↗ פתיחה באאוטלוק</a>` : '')
     + `</div>`
-    + (mtForeignOl(m) && !done ? `<div class="note" style="margin-top:6px">⚠️ הפגישה מגיעה מיומן אאוטלוק. שינוי מועד כאן מתעדכן במערכת ובמשימה, <b>אך לא ביומן עצמו</b> — יש לעדכן גם שם.</div>` : '');
+    + (mtForeignOl(m) && !done ? `<div class="note" style="margin-top:var(--sp-1h)">⚠️ הפגישה מגיעה מיומן אאוטלוק. שינוי מועד כאן מתעדכן במערכת ובמשימה, <b>אך לא ביומן עצמו</b> — יש לעדכן גם שם.</div>` : '');
 }
 /* 🔴 6.218.0 — בורר הסטטוס עבר ל-mtStatusSet, בדיוק כמו שתת-הסטטוס של
    הליד עבר ל-lbPipeSet ב-6.153.0. עד כאן שני הבוררים (הטבלה והכרטיס) היו
@@ -28394,7 +28394,7 @@ window.openMeet = (id)=>{
     ${mtActs(m)}
     </div>
     <div id="mt-pn-upd" class="hidden">
-      <div class="note" style="margin-bottom:6px">העדכון נרשם על הפגישה, ומוצג גם בכרטיס הפנייה, העסקה והלקוח עם תגית מקור.</div>
+      <div class="note" style="margin-bottom:var(--sp-1h)">העדכון נרשם על הפגישה, ומוצג גם בכרטיס הפנייה, העסקה והלקוח עם תגית מקור.</div>
       ${window.canEdit('crm')?`<div class="lbu-add"><textarea id="mt-upd" rows="2" placeholder="מה קרה בפגישה?"></textarea><button type="button" class="chip" onclick="lbAddUpdate('${jsq(m.id)}','meeting','mt')">הוספה</button></div>`:''}
       <div class="lbu-bar" id="mt-updbar"></div>
       <div class="lbu-list" id="mt-updlist">${crmLoading()}</div>
@@ -28446,10 +28446,10 @@ function renderToday(){
   if(!mine.length && !dashOwnsTasks()){ el2.innerHTML=''; }
   else {
     const late = mine.filter(t=>lbDueMark(t.due_at).rowCls==='lb-ovr').length;
-    el2.innerHTML = dbHead('המשימות שלי להיום', mine.length+(late?' · <span style="color:#c0392b">'+late+' באיחור</span>':''), "gotoTab('tasks')", 'למשימות') +
+    el2.innerHTML = dbHead('המשימות שלי להיום', mine.length+(late?' · <span style="color:var(--red)">'+late+' באיחור</span>':''), "gotoTab('tasks')", 'למשימות') +
       (mine.slice(0,DB_CAP).map(t=>{ const dm = lbDueMark(t.due_at); const ctx = (typeof tkLinkName==='function') ? (tkLinkName(t)||'') : '';
         return dbRow("openTask('"+jsq(t.id)+"')", esc(t.name||''), [t.category||'', ctx].filter(Boolean).join(' · '),
-          '<button type="button" class="chip" style="padding:4px 10px;font-size:12px" onclick="event.stopPropagation();doneTask(\''+jsq(t.id)+'\')">בוצע ✓</button>',
+          '<button type="button" class="chip" style="padding:4px 10px;font-size:var(--fs-sm)" onclick="event.stopPropagation();doneTask(\''+jsq(t.id)+'\')">בוצע ✓</button>',
           t.due_at ? esc(new Date(t.due_at).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})) : '—', dm.rowCls); }).join('')
        || '<div class="db-empty">אין משימות להיום ✓</div>') +
       (mine.length>DB_CAP ? dbRow("gotoTab('tasks')", 'עוד '+(mine.length-DB_CAP)+' משימות', '', '', '') : '');
@@ -28590,7 +28590,7 @@ function lbRow(l, i, nt, nm, ntid){
   const dueCell = tid && canIE('lead','x')
     ? `<input type="datetime-local" class="inline-edit lb-dt" data-task="${esc(tid)}" value="${esc(lbDtLocal(t))}" onclick="event.stopPropagation()" onchange="lbTaskDue(this)">`
     : (t ? esc(new Date(t).toLocaleString('he-IL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}))
-         : `<button class="ghost" style="width:auto;padding:2px 9px;font-size:11.5px" onclick="event.stopPropagation();leadTask('${l.id}')">+ משימה</button>`);
+         : `<button class="ghost" style="width:auto;padding:2px 9px;font-size:var(--fs-xs)" onclick="event.stopPropagation();leadTask('${l.id}')">+ משימה</button>`);
   const _cid = lbCustId(l, m);
   const cust = !m ? '<span class="lb-cxnew">ליד חדש</span>'
     : (m.amb ? `<span class="pill lb-cxamb lb-cxgo" title="נמצאו ${m.n} לקוחות שונים עם טלפון זהה — לחיצה לבחירה" onclick="event.stopPropagation();lbCxPick(${jsq(JSON.stringify(m.ids))})">${m.n} לקוחות<span class="lb-cxdup">⧉ כפל</span></span>`
@@ -28762,7 +28762,7 @@ function lbSelBar(){
         <button type="button" class="chip" onclick="lbBulk('partner')">הוסף</button>
         <select id="lb-blk-st"><option value="">שינוי סטטוס אל…</option>${LEAD_STATUSES.map(s=>`<option>${esc(s)}</option>`).join('')}</select>
         <button type="button" class="chip" onclick="lbBulk('status')">שנה</button>
-        <button type="button" class="lb-del" style="padding:4px 10px;font-size:12px" onclick="lbBulk('delete')">מחיקה</button>`
+        <button type="button" class="lb-del" style="padding:4px 10px;font-size:var(--fs-sm)" onclick="lbBulk('delete')">מחיקה</button>`
        :'<span class="note">סמנו לידים בטבלה כדי לפעול עליהם.</span>'}
     <button type="button" class="chip lb-selx" onclick="lbBulkToggle()">✕ יציאה ממצב בחירה</button>
     <div class="lb-selrep" id="lb-selrep"></div></div>`;
@@ -30816,12 +30816,12 @@ window.custDeal = async (id, btn, force)=>{
       if(!msg && error && error.context && typeof error.context.json === 'function'){
         try{ const j = await error.context.json(); msg = (j && j.error) || ''; }catch(_e){}
       }
-      CUD_RESULT = { id: id, html: '<div class="note" style="color:#c0392b">שגיאה: '
+      CUD_RESULT = { id: id, html: '<div class="note" style="color:var(--red)">שגיאה: '
         + esc(msg || (error && error.message) || 'לא ידוע') + '</div>' };
       cudPaint(id); return;
     }
     if(!data){
-      CUD_RESULT = { id: id, html: '<div class="note" style="color:#c0392b">לא התקבלה תשובה מהשרת</div>' };
+      CUD_RESULT = { id: id, html: '<div class="note" style="color:var(--red)">לא התקבלה תשובה מהשרת</div>' };
       cudPaint(id); return;
     }
     const warn = [data.owner_error, data.log_error, data.doer_error].filter(Boolean).join(' · ');
@@ -30830,7 +30830,7 @@ window.custDeal = async (id, btn, force)=>{
       + '<br>הצעת מחיר: <b>' + esc(data.cprofnum || '—') + '</b> '
       + '<button type="button" class="chip" onclick="goCard(()=>openDeal(\'' + jsq(String(data.deal_id||'')) + '\'))">פתיחת כרטיס העסקה</button>'
       + (data.created ? '' : ' <button type="button" class="chip" onclick="custDeal(\'' + jsq(id) + '\', this, true)">＋ פתח הצעה נוספת בכל זאת</button>')
-      + (warn ? '<br><span style="color:#b45309">⚠️ ' + esc(warn) + '</span>' : '')
+      + (warn ? '<br><span style="color:var(--warn-ink)">⚠️ ' + esc(warn) + '</span>' : '')
       + '</div>' };
     /* ⚠️ loadLeads ואז openCust — העסקה החדשה חייבת להיכנס ל-DEALS
        לפני שהכרטיס נבנה מחדש, אחרת בלוק העסקאות שלו לא יראה אותה. */
@@ -31097,7 +31097,7 @@ window.convertLead = async (id, btn, choice)=>{
   if(data && data.need_pick && Array.isArray(data.candidates) && data.candidates.length){ pick = data.candidates; pickOv = data.can_override === true; return; }
   if(data && data.need_contact && Array.isArray(data.contacts) && data.contacts.length){ needCt = data; return; }
   if(error || (data && data.ok===false)){
-    if(res) res.innerHTML = `<div class="note" style="color:#c0392b">שגיאה: ${esc((data&&data.error)||error?.message||'לא ידוע')}</div>`; return;
+    if(res) res.innerHTML = `<div class="note" style="color:var(--red)">שגיאה: ${esc((data&&data.error)||error?.message||'לא ידוע')}</div>`; return;
   }
   /* 🔴 6.166.0 — התוצאה נשמרת ב**מצב** ולא רק ב-DOM. openLead שאחריו
      בונה את הכרטיס מחדש (וזה כל העניין: הרצועה, השבב ותת-הסטטוס
@@ -31105,7 +31105,7 @@ window.convertLead = async (id, btn, choice)=>{
   const warn = [data.owner_login_error, data.owner_error].filter(Boolean).join(' · ');
   CONV_RESULT = { id, html: `<div class="ok-box">✓ הומר בהצלחה!<br>לקוח בפריוריטי: <b>${esc(data.custname||'—')}</b>${data.picked_existing ? ' · לקוח קיים' : ''}<br>הצעת מחיר: <b>${esc(data.cprofnum||'—')}</b>`
     + (data.price_list ? `<br>מחירון: <b>${esc(data.price_list)}</b>` : '')
-    + (warn ? `<br><span style="color:#b45309">⚠️ ${esc(warn)}</span>` : '')
+    + (warn ? `<br><span style="color:var(--warn-ink)">⚠️ ${esc(warn)}</span>` : '')
     /* ⚠️ מותנה ב-deal_id: השרת מחזיר אותו מאז ומעולם (הלקוח פשוט לא
        קרא אותו), אבל כפתור שמוביל ל-undefined גרוע מכפתור שאינו קיים. */
     + (data.deal_id ? `<div class="okb-act"><button type="button" class="chip" onclick="convGoDeal('${jsq(data.deal_id)}')">↗ פתיחת תהליך המכירה</button></div>` : '')
@@ -31361,7 +31361,7 @@ window.spiSetFilter = k => { SPI_FILTER=k; SPI_OPEN=null; spiPaint(); };
 function spiRow(r){
   const sup = r.supdes || r.supplier_name_raw || '—';
   return '<div class="lead" onclick="spiOpen(\''+esc(r.id)+'\')">'+
-    '<div><div class="nm">'+esc(sup)+(r.supplier_confident===false?' <span style="color:#b45309">⚠</span>':'')+'</div>'+
+    '<div><div class="nm">'+esc(sup)+(r.supplier_confident===false?' <span style="color:var(--warn-ink)">⚠</span>':'')+'</div>'+
     '<div class="meta">'+esc(r.book_num||'—')+' · '+fmtIso(r.ivdate)+' · '+spiMoney(r.total)+(r.doc_type?' · '+esc(r.doc_type):'')+'</div></div>'+
     '<span class="spi-st '+spiStClass(r.state)+'">'+esc(r.state)+'</span></div>';
 }
@@ -31378,7 +31378,7 @@ function spiTable(){
     return '<tr class="spi-row" onclick="spiOpen(\''+esc(r.id)+'\')">'+
       '<td><span class="spi-st '+spiStClass(r.state)+'">'+esc(r.state)+'</span></td>'+
       '<td>'+esc(sup)+
-        (r.supplier_confident===false?' <span style="color:#b45309">⚠</span>':'')+'</td>'+
+        (r.supplier_confident===false?' <span style="color:var(--warn-ink)">⚠</span>':'')+'</td>'+
       '<td>'+esc(r.book_num||'—')+'</td>'+
       '<td>'+fmtIso(r.ivdate)+'</td>'+
       '<td class="num">'+spiMoney(r.total)+'</td>'+
@@ -31443,7 +31443,7 @@ function spiCard(){
   const iss = SPI_DET.issues.length
     ? SPI_DET.issues.map(x=>'<div class="spi-iss '+(x.severity==='חוסם'?'block':'warn')+'">'+
         '<b>'+esc(x.code)+'</b> — '+esc(x.message)+'</div>').join('')
-    : '<div class="spi-iss warn" style="background:#e7f6ec;color:#15803d;border-color:#bfe3cc">אין ממצאים. החשבונית מוכנה לאישור.</div>';
+    : '<div class="spi-iss warn" style="background:#e7f6ec;color:var(--ok);border-color:#bfe3cc">אין ממצאים. החשבונית מוכנה לאישור.</div>';
 
   const lines = SPI_DET.lines.map(l=>
     '<tr><td>'+l.line_no+'</td>'+
@@ -31717,7 +31717,7 @@ function siTable(rows){
                : s.kind==='הוצאה' ? '<span class="si-kind exp">הוצאה</span>'
                : '<span class="si-kind none">טרם נלמד</span>';
     const acc = r ? esc(r.accname)+(siAccDes(r.accname)?' — '+esc(siAccDes(r.accname)):'')
-                  : '<span style="color:#b91c1c">טרם נלמד</span>';
+                  : '<span style="color:var(--red)">טרם נלמד</span>';
     return '<tr class="si-row'+(s.active===false?' si-inactive':'')+
       '" onclick="siOpen(\''+esc(s.supplier_no)+'\')">'+
       '<td>'+esc(s.supplier_no)+'</td>'+
@@ -31770,7 +31770,7 @@ function siCard(no){
         f('ראשונה', s.first_seen)+ f('אחרונה', s.last_seen)+
       '</div>'+
       '<div class="si-sep">כללי הקידוד</div>'+ rules +
-      (s.notes ? '<div class="si-sep">הערות</div><div style="font-size:13px">'+esc(s.notes)+'</div>' : '')+
+      (s.notes ? '<div class="si-sep">הערות</div><div style="font-size:var(--fs-md)">'+esc(s.notes)+'</div>' : '')+
     '</div>';
 }
 
@@ -32034,12 +32034,12 @@ boot();
     d.id = 'payblk';
     d.style.cssText = 'margin-top:16px;padding:14px;border:1px solid #e2e8f0;border-radius:12px;background:#fbfcfd';
     d.innerHTML =
-      '<div style="font-weight:800;font-size:13.5px;margin-bottom:8px">תשלום מקוון (פורטל לקוחות)</div>' +
+      '<div style="font-weight:800;font-size:var(--fs-md);margin-bottom:var(--sp-2)">תשלום מקוון (פורטל לקוחות)</div>' +
       '<div id="paylinks" style="font-size:13px;color:#5b6b78">טוען…</div>' +
-      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">' +
-        '<select id="paylink-inst" style="border:1px solid #dbe3ec;border-radius:9px;padding:8px 10px;font-size:13px;font-family:inherit;background:#fff"><option value="1">תשלום אחד</option><option value="2">עד 2 תשלומים</option><option value="3">עד 3 תשלומים</option><option value="4">עד 4 תשלומים</option><option value="6">עד 6 תשלומים</option><option value="10">עד 10 תשלומים</option><option value="12">עד 12 תשלומים</option></select><button type="button" id="paylink-new" class="btn" style="width:auto;padding:9px 16px;font-size:13.5px">צור קישור תשלום</button>' +
+      '<div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-top:var(--sp-2h)">' +
+        '<select id="paylink-inst" style="border:1px solid #dbe3ec;border-radius:9px;padding:8px 10px;font-size:13px;font-family:inherit;background:#fff"><option value="1">תשלום אחד</option><option value="2">עד 2 תשלומים</option><option value="3">עד 3 תשלומים</option><option value="4">עד 4 תשלומים</option><option value="6">עד 6 תשלומים</option><option value="10">עד 10 תשלומים</option><option value="12">עד 12 תשלומים</option></select><button type="button" id="paylink-new" class="btn" style="width:auto;padding:9px 16px;font-size:var(--fs-md)">צור קישור תשלום</button>' +
       '</div>' +
-      '<div id="paylink-msg" style="font-size:12.5px;margin-top:8px;color:#5b6b78">הסכום נמשך מפריוריטי ברגע היצירה וקפוא בקישור · תוקף 72 שעות · חד-פעמי</div>';
+      '<div id="paylink-msg" style="font-size:var(--fs-sm);margin-top:var(--sp-2);color:#5b6b78">הסכום נמשך מפריוריטי ברגע היצירה וקפוא בקישור · תוקף 72 שעות · חד-פעמי</div>';
     sheet.appendChild(d);
 
     refreshLinks(o);
@@ -32054,12 +32054,12 @@ boot();
     if(!r.links || !r.links.length){ box.textContent = 'אין קישורי תשלום להזמנה זו.'; return; }
     box.innerHTML = r.links.map(function(l){
       var url = 'https://portal.ironfitness.co.il/#pay=' + l.id;
-      var row = '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:5px 0;border-bottom:1px solid #eef1f4">' +
+      var row = '<div style="display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;padding:5px 0;border-bottom:1px solid var(--line-soft)">' +
         '<span class="pill ' + pillCls(l.status) + '">' + pesc(l.status) + '</span>' +
         '<b>' + shk(l.amount) + '</b>' + (l.installments > 1 ? '<span style="color:#5b6b78">עד ' + l.installments + ' תשלומים</span>' : '') +
         '<span style="color:#8b98a3">נוצר ' + fdt(l.created_at) + (l.status==='ממתין' ? ' · בתוקף עד ' + fdt(l.expires_at) : '') + '</span>';
       if(l.status === 'ממתין'){
-        row += '<button type="button" class="pl-copy" data-url="' + pesc(url) + '" style="border:1px solid #dbe3ec;background:#fff;border-radius:8px;padding:4px 10px;font-size:12px;cursor:pointer">העתקה</button>' +
+        row += '<button type="button" class="pl-copy" data-url="' + pesc(url) + '" style="border:1px solid #dbe3ec;background:#fff;border-radius:var(--r-md);padding:4px 10px;font-size:12px;cursor:pointer">העתקה</button>' +
           '<a href="https://wa.me/?text=' + encodeURIComponent('לתשלום מאובטח עבור הזמנה ' + o.order_number + ': ' + url) + '" target="_blank" rel="noopener" style="font-size:12px">וואטסאפ</a>';
       }
       return row + '</div>';
@@ -32133,20 +32133,20 @@ boot();
     ov.id = 'plb-overlay';
     ov.style.cssText = 'position:fixed;inset:0;background:rgba(6,24,39,.55);z-index:80;display:flex;align-items:center;justify-content:center;padding:2vh 2vw';
     ov.innerHTML =
-      '<div style="background:#fff;border-radius:16px;width:min(1000px,96vw);max-height:94vh;display:flex;flex-direction:column;overflow:hidden">' +
-        '<div style="background:linear-gradient(135deg,#002D48,#0b3f63);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px">' +
+      '<div style="background:#fff;border-radius:var(--r-xl);width:min(1000px,96vw);max-height:94vh;display:flex;flex-direction:column;overflow:hidden">' +
+        '<div style="background:linear-gradient(135deg,#002D48,#0b3f63);color:#fff;padding:var(--sp-3) var(--sp-4);display:flex;align-items:center;gap:var(--sp-3)">' +
           '<b style="font-size:16px">פריטים במחירון</b>' +
-          '<span id="plb-sync" style="font-size:12px;opacity:.85"></span>' +
+          '<span id="plb-sync" style="font-size:var(--fs-sm);opacity:.85"></span>' +
           '<span style="flex:1"></span>' +
-          (window.canEdit('prc.pricing') ? '<button type="button" id="plb-syncbtn" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:6px 12px;font-size:12.5px;cursor:pointer;font-family:inherit">↻ סנכרן עכשיו</button>' : '') +
+          (window.canEdit('prc.pricing') ? '<button type="button" id="plb-syncbtn" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:var(--r-md);padding:6px 12px;font-size:var(--fs-sm);cursor:pointer;font-family:inherit">↻ סנכרן עכשיו</button>' : '') +
           '<button type="button" id="plb-x" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer">✕</button>' +
         '</div>' +
-        '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 18px;border-bottom:1px solid #e2e8f0">' +
-          '<select id="plb-sel" style="padding:8px 10px;border:1px solid #dbe3ec;border-radius:9px;font-size:13px;font-family:inherit;background:#fff;max-width:320px"></select>' +
-          '<input id="plb-q" placeholder="חיפוש מק&quot;ט או תיאור…" style="flex:1;min-width:180px;padding:8px 12px;border:1px solid #dbe3ec;border-radius:9px;font-size:13px;font-family:inherit">' +
-          '<span id="plb-meta" style="font-size:12.5px;color:#5b6b78"></span>' +
+        '<div style="display:flex;gap:var(--sp-2h);flex-wrap:wrap;align-items:center;padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--line)">' +
+          '<select id="plb-sel" style="padding:8px 10px;border:1px solid var(--field-bd);border-radius:var(--r-md);font-size:var(--fs-md);font-family:inherit;background:#fff;max-width:320px"></select>' +
+          '<input id="plb-q" placeholder="חיפוש מק&quot;ט או תיאור…" style="flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--field-bd);border-radius:var(--r-md);font-size:var(--fs-md);font-family:inherit">' +
+          '<span id="plb-meta" style="font-size:var(--fs-sm);color:var(--ink-3)"></span>' +
         '</div>' +
-        '<div id="plb-body" style="overflow:auto;padding:0 18px 18px;flex:1">טוען…</div>' +
+        '<div id="plb-body" style="overflow:auto;padding:0 var(--sp-4) var(--sp-4);flex:1">טוען…</div>' +
       '</div>';
     document.body.appendChild(ov);
     ov.addEventListener('click', function(e){ if(e.target === ov) ov.remove(); });
@@ -32196,7 +32196,7 @@ boot();
     var rows = PLB.items.filter(function(i){
       return !q || String(i.partdes || '').toLowerCase().includes(q) || String(i.partname).toLowerCase().includes(q);
     });
-    if(!rows.length){ b.innerHTML = '<div style="padding:30px;text-align:center;color:#5b6b78">אין פריטים להצגה</div>'; return; }
+    if(!rows.length){ b.innerHTML = '<div style="padding:var(--sp-6);text-align:center;color:var(--ink-3)">אין פריטים להצגה</div>'; return; }
     b.innerHTML = '<table class="tbl" style="width:100%"><thead><tr>' +
       '<th>מק"ט</th><th>תיאור</th><th>מחיר מלא</th><th>% הנחה</th><th>מחיר סופי (כולל מע"מ)</th>' +
       '</tr></thead><tbody>' + rows.map(function(i){
@@ -32303,46 +32303,46 @@ boot();
 
     var d = document.createElement('div');
     d.id = 'yahavblk';
-    d.style.cssText = 'margin-top:16px;padding:14px;border:1px solid #e2e8f0;border-radius:12px;background:#fbfcfd';
+    d.style.cssText = 'margin-top:var(--sp-4);padding:var(--sp-3);border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg-subtle)';
     if(!o.yahav_shipment_no){
       d.innerHTML =
-        '<div style="font-weight:800;font-size:13.5px;margin-bottom:8px">יהב לוגיסטיקה — שידור משלוח</div>' +
-        (prev ? '<div style="font-size:12.5px;margin-bottom:9px;padding:7px 10px;border-radius:8px;background:#fdf2f3;color:#a92f2f">משלוח קודם <b style="direction:ltr;display:inline-block">' + yesc(prev.shipment_no) + '</b> בוטל במערכת · ' + yfdt(prev.created_at) + '</div>' : '') +
-        '<div style="font-size:12.5px;line-height:1.95;margin-bottom:10px;color:#243b4a">' +
-          '<div><span style="color:#5b6b78">מוצא:</span> <b>' + yesc(YORIGIN) + '</b></div>' +
-          '<div><span style="color:#5b6b78">כתובת למשלוח:</span> <b>' + yesc(o.ship_addr1 || o.address || '—') + '</b></div>' +
-          '<div><span style="color:#5b6b78">כתובת שורה 2:</span> ' + yesc(o.ship_addr2 || '—') + '</div>' +
-          '<div><span style="color:#5b6b78">עיר:</span> <b>' + yesc(o.city || '—') + '</b></div>' +
+        '<div style="font-weight:800;font-size:var(--fs-md);margin-bottom:var(--sp-2)">יהב לוגיסטיקה — שידור משלוח</div>' +
+        (prev ? '<div style="font-size:var(--fs-sm);margin-bottom:var(--sp-2);padding:var(--sp-1h) var(--sp-2h);border-radius:var(--r-md);background:var(--red-bg);color:var(--red)">משלוח קודם <b style="direction:ltr;display:inline-block">' + yesc(prev.shipment_no) + '</b> בוטל במערכת · ' + yfdt(prev.created_at) + '</div>' : '') +
+        '<div style="font-size:var(--fs-sm);line-height:1.95;margin-bottom:var(--sp-2h);color:#243b4a">' +
+          '<div><span style="color:var(--ink-3)">מוצא:</span> <b>' + yesc(YORIGIN) + '</b></div>' +
+          '<div><span style="color:var(--ink-3)">כתובת למשלוח:</span> <b>' + yesc(o.ship_addr1 || o.address || '—') + '</b></div>' +
+          '<div><span style="color:var(--ink-3)">כתובת שורה 2:</span> ' + yesc(o.ship_addr2 || '—') + '</div>' +
+          '<div><span style="color:var(--ink-3)">עיר:</span> <b>' + yesc(o.city || '—') + '</b></div>' +
         '</div>' +
         /* 6.217.0 — השידור שמור ל-canEdit('logi.orders') (yahav-send v14 חוסם בשרת; כאן לא מציגים) */
         (window.canEdit('logi.orders') ?
-        '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">' +
-          '<label style="font-size:13px">מספר קרטונים:</label>' +
-          '<input id="yh-pkg" type="number" min="1" max="99" value="1" style="width:70px;padding:8px;border:1px solid #dbe3ec;border-radius:9px;font-size:13px;font-family:inherit;text-align:center">' +
-          '<button type="button" id="yh-send" class="btn" style="width:auto;padding:9px 16px;font-size:13.5px">שדר ליהב</button>' +
+        '<div style="display:flex;gap:var(--sp-2h);align-items:center;flex-wrap:wrap">' +
+          '<label style="font-size:var(--fs-md)">מספר קרטונים:</label>' +
+          '<input id="yh-pkg" type="number" min="1" max="99" value="1" style="width:70px;padding:8px;border:1px solid var(--field-bd);border-radius:var(--r-md);font-size:var(--fs-md);font-family:inherit;text-align:center">' +
+          '<button type="button" id="yh-send" class="btn" style="width:auto;padding:9px 16px;font-size:var(--fs-md)">שדר ליהב</button>' +
         '</div>' +
-        '<textarea id="yh-note" rows="2" placeholder="הערות לשליח — יישלחו ליהב" style="width:100%;margin-top:9px;padding:8px 10px;border:1px solid #dbe3ec;border-radius:9px;font-size:13px;font-family:inherit;resize:vertical">' + yesc(o.order_notes || '') + '</textarea>' +
-        '<div id="yh-msg" style="font-size:12.5px;margin-top:6px;color:#5b6b78">ההערות מולאו מהערות ההזמנה — אפשר לערוך · הכתובת ושורה 2 נמשכות מפריוריטי ברגע השידור</div>'
-        : '<div id="yh-msg" style="font-size:12.5px;margin-top:6px;color:#a92f2f">שידור המשלוח ליהב שמור למנהלי הלוגיסטיקה (הרשאת עריכה בהזמנות)</div>');
+        '<textarea id="yh-note" rows="2" placeholder="הערות לשליח — יישלחו ליהב" style="width:100%;margin-top:var(--sp-2);padding:8px 10px;border:1px solid var(--field-bd);border-radius:var(--r-md);font-size:var(--fs-md);font-family:inherit;resize:vertical">' + yesc(o.order_notes || '') + '</textarea>' +
+        '<div id="yh-msg" style="font-size:var(--fs-sm);margin-top:var(--sp-1h);color:var(--ink-3)">ההערות מולאו מהערות ההזמנה — אפשר לערוך · הכתובת ושורה 2 נמשכות מפריוריטי ברגע השידור</div>'
+        : '<div id="yh-msg" style="font-size:var(--fs-sm);margin-top:var(--sp-1h);color:var(--red)">שידור המשלוח ליהב שמור למנהלי הלוגיסטיקה (הרשאת עריכה בהזמנות)</div>');
       sheet.appendChild(d);
       var _ys = d.querySelector('#yh-send'); if(_ys) _ys.addEventListener('click', function(){ sendYahav(o, this); });
     } else {
       d.innerHTML =
-        '<div style="font-weight:800;font-size:13.5px;margin-bottom:8px">יהב לוגיסטיקה — משלוח</div>' +
-        '<div style="font-size:13px;line-height:2">' +
+        '<div style="font-weight:800;font-size:var(--fs-md);margin-bottom:var(--sp-2)">יהב לוגיסטיקה — משלוח</div>' +
+        '<div style="font-size:var(--fs-md);line-height:2">' +
           '<div>מספר משלוח: <b style="direction:ltr;display:inline-block">' + yesc(o.yahav_shipment_no) + '</b> ' +
-            '<button type="button" id="yh-copy" style="border:1px solid #dbe3ec;background:#fff;border-radius:8px;padding:3px 9px;font-size:12px;cursor:pointer;font-family:inherit">העתקה</button></div>' +
+            '<button type="button" id="yh-copy" style="border:1px solid var(--line);background:#fff;border-radius:var(--r-md);padding:3px 9px;font-size:var(--fs-sm);cursor:pointer;font-family:inherit">העתקה</button></div>' +
           '<div>סטטוס: <b>' + yesc(o.yahav_status || 'שודר') + '</b>' +
-            (o.yahav_status_at ? ' <span style="color:#8b98a3">(עודכן ' + yfdt(o.yahav_status_at) + ')</span>' : '') + '</div>' +
+            (o.yahav_status_at ? ' <span style="color:var(--ink-3)">(עודכן ' + yfdt(o.yahav_status_at) + ')</span>' : '') + '</div>' +
           (o.yahav_driver ? '<div>נהג: ' + yesc(o.yahav_driver) + '</div>' : '') +
           '<div>קרטונים: ' + yesc(o.yahav_packages || '—') + ' · שודר: ' + yfdt(o.yahav_sent_at) + '</div>' +
         '</div>' +
-        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center">' +
-          '<button type="button" id="yh-label" class="btn" style="width:auto;padding:9px 16px;font-size:13.5px">הדפס מדבקה</button>' +
-          (window.canEdit('logi.orders') ? '<button type="button" id="yh-cancel" style="width:auto;padding:9px 14px;font-size:13px;border:1px solid #f2c7cd;background:#fff;color:#a92f2f;border-radius:9px;cursor:pointer;font-family:inherit">בטל שידור במערכת</button>' : '') +
-          '<a href="http://track.yahavlog.co.il/baldar/deliverystatus.aspx" target="_blank" rel="noopener" style="font-size:13px">מעקב באתר יהב</a>' +
+        '<div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-top:var(--sp-2h);align-items:center">' +
+          '<button type="button" id="yh-label" class="btn" style="width:auto;padding:9px 16px;font-size:var(--fs-md)">הדפס מדבקה</button>' +
+          (window.canEdit('logi.orders') ? '<button type="button" id="yh-cancel" style="width:auto;padding:9px 14px;font-size:var(--fs-md);border:1px solid #f2c7cd;background:#fff;color:var(--red);border-radius:var(--r-md);cursor:pointer;font-family:inherit">בטל שידור במערכת</button>' : '') +
+          '<a href="http://track.yahavlog.co.il/baldar/deliverystatus.aspx" target="_blank" rel="noopener" style="font-size:var(--fs-md)">מעקב באתר יהב</a>' +
         '</div>' +
-        '<div id="yh-msg2" style="font-size:12px;margin-top:8px;color:#8b98a3">הביטול מול יהב נעשה מולם · הכפתור כאן משחרר את ההזמנה לשידור חוזר ושומר את המספר הקודם ביומן</div>';
+        '<div id="yh-msg2" style="font-size:var(--fs-sm);margin-top:var(--sp-2);color:var(--ink-3)">הביטול מול יהב נעשה מולם · הכפתור כאן משחרר את ההזמנה לשידור חוזר ושומר את המספר הקודם ביומן</div>';
       sheet.appendChild(d);
       d.querySelector('#yh-copy').addEventListener('click', function(){
         var b = this, u = String(o.yahav_shipment_no);
