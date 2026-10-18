@@ -3719,7 +3719,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.22.0</div>
+      <div class="ver">גרסה 7.22.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3850,7 +3850,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="setmin-2026-10-18a">גרסה 7.22.0</div>
+    <div class="side-foot" title="cancelmove-2026-10-18a">גרסה 7.22.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -13304,7 +13304,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'setmin-2026-10-18a';
+const BUILD_ID = 'cancelmove-2026-10-18a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21023,7 +21023,9 @@ window.lbTaskDue = async (el)=>{
      הטבלה שמאחור בלבד, ולכן תווית "המשימה הבאה" נשארה על הפריט הישן
      כשהמיון השתנה — והמשתמש עורך בדיוק מהכרטיס. */
   if(t && t.linked_type==='lead') lbTmRedraw(t.linked_id);
-  renderLeads(); renderTasks(); renderToday();
+  /* 7.22.1 — כל המסכים מהזיכרון (crmRepaint, 6.148.0) ולא שלושה בשם: עד כאן טבלת התהליכים לא צוירה אחרי
+     שינוי מועד וחיכתה לרענון האוטומטי (רומן, 18/10/2026: "לוקח לזה יותר מדי זמן"). */
+  crmRepaint();
 };
 function capped(list, rowFn, emptyMsg){
   if(!list.length) return `<div class="empty">${emptyMsg}</div>`;
@@ -26282,7 +26284,10 @@ function dlRow(d, i, nt){
       <td>${custCell}</td>
       <td>${dlOwnerCell(d)}</td>
       <td dir="ltr">${phCell(dlPhone(d))}</td>
-      <td data-sort="${esc(t||'')}"${dmk.cls?` class="${dmk.cls}"`:''}><span class="lb-duew">${dmk.ico}${t?esc(new Date(t).toLocaleString('he-IL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})):'<span class="lb-na">·</span>'}</span></td>
+      <td data-sort="${esc(t||'')}"${dmk.cls?` class="${dmk.cls}"`:''}><span class="lb-duew">${dmk.ico}${(t && DL_NTID[d.id] && window.canEdit('crm.tasks'))
+            /* 7.22.1 — עריכת המועד מהטבלה, כמו בלידים (6.118.0) ובמשימות: אותו lbTaskDue, אותה הרשאה (crm.tasks) */
+            ? `<input type="datetime-local" class="inline-edit lb-dt" data-task="${esc(DL_NTID[d.id])}" value="${esc(lbDtLocal(t))}" onclick="event.stopPropagation()" onchange="lbTaskDue(this)">`
+            : (t?esc(new Date(t).toLocaleString('he-IL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})):'<span class="lb-na">·</span>')}</span></td>
       <td class="num" data-sort="${esc(d.amount==null?'':String(Math.round(Number(d.amount)||0)))}">${d.amount!=null?shekel(d.amount):'<span class="lb-na">·</span>'}</td>
       <td>${ieSel('deal',d.id,'stage',STAGES,d.stage,{mdColors:DEAL_ST_COLORS,mdK:LB_TK,
             on:`dlPipeSet('${jsq(d.id)}',this.value,'')`})}</td>
@@ -26298,7 +26303,7 @@ function dlRow(d, i, nt){
 }
 function dlTable(list, grouped){
   if(!list.length) return crmEmpty('תהליכי מכירה');
-  const nt = nextTaskBy('deal').due;
+  const _ntb = nextTaskBy('deal'), nt = _ntb.due; DL_NTID = _ntb.tid;
   const CS = DL_COLS.length + (DL_BULK?1:0);
   let body='';
   if(!grouped){
@@ -26950,6 +26955,7 @@ const DEAL_PAY_NET = [0, 30, 60, 90];
 const DEAL_PAY_ANCH = [['order','עם אישור ההצעה'],['delivery','לפני / אחרי אספקה'],['install','בהתקנה']];
 const DL_PP = {};                     /* id ⇒ { term, beats:[{pct,anchor,offset_days,method,installments,net_days}], dirty } */
 const DL_PL = {};                     /* `${id}:${seq}` ⇒ { url, amount, installments, ready } — קישור תשלום שהופק */
+let DL_NTID = {};                     /* 7.22.1 — deal_id ⇒ task_id של המשימה הבאה (dlTable), לעורך המועד בטבלה */
 function dlPpWhen(b){
   const d = Math.max(0, Math.round(Number(b.offset_days||0)));
   if(b.method==='שוטף' || b.anchor==='invoice') return d ? 'שוטף + ' + d + ' מהחשבונית' : 'שוטף';
@@ -29600,14 +29606,26 @@ $('#lur-skip').onclick = async ()=>{
    (lurSubCommit · LUR_PEND), ולכן סגירת החלונית בלי שמירה אינה משנה דבר — בכוונה אין data-must. */
 window.dlCancelAsk = (id, kind)=>{
   const d = (DEALS||[]).find(x=>x.id===id);
-  if(!d || d.stage === 'לא רלוונטי' || !window.canEdit('crm.deals')) return;
+  if(!d || !window.canEdit('crm.deals')) return;
   const what = kind === 'order_cancelled' ? 'ההזמנה' : 'ההצעה';
   const reason = what + ' בוטלה בפריוריטי';
   const opts = dlSubOpts('לא רלוונטי') || [];
   const bg = DEAL_ST_COLORS['לא רלוונטי'] || '#94a3b8';
+  const pal = opts.concat([reason]).reduce((a,o)=>{ a[o] = bg; return a; }, {});
+  if(d.stage === 'לא רלוונטי'){
+    /* 7.22.1 (רומן, 18/10/2026: "תעביר במערכת למבוטלת ותקפיץ התראה שנרשום למה היא בוטלה") — השרת כבר העביר את
+       העסקה ל'לא רלוונטי' עם הסיבה המערכתית (deal-quote-refresh v16 · ord.order_cancel_notify). כאן רק מדייקים:
+       מסלול "עדכון סיבה" של lurSubCommit (LUR_PEND ריק ⇒ p_expect 'לא רלוונטי'), הסיבה הנוכחית מסומנת.
+       Esc/רקע = בלי שינוי, כמו במסלול הפתוח. */
+    lurOpen('deal', id, 'למה תהליך המכירה לא רלוונטי?', what + ' של «' + (d.name || '—')
+      + '» בוטלה בפריוריטי והתהליך הועבר ל«לא רלוונטי». בחרו את הסיבה המדויקת, כתבו מה קרה ושמרו.',
+      opts, d.irrelevant_reason || reason, pal);
+    delete $('#lbUpdReqModal').dataset.must;
+    return;
+  }
   lurOpen('deal', id, 'למה תהליך המכירה לא רלוונטי?', what + ' של «' + (d.name || '—')
     + '» בוטלה בפריוריטי. אשר את הסיבה, כתוב מה קרה ושמור — התהליך יעבור ל«לא רלוונטי».',
-    opts, reason, opts.concat([reason]).reduce((a,o)=>{ a[o] = bg; return a; }, {}));
+    opts, reason, pal);
   LUR_PEND = { id: id, from: d.stage || null };
   /* lurOpen מסמן "חובה" כשיש סיבות — כאן עוד לא קרה כלום, ולכן Esc/רקע = ביטול. */
   delete $('#lbUpdReqModal').dataset.must;
