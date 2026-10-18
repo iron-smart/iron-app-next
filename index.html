@@ -1995,7 +1995,13 @@
   /* ⚠️ width:100% — בטלפון .set-layout הוא עמודה עם align-items:flex-start, והכלה ב-inline-size מכווצת את הגוף לרוחב אפס */
   .set-body{ container:st / inline-size; width:100%; }
   .st-top{ display:flex; align-items:center; gap:var(--sp-2h); flex-wrap:wrap; margin:var(--sp-4h) 0 var(--sp-2); }
-  .set-body > .st-top:first-child{ margin-top:0; }
+  .set-pane > .st-top:first-child{ margin-top:0; }
+  /* 7.22.0 — setmin: קבוצה בתפריט, מסך בלשונית. בתוך לשוניות הלשונית היא הכותרת — הכותרת הראשונה של המסך מוסתרת
+     (נשארת ב-DOM), ושורת st-top שאין בה דבר מלבדה נעלמת כולה. ⚠️ אפס נקודת שבירה חדשה. */
+  .set-tabs{ overflow-x:auto; scrollbar-width:none; }
+  .set-tabs .ctab{ flex:none; white-space:nowrap; }
+  .set-pane.in-tabs > h2.sec:first-child, .set-pane.in-tabs > .st-top:first-child > h2.sec{ display:none; }
+  .set-pane.in-tabs > .st-top:first-child:not(:has(> :not(h2.sec))){ display:none; }
   .st-top h2.sec{ margin:0; }
   .st-cnt{ font-size:var(--fs-sm); color:var(--ink-3); }
   .st-sp{ flex:1; }
@@ -3713,7 +3719,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.21.0</div>
+      <div class="ver">גרסה 7.22.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3844,7 +3850,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="round3-2026-10-18a">גרסה 7.21.0</div>
+    <div class="side-foot" title="setmin-2026-10-18a">גרסה 7.22.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -4763,13 +4769,15 @@ const srcHelp = () => '<span class="src-help" tabindex="0" role="button" aria-la
 function leadSrcDocHtml(){
   const rows = LEAD_SRC_DOC.map(([s,k,,full]) =>
     `<tr><td>${mdPill(s, LEAD_SRC_COLORS, LB_TK)}</td><td class="lsd-kind lsd-${k}">${esc(LEAD_SRC_KIND[k])}</td><td>${esc(full)}</td></tr>`).join('');
+  /* 7.22.0 — setmin: מקופל כמו "סטטוסי פריוריטי מול הלוח" — שתי טבלאות התיעוד במסך ה-CRM באותה שפה (set-fold) */
   return `<h2 class="sec" id="lsd-sec">מקורות הגעה של לידים</h2>
-    <div class="tbl-wrap" style="padding:12px">
-      <div class="note" style="margin-bottom:10px"><b>הכלל:</b> ${esc(LEAD_SRC_RULE)}</div>
-      <table class="tbl lsd-tbl"><thead><tr><th>מקור הגעה</th><th>איך נרשם</th><th>מאיפה מגיע</th></tr></thead><tbody>${rows}</tbody></table>
-      <div class="note" style="margin-top:10px">${esc(LEAD_SRC_TEST_NOTE)}</div>
+    <details class="set-fold" id="lsd-fold">
+      <summary>מאיפה מגיע כל ליד, ומה נרשם אוטומטית <small>תיעוד · קריאה בלבד</small></summary>
+      <div class="note"><b>הכלל:</b> ${esc(LEAD_SRC_RULE)}</div>
+      <div class="tbl-wrap"><table class="tbl lsd-tbl"><thead><tr><th>מקור הגעה</th><th>איך נרשם</th><th>מאיפה מגיע</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="note">${esc(LEAD_SRC_TEST_NOTE)}</div>
       <div class="note">אותו הסבר מוצג בכוכבית שליד "מקור הגעה" בכרטיס הליד ובטבלת הלידים.</div>
-    </div>`;
+    </details>`;
 }
 /* הטולטיפ — אלמנט אחד ב-body (fixed), כי .tbl-wrap ו-.sheet חותכים תוכן צף. */
 let SRC_TIP = null, SRC_TIP_AT = null, SRC_TIP_IV = 0;
@@ -5640,7 +5648,7 @@ let CUR_TAB = 'today';
 const NAV_VIEW = {
   /* 6.2.1 — רק לקטגוריות שיש להן באמת תת-מסכים. מסמכים / מק״טים / תשלומים
      מסוננים בתוך המסך ולכן אינם משתתפים בסימון התפריט הצף. */
-  logi: ()=>LOGI_VIEW, set: ()=>SET_VIEW, inv: ()=>INV_VIEW, prc: ()=>PRC_VIEW
+  logi: ()=>LOGI_VIEW, set: ()=>setGroupOf(SET_VIEW), inv: ()=>INV_VIEW, prc: ()=>PRC_VIEW
 };
 /* 6.204.0 — "איפה אני" (H10): הכותרת נגזרת מהסימון שכבר קיים (.active על הקבוצה, .on על תת-הפריט). */
 function scrTitleSync(){
@@ -6656,7 +6664,7 @@ function ieDate(kind,id,field,val){
 }
 window.gotoPays = f=>{ PAY_FILTER=f||'open'; gotoTab('pays'); renderPays(); navMark(); };
 window.gotoDocs = f=>{ DOC_FILTER=f||'sent'; gotoTab('docs'); renderDocs(); navMark(); };
-window.gotoSet  = v=>{ const cats=settingsCats(); if(!cats.length){ try{ toast('אין לך הרשאה למסך זה'); }catch(_e){} return; } v = v||'general'; if(!cats.some(c=>c[0]===v)) v = cats[0][0]; SET_VIEW=v; gotoTab('set'); };
+window.gotoSet  = v=>{ const cats=settingsCats(); if(!cats.length){ try{ toast('אין לך הרשאה למסך זה'); }catch(_e){} return; } v = v||'general'; if(!cats.some(c=>c[0]===v)) v = setGroupView(v) || cats[0][0]; SET_VIEW=v; gotoTab('set'); };
 window.gotoSkuView = id=>{ gotoTab('skus'); if(id) applySkuView(id); else clearSkuView(); };
 /* ===== דשבורד אחד, מותאם לתפקיד — נטיבי לגמרי ===== */
 /* ===== רג'יסטרי הדשבורדים (6.86.0, תוכנית רומן 16/08/2026) =====
@@ -13296,7 +13304,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'round3-2026-10-18a';
+const BUILD_ID = 'setmin-2026-10-18a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -17467,8 +17475,8 @@ function hkJson(v){ return '<pre class="sl-raw">'+esc(JSON.stringify(v==null?nul
 
 let HK=null, HK_ERR=null, HK_SEQ=0, HK_F={src:'',days:'7',bad:false,q:''}, HK_OPEN={}, HK_ITEM={}, HK_LIM=100;
 function hooksLogHtml(){
-  return `<h2 class="sec" style="margin-top:0">יומן וובהוקים</h2>
-    <div class="note">כל פנייה שמגיעה אלינו ממערכת חיצונית — פריוריטי (דרך <b dir="ltr">hook.ironfitness.co.il</b>) ופניות לידים (אתר, טפסים, Make) — שורה אחת לפנייה: מתי הגיעה, על מה, מה המערכת עשתה איתה וכמה זמן זה לקח. לחיצה על שורה פותחת את הגוף שהתקבל ואת כל שלבי העיבוד. ⚠️ פניות לפני 10/10/2026 שויכו לתוצאתן לפי מספר המסמך והזמן — בכפילות מהירה ייתכן שיוך לא מדויק.</div>
+  return `<div class="st-top"><h2 class="sec">יומן וובהוקים</h2></div>
+    <div class="st-lead">כל פנייה ממערכת חיצונית — פריוריטי (דרך <b dir="ltr">hook.ironfitness.co.il</b>) וטפסי לידים — בשורה אחת: מתי, על מה, מה נעשה וכמה זמן לקח. לחיצה על שורה פותחת את הגוף ואת שלבי העיבוד. פניות לפני 10/10/2026 שויכו לפי מספר המסמך והזמן.</div>
     <div id="hkCards" class="sl-cards"></div>
     <div class="sl-bar hk-bar">
       <select id="hkSrc" onchange="hkSet('src',this.value)">
@@ -17579,8 +17587,8 @@ function paintHooksLog(){
 let ERRL=null, ERRL_ERR=null, ERRL_SEQ=0, ERRL_F={cat:'',st:'open',days:'30'}, ERRL_OPEN={}, ERRL_ITEM={}, ERRL_LIM=100, ERRL_BUSY=false;
 const ERRL_CAT = { hook:['','וובהוק'], sync:['sync','סנכרון'], send:['send','שליחת הודעה'] };
 function errLogHtml(){
-  return `<h2 class="sec" style="margin-top:0">יומן שגיאות</h2>
-    <div class="note">כל כישלון שהמערכת רשמה — וובהוק שנכשל או נדחה, סנכרון מפריוריטי/מאנדיי שנכשל, והודעה ללקוח שלא נשלחה — במקום אחד. שגיאה שבדקת מסמנים "טופל" (עם הערה אם רוצים), והיא יורדת מרשימת הפתוחות ונשמר מי סימן ומתי. הסימון אינו משנה דבר בנתונים עצמם.</div>
+  return `<div class="st-top"><h2 class="sec">יומן שגיאות</h2></div>
+    <div class="st-lead">כל כישלון שהמערכת רשמה — וובהוק שנכשל או נדחה, סנכרון שנכשל, הודעה ללקוח שלא נשלחה. "טופל" מוריד שגיאה מהפתוחות ושומר מי סימן ומתי; הוא אינו משנה דבר בנתונים.</div>
     <div id="errCards" class="sl-cards"></div>
     <div class="sl-bar">
       <select id="errSt" onchange="errSet('st',this.value)"><option value="open">פתוחות</option><option value="acked">טופלו</option><option value="all">הכל</option></select>
@@ -17705,7 +17713,7 @@ function selOptsKeep(list, cur){
 }
 const ROLE_OPTS = [['admin','אדמיניסטרטור'],['manager','מנהל'],['rep','נציג'],['viewer','צפייה'],['pending','ממתין לאישור']];
 let SET_VIEW='users', SET_USERS=null, SET_SHOW_OFF=false;
-window.setMode = v=>{ SET_VIEW=v; renderSettings(); navMark(); };
+window.setMode = v=>{ SET_VIEW=v; try{ SET_LAST[setGroupOf(v)] = v; }catch(_e){} renderSettings(); navMark(); };
 /* מקור אחד לתתי-הקטגוריות של ההגדרות — משמש גם את המסך וגם את התפריט הצף בסרגל */
 /* ═══ מחשבון משלוח והתקנה בכרטיס העסקה (6.175.0) ══════════════════════
    רומן: "תבנה כבר את כפתור «חשב משלוח והתקנה» בתהליך המכירה".
@@ -17804,10 +17812,39 @@ function settingsCats(){
   const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['general','כללי']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
-/* תפריט ההגדרות בסרגל נבנה לפי ההרשאה בפועל — פריטי אדמין אינם מוצגים למי שאינו אדמין */
+/* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
+   רומן, 18/10/2026: "את כל היומנים תנסה לשלב שלא יהיו כל כך הרבה תתי קטגוריות בתוך ההגדרות … תעבור על כל ההגדרות
+   ותראה איך אתה יכול לעשות יותר מינימליסטי ופשוט לתפעול".
+   המסכים לא זזו: settingsCats() נשאר רשימת המסכים לפי הרשאה (SET_VIEW · setMode('hooks') · gotoSet('errors') ממשיכים
+   לעבוד), ומעליהם קבוצות — קבוצה = שורה בתפריט, מסך = לשונית בתוכה. קבוצה מוצגת אם יש הרשאה לאחד ממסכיה; לשונית —
+   רק למסך מורשה; קבוצה עם מסך מורשה אחד — בלי שורת לשוניות.
+   🔴 כל מסך ב-settingsCats חייב להופיע כאן פעם אחת בדיוק (נאכף בבנייה) — מסך שלא שויך נעלם מהתפריט בלי שגיאה. */
+const SET_GROUPS = [
+  ['users',   'משתמשים והרשאות', ['users']],
+  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','teams']],
+  ['texts',   'טקסטים ומסמכים',   ['texts']],
+  ['logs',    'חיבורים ויומנים',  ['conn','synclog','hooks','errors']],
+  ['general', 'כללי',             ['general','notif']],
+];
+/* כותרת הלשונית = שם המסך ב-settingsCats, פרט ל-CRM שבתוך הקבוצה "CRM ולוגיסטיקה" */
+const SET_TAB_LBL = { crm:'CRM' };
+const SET_LAST = {};
+function setGroupOf(v){ const g = SET_GROUPS.find(x => x[2].includes(v)); return g ? g[0] : v; }
+function settingsGroups(){
+  const cats = settingsCats(), lbl = {};
+  cats.forEach(([v, l]) => { lbl[v] = l; });
+  return SET_GROUPS.map(([g, l, vs]) => [g, l, vs.filter(v => v in lbl).map(v => [v, SET_TAB_LBL[v] || lbl[v]])]).filter(x => x[2].length);
+}
+/* קבוצה ⇒ המסך שהיה פתוח בה לאחרונה, אחרת הראשון המורשה */
+function setGroupView(g){
+  const G = settingsGroups().find(x => x[0] === g); if(!G) return null;
+  return G[2].some(t => t[0] === SET_LAST[g]) ? SET_LAST[g] : G[2][0][0];
+}
+window.setGrp = g=>{ const v = setGroupView(g); if(v) setMode(v); };
+/* תפריט ההגדרות בסרגל נבנה לפי ההרשאה בפועל — פריטי אדמין אינם מוצגים למי שאינו אדמין. מ-7.22.0 — קבוצות. */
 window.buildSetSubmenu = ()=>{
   const box=$('#setSubmenu'); if(!box) return;
-  box.innerHTML = settingsCats().map(([v,l])=>`<button data-view="${v}" onclick="gotoSet('${v}')">${l}</button>`).join('');
+  box.innerHTML = settingsGroups().map(([g,l])=>`<button data-view="${g}" onclick="gotoSet(setGroupView('${g}'))">${l}</button>`).join('');
   navMark();
 };
 /* ===== הגדרות ← חיבורים (6.8.0) — אפליקציות צד שלישי =====
@@ -18273,6 +18310,12 @@ function stRowHtml(d, ed){
   }
   return `<div class="st-row${cls}" data-st="${esc(d.key)}">${lbl}<div class="st-c">${ctl}</div></div>`;
 }
+/* 7.22.0 — כרטיס מקופל: אותה שורה, בתוך st-grp (כמו קבוצות הטקסטים). לקבוצה שמשנים לעיתים רחוקות. */
+function stFold(g, ed){
+  const [t, s] = ST_GROUPS[g] || ['', ''];
+  const ks = ST_REG.filter(r => r[2] === g).map(r => r[0]);
+  return `<details class="st-grp" data-g="${g}" ${ST_OPEN.has(g) ? 'open' : ''} ontoggle="stGrp('${g}', this.open)"><summary><span class="st-gt"><b>${esc(t)}</b>${s ? `<small>${esc(s)}</small>` : ''}</span><span class="st-gn">${ks.length}</span>${ST_CHEV}</summary><div class="st-rows">${ks.map(k => stRowHtml(stDefOf(k), ed)).join('')}</div></details>`;
+}
 function stCard(g, ed, keys){
   const [t, s] = ST_GROUPS[g] || ['', ''];
   const ks = keys || ST_REG.filter(r => r[2] === g).map(r => r[0]);
@@ -18455,9 +18498,12 @@ function renderSettings(){
       <section class="st-card"><div class="st-hd"><h3>תצוגה וזמנים</h3><small>חל מיד, בלי פריסה</small></div><div class="st-rows">${nmRow}${genRows}</div></section>
       ${stCard('mon', ged)}`;
   }
+  /* 7.22.0 — setmin: התפריט = קבוצות; מסך בקבוצה עם יותר ממסך מורשה אחד = לשונית */
+  const grps = settingsGroups(), curG = setGroupOf(SET_VIEW), G = grps.find(x => x[0] === curG);
+  const tabs = (G && G[2].length > 1) ? `<div class="ctabs set-tabs" role="tablist" aria-label="${esc(G[1])}">${G[2].map(([v,l])=>`<button type="button" role="tab" class="ctab${SET_VIEW===v?' on':''}" aria-selected="${SET_VIEW===v}" onclick="setMode('${v}')">${esc(l)}</button>`).join('')}</div>` : '';
   el.innerHTML = `<div class="set-layout">
-    <div class="set-nav">${cats.map(([v,l])=>`<button class="${SET_VIEW===v?'active':''}" onclick="setMode('${v}')">${l}<span class="nav-arrow" style="color:var(--ink-3)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>`).join('')}</div>
-    <div class="set-body">${body}</div>
+    <div class="set-nav">${grps.map(([g,l])=>`<button class="${curG===g?'active':''}" onclick="setGrp('${g}')">${l}<span class="nav-arrow" style="color:var(--ink-3)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>`).join('')}</div>
+    <div class="set-body">${tabs}<div class="set-pane${tabs ? ' in-tabs' : ''}">${body}</div></div>
   </div>`;
   if(SET_VIEW==='users' && canView('set.users')) renderUsers();
   if(SET_VIEW==='synclog' && canView('set.synclog')) loadSyncLog();
@@ -18729,8 +18775,8 @@ window.bookTxReset = k=>{ if(!BOOK_ST) return; delete BOOK_ST.tx[k]; bookMark();
 function bookSettingsHtml(){
   if(!BOOK_ST || !BOOK_DIRTY) bookLoad();
   BOOK_TXT_Q = '';   /* 7.12.0 — מסך חדש = בלי חיפוש ישן */
-  return `<h2 class="sec" style="margin-top:0">תיאום פגישות מהאתר</h2>
-    <div class="note" style="margin-bottom:12px">מחליף את Calendly. כל שינוי כאן חל <b>מיד ובלי פריסה</b> — השרת קורא את ההגדרות בכל בקשה מהאתר. קביעה נכנסת כליד במקור "קביעת פגישה באתר".</div>
+  return `<div class="st-top"><h2 class="sec">תיאום פגישות מהאתר</h2></div>
+    <div class="st-lead">מחליף את Calendly. שינוי חל <b>מיד ובלי פריסה</b> — השרת קורא את ההגדרות בכל בקשה מהאתר. קביעה נכנסת כליד במקור "קביעת פגישה באתר".</div>
     <div class="tbl-wrap" style="padding:10px 14px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center">
       <b style="color:var(--navy)">קישור הדף לאתר</b>
       <a href="${BOOK_URL}" target="_blank" rel="noopener" dir="ltr">${BOOK_URL.replace('https://','')}</a>
@@ -18880,8 +18926,8 @@ function crmSettingsHtml(){
   const ed = canEdit('set.crm');
   return `<div class="st-top"><h2 class="sec">CRM — מחזור חיי המשימה</h2></div>
     <div class="st-lead">כל שינוי כאן חל <b>מיד ובלי פריסה</b> — פונקציות המסד קוראות את הערכים בכל פעולה.</div>
-    ${['gaps','names','q','meet','qw','deal','crmwa'].map(g => stCard(g, ed)).join('')}
-    <section class="st-card"><div class="st-hd"><h3>מה קורה בכל שלב</h3><small>ההתנהגות שההגדרות למעלה שולטות בה</small></div>
+    ${stCard('gaps', ed)}${stCard('names', ed)}${stFold('q', ed)}${stCard('meet', ed)}${stFold('qw', ed)}${stCard('deal', ed)}${stCard('crmwa', ed)}
+    <details class="st-grp" data-g="crmflow" ${ST_OPEN.has('crmflow') ? 'open' : ''} ontoggle="stGrp('crmflow', this.open)"><summary><span class="st-gt"><b>מה קורה בכל שלב</b><small>ההתנהגות שההגדרות למעלה שולטות בה</small></span>${ST_CHEV}</summary>
       <ol class="st-flow">
         <li><b>ליד חדש</b><span>נפתחת משימה. נפתח ידנית — הפותח הוא הבעלים של הליד ושל המשימה; הגיע ממקור אחר — ללא בעלים.</span></li>
         <li><b>ללא מענה / 2 / 3</b><span>המשימה הקיימת נסגרת ונפתחת חדשה. סיווג <b>ליד</b>.</span></li>
@@ -18891,7 +18937,7 @@ function crmSettingsHtml(){
         <li><b>פתח לקוח והצעת מחיר</b><span>המשימה נסגרת, נפתחים לקוח זמני והצעה בפריוריטי, ונוצר תהליך מכירה בשלב <b>תהליך חדש</b>.</span></li>
         <li><b>ההצעה "נשלחה" בפריוריטי</b><span>השלב עולה ל<b>נשלחה הצעת מחיר ראשונית</b> ונפתחת משימה. סיווג <b>תהליך מכירה</b>.</span></li>
         <li><b>מהדורה חדשה נשלחה</b><span>המשימה הפתוחה זזה למועד "אחרי עדכון מהדורה של הצעה" (ואם אין — נפתחת חדשה).</span></li>
-      </ol></section>`;
+      </ol></details>`;
 }
 function notifSettingsHtml(){
   const ed = canEdit('set.notif');
