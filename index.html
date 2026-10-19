@@ -3458,6 +3458,57 @@ td.lb-today .lb-dt{ background-color:transparent; }
   #dl-deal .dd-meta{ margin-inline-start:0; }
   #dl-deal #dl-paysplit{ min-width:0; width:100%; }
 }
+/* ===== 7.28.1 — dealux2: ליטוש גריד · ריווח · קווים · צפיפות (רומן: "לא יותר מעוצב — יותר מסודר") =====
+   בלוק דריסה אחד אחרי כל כללי #dl-deal ובאותה ספציפיות — המאוחר מנצח, ולכן ה-@media שלו בסופו.
+   קצב 8 / 12 / 16 / 24. קווים: --line בין שלבים ולפני הסיכום, --line-soft בין שורות. בלי כרטיסים, רקעים או צללים. */
+#dl-deal{ gap:var(--sp-3); }   /* בלי max-width על המקטע: הוא תא בגריד הכרטיס ("אפס תאים ריקים") — הרוחב נשלט בעמודות */
+/* שלב 1 — עמודות ברוחב קבוע: מס' הצעה · סכום · בעלים על אותו קו, בלי "איים" */
+#dl-deal .dd-sum{ grid-template-columns:248px 200px minmax(0,1fr); grid-template-rows:auto 1fr; column-gap:var(--sp-5); }   /* rows auto+1fr: "לפני מע״מ" צמוד לסה״כ גם כשעמודת ההצעה גבוהה */
+/* שליחת ההצעה על אותן עמודות: המסמך תחת מס' ההצעה, הערוץ תחת הסכום */
+#dl-deal .dd-two{ grid-template-columns:248px minmax(0,1fr); column-gap:var(--sp-5); padding-top:var(--sp-3); border-top:1px solid var(--line-soft); }
+/* כותרות שלבים — padding אחיד, הקו היחיד בין שלבים */
+#dl-deal .dd-pay{ padding-top:var(--sp-4); border-top:1px solid var(--line); }
+#dl-deal .dd-h-sep{ padding-top:var(--sp-4); border-top:1px solid var(--line); margin-bottom:0; }
+#dl-deal .dd-pay-h #dl-paysplit{ margin-inline-start:0; }
+/* תנאי תשלום — עמודות מוגדרות עם תקרה (לא fr שמתפרש עם המסך); מועד+אמצעי כקבוצה; שורה 8px */
+#dl-deal .dd-pr{ grid-template-columns:164px 116px 64px 150px 148px 128px 184px; gap:var(--sp-1h) var(--sp-3); padding:var(--sp-2) 0; }
+#dl-deal .dd-pr > .dd-pr-when{ padding-inline-start:var(--sp-3); }
+#dl-deal .dd-pr.dd-pr-hd{ margin-top:var(--sp-3); padding:0 0 var(--sp-1h); }
+#dl-deal .dd-pr-act{ justify-content:flex-end; flex-wrap:nowrap; }   /* ✕ תמיד באותה נקודה — סוף התא */
+#dl-deal .dd-pr-amt input.dl-pp-amt, #dl-deal .dd-pr-pct input.dl-pp-pct{ text-align:start; }   /* הספרות על אותו קצה כמו הערכים הסטטיים */
+#dl-deal .dd-pr-amt input.dl-pp-amt{ width:92px; }   /* ₪ לא נדבק ל-% שבעמודה הסמוכה */
+#dl-deal .dd-sched > .dd-pr:last-child{ border-bottom:0; }
+/* הסיכום — footer של הטבלה על אותו גריד: תווית תחת "תשלום", סכום תחת "סכום", 100% תחת "אחוז" */
+#dl-deal .dd-pay-f{ display:grid; grid-template-columns:164px 116px 64px 150px 148px 128px 184px; column-gap:var(--sp-3); align-items:center;
+  margin-top:0; padding-top:var(--sp-3); border-top:1px solid var(--line); }
+#dl-deal .dd-total{ display:contents; }
+#dl-deal .dd-total-k{ grid-column:1; }
+#dl-deal .dd-total b{ grid-column:2; }
+#dl-deal .dd-pay-f .dl-pp-sum{ grid-column:3; justify-self:start; }
+#dl-deal .dd-pay-acts{ grid-column:4 / -1; margin-inline-start:0; }
+/* שלב 3 — footer: סטטוס + קישור + תאריכים בצד אחד, CTA ומשניות בצד השני, באותו גובה */
+#dl-deal .dd-bar{ display:grid; grid-template-columns:minmax(0,1fr) auto auto; grid-template-areas:"st a b" "meta a b";
+  gap:var(--sp-1h) var(--sp-3); align-items:center; padding-top:0; border-top:0; max-width:1026px; }   /* קצה הפעולות = קצה הטבלה */
+#dl-deal .dd-bar:not(:has(.dd-sst)){ grid-template-areas:"meta a b"; }   /* בלי סטטוס — שורה אחת */
+#dl-deal #dl-ordopen, #dl-deal .dd-sact{ align-self:start; }
+#dl-deal #dl-signbox, #dl-deal #dl-signbox > .tk-lnk{ display:contents; }
+#dl-deal .dd-sst{ grid-area:st; display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); }
+#dl-deal .dd-sact{ grid-area:b; display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); }
+#dl-deal #dl-ordopen{ grid-area:a; }
+#dl-deal #dl-signbox > .note{ grid-area:st; }
+#dl-deal .dd-bar .dd-meta{ grid-area:meta; }
+#dl-deal .dd-sact .chip{ min-height:var(--ctl-h-md); padding:0 var(--sp-3); }   /* רק כפתורי הפעולה — "העתקה" ברצועה נשאר קטן */
+#dl-deal .dd-meta .chip{ min-height:0; padding:var(--sp-0h) var(--sp-2); }
+@media(max-width:759.98px){
+  #dl-deal .dd-sum{ grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:none; }
+  #dl-deal .dd-two{ grid-template-columns:1fr; }
+  #dl-deal .dd-pr{ grid-template-columns:1fr 1fr; }
+  #dl-deal .dd-pr > .dd-pr-when{ padding-inline-start:0; }
+  #dl-deal .dd-pay-f{ display:flex; flex-wrap:wrap; }
+  #dl-deal .dd-total{ display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--sp-1) var(--sp-3); }
+  #dl-deal .dd-bar, #dl-deal .dd-bar:not(:has(.dd-sst)){ grid-template-columns:1fr; grid-template-areas:"st" "meta" "a" "b"; max-width:none; }
+  #dl-deal .dd-pr-act{ justify-content:flex-start; }
+}
 /* ---- דחיסת כרטיס הליד (6.108.0, רומן: "יותר דחוס וקומפקטי") ---- */
 #leadSheet .form-grid, #tkSheet .form-grid{ gap:9px 12px; }
 #leadSheet .form-sep, #tkSheet .form-sep{ margin-top:var(--sp-3); padding-bottom:var(--sp-1); }
@@ -3814,7 +3865,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.28.0</div>
+      <div class="ver">גרסה 7.28.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3946,7 +3997,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="dealux-2026-10-19a">גרסה 7.28.0</div>
+    <div class="side-foot" title="dealux2-2026-10-19a">גרסה 7.28.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -13298,15 +13349,16 @@ window.dlSignBox = (d)=>{
        משלנו, אחרת שני מסכים יתארו את אותה שורה אחרת. */
     const ds  = docStatus(row);
     const may = window.canEdit('docs.' + DL_QCAT);
-    return `<div class="tk-lnk"><span class="st ${ds.cls}" title="${esc(ds.title||'')}">${esc(ds.label)}</span>`
-      + (row.signer_name ? ` <span class="lb-mut">· ${esc(row.signer_name)}</span>` : '')
+    /* 7.28.1 — .dd-sst (סטטוס) ו-.dd-sact (פעולות): שלב 3 הוא footer — מידע בצד אחד, פעולות בצד השני */
+    return `<div class="tk-lnk"><span class="dd-sst"><span class="st ${ds.cls}" title="${esc(ds.title||'')}">${esc(ds.label)}</span>`
+      + (row.signer_name ? ` <span class="lb-mut">· ${esc(row.signer_name)}</span>` : '') + `</span><span class="dd-sact">`
       + (signed
           ? ` <button type="button" class="chip" onclick="openDocLink('${jsq(row.id)}','open')">↗ צפייה במסמך החתום</button>`
           : (may
               ? ` <button type="button" class="chip" onclick="openDocLink('${jsq(row.id)}','copy')">⧉ העתקת קישור</button>`
               : ` <span class="lb-mut">אין לך הרשאה להפיק קישור בקטגוריה הזו</span>`))
       + dlUnapproveChip(d, !!signed)
-      + `</div>`;
+      + `</span></div>`;
   }
   /* 🔴 פעולה שאי אפשר לבצע — לא מציגים. עסקה בלי מספר הצעה בפריוריטי
      הייתה מקבלת 409 מהשרת, וכפתור שנלחץ ולא קורה כלום הוא בדיוק מה
@@ -13321,10 +13373,10 @@ window.dlSignBox = (d)=>{
         הכפתור הראשון במשבצת, וההיפוך שלח אותה למחשבון. */
   const shipBtn = `<button type="button" class="chip" onclick="dlShipCalc('${jsq(d.id)}')">חשב משלוח והתקנה</button>`;
   if(!window.canEdit('docs.' + DL_QCAT))
-    return `<div class="tk-lnk">${shipBtn}</div><div class="note">אין לך הרשאת עריכה בקטגוריית ההצעות.</div>`;
+    return `<div class="tk-lnk"><span class="dd-sact">${shipBtn}</span></div><div class="note">אין לך הרשאת עריכה בקטגוריית ההצעות.</div>`;
   /* 7.15.0 — Primary יחיד בסרגל הפעולות; מספר ההצעה כבר בסיכום ולכן ירד מכאן. */
   /* 7.16.0 — אחרי אישור הלקוח הפעולה הראשית היא «פתיחת הזמנה»; המסמך יורד למשני. */
-  return `<div class="tk-lnk"><button type="button" class="${dlOrdOpenShow(d) ? 'chip' : 'btn'}" onclick="dlQuoteDoc('${jsq(d.id)}')">✎ צור מסמך לחתימה</button> ${shipBtn}</div>`;
+  return `<div class="tk-lnk"><span class="dd-sact"><button type="button" class="${dlOrdOpenShow(d) ? 'chip' : 'btn'}" onclick="dlQuoteDoc('${jsq(d.id)}')">✎ צור מסמך לחתימה</button> ${shipBtn}</span></div>`;
 };
 
 /* ===== 7.24.0 — ביטול אישור / ביטול שליחה =====
@@ -13470,7 +13522,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'dealux-2026-10-19a';
+const BUILD_ID = 'dealux2-2026-10-19a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -19115,7 +19167,7 @@ function notifSettingsHtml(){
   return `<div class="st-top"><h2 class="sec">התראות</h2></div>
     <div class="st-lead">כל ההתראות במערכת. <b>פעיל</b> כבוי — ההתראה אינה נוצרת לאף אחד. <b>טלפון</b> כבוי — בפעמון בלבד. <b>קופץ בפינה</b> — כרטיס קטן בפינת המסך ל-15 שניות. <b>חלון במרכז</b> — חלון שנשאר עד שסוגרים. <b>השתקה</b> — עובדים שלא יקבלו את הסוג הזה. כל שינוי נשמר מיד וחל על ההתראה הבאה.</div>
     <div id="nfmx"></div>${(setTimeout(nfMxLoad, 0), '')}
-    ${stCard('notif', ed)}
+    <div id="nfmx-task">${stCard('notif', ed)}</div>
     <div class="st-lead">התראות הפגישות ללקוח (יום לפני, ובוקר הפגישה) נשלחות בוואטסאפ ומנוהלות בנפרד — הנוסחים במסך "טקסטים ומסמכים".</div>`;
 }
 /* ===== 7.27.0 — מסך ההתראות: כל הסוגים, לשליטת המנהל (nfprefs) =====
@@ -19179,6 +19231,15 @@ window.nfMxLoad = async ()=>{
       NFM_AUD = (!error && data && typeof data === 'object') ? data : {};
     }catch(_e){ NFM_AUD = {}; }
   }
+  /* 7.28.1 — רומן: "ההגדרות בתחתית תיתן לי גם אפשרות להגדיר". הכרטיס הציג "לא מוגדר": המסך צויר לפני שהטעינה
+     הראשונית מילאה את OSET, ורק הטבלה (אסינכרונית) התעדכנה. ⇒ קוראים את מפתחות ההתראות מהשרת ומציירים אותו מחדש. */
+  try{
+    const { data } = await sb.schema('ord').from('settings').select('key,value')
+      .in('key', ['notif_task_due_lead_min','notif_task_due_enabled','notif_task_overdue_enabled','nf_prefs','nf_popup_kinds','nf_modal_kinds']);
+    (Array.isArray(data) ? data : []).forEach(r=>{ const i = stIdx(r.key); if(i >= 0) OSET[i].value = r.value; else OSET.push({ key:r.key, value:r.value }); });
+  }catch(_e){}
+  const tb = document.getElementById('nfmx-task');
+  if(tb) tb.innerHTML = stCard('notif', canEdit('set.notif'));
   nfMxDraw();
 };
 function nfAudOf(r){
@@ -27410,12 +27471,12 @@ function dlPayDraw(id){
     const part = gx.length > 1, rem = part && gx[gx.length-1] === i, edp = part && !rem;
     const bad = part && !(Number(b.pct) > 0 && Number(b.pct) < (dlPpGpct(S, b.grp) || 0));
     const pct = cus
-      ? `<input class="dl-pp-pct" type="number" min="0.01" max="100" step="0.01" aria-label="אחוז"${dis} value="${esc(String(dlP2(b.pct)))}" onchange="dlPpSet('${jsq(id)}',${i},{pct:+this.value},1)">%`
-      : edp ? `<input class="dl-pp-pct${bad ? ' need' : ''}" type="number" min="0.01" max="100" step="0.01" aria-label="אחוז — ${esc(dlPpLabel(S.beats, i))}"${dis} value="${esc(String(dlP2(b.pct)))}" onchange="dlPpPct('${jsq(id)}',${i},this.value)">%`
+      ? `%<input class="dl-pp-pct" type="number" min="0.01" max="100" step="0.01" aria-label="אחוז"${dis} value="${esc(String(dlP2(b.pct)))}" onchange="dlPpSet('${jsq(id)}',${i},{pct:+this.value},1)">`   /* 7.28.1 — % מימין, כמו בערך הסטטי */
+      : edp ? `%<input class="dl-pp-pct${bad ? ' need' : ''}" type="number" min="0.01" max="100" step="0.01" aria-label="אחוז — ${esc(dlPpLabel(S.beats, i))}"${dis} value="${esc(String(dlP2(b.pct)))}" onchange="dlPpPct('${jsq(id)}',${i},this.value)">`
       : `${esc(String(dlP2(b.pct)))}%`;
     /* ₪ קודם (רומן): בחלק שנערך ובחלוקה מותאמת — שדה סכום, שממנו נגזר האחוז. בלי סכום לעסקה אין ממה לגזור. */
     const amtCell = (am.length && (cus || edp))
-      ? `<span class="dl-pp-amtw">₪<input class="dl-pp-amt${bad ? ' need' : ''}" id="dl-pp-amt-${i}" type="number" min="0" step="0.01" inputmode="decimal" aria-label="סכום — ${esc(dlPpLabel(S.beats, i))}"${dis} value="${esc(String(am[i]))}" onchange="dlPpAmt('${jsq(id)}',${i},this.value)"></span>`
+      ? `<span class="dl-pp-amtw"><input class="dl-pp-amt${bad ? ' need' : ''}" id="dl-pp-amt-${i}" type="number" min="0" step="0.01" inputmode="decimal" aria-label="סכום — ${esc(dlPpLabel(S.beats, i))}"${dis} value="${esc(String(am[i]))}" onchange="dlPpAmt('${jsq(id)}',${i},this.value)">₪</span>`   /* 7.28.1 — ₪ משמאל, כמו בערך הסטטי */
       : (am.length ? esc(f2(am[i])) : '—');
     const when = (cus && b.method!=='שוטף')
       ? `<select class="dl-pp-a" aria-label="מועד"${dis} onchange="dlPpSet('${jsq(id)}',${i},{anchor:this.value},1)">`
