@@ -3865,7 +3865,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.30.0</div>
+      <div class="ver">גרסה 7.31.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -3997,7 +3997,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="nodoc-2026-10-20a">גרסה 7.30.0</div>
+    <div class="side-foot" title="custpush-2026-10-21a">גרסה 7.31.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5784,7 +5784,35 @@ async function afterLogin(){
   }catch(e){ console.error('navApplyPerms', e); }
   try{ applyDashboard(); await loadLeads(); }
   catch(e){ console.error('afterLogin render', e); }
+  custPushStart();   /* 7.31.0 */
 }
+/* ═══ 7.31.0 — שם/סטטוס לקוח מתעדכן חי (רומן, 21/10/2026: "אי אפשר בכל וובהוק פשוט לרענן?") ═══════════
+   השרת (core.zz_customer_changed) שולח broadcast 'iron-cust' עם {cid} בלבד, רק כשהשם או הסטטוס **באמת** השתנו —
+   ושם, באותו טריגר, משנה שם של עסקה שהוא בדיוק "עסקה — <השם הישן>". כאן מושכים את הלקוח ואת העסקאות שלו
+   מחדש דרך ההרשאות של המשתמש, באותן עמודות של הטעינה (CRM_Q), ומציירים מחדש.
+   ⚠️ עטוף: Realtime שאינו זמין אינו מפיל דבר — הרענון האוטומטי ממשיך כמו קודם. ⚠️ המנוי אחד לכל הלשונית. */
+let CUST_PUSH = null;
+function custPushStart(){
+  if(CUST_PUSH) return;
+  try{
+    CUST_PUSH = sb.channel('iron-cust')
+      .on('broadcast', { event:'cust' }, p => { const id = p && p.payload && p.payload.cid; if(id) custPushApply(String(id)); })
+      .subscribe();
+  }catch(_e){ CUST_PUSH = null; }
+}
+async function custPushApply(id){
+  if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) return;
+  try{
+    const [cq, dq] = await Promise.all([ CRM_Q.custs().eq('id', id), CRM_Q.deals().eq('customer_id', id) ]);
+    const row = (cq && !cq.error && Array.isArray(cq.data)) ? cq.data[0] : null;
+    if(row){ const i = CUSTS.findIndex(x=>x.id===id); if(i >= 0) CUSTS[i] = row; else CUSTS.unshift(row); }
+    if(dq && !dq.error && Array.isArray(dq.data)){
+      dq.data.forEach(r=>{ const d = DEALS.find(x=>x.id===r.id); if(d) Object.assign(d, r); else DEALS.unshift(r); });
+    }
+    if(row || (dq && dq.data && dq.data.length)) crmRepaint();
+  }catch(e){ console.warn('custPushApply', e); }
+}
+window.custPushApply = custPushApply;
 
 $('#logoutBtn').onclick = async ()=>{
   if(VAS){ await vasEnd(); return; }
@@ -13522,7 +13550,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'nodoc-2026-10-20a';
+const BUILD_ID = 'custpush-2026-10-21a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20154,7 +20182,12 @@ const PROTS_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone
 const CRM_Q = {
   leads: () => sb.schema('crm').from('leads').select('id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,send_whatsapp_catalog,owner_id,updated_at,contact_id').order('created_at',{ascending:false}).limit(10000),
   custs: () => sb.schema('core').from('customers').select('id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes').order('created_at',{ascending:false}).limit(10000),
-  tasks: () => sb.schema('crm').from('tasks').select('id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id').order('due_at',{ascending:true}).limit(10000),
+  /* 7.31.0 — הפתוחות קודם, ואז מיון מקומי לפי due_at (הסדר שהצרכנים מכירים — עולה, ריקים בסוף). עד כאן
+     order(due_at).limit(10000) — 8,524 ב-21/10/2026; מעבר לתקרה היו נחתכות **בשקט** המשימות עם המועד הרחוק,
+     כלומר דווקא הפתוחות. ⚠️ מחזיר Promise ולא builder — אין קורא שמשרשר עליו (נבדק: 4 קוראים, כולם await/Promise.all). */
+  tasks: () => sb.schema('crm').from('tasks').select('id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id')
+    .order('closed_at',{ascending:false, nullsFirst:true}).order('due_at',{ascending:true}).limit(10000)
+    .then(r=>{ if(r && Array.isArray(r.data)) r.data.sort((a,b)=> a.due_at===b.due_at ? 0 : (a.due_at==null ? 1 : (b.due_at==null ? -1 : (a.due_at < b.due_at ? -1 : 1)))); return r; }),
   deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan').order('created_at',{ascending:false}).limit(10000),
   meets: () => sb.schema('crm').from('meetings').select('id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone').order('meet_date',{ascending:false}).limit(10000),
   lown: () => /* שורות הבעלות הראשיות. **לא מיותר מול leads.owner_id**: המראה מחזיקה
@@ -34146,11 +34179,38 @@ boot();
       var cid = rec && rec.customer_id;
       return (cid && window.canView('crm.customers')) ? function(){ openCust(cid); } : null;
     }
-    if(t === 'task')     return window.canView('crm.tasks') ? function(){ gotoTab('tasks'); var e=document.getElementById('taskSearch'); if(e){ e.value = gsLast; e.dispatchEvent(new Event('input')); } } : null;
+    /* 7.31.0 — רומן (21/10/2026): "לחיצה על המשימה לא פותחת את המשימה". עד כאן: מעבר ללשונית + הקלדת טקסט החיפוש,
+       והמסננים שם ("שלי", סטטוס) הסתירו אותה. עכשיו — הכרטיס עצמו. */
+    if(t === 'task')     return window.canView('crm.tasks') ? function(){ openTask(id); } : null;
     /* 6.259.0 — ארכיון מאנדיי: לשונית "הועבר ממאנדיי" מסוננת לאותו חיפוש */
-    if(t === 'mdoc') return window.canView('docs.monday') ? function(){ gotoTab('docs'); window.setDocCat('monday'); var e=document.getElementById('docSearch'); if(e){ e.value = gsLast; e.dispatchEvent(new Event('input')); } } : null;
-    if(t === 'protocol') return window.canView('docs') ? function(){ gotoTab('docs'); var e=document.getElementById('docSearch'); if(e){ e.value = gsLast; e.dispatchEvent(new Event('input')); } } : null;
+    /* 7.31.0 — "הועבר ממאנדיי": הקובץ עצמו. מסמך: חתום ⇒ נפתח; לא חתום ⇒ מסך המסמכים בלי מסננים, על שם הלקוח
+       (החיפוש שם הוא לפי שם לקוח/מספר הזמנה — טקסט החיפוש הגלובלי, שאולי התאים בטלפון, לא היה מוצא אותו). */
+    if(t === 'mdoc') return window.canView('docs.monday') ? function(){ gsOpenFile(id); } : null;
+    if(t === 'protocol') return window.canView('docs') ? function(){
+      var p = (typeof PROTS !== 'undefined' ? PROTS : []).find(function(x){ return x.id === id; });
+      if(p && p.status === 'נחתם'){ openDocLink(id, 'open'); return; }
+      gotoTab('docs'); DOC_FILTER = 'all'; window.setDocCat('all');
+      var e = document.getElementById('docSearch');
+      if(e){ e.value = (p && p.customer_name) || gsLast; e.dispatchEvent(new Event('input')); }
+    } : null;
     return null;
+  }
+
+  /* 7.31.0 — קובץ מ-ord.doc_files לפי מזהה (ארכיון מאנדיי אינו נטען ל-DOCFILES). הלשונית נפתחת **לפני** ה-await —
+     אחרת חוסם החלונות בולע אותה (הדפוס של openMediaFile). ה-RLS (docs.monday) קובע אם יש קובץ. */
+  function gsOpenFile(id){
+    var tab = window.open('', '_blank');
+    sb.schema('ord').from('doc_files').select('storage_path').eq('id', id).maybeSingle().then(function(r){
+      var path = r && r.data && r.data.storage_path;
+      if(!path) throw new Error((r && r.error && r.error.message) || 'אין לך הרשאה לקובץ הזה');
+      return sb.storage.from('docs').createSignedUrl(path, 3600);
+    }).then(function(s){
+      if(!s || s.error || !s.data || !s.data.signedUrl) throw new Error((s && s.error && s.error.message) || 'הקובץ לא נמצא');
+      if(tab) tab.location.href = s.data.signedUrl;
+    }).catch(function(e){
+      if(tab){ try{ tab.close(); }catch(_e){} }
+      toast('פתיחת הקובץ נכשלה — ' + ((e && e.message) || 'שגיאה'), 'err');
+    });
   }
 
   /* הדגשת הקטע שהתאים. הבריחה נעשית לפני ההזרקה, ולכן ה-mark אינו נתיב הזרקה. */
@@ -34334,6 +34394,7 @@ boot();
     if(t === 'meeting')  return typeof MEETS  !== 'undefined' ? MEETS  : null;
     if(t === 'po')       return typeof PO     !== 'undefined' ? PO     : null;
     if(t === 'sku')      return typeof SKUS   !== 'undefined' ? SKUS   : null;
+    if(t === 'task')     return typeof TASKS  !== 'undefined' ? TASKS  : null;   /* 7.31.0 */
     return null;
   }
   function gsLoaded(t, id){
