@@ -1217,6 +1217,36 @@
   #tab-sana .sa-reason small{ color:var(--ink-3) }
   #tab-sana .sa-barw{ display:block; height:var(--sp-2); background:var(--bg-muted); border-radius:var(--r-md); overflow:hidden }
   #tab-sana .sa-barw i{ display:block; height:100%; background:var(--navy) }
+  /* 7.42.0 — תחזית והצעות ערך */
+  #tab-sana .sa-fcs{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-2) }
+  #tab-sana .sa-fc{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2); background:var(--bg-subtle); min-width:0 }
+  #tab-sana .sa-fh{ font-size:var(--fs-sm); font-weight:800; color:var(--ink-2) }
+  #tab-sana .sa-fh small{ font-weight:600; color:var(--ink-3) }
+  #tab-sana .sa-fp{ font-size:var(--fs-xl); font-weight:800; color:var(--navy) }
+  #tab-sana .sa-fps{ font-size:var(--fs-xs); color:var(--ink-3); margin:0 0 var(--sp-1) }
+  #tab-sana .sa-fl{ display:flex; justify-content:space-between; gap:var(--sp-2); font-size:var(--fs-sm); color:var(--ink-2) }
+  #tab-sana .sa-fl b small{ font-weight:600; color:var(--ink-3) }
+  #tab-sana .sa-fl.won b{ color:var(--ok) }
+  #tab-sana .sa-fl.wt{ border-top:1px solid var(--line); margin-top:var(--sp-1); padding-top:var(--sp-1) }
+  #tab-sana .sa-fflags{ display:flex; flex-wrap:wrap; gap:var(--sp-2) }
+  #tab-sana .sa-fflag{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-1) var(--sp-2); background:var(--bg-subtle); cursor:pointer; font-family:inherit; font-size:var(--fs-sm); color:var(--ink-2) }
+  #tab-sana .sa-fflag.on{ border-color:var(--navy); background:#eef4ff }
+  #tab-sana .sa-fflag.sa-warn{ color:var(--red) }
+  #tab-sana td.sa-ec{ white-space:nowrap }
+  #tab-sana td.sa-ec .inline-edit{ display:inline-block; vertical-align:middle; margin-inline-end:var(--sp-1) }   /* סגנון העריכה בטבלה (.tbl .inline-edit) — כמו בשאר הטבלאות */
+  #tab-sana td.busy{ opacity:.5; pointer-events:none }
+  #tab-sana .sa-ofb{ width:auto; margin-inline-start:var(--sp-2) }
+  #tab-sana .sa-chip-of{ background:#eef4ff; color:var(--navy) }
+  #tab-sana .sa-swall{ margin-top:var(--sp-2) }
+  #tab-sana td.sa-out{ white-space:nowrap }
+  #tab-sana .sa-ob{ width:auto; margin-inline-end:var(--sp-1) }
+  #tab-sana .sa-oo{ font-weight:700; color:var(--ink-2) }
+  #tab-sana .sa-oo.ok{ color:var(--ok) }
+  #tab-sana .sa-on{ display:block; color:var(--ink-3); font-size:var(--fs-xs) }
+  #tab-sana .sa-ostats{ display:flex; flex-wrap:wrap; gap:var(--sp-1); margin:0 0 var(--sp-2) }
+  #saOfrModal .sa-kinds{ display:flex; flex-wrap:wrap; gap:var(--sp-1) }
+  #saOfrModal .sa-k{ width:auto }
+  #saOfrModal .sa-k.on{ border-color:var(--navy); background:#eef4ff; color:var(--navy); font-weight:800 }
   #db-reps .c{ min-width:0 }
   #db-reps .c b, #db-reps .c .v{ display:block; font-size:var(--fs-md); font-weight:800; color:var(--navy); white-space:nowrap }
   #db-reps .c small, #db-reps .dtm-r .c .w{ display:block; min-width:0; background:none; border-radius:0; padding:0; text-align:start; font-size:var(--fs-xs); font-weight:400; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
@@ -1300,7 +1330,7 @@
   .fun-bar div{ height:100%; background:var(--navy); border-radius:var(--r-xl) }
   .fun-row b{ width:28px; text-align:center; flex:none }
   .fun-a{ width:64px; flex:none; font-size:var(--fs-xs); color:var(--ink-3); text-align:left }
-  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } #tab-sana .sa-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } #tab-sana .sa-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-sana .sa-fcs{ grid-template-columns:minmax(0,1fr) } }
   /* שלד טעינה — במקום להציג 0 עד שהנתונים מגיעים (הערת רומן 29/07) */
   .skel{ display:inline-block; border-radius:var(--r-md); background:#e9eef3;
          background-image:linear-gradient(90deg,#e9eef3 25%,#f7fafc 37%,#e9eef3 63%);
@@ -4057,7 +4087,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.41.0</div>
+      <div class="ver">גרסה 7.42.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4190,7 +4220,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="sana-2026-10-28a">גרסה 7.41.0</div>
+    <div class="side-foot" title="sana2-2026-10-28a">גרסה 7.42.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -4614,6 +4644,21 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <div class="note" id="lrel-note" style="margin-bottom:var(--sp-2h)"></div>
     <div class="field"><label>תת-סטטוס <span class="req">*</span></label><div class="lb-psub" id="lrel-chips" role="radiogroup" aria-label="תת-סטטוס"></div></div>
     <div class="actions"><button type="button" class="ghost" id="lrel-cancel">ביטול</button></div>
+  </div>
+</div>
+<!-- 7.42.0 — הצעת ערך לסגירה (ניתוח מכירות, שלב 2). השרת (crm.deal_offer_add) פותח משימה לבעלי התהליך ורושם את ההצעה
+     למעקב התוצאה. Esc/רקע = ביטול; בזמן השמירה data-must, כדי שלחיצה כפולה או Esc לא ישאירו קריאה באוויר בלי חלונית. -->
+<div class="modal modal-over hidden" id="saOfrModal">
+  <div class="sheet">
+    <h3>הצעת ערך לסגירה</h3>
+    <div class="note" id="sao-who"></div>
+    <div class="field"><label>מה מציעים <span class="req">*</span></label><div class="sa-kinds" id="sao-kinds" role="radiogroup" aria-label="סוג ההצעה"></div></div>
+    <div class="field"><label>פירוט</label><input id="sao-detail" maxlength="120" placeholder="למשל: 5% על הכול · 6 תשלומים · התקנה בלי עלות"></div>
+    <div class="field"><label>עד מתי להציג ללקוח</label><input id="sao-due" type="date"></div>
+    <div class="field"><label>הערה לאיש המכירות</label><textarea id="sao-note" rows="2" maxlength="300"></textarea></div>
+    <div class="note">נפתחת משימה לבעלי התהליך במועד הזה (10:00), והתוצאה נרשמת במסך הניתוח.</div>
+    <div class="actions"><button type="button" class="btn" id="sao-save">שמירה ומשימה</button><button type="button" class="ghost" id="sao-cancel">ביטול</button></div>
+    <div class="err" id="sao-err"></div>
   </div>
 </div>
 <!-- 6.169.0 — איפוס סיסמה. החליף prompt() של הדפדפן, שאותו כרום בולע
@@ -13925,7 +13970,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'sana-2026-10-28a';
+const BUILD_ID = 'sana2-2026-10-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20834,17 +20879,17 @@ function saHealth(d){
   const open = d.open || [], sum = l=> l.reduce((a,o)=>a+(+o.amount||0),0);
   const tiles = SA_FLAGS.map(([k,l,f])=>{ const L = open.filter(f);
     return '<button type="button" class="sa-tile'+(SA.flag===k?' on':'')+'" data-flag="'+k+'" onclick="saFlag(\''+k+'\')"><b>'+L.length+'</b><span>'+l+'</span><small>'+ilsK(sum(L))+'</small></button>'; }).join('');
-  const F = (SA_FLAGS.find(x=>x[0]===SA.flag)||[])[2];
+  const F = (SA_FLAGS.concat(SA_FC_FLAGS).find(x=>x[0]===SA.flag)||[])[2];   /* 7.42.0 — גם מסנני התחזית */
   const rows = open.filter(o=>!F || F(o)).sort((a,b)=>(+b.idle||0)-(+a.idle||0) || (+b.amount||0)-(+a.amount||0));
   const due = o=> o.no_task ? '<span class="sa-warn">אין</span>' : '<span'+(o.overdue?' class="sa-warn"':'')+'>'+esc(fmtD(isoD(new Date(o.next_due))))+'</span>';
   return '<div class="sa-card" id="sa-health"><h3>בריאות הצנרת <span class="cnt">'+open.length+' פתוחים · '+ilsK(sum(open))+'</span></h3>'+
     '<div class="sa-sub">"תזוזה" = פעילות כלשהי על התהליך או משימה שהושלמה. לחיצה על אריח מסננת את הטבלה.</div>'+
     '<div class="sa-tiles">'+tiles+'</div>'+
-    (rows.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>תהליך</th><th>בעלים</th><th>שלב</th><th class="num">סכום</th><th class="num">ימים בלי תזוזה</th><th class="num">ימים בשלב</th><th>המשימה הבאה</th><th class="num">הצעה נשלחה לפני</th></tr></thead><tbody>'+
+    (rows.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>תהליך</th><th>בעלים</th><th>שלב</th><th class="num">סכום</th><th class="num">ימים בלי תזוזה</th><th class="num">ימים בשלב</th><th>המשימה הבאה</th><th class="num">הצעה נשלחה לפני</th><th>צפי סגירה</th></tr></thead><tbody>'+
       rows.map(o=>'<tr class="clk" data-id="'+esc(o.id)+'" onclick="openDeal(\''+jsq(o.id)+'\')"><td><b>'+esc(o.cust||o.name||'')+'</b>'+(o.pq?' <small class="sa-pq">'+esc(o.pq)+'</small>':'')+'</td>'+
         '<td>'+esc(saFirst(o.own))+'</td><td>'+mdPill(o.stage, DEAL_ST_COLORS, LB_TK)+'</td><td class="num">'+ilsK(+o.amount||0)+'</td>'+
         '<td class="num'+(+o.idle>=14?' sa-warn':'')+'">'+(+o.idle||0)+'</td><td class="num'+(+o.stage_days>=30?' sa-warn':'')+'">'+(+o.stage_days||0)+'</td>'+
-        '<td>'+due(o)+'</td><td class="num">'+(o.quote_age==null ? '—' : (+o.quote_age)+' ימים')+'</td></tr>').join('')+'</tbody></table></div>'
+        '<td>'+due(o)+'</td><td class="num">'+(o.quote_age==null ? '—' : (+o.quote_age)+' ימים')+'</td>'+saEcCell(o)+'</tr>').join('')+'</tbody></table></div>'
      : '<div class="empty">אין תהליכים פתוחים'+(SA.flag ? ' בסינון הזה' : '')+'</div>')+'</div>';
 }
 /* ניקוד "מתנדנדת" — שקוף ולא קופסה שחורה: כל נקודה היא סיבה שמוצגת כשבב, וסף 3.
@@ -20863,12 +20908,13 @@ function saSwingOf(o){
 }
 function saSwing(d){
   const L = (d.open||[]).map(o=>({ o, w:saSwingOf(o) })).filter(x=>x.w).sort((a,b)=>b.w.s-a.w.s || (+b.o.amount||0)-(+a.o.amount||0));
-  const top = L.slice(0, 10), sum = L.reduce((a,x)=>a+(+x.o.amount||0),0);
+  const top = SA.swAll ? L : L.slice(0, 10), sum = L.reduce((a,x)=>a+(+x.o.amount||0),0);   /* 7.42.0 — swAll */
   return '<div class="sa-card" id="sa-swing"><h3>מתנדנדות — לבדיקת סכום והצעת ערך <span class="cnt">'+L.length+' · '+ilsK(sum)+'</span></h3>'+
     '<div class="sa-sub">שלב מתקדם, סכום משמעותי, הצעה שמחכה לתשובה או כמה עדכוני הצעה — כאן החלטה שלך עכשיו יכולה להכריע.</div>'+
     (top.length ? top.map(({o,w})=>dbRow("openDeal('"+jsq(o.id)+"')", esc(o.cust||o.name||'')+(o.pq ? ' <small class="sa-pq">'+esc(o.pq)+'</small>' : ''),
-        w.r.map(x=>'<span class="sa-chip">'+esc(x)+'</span>').join(''), '<span class="v">'+ilsK(+o.amount||0)+'</span>', esc(saFirst(o.own)))).join('') +
-      (L.length > top.length ? '<div class="sa-sub">ועוד '+(L.length-top.length)+' בניקוד נמוך יותר</div>' : '')
+        w.r.map(x=>'<span class="sa-chip">'+esc(x)+'</span>').join('')+(+o.offers_open ? '<span class="sa-chip sa-chip-of">הצעת ערך ממתינה</span>' : ''),
+        '<span class="v">'+ilsK(+o.amount||0)+'</span>'+saOfrBtn(o), esc(saFirst(o.own)))).join('') +
+      (L.length > 10 ? '<button type="button" class="lf-clear sa-swall" onclick="saSwAll()">'+(SA.swAll ? 'רק 10 המובילות' : 'ועוד '+(L.length-top.length)+' בניקוד נמוך יותר — להציג')+'</button>' : '')
      : '<div class="empty">אין כרגע תהליכים מתנדנדים</div>')+'</div>';
 }
 const saPct = (w, l)=> (w + l) ? Math.round(100*w/(w + l))+'%' : '—';
@@ -20893,10 +20939,12 @@ function saTime(d){
 function saReps(d){
   const R = (d.reps||[]).filter(r=>LOWN_BY[r.own]), cur = saOwner();
   return '<div class="sa-card" id="sa-reps"><h3>לפי איש מכירות <span class="cnt">כל הצוות · לחיצה מסננת את המסך</span></h3>'+
-    (R.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>איש מכירות</th><th class="num">פתוח עכשיו</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה</th><th class="num">לא זזו 14+</th><th class="num">משימה באיחור</th></tr></thead><tbody>'+
+    (R.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>איש מכירות</th><th class="num">פתוח עכשיו</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה</th><th class="num">לא זזו 14+</th><th class="num">משימה באיחור</th><th class="num">צפי החודש (משוקלל)</th><th class="num">בלי צפי</th></tr></thead><tbody>'+
       R.map(r=>'<tr class="clk'+(r.own===cur ? ' on' : '')+'" data-own="'+esc(r.own)+'" onclick="saSet(\'owner\',\''+jsq(r.own===cur ? '' : r.own)+'\')"><td>'+lbAva(r.own,1)+' '+esc(LOWN_BY[r.own].name||'')+(LOWN_BY[r.own].kind==='legacy' ? ' <small>(לשעבר)</small>' : '')+'</td>'+
         '<td class="num">'+saNv(+r.open_n, +r.open_s)+'</td><td class="num">'+saNv(+r.opened_n, +r.opened_s)+'</td><td class="num">'+saNv(+r.won_n, +r.won_s)+'</td><td class="num">'+saNv(+r.lost_n, +r.lost_s)+'</td>'+
-        '<td class="num">'+saPct(+r.won_n, +r.lost_n)+'</td><td class="num'+(+r.stale_n ? ' sa-warn' : '')+'">'+(+r.stale_n||0)+'</td><td class="num'+(+r.overdue_n ? ' sa-warn' : '')+'">'+(+r.overdue_n||0)+'</td></tr>').join('')+'</tbody></table></div>'
+        '<td class="num">'+saPct(+r.won_n, +r.lost_n)+'</td><td class="num'+(+r.stale_n ? ' sa-warn' : '')+'">'+(+r.stale_n||0)+'</td><td class="num'+(+r.overdue_n ? ' sa-warn' : '')+'">'+(+r.overdue_n||0)+'</td>'+
+        '<td class="num">'+(r.fc_w==null ? '—' : (+r.fc_n ? ilsK(+r.fc_w||0)+' <small>('+(+r.fc_n)+')</small>' : '—'))+'</td>'+
+        '<td class="num'+(+r.fc_none ? ' sa-warn' : '')+'">'+(r.fc_none==null ? '—' : (+r.fc_none||0))+'</td></tr>').join('')+'</tbody></table></div>'
      : '<div class="empty">אין נתונים בטווח</div>')+'</div>';
 }
 function saLost(d){
@@ -20905,6 +20953,118 @@ function saLost(d){
     (rel && d.from < rel ? '<div class="sa-sub sa-warn">הטווח כולל תאריכים לפני '+esc(fmtD(rel))+': רוב הירידות שם הן חותמות מהעברת מאנדיי, וחלקן ירדו מזמן.</div>' : '')+
     (L.length ? L.slice(0, 8).map(x=>'<div class="sa-reason"><span class="t" title="'+esc(x.reason)+'">'+esc(x.reason)+'</span><span class="sa-barw"><i style="width:'+Math.round((+x.n||0)/mx*100)+'%"></i></span><b>'+(+x.n)+'</b><small>'+ilsK(+x.s||0)+'</small></div>').join('')
               : '<div class="empty">אין ירידות בטווח</div>')+'</div>';
+}
+/* ===== 7.42.0 — sana2: תחזית + הצעת ערך לסגירה (ניתוח מכירות, שלב 2) =====
+   רומן, 28/10/2026: "כן, שלב 2". השרת: crm.sales_analytics v2 (forecast · offers · offer_stats · fc_* ב-reps) ושלוש פונקציות
+   כתיבה — deal_set_forecast · deal_offer_add · deal_offer_outcome. אין כתיבה ישירה ל-crm.deals (dealtest).
+   ⚠️ התחזית אינה תלויה בטווח שנבחר בסרגל — החלונות הם מהיום (שבוע מיום ראשון, חודש, רבעון קלנדרי). הבעלים כן חל עליה.
+   ⚠️ אחרי כל כתיבה: התיקון המקומי מיידי (השורה), והסכומים מהשרת — saStale מסמן את כל המטמון כישן וטוען מחדש את הבחירה
+      הנוכחית בלי להחליף את המסך ב"טוען" (renderSana מציג את הישן עד שהחדש מגיע). */
+const SA_CONF = ['בטוח','סביר','אולי'];
+const SA_OFR_KINDS = ['הנחה','תנאי תשלום','התקנה / משלוח','שדרוג','אחר'];   /* ⚠️ זהה ל-check של crm.deal_offers */
+const SA_OFR_OUT = ['התקבלה','נדחתה','בוטלה'];
+const SA_WIN_LBL = { week:'השבוע', month:'החודש', quarter:'הרבעון' };
+const SA_FC_FLAGS = [
+  ['nofc', 'בלי צפי סגירה', o=>!o.expected_close],
+  ['slip', 'הצפי עבר',      o=>!!o.expected_close && o.expected_close < isoD(new Date())],
+];
+function saStale(){ Object.keys(SA.cache).forEach(k=>{ SA.cache[k].at = 0; }); saLoad(); }
+window.saSwAll = ()=>{ SA.swAll = !SA.swAll; renderSana(); };
+function saForecast(d){
+  const F = d.forecast; if(!F) return '';
+  const wt = F.weights || {};
+  const line = (lbl, n, s, cls)=> '<div class="sa-fl'+(cls ? ' '+cls : '')+'"><span>'+lbl+'</span><b>'+(+n ? ilsK(+s||0)+' <small>('+(+n)+')</small>' : '—')+'</b></div>';
+  const card = w=> '<div class="sa-fc" data-k="'+esc(w.k)+'"><div class="sa-fh">'+esc(SA_WIN_LBL[w.k]||w.k)+' <small>עד '+esc(fmtD(w.to))+'</small></div>'+
+      '<div class="sa-fp">'+ilsK(+w.projected||0)+'</div><div class="sa-fps">נסגרו + משוקלל</div>'+
+      line('נסגרו להזמנה', w.won_n, w.won_s, 'won')+line('בטוח', w.sure_n, w.sure_s)+line('סביר', w.likely_n, w.likely_s)+line('אולי', w.maybe_n, w.maybe_s)+
+      '<div class="sa-fl wt"><span>משוקלל</span><b>'+ilsK(+w.weighted||0)+'</b></div></div>';
+  const fl = (k, l, n, s)=> '<button type="button" class="sa-fflag'+(SA.flag===k ? ' on' : '')+(+n && k==='slip' ? ' sa-warn' : '')+'" data-flag="'+k+'" onclick="saFlag(\''+k+'\')"><b>'+(+n||0)+'</b> '+l+' · '+ilsK(+s||0)+'</button>';
+  return '<div class="sa-card" id="sa-fc"><h3>תחזית <span class="cnt">מהיום · לא לפי הטווח שבסרגל</span></h3>'+
+    '<div class="sa-sub">צפי סגירה וביטחון לכל תהליך — בעמודה האחרונה בטבלה שמתחת. משוקלל: '+SA_CONF.map(k=>esc(k)+' ×'+(+wt[k]||0)).join(' · ')+'.</div>'+
+    '<div class="sa-fcs">'+(F.windows||[]).map(card).join('')+'</div>'+
+    '<div class="sa-fflags">'+fl('nofc', 'בלי צפי סגירה', F.none_n, F.none_s)+fl('slip', 'הצפי עבר — לעדכן', F.slipped_n, F.slipped_s)+'</div></div>';
+}
+function saEcCell(o){
+  const td0 = isoD(new Date()), slip = !!o.expected_close && o.expected_close < td0;
+  if(!canEdit('crm.deals')) return '<td class="sa-ec'+(slip ? ' sa-warn' : '')+'">'+(o.expected_close ? esc(fmtD(o.expected_close))+' · '+esc(o.confidence||'') : '—')+'</td>';
+  const id = jsq(o.id);
+  return '<td class="sa-ec'+(slip ? ' sa-warn' : '')+'" onclick="event.stopPropagation()">'+
+    '<input type="date" class="inline-edit sa-ecd" value="'+esc(o.expected_close||'')+'" min="'+td0+'" aria-label="צפי סגירה" onchange="saFcSave(\''+id+'\',this)">'+
+    '<select class="inline-edit sa-ecc" aria-label="ביטחון" onchange="saFcSave(\''+id+'\',this)"'+(o.expected_close ? '' : ' disabled')+'><option value="">ביטחון</option>'+
+      SA_CONF.map(k=>'<option value="'+esc(k)+'"'+(o.confidence===k ? ' selected' : '')+'>'+esc(k)+'</option>').join('')+'</select></td>';
+}
+/* תאריך בלי ביטחון ⇒ "סביר" (השרת דורש את שניהם); ניקוי התאריך מנקה גם את הביטחון. */
+window.saFcSave = async (id, el)=>{
+  const td = el.closest('td'), di = td.querySelector('.sa-ecd'), ci = td.querySelector('.sa-ecc');
+  const dt = di.value || null; let cf = dt ? (ci.value || 'סביר') : null;
+  ci.value = cf || ''; ci.disabled = !dt; td.classList.add('busy');
+  let r; try{ r = await sb.schema('crm').rpc('deal_set_forecast', { p_deal:id, p_expected:dt, p_confidence:cf }); }catch(e){ r = { error:e }; }
+  td.classList.remove('busy');
+  if(!r || r.error){ toast('שמירת הצפי נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); saStale(); return; }
+  Object.keys(SA.cache).forEach(k=>{ const h = SA.cache[k]; ((h.d && h.d.open) || []).forEach(o=>{ if(o.id===id){ o.expected_close = dt; o.confidence = cf; } }); });
+  toast('צפי הסגירה נשמר ✓');
+  saStale();
+};
+const saOfrBtn = o=> canEdit('crm.deals') ? '<button type="button" class="ghost sa-ofb" onclick="event.stopPropagation();saOfrOpen(\''+jsq(o.id)+'\')">הצעת ערך</button>' : '';
+let SAO = null;   /* { id, kind, busy } */
+window.saOfrOpen = id=>{
+  const D = (SA.cache[saKey()]||{}).d, o = D && (D.open||[]).find(x=>x.id===id); if(!o) return;
+  SAO = { id, kind:'', busy:false };
+  $('#sao-who').textContent = (o.cust||o.name||'')+' · '+ilsK(+o.amount||0)+' · '+saFirst(o.own)+' · '+vLbl(o.stage);
+  const box = $('#sao-kinds');
+  box.innerHTML = SA_OFR_KINDS.map(k=>'<button type="button" class="ghost sa-k" role="radio" aria-checked="false" data-v="'+esc(k)+'">'+esc(k)+'</button>').join('');
+  box.querySelectorAll('button').forEach(b=>{ b.onclick = ()=>{ if(!SAO) return; SAO.kind = b.dataset.v;
+    box.querySelectorAll('button').forEach(x=>{ x.classList.toggle('on', x===b); x.setAttribute('aria-checked', x===b ? 'true' : 'false'); });
+    $('#sao-err').textContent = ''; }; });
+  const t = new Date(); t.setDate(t.getDate() + 2);
+  $('#sao-detail').value = ''; $('#sao-note').value = ''; $('#sao-due').value = isoD(t); $('#sao-due').min = isoD(new Date());
+  $('#sao-err').textContent = ''; $('#sao-save').disabled = false;
+  const m = $('#saOfrModal'); delete m.dataset.must; m.classList.remove('hidden');
+  setTimeout(()=>{ try{ box.querySelector('button').focus(); }catch(_e){} }, 30);
+};
+$('#sao-cancel').onclick = ()=>{ if(SAO && SAO.busy) return; $('#saOfrModal').classList.add('hidden'); SAO = null; };
+$('#sao-save').onclick = async ()=>{
+  if(!SAO || SAO.busy) return;
+  if(!SAO.kind){ $('#sao-err').textContent = 'יש לבחור מה מציעים'; return; }
+  const due = $('#sao-due').value || null;
+  if(due && due < isoD(new Date())){ $('#sao-err').textContent = 'המועד כבר עבר'; return; }
+  const m = $('#saOfrModal'), b = $('#sao-save'), cur = SAO;
+  cur.busy = true; m.dataset.must = '1'; b.disabled = true;
+  let r; try{ r = await sb.schema('crm').rpc('deal_offer_add', { p_deal:cur.id, p_kind:cur.kind, p_detail:$('#sao-detail').value.trim() || null,
+                                                                 p_due:due, p_note:$('#sao-note').value.trim() || null }); }catch(e){ r = { error:e }; }
+  cur.busy = false; b.disabled = false; delete m.dataset.must;
+  if(!r || r.error){ $('#sao-err').textContent = 'השמירה נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'); return; }
+  m.classList.add('hidden'); SAO = null;
+  toast('הצעת הערך נשמרה ✓ · נפתחה משימה לבעלי התהליך');
+  saStale();
+};
+window.saOfrOut = async (id, out, el)=>{
+  const cell = el && el.closest('td'); if(cell){ if(cell.classList.contains('busy')) return; cell.classList.add('busy'); cell.querySelectorAll('button').forEach(b=>{ b.disabled = true; }); }
+  let r; try{ r = await sb.schema('crm').rpc('deal_offer_outcome', { p_offer:id, p_outcome:out }); }catch(e){ r = { error:e }; }
+  if(cell){ cell.classList.remove('busy'); cell.querySelectorAll('button').forEach(b=>{ b.disabled = false; }); }
+  if(!r || r.error){ toast('שמירת התוצאה נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); return; }
+  toast('התוצאה נשמרה ✓');
+  saStale();
+};
+function saOffers(d){
+  const L = d.offers; if(!L) return '';
+  const S = d.offer_stats || [], td0 = isoD(new Date()), pend = L.filter(x=>x.outcome==='ממתין').length, ed = canEdit('crm.deals');
+  const row = f=>{
+    const late = f.outcome==='ממתין' && !!f.due_date && f.due_date < td0;
+    const amt = (+f.amount_at||0) !== (+f.deal_amount||0) ? ilsK(+f.amount_at||0)+' ← '+ilsK(+f.deal_amount||0) : ilsK(+f.deal_amount||0);
+    const out = f.outcome==='ממתין'
+      ? (ed ? SA_OFR_OUT.map(k=>'<button type="button" class="ghost sa-ob" data-out="'+esc(k)+'" onclick="saOfrOut(\''+jsq(f.id)+'\',\''+jsq(k)+'\',this)">'+esc(k)+'</button>').join('') : 'ממתין')
+      : '<span class="sa-oo'+(f.outcome==='התקבלה' ? ' ok' : '')+'">'+esc(f.outcome)+'</span>'+(f.outcome_at ? ' <small>'+esc(fmtD(isoD(new Date(f.outcome_at))))+'</small>' : '');
+    return '<tr class="clk" data-id="'+esc(f.id)+'" onclick="openDeal(\''+jsq(f.deal_id)+'\')"><td><b>'+esc(f.cust||f.deal_name||'')+'</b></td><td>'+esc(saFirst(f.own))+'</td>'+
+      '<td>'+esc(f.kind)+(f.detail ? ' — '+esc(f.detail) : '')+(f.note ? '<small class="sa-on">'+esc(f.note)+'</small>' : '')+'</td>'+
+      '<td class="num">'+amt+'</td><td'+(late ? ' class="sa-warn"' : '')+'>'+(f.due_date ? esc(fmtD(f.due_date)) : '—')+'</td>'+
+      '<td>'+mdPill(f.deal_stage, DEAL_ST_COLORS, LB_TK)+'</td><td class="sa-out" onclick="event.stopPropagation()">'+out+'</td></tr>';
+  };
+  const st = S.length ? '<div class="sa-ostats">'+S.map(s=>'<span class="sa-chip">'+esc(s.kind)+': '+(+s.n)+' · התקבלו '+(+s.acc)+' · נסגרו להזמנה '+(+s.won)+(+s.won ? ' ('+ilsK(+s.won_s||0)+')' : '')+'</span>').join('')+'</div>' : '';
+  return '<div class="sa-card" id="sa-offers"><h3>הצעות ערך לסגירה <span class="cnt">'+pend+' ממתינות · '+L.length+' בסך הכול</span></h3>'+
+    '<div class="sa-sub">הממתינות, ומה שנוצר בטווח. תוצאה סוגרת את המשימה של איש המכירות; "נסגרו להזמנה" — התהליך הגיע להזמנה.</div>'+st+
+    (L.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>תהליך</th><th>בעלים</th><th>ההצעה</th><th class="num">סכום</th><th>עד</th><th>שלב</th><th>תוצאה</th></tr></thead><tbody>'+L.map(row).join('')+'</tbody></table></div>'
+              : '<div class="empty">עוד אין הצעות ערך. מציעים מתוך "מתנדנדות" — הכפתור "הצעת ערך" בשורה.</div>')+'</div>';
 }
 window.renderSana = function(){
   const bar = $('#sa-bar'), body = $('#sa-body'); if(!bar || !body) return;
@@ -20924,7 +21084,7 @@ window.renderSana = function(){
   if(!hit){ body.innerHTML = crmLoading(); return; }   /* רכיב הטעינה המשותף (dstest: "טוען…" ידני רק בדשבורד השיווק) */
   if(hit.err){ body.innerHTML = '<div class="empty">הטעינה נכשלה · <button type="button" class="chip" onclick="saRefresh()">נסה שוב</button></div>'; return; }
   if(!D){ body.innerHTML = '<div class="empty">אין לך הרשאה לניתוח המכירות</div>'; return; }
-  body.innerHTML = saHealth(D) + saSwing(D) + saTime(D) + saReps(D) + saLost(D);
+  body.innerHTML = saForecast(D) + saHealth(D) + saSwing(D) + saOffers(D) + saTime(D) + saReps(D) + saLost(D);   /* 7.42.0 — תחזית ראשונה, הצעות אחרי המתנדנדות */
 };
 window.renderMkt = function(){
   if(!canView('mkt.dash')) return;
