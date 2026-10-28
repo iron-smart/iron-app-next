@@ -1169,6 +1169,22 @@
   .dmd-st small{ display:block; font-size:var(--fs-xs); font-weight:700; color:var(--ink-3); min-height:14px }
   .dmd-st.z{ opacity:.45 }
   .db-row .dmd-pill{ flex:none }
+  /* 7.38.0 — salesmgr: "צוות המכירות" — טבלה של חמש עמודות. שורות האנשים הן db-row (dbRow — נקודת החנק של צורת
+     הכרטיס), ולכן הגריד חייב לגבור על ה-flex שלה: #db-reps .dtm-r (1,1,0) מול .db-row (0,1,0). ו-.w (מספר התהליכים)
+     יושב עכשיו בתוך התא ולא כתג בצד — .db-row .w (0,2,0) מנוטרל ב-#db-reps .dtm-r .c .w (1,3,0). */
+  #db-reps .dtm-r{ display:grid; grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr)); align-items:center; column-gap:var(--sp-2) }
+  #db-reps .dtm-hd{ font-size:var(--fs-xs); font-weight:700; color:var(--ink-3); padding:0 var(--sp-1) var(--sp-1); line-height:1.25 }
+  #db-reps .dtm-tot{ background:var(--bg-subtle); border-radius:var(--r-md); padding:var(--sp-1h) var(--sp-1); min-height:48px; box-sizing:border-box; cursor:pointer }
+  #db-reps .dtm-tot .t{ min-width:0 }
+  #db-reps .dtm-tot .t b{ display:block; font-weight:800; color:var(--navy); font-size:var(--fs-md); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  #db-reps .dtm-tot .t small{ display:block; font-size:var(--fs-xs); color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  #db-reps .c{ min-width:0 }
+  #db-reps .c b, #db-reps .c .v{ display:block; font-size:var(--fs-md); font-weight:800; color:var(--navy); white-space:nowrap }
+  #db-reps .c small, #db-reps .dtm-r .c .w{ display:block; min-width:0; background:none; border-radius:0; padding:0; text-align:start; font-size:var(--fs-xs); font-weight:400; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  #db-reps .c i{ font-style:normal; color:var(--ink-3) }
+  #db-reps .dtm-bar .dtm-lbl{ font-size:var(--fs-sm); font-weight:700; color:var(--ink-3) }
+  #db-reps .dtm-bar .dtm-rng{ display:inline-flex; align-items:center; gap:var(--sp-1); flex-wrap:wrap }
+  #db-reps .dtm-bar input[type=date]{ width:auto; font-size:var(--fs-sm); font-family:inherit; padding:0 var(--sp-1h); border:1px solid var(--field-bd); border-radius:var(--r-md); min-height:var(--ctl-h-sm); box-sizing:border-box }
   /* 6.233.0 — לוח השבוע בלובי הלוגיסטיקה: אותה שפה של יומן הפגישות (dmc-*), הצבע = צבע הצוות */
   .dmc-ev.lg{ background:#fff; border:1px solid var(--line); border-inline-start:3px solid var(--tc,#64748b); color:var(--ink-1) }
   .dmc-ev.lg .tg{ margin-inline-start:auto; flex:none; font-size:var(--fs-xs); font-weight:700; border-radius:var(--r-sm); padding:0 var(--sp-1); color:#fff; background:var(--tc,#64748b); max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
@@ -1245,7 +1261,7 @@
   .fun-bar div{ height:100%; background:var(--navy); border-radius:var(--r-xl) }
   .fun-row b{ width:28px; text-align:center; flex:none }
   .fun-a{ width:64px; flex:none; font-size:var(--fs-xs); color:var(--ink-3); text-align:left }
-  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } }
+  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } }
   /* שלד טעינה — במקום להציג 0 עד שהנתונים מגיעים (הערת רומן 29/07) */
   .skel{ display:inline-block; border-radius:var(--r-md); background:#e9eef3;
          background-image:linear-gradient(90deg,#e9eef3 25%,#f7fafc 37%,#e9eef3 63%);
@@ -4002,7 +4018,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.37.0</div>
+      <div class="ver">גרסה 7.38.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4134,7 +4150,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="wachat2-2026-10-27a">גרסה 7.37.0</div>
+    <div class="side-foot" title="salesmgr-2026-10-28a">גרסה 7.38.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -7108,8 +7124,9 @@ function dbRow(fn, title, sub, right, w, cls){
     '<span class="t"><b>'+title+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</span>'+(right||'')+'</div>';
 }
 /* כותרת כרטיס: שם · מונה · "עוד N ←" למסך המלא */
-function dbHead(title, cnt, moreFn, moreTxt){
-  return '<h3>'+title+(cnt!=null?' <span class="cnt">'+cnt+'</span>':'')+
+function dbHead(title, cnt, moreFn, moreTxt, mid){
+  /* 7.38.0 — `mid`: פקד בתוך הכותרת (בורר "צוות / שלי"), לפני "הכול ←" שנדחף לקצה (margin-inline-start:auto) */
+  return '<h3>'+title+(cnt!=null?' <span class="cnt">'+cnt+'</span>':'')+(mid||'')+
     (moreFn?'<button type="button" class="more" onclick="'+String(moreFn).replace(/"/g,'&quot;')+'">'+(moreTxt||'הכול')+' ←</button>':'')+'</h3>';
 }
 const DB_CAP = 5;   /* שורות לכרטיס — השאר מאחורי "עוד N" (רומן: "כמה שפחות צורך לגלול") */
@@ -7427,6 +7444,8 @@ function renderKpiStrip(){
       const dl = dashMyDeals();
       T.push(kTile('התהליכים שלי', dl.length, "gotoTab('deals');dlGoMine()", '', 'sales'));
       T.push(kTile('סכום התהליכים', dl.length ? ilsK(dlSum(dl)) : '₪0', "gotoTab('deals');dlGoMine()", kSub('לפני מע״מ', false), 'sales'));
+      /* 7.38.0 — מנהל המכירות (dash.salesteam): ליד הסכום שלו — של כל הצוות */
+      if(dashTeamView()) T.push(dashTeamTile());
     }
   } else if(canView('dash.sales') && canView('crm')){
     /* 6.195.1 — "פתוח" = כל שלבי חוסר-המענה (LB_NOANS); שלי (lbOwnersOf) ואז צוות.
@@ -7448,6 +7467,8 @@ function renderKpiStrip(){
     T.push(kTile('פגישות היום', mt, "gotoTab('meets')", '', 'sales'));
     if(mine.length || dashOwnsTasks()) T.push(kTile('המשימות שלי להיום', mine.length, "gotoTab('tasks')",
       late ? kSub(late+' באיחור', true) : '', 'sales'));
+    /* 7.38.0 — רומן: "תעשה לי גם את אפשרויות אלו בתצוגה". רק אריח הצוות — "התהליכים שלי" נשארים של הלובי האישי. */
+    if(dashTeamView()) T.push(dashTeamTile());
   }
   el.innerHTML = KPI_GROUPS.filter(([k])=>G[k].length).map(([k,lbl])=>
     '<div class="kgrp d-'+k+'" style="--n:'+G[k].length+'"><div class="kg-l">'+lbl+'</div><div class="stats">'+G[k].join('')+'</div></div>').join('');
@@ -7953,6 +7974,22 @@ const dashMeId = ()=> (typeof ME!=='undefined' && ME) ? String(ME.id||'') : '';
 const dmcMine = m => ownOwnersOf('meet', m).map(String).includes(dashMeId());
 /* אותה הגדרה של הצ'יפ "שלי" בבורד העסקאות — ACTIVE_STAGES + dlMine — ולכן אותו מספר */
 const dashMyDeals = ()=> (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) && dlMine(d));
+/* ===== 7.38.0 — salesmgr: תצוגת מנהל המכירות =====
+   רומן, 28/10/2026: "באופן כללי מנהל מכירות צריך מידע על המכירות הפתוחות ועל כל צוות של המכירות" — לבן קויפמן,
+   ו"תעשה לי גם את אפשרויות אלו בתצוגה". שלושה דברים: אריח "סכום פתוח · צוות" · כרטיס "צוות המכירות" עם בחירת
+   תקופה (#db-reps, במקום "לפי איש מכירות") · בורר "צוות / שלי" בכרטיס התהליכים (#db-funnel).
+   השער הוא ההרשאה dash.salesteam ("מכירות — צוות"; קיימת מ-16/08/2026, 0 אצל כולם ולא נקראה מהלקוח עד כאן) —
+   לא שם ולא תפקיד (6.24.17): מנהל מכירות הבא יקבל אותה בלי בנייה. מי שאינו בלובי האישי (מנכ"ל/סמנכ"ל/מנהל)
+   רואה את הצוות כמו מ-6.233.0, בלי שינוי הרשאה.
+   ⚠️ מהגלובלים החיים (DEALS) ולא מ-crm.sales_dash — הנימוק של 6.194.0. ה-RLS על crm.deals הוא can_view('crm.deals')
+      בלבד, ולכן DEALS מחזיק את כל התהליכים אצל כל איש מכירות — אין צורך ב-RPC. */
+const dashTeamView = ()=> canView('dash.sales') && canView('crm.deals') && (!dashPersonal() || canView('dash.salesteam'));
+/* "פתוח" = ACTIVE_STAGES — אותה הגדרה של המשפך, של הצ'יפ "פעילות" ושל "התהליכים שלי" */
+const dashTeamOpen = ()=> (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage));
+function dashTeamTile(){
+  const tm = dashTeamOpen();
+  return kTile('סכום פתוח · צוות', tm.length ? ilsK(dlSum(tm)) : '₪0', "gotoTab('deals');dlGoTeam()", kSub(tm.length+' תהליכים · לפני מע״מ', false), 'sales');
+}
 let DMC_V = (()=>{ try{ return localStorage.getItem('iron_dash_mcal_v1')||''; }catch(_e){ return ''; } })();
 /* שבת אינה יום עבודה — בשבת היומן נפתח על השבוע/היום הבא (6 ולא CAL_SATURDAY: הקבוע מוגדר מאוחר יותר בקובץ, וזה רץ בטעינה) */
 let DMC_D = calStartDay();
@@ -8004,44 +8041,111 @@ function dmcHtml(){
       '<span class="dmc-nav"><button type="button" onclick="dmcShift(-1)" title="הקודם">▸</button><button type="button" onclick="dmcToday()">היום</button><button type="button" onclick="dmcShift(1)" title="הבא">◂</button></span></div>'+
       body + '<div class="dmc-lg"><span><i class="mine"></i><b style="color:#7c3aed">★</b> הפגישות שלי</span><span><i></i>של אחרים בצוות (שם הבעלים)</span></div>' };
 }
-function renderMyDealsBlock(el){
+function renderMyDealsBlock(el, seg){
   el.classList.add('db-wide');
   const dl = dashMyDeals(), sum = dlSum(dl), go = "gotoTab('deals');dlGoMine()";
-  if(!dl.length){ el.innerHTML = dbHead('תהליכי המכירה שלי', 0, go, 'לתהליכים')+'<div class="db-empty">אין לך תהליכי מכירה פתוחים</div>'; return; }
+  if(!dl.length){ el.innerHTML = dbHead('תהליכי המכירה שלי', 0, go, 'לתהליכים', seg)+'<div class="db-empty">אין לך תהליכי מכירה פתוחים</div>'; return; }
   const strip = '<div class="dmd-strip">'+ACTIVE_STAGES.map(s=>{ const l = dl.filter(d=>d.stage===s);
     return '<div class="dmd-st'+(l.length?'':' z')+'" style="--c:'+(DEAL_ST_COLORS[s]||'#cbd5e1')+'" onclick="'+go.replace(/"/g,'&quot;')+'" title="'+esc(s)+'"><b>'+l.length+'</b><span>'+esc(vLbl(s))+'</span><small>'+(l.length?ilsK(dlSum(l)):'')+'</small></div>'; }).join('')+'</div>';
   const rows = dl.slice().sort((a,b)=>ACTIVE_STAGES.indexOf(b.stage)-ACTIVE_STAGES.indexOf(a.stage) || (+b.amount||0)-(+a.amount||0));
   const cap = 4;
-  el.innerHTML = dbHead('תהליכי המכירה שלי', dl.length+' · '+ilsK(sum), go, 'לתהליכים') + strip +
+  el.innerHTML = dbHead('תהליכי המכירה שלי', dl.length+' · '+ilsK(sum), go, 'לתהליכים', seg) + strip +
     rows.slice(0,cap).map(d=>dbRow("openDeal('"+jsq(d.id)+"')", esc(d.name||''),
       [typeof dlCustName==='function' ? dlCustName(d) : '', d.priority_quote_id||''].filter(Boolean).map(esc).join(' · '),
       '<span class="dmd-pill">'+mdPill(d.stage, DEAL_ST_COLORS, LB_TK)+'</span><span class="v">'+ilsK(+d.amount||0)+'</span>')).join('') +
     (rows.length>cap ? dbRow(go, 'עוד '+(rows.length-cap)+' תהליכים', '', '', '') : '');
 }
 /* 6.233.0 — מנהל: "לפי איש מכירות" — תהליכים פתוחים + סכום, לידים פתוחים ומשימות באיחור לכל אחד.
-   הבעלים הראשי בלבד ([0]) — שותף אינו נספר פעמיים בסכום. */
+   הבעלים הראשי בלבד ([0]) — שותף אינו נספר פעמיים בסכום.
+   7.38.0 — salesmgr: הכרטיס הפך ל"צוות המכירות" (רומן, 28/10/2026: "סכום תהליכים בחודש הנוכחי + אפשרות בחירת
+   תאריכים"). אותה שורה לכל איש מכירות, ובנוסף שלוש עמודות לתקופה שנבחרה:
+     · נפתחו          — created_at בתקופה (כל שלב)
+     · נסגרו להזמנה   — stage='הזמנה' ו-closed_at בתקופה (closed_at קיים ב-828/828)
+     · לא רלוונטי     — stage='לא רלוונטי' ו-closed_at בתקופה
+   "סכום תהליכים בחודש" הוא גם מה שנכנס לצנרת וגם מה שנסגר — שתי העמודות, במקום לנחש אחת.
+   שורת "כל הצוות" כוללת גם תהליך בלי בעלים ובעלים לשעבר (kind 'legacy', שאין להם שורה) — ולכן היא אינה בהכרח סכום
+   השורות שמתחתיה, וזה נכון: זה הסכום של כל המכירות.
+   ⚠️ 13/10/2026 (סגירת המעבר ממאנדיי): 46 תהליכים נחתמו 'הזמנה' (₪650K) ו-95 'לא רלוונטי' באותו יום — closed_at הוא
+      יום ההעברה ולא יום הסגירה. טווח שכולל את 13/10 מנפח את שתי העמודות. לא תוקן בקוד: רומן קיבל את ההסבר (28/10),
+      וברירת המחדל עוברת לנובמבר ב-01/11.
+   ⚠️ התאריך המקומי (isoD) ולא חיתוך המחרוזת: created_at הוא UTC, ותהליך שנפתח ב-01:30 בלילה של ה-1 לחודש הוא
+      עדיין 23:30 של החודש הקודם ב-UTC. */
+let DTM = (()=>{ try{ const r = JSON.parse(localStorage.getItem('iron_dash_tm_v1')||'null'); return (r && typeof r==='object') ? r : {}; }catch(_e){ return {}; } })();
+const DTM_ISO = /^\d{4}-\d{2}-\d{2}$/;
+function dtmRange(){
+  const t = new Date(), y = t.getFullYear(), m = t.getMonth();
+  const mon = (yy, mm)=> new Date(yy, mm, 1).toLocaleDateString('he-IL', {month:'long', year:'numeric'});
+  if(DTM.p==='prev') return { p:'prev', from:isoD(new Date(y, m-1, 1)), to:isoD(new Date(y, m, 0)), lbl:mon(y, m-1) };
+  if(DTM.p==='ytd')  return { p:'ytd',  from:isoD(new Date(y, 0, 1)),   to:isoD(t), lbl:'מ-'+fmtD(isoD(new Date(y, 0, 1))) };
+  if(DTM.p==='range'){
+    /* ⚠️ ערך שמור שאינו תאריך תקין יורד לחודש הנוכחי — לא לטווח ריק שמסנן החוצה הכול (הלקח מ-logiInit) */
+    const a = DTM_ISO.test(DTM.from||'') ? DTM.from : isoD(new Date(y, m, 1)), b = DTM_ISO.test(DTM.to||'') ? DTM.to : isoD(new Date(y, m+1, 0));
+    return { p:'range', from: a<=b ? a : b, to: a<=b ? b : a, lbl:'' };
+  }
+  return { p:'month', from:isoD(new Date(y, m, 1)), to:isoD(new Date(y, m+1, 0)), lbl:mon(y, m) };
+}
+function dtmSave(){ try{ localStorage.setItem('iron_dash_tm_v1', JSON.stringify(DTM)); }catch(_e){} }
+/* "טווח" נפתח על התקופה שמוצגת כרגע — לא על שדות ריקים */
+window.dtmSet = p=>{ const R = dtmRange(); DTM = p==='range' ? { p:'range', from:R.from, to:R.to } : { p:p }; dtmSave(); renderRepsBlock(); };
+window.dtmDate = (k, v)=>{ if(!DTM_ISO.test(v||'')) return; const R = dtmRange(); DTM = { p:'range', from:R.from, to:R.to }; DTM[k] = v; dtmSave(); renderRepsBlock(); };
+function dtmAgg(R){
+  const inR = ts=>{ if(!ts) return false; const d = isoD(new Date(ts)); return d >= R.from && d <= R.to; };
+  const Z = ()=>({ open:0, openN:0, made:0, madeN:0, won:0, wonN:0, lost:0, lostN:0, leads:0, late:0 });
+  const tot = Z(), by = {}, B = k=> by[k] = by[k] || Z();
+  const add = (k, f, a)=>{ tot[f] += a; tot[f+'N']++; if(k){ const b = B(k); b[f] += a; b[f+'N']++; } };
+  (DEALS||[]).forEach(d=>{ const k = dlOwnersOf(d)[0], a = +d.amount||0;
+    if(ACTIVE_STAGES.includes(d.stage)) add(k, 'open', a);
+    if(inR(d.created_at)) add(k, 'made', a);
+    if(d.stage==='הזמנה' && inR(d.closed_at)) add(k, 'won', a);
+    if(d.stage==='לא רלוונטי' && inR(d.closed_at)) add(k, 'lost', a);
+  });
+  const now = new Date().toISOString();
+  (LEADS||[]).filter(l=>LB_NOANS.includes(l.status)).forEach(l=>{ const k = lbOwnersOf(l)[0]; tot.leads++; if(k) B(k).leads++; });
+  (TASKS||[]).filter(t=>t.status!=='הושלם' && t.due_at && t.due_at < now).forEach(t=>{ const k = ownOwnersOf('task', t)[0]; tot.late++; if(k) B(k).late++; });
+  return { tot, by };
+}
 function renderRepsBlock(){
   const el = $('#db-reps'); if(!el) return;
-  if(!(canView('dash.sales') && canView('crm.deals')) || dashPersonal()){ el.innerHTML=''; return; }
-  const now = new Date().toISOString();
-  const by = {};
-  const B = k => by[k] = by[k] || {n:0, sum:0, leads:0, late:0};
-  (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage)).forEach(d=>{ const k = dlOwnersOf(d)[0]; if(!k) return; const b = B(k); b.n++; b.sum += (+d.amount||0); });
-  (LEADS||[]).filter(l=>LB_NOANS.includes(l.status)).forEach(l=>{ const k = lbOwnersOf(l)[0]; if(k) B(k).leads++; });
-  (TASKS||[]).filter(t=>t.status!=='הושלם' && t.due_at && t.due_at < now).forEach(t=>{ const k = ownOwnersOf('task', t)[0]; if(k) B(k).late++; });
-  const rows = Object.keys(by).filter(k=>LOWN_BY[k] && LOWN_BY[k].kind!=='legacy').sort((a,b)=>by[b].sum-by[a].sum || by[b].n-by[a].n);
-  el.innerHTML = dbHead('לפי איש מכירות', rows.length, "gotoTab('deals')", 'לתהליכים') +
-    (rows.slice(0,DB_CAP).map(k=>{ const b = by[k];
-      return dbRow("gotoTab('deals')", lbAva(k,1)+' '+esc(LOWN_BY[k].name||''),
-        esc(b.leads+' לידים פתוחים')+(b.late?' · <span style="color:var(--red)">'+b.late+' משימות באיחור</span>':''),
-        '<span class="v">'+ilsK(b.sum)+'</span>', b.n+' תהליכים'); }).join('')
-     || '<div class="db-empty">אין תהליכים פתוחים</div>');
+  if(!dashTeamView()){ el.innerHTML=''; el.classList.remove('db-wide'); return; }
+  el.classList.add('db-wide');
+  const R = dtmRange(), A = dtmAgg(R), me = dashMeId();
+  const rows = Object.keys(A.by).filter(k=>LOWN_BY[k] && LOWN_BY[k].kind!=='legacy').sort((a,b)=>A.by[b].open-A.by[a].open || A.by[b].openN-A.by[a].openN);
+  /* פתוח עכשיו: .v = הסכום ו-.w = המספר — אותן מחלקות של הכרטיס הקודם (logidashtest קוראת אותן בשתי הבניות) */
+  const open = b=> '<span class="c"><span class="v">'+ilsK(b.open)+'</span><small class="w">'+b.openN+' תהליכים</small></span>';
+  const cell = (s, n)=> '<span class="c">'+(n ? '<b>'+ilsK(s)+'</b><small>'+n+' תהליכים</small>' : '<i>—</i>')+'</span>';
+  const cells = b=> open(b)+cell(b.made, b.madeN)+cell(b.won, b.wonN)+cell(b.lost, b.lostN);
+  const sub = b=> esc(b.leads+' לידים פתוחים')+(b.late ? ' · <span style="color:var(--red)">'+b.late+' משימות באיחור</span>' : '');
+  const pb = (p, l)=> '<button type="button" class="'+(R.p===p?'on':'')+'" onclick="dtmSet(\''+p+'\')">'+l+'</button>';
+  const bar = '<div class="dmc-bar dtm-bar"><span class="dmc-seg">'+pb('month','החודש')+pb('prev','החודש הקודם')+pb('ytd','מתחילת השנה')+pb('range','טווח')+'</span>'+
+    (R.p==='range'
+      ? '<span class="dtm-rng"><input type="date" value="'+R.from+'" aria-label="מתאריך" onchange="dtmDate(\'from\',this.value)"> — '+
+        '<input type="date" value="'+R.to+'" aria-label="עד תאריך" onchange="dtmDate(\'to\',this.value)"></span>'
+      : '<span class="dtm-lbl">'+esc(R.lbl)+'</span>')+'</div>';
+  const go = "gotoTab('deals');dlGoTeam()";
+  el.innerHTML = dbHead('צוות המכירות', 'לפני מע״מ', go, 'לתהליכים') + bar +
+    '<div class="dtm-r dtm-hd"><span></span><span>פתוח עכשיו</span><span>נפתחו</span><span>נסגרו להזמנה</span><span>לא רלוונטי</span></div>' +
+    '<div class="dtm-r dtm-tot" onclick="'+go.replace(/"/g,'&quot;')+'"><span class="t"><b>כל הצוות</b><small>'+sub(A.tot)+'</small></span>'+cells(A.tot)+'</div>' +
+    rows.slice(0,DB_CAP).map(k=>dbRow("gotoTab('deals');dlGoOwner('"+jsq(k)+"')",
+      lbAva(k,1)+' '+esc(LOWN_BY[k].name||'')+(String(k)===me ? ' <span title="שלי">★</span>' : ''), sub(A.by[k]), cells(A.by[k]), '', 'dtm-r')).join('') +
+    (rows.length > DB_CAP ? dbRow(go, 'עוד '+(rows.length-DB_CAP)+' אנשי מכירות', '', '', '') : '');
 }
 /* ===== שלב D — בלוקי המכירות (תצוגה על הקיים; הכרעת רומן 16/08/2026) ===== */
+/* 7.38.0 — בורר "צוות / שלי" בכרטיס התהליכים, למי שרואה את הצוות ויש לו גם תהליכים משלו (בן; מנכ"ל עם תהליכים).
+   ברירת המחדל "צוות" (רומן אישר, 28/10/2026). מי שאין לו תהליכים — "צוות" בלי בורר; מי שאינו רואה את הצוות — "שלי"
+   בלי בורר, כמו מ-6.230.0. הבחירה נשמרת בדפדפן: נוחות, לא נתון. */
+let DFN_V = (()=>{ try{ return localStorage.getItem('iron_dash_fun_v1')||''; }catch(_e){ return ''; } })();
+window.dfnMode = v=>{ DFN_V = v; try{ localStorage.setItem('iron_dash_fun_v1', v); }catch(_e){} renderFunnelBlock(); };
+function dfnSeg(v){
+  return '<span class="dmc-seg"><button type="button" class="'+(v==='team'?'on':'')+'" onclick="dfnMode(\'team\')">צוות</button>'+
+    '<button type="button" class="'+(v==='mine'?'on':'')+'" onclick="dfnMode(\'mine\')">שלי</button></span>';
+}
 function renderFunnelBlock(){
   const el = $('#db-funnel'); if(!el) return;
   if(!(canView('dash.sales') && canView('crm.deals'))){ el.innerHTML=''; return; }
-  if(dashPersonal()){ renderMyDealsBlock(el); return; }
+  const team = dashTeamView(), canMine = dashPersonal() || dashMyDeals().length > 0;
+  const v = !team ? 'mine' : (canMine && DFN_V==='mine') ? 'mine' : 'team';
+  const seg = team && canMine ? dfnSeg(v) : '';
+  if(v==='mine'){ renderMyDealsBlock(el, seg); return; }
   el.classList.remove('db-wide');
   /* 6.194.0 — מ-DEALS ולא מ-crm.sales_dash: שם רשימת השלבים קפואה בקוד (שלב שהוסר
      ב-6.126.0 ושם ישן). כאן STAGES — אותה רשימה של בורד העסקאות, ואינה יכולה לסטות. */
@@ -8050,8 +8154,9 @@ function renderFunnelBlock(){
   (DEALS||[]).forEach(d=>{ const b=by[d.stage]; if(b){ b.n++; b.amount += (+d.amount||0); } });
   const tot = open.reduce((a,s)=>a+by[s].n,0), sum = open.reduce((a,s)=>a+by[s].amount,0);
   const mx = Math.max(1, ...open.map(s=>by[s].n));
-  el.innerHTML = dbHead('תהליכי מכירה פתוחים', tot+' · '+ilsK(sum), "gotoTab('deals')", 'לעסקאות')+
-    open.map(s=>'<div class="fun-row" onclick="gotoTab(\'deals\')"><span class="fun-l">'+esc(vLbl(s))+'</span>'+
+  /* 7.38.0 — הלחיצה פותחת את "פעילות" (dlGoTeam): מ-7.2.0 הבורד נפתח תמיד ב"שלי", והמשפך של הצוות היה מוביל לרשימה אחרת */
+  el.innerHTML = dbHead('תהליכי מכירה פתוחים', tot+' · '+ilsK(sum), "gotoTab('deals');dlGoTeam()", 'לעסקאות', seg)+
+    open.map(s=>'<div class="fun-row" onclick="gotoTab(\'deals\');dlGoTeam()"><span class="fun-l">'+esc(vLbl(s))+'</span>'+
       '<div class="fun-bar"><div style="width:'+Math.round(by[s].n/mx*100)+'%;background:'+(DEAL_ST_COLORS[s]||'var(--navy)')+'"></div></div>'+
       '<b>'+by[s].n+'</b><span class="fun-a">'+ilsK(by[s].amount)+'</span></div>').join('');
 }
@@ -13740,7 +13845,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'wachat2-2026-10-27a';
+const BUILD_ID = 'salesmgr-2026-10-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -26659,6 +26764,11 @@ window.setDealFilter = f => { DEAL_FILTER = f; renderDeals(); };
    🔴 בלי ניקוי מסנן השלבים האריח היה אומר N והמסך מציג פחות. dlInitDef קודם — אחרת ברירת מחדל שמורה
       שנטענת ב-renderDeals הראשון הייתה דורסת את הניקוי. */
 window.dlGoMine = ()=>{ dlInitDef(); DL_F.stage = []; setDealFilter('mine'); };
+/* 7.38.0 — מהלובי של מנהל המכירות: "פעילות" = ארבעת השלבים הפתוחים של כל הצוות — אותה רשימה שהאריח והכרטיס סופרים.
+   DL_F מתאפס כמו ב-dlGoMain: מסנן שמור היה מציג פחות ממה שהאריח אמר.
+   ⚠️ dlGoOwner מסנן לפי dlOwnersOf (ראשי + שותף), והכרטיס סופר את הראשי בלבד — לכן הבורד יכול להראות יותר שורות. */
+window.dlGoTeam  = ()=>{ dlInitDef(); DL_F = DL_F0(); setDealFilter('active'); };
+window.dlGoOwner = k=>{ dlInitDef(); DL_F = DL_F0(); DL_F.owner = String(k||''); setDealFilter('active'); };
 /* 7.2.0 — "ראשי" (היה "הכל") = כל התהליכים, בלי שום סינון — גם לא ברירת מחדל שמורה (רומן). */
 window.dlGoMain = ()=>{ dlInitDef(); DL_F = DL_F0(); setDealFilter('all'); };
 /* 🔴 6.156.0 — "פנייה מקורית" ירדה (רומן), "נוצר" נוספה **בסוף**,
