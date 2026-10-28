@@ -3382,6 +3382,16 @@ td.lb-today .lb-dt{ background-color:transparent; }
 .lb-psub button{ font-size:var(--fs-xs); font-weight:700; padding:3px 10px; border-radius:var(--r-pill);
   border:1px solid var(--line); background-color:#fff; color:var(--ink-2); cursor:pointer; font-family:inherit; }
 .lb-psub button:disabled{ cursor:default; }
+/* 7.43.0 dealfc — שורת צפי הסגירה מתחת לרצועת השלבים בכרטיס העסקה */
+.dl-fc{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-3); font-size:var(--fs-sm); }
+.dl-fc .lb-psub{ margin-top:0; }
+.dl-fc .lb-psub button.on{ background-color:#eef4ff; border-color:var(--navy); color:var(--navy); }
+.dl-fc .lb-psub button:disabled:not(.on){ color:var(--ink-3); }
+.dl-fc .inline-edit{ border-color:var(--line); }
+.dl-fc-l{ font-weight:700; color:var(--ink-2); }
+.dl-fc-n{ font-size:var(--fs-xs); color:var(--ink-3); }
+.dl-fc-n.warn{ color:var(--warn-ink); font-weight:700; }
+.dl-fc.busy{ opacity:.6; pointer-events:none; }
 /* 7.13.0 dealpay — בלוק תנאי התשלום בכרטיס העסקה */
 .dl-payrow{ display:flex; flex-wrap:wrap; gap:var(--sp-2); margin-top:var(--sp-2); }
 .dl-payrow select{ max-width:280px; }
@@ -4087,7 +4097,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.42.0</div>
+      <div class="ver">גרסה 7.43.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4220,7 +4230,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="sana2-2026-10-28a">גרסה 7.42.0</div>
+    <div class="side-foot" title="dealfc-2026-10-28a">גרסה 7.43.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -8078,7 +8088,10 @@ const dashMyDeals = ()=> (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) &
    רואה את הצוות כמו מ-6.233.0, בלי שינוי הרשאה.
    ⚠️ מהגלובלים החיים (DEALS) ולא מ-crm.sales_dash — הנימוק של 6.194.0. ה-RLS על crm.deals הוא can_view('crm.deals')
       בלבד, ולכן DEALS מחזיק את כל התהליכים אצל כל איש מכירות — אין צורך ב-RPC. */
-const dashTeamView = ()=> canView('dash.sales') && canView('crm.deals') && (!dashPersonal() || canView('dash.salesteam'));
+/* 7.43.0 — "מנהל המכירות" מוגדר כאן בלבד: הלובי (dashTeamView) והעריכה של צפי הסגירה בכרטיס (dlFcMay). function ולא const —
+   נקראת גם מקוד שרץ לפני השורה הזאת בסדר הקובץ. */
+function salesMgr(){ return canView('dash.salesteam'); }
+const dashTeamView = ()=> canView('dash.sales') && canView('crm.deals') && (!dashPersonal() || salesMgr());
 /* "פתוח" = ACTIVE_STAGES — אותה הגדרה של המשפך, של הצ'יפ "פעילות" ושל "התהליכים שלי" */
 /* 7.41.0 — תהליכי בדיקה (is_test) אינם נספרים בתמונת הצוות — נמצא באימות מול פריוריטי (28/10): אחד מהם, ₪88K, נספר ב"ירדו" באוקטובר */
 const dashTeamOpen = ()=> (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) && !d.is_test);
@@ -13970,7 +13983,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'sana2-2026-10-28a';
+const BUILD_ID = 'dealfc-2026-10-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20610,7 +20623,7 @@ const CRM_Q = {
   tasks: () => sb.schema('crm').from('tasks').select('id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id')
     .order('closed_at',{ascending:false, nullsFirst:true}).order('due_at',{ascending:true}).limit(10000)
     .then(r=>{ if(r && Array.isArray(r.data)) r.data.sort((a,b)=> a.due_at===b.due_at ? 0 : (a.due_at==null ? 1 : (b.due_at==null ? -1 : (a.due_at < b.due_at ? -1 : 1)))); return r; }),
-  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test').order('created_at',{ascending:false}).limit(10000),
+  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test,expected_close,confidence').order('created_at',{ascending:false}).limit(10000),
   meets: () => sb.schema('crm').from('meetings').select('id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone,created_at').order('meet_date',{ascending:false}).limit(10000),
   lown: () => /* שורות הבעלות הראשיות. **לא מיותר מול leads.owner_id**: המראה מחזיקה
          profile_id בלבד, ולעובד לשעבר אין חשבון — 694 לידים היו מוצגים
@@ -20968,7 +20981,7 @@ const SA_FC_FLAGS = [
   ['nofc', 'בלי צפי סגירה', o=>!o.expected_close],
   ['slip', 'הצפי עבר',      o=>!!o.expected_close && o.expected_close < isoD(new Date())],
 ];
-function saStale(){ Object.keys(SA.cache).forEach(k=>{ SA.cache[k].at = 0; }); saLoad(); }
+function saStale(){ Object.keys(SA.cache).forEach(k=>{ SA.cache[k].at = 0; }); if(CUR_TAB==='sana') saLoad(); }   /* 7.43.0 — מהכרטיס: רק מסמן ישן */
 window.saSwAll = ()=>{ SA.swAll = !SA.swAll; renderSana(); };
 function saForecast(d){
   const F = d.forecast; if(!F) return '';
@@ -21001,9 +21014,8 @@ window.saFcSave = async (id, el)=>{
   let r; try{ r = await sb.schema('crm').rpc('deal_set_forecast', { p_deal:id, p_expected:dt, p_confidence:cf }); }catch(e){ r = { error:e }; }
   td.classList.remove('busy');
   if(!r || r.error){ toast('שמירת הצפי נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); saStale(); return; }
-  Object.keys(SA.cache).forEach(k=>{ const h = SA.cache[k]; ((h.d && h.d.open) || []).forEach(o=>{ if(o.id===id){ o.expected_close = dt; o.confidence = cf; } }); });
+  dealFcApply(id, dt, cf);   /* 7.43.0 — גם DEALS והכרטיס הפתוח */
   toast('צפי הסגירה נשמר ✓');
-  saStale();
 };
 const saOfrBtn = o=> canEdit('crm.deals') ? '<button type="button" class="ghost sa-ofb" onclick="event.stopPropagation();saOfrOpen(\''+jsq(o.id)+'\')">הצעת ערך</button>' : '';
 let SAO = null;   /* { id, kind, busy } */
@@ -27566,7 +27578,7 @@ let DLIVE_CH = null, DLIVE_T = null, DLIVE_ID = null, DLIVE_CONTACT = null;
 /* 🔴 6.250.0 — בדיוק עמודות הטוען של DEALS (נאכף בבנייה). עד כאן הרשימה הייתה ידנית וחסר בה
    quote_doc_path — ולכן PDF שנמשך בוובהוק לא הגיע למטמון, וגם פתיחה מחדש של הכרטיס הראתה
    "טרם נמשך" (נמדד על PQ26001166, 12/10/2026). */
-const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test';
+const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test,expected_close,confidence';
 
 window.dlLiveStop = ()=>{
   if(DLIVE_T){ clearInterval(DLIVE_T); DLIVE_T = null; }
@@ -27995,6 +28007,7 @@ window.openDeal = async (id)=>{
   $('#dealSheet').innerHTML = `
     <h3><span id="dl-ttl">${esc(d.name||'עסקה')}</span> <span id="dl-stpill">${mdPill(d.stage||'—',DEAL_ST_COLORS,LB_TK)}</span> <span id="dl-pqs">${dlPqsPill(d)}</span></h3>
     <div class="lb-pipe" id="dl-pipe" data-deal="${esc(id)}"></div>
+    <div class="dl-fc hidden" id="dl-fc"></div>
     ${ctabsHtml('dl')}
     <div id="dl-pn-main">
     <div class="form-grid">
@@ -28094,6 +28107,7 @@ function dlPipeDraw(id){
         + ` onclick="dlPipeSet('${jsq(id)}','${jsq(cur)}','${jsq(on?'':o)}')">${esc(o)}</button>`;
     }).join('') + `</div>` : '';
   box.innerHTML = `<div class="lb-piperow">${segs}</div>${subs}`;
+  try{ dlFcDraw(id); }catch(_e){}   /* 7.43.0 — שורת הצפי תלויה בשלב */
 }
 /* שני כפתורי הפעולה בכרטיס העסקה. ⚠️ אין כאן "↻ פולואפ" — הוא מזיז
    את הפייפליין של הליד, ואין לו מקבילה בעסקה. */
@@ -28136,6 +28150,49 @@ window.dlSetChan = async (id, ch)=>{
   dlChanDraw(id); renderDeals();
   toast(ch ? 'ערוץ השליחה נשמר ✓' : 'ערוץ השליחה נוקה ✓');
 };
+/* ===== 7.43.0 — dealfc: צפי סגירה בכרטיס העסקה =====
+   רומן, 28/10/2026: "כן, בכרטיס העסקה" — כדי שאנשי המכירות יעדכנו בעצמם את מה שמזין את "תחזית" במסך ניתוח המכירות.
+   אותו נתון של עמודת "צפי סגירה" שם: crm.deals.expected_close/confidence, נכתב רק ב-crm.deal_set_forecast (בעלי התהליך או
+   dash.salesteam; תאריך וביטחון יחד; תאריך חדש לא בעבר). מוצג רק בתהליך פתוח — dlPipeDraw קורא ל-dlFcDraw.
+   ⚠️ ביטחון בלי תאריך אינו אפשרי (השבבים נעולים עד שיש תאריך); תאריך בלי ביטחון נשמר כ"סביר", כמו בעמודה במסך הניתוח. */
+const dlFcMay = d=> window.canEdit('crm.deals') && (salesMgr() || dlOwnersOf(d).indexOf((ME||{}).id) >= 0);
+function dlFcDraw(id){
+  const box = document.getElementById('dl-fc'); if(!box) return;
+  const pipe = document.getElementById('dl-pipe'); if(!pipe || pipe.dataset.deal !== id) return;   /* רק לכרטיס של העסקה הזאת */
+  const d = (DEALS||[]).find(x=>x.id===id);
+  if(!d || ACTIVE_STAGES.indexOf(d.stage) < 0){ box.innerHTML = ''; box.classList.add('hidden'); return; }
+  box.classList.remove('hidden');
+  const td0 = isoD(new Date()), ec = d.expected_close || '', cf = d.confidence || '', slip = !!ec && ec < td0, ed = dlFcMay(d);
+  const seg = SA_CONF.map(k=>'<button type="button" class="'+(k===cf ? 'on' : '')+'" aria-pressed="'+(k===cf ? 'true' : 'false')+'"'+(ed && ec ? '' : ' disabled')+
+      ' onclick="dlFcSet(\''+jsq(id)+'\',null,\''+jsq(k)+'\')">'+esc(k)+'</button>').join('');
+  box.innerHTML = '<span class="dl-fc-l">צפי סגירה</span>'+
+    (ed ? '<input type="date" id="dl-fcd" class="inline-edit" value="'+esc(ec)+'" min="'+td0+'" aria-label="צפי סגירה" onchange="dlFcSet(\''+jsq(id)+'\',this.value,null)">'
+        : '<b>'+(ec ? esc(fmtD(ec)) : '—')+'</b>')+
+    '<div class="lb-psub" role="group" aria-label="ביטחון">'+seg+'</div>'+
+    (slip ? '<span class="dl-fc-n warn">הצפי עבר — לעדכן</span>'
+          : (!ec && ed ? '<span class="dl-fc-n">מתי צפוי להיסגר? נכנס לתחזית במסך "ניתוח מכירות"</span>' : ''));
+}
+/* dt — תאריך שנבחר (או '' לניקוי), cf — ביטחון שנבחר; null = "לא נגעו". */
+window.dlFcSet = async (id, dt, cf)=>{
+  const d = (DEALS||[]).find(x=>x.id===id); if(!d || !dlFcMay(d)) return;
+  const box = document.getElementById('dl-fc'); if(box && box.classList.contains('busy')) return;
+  const ec = dt===null ? (d.expected_close || null) : (dt || null);
+  const c  = !ec ? null : (cf===null ? (d.confidence || 'סביר') : cf);
+  if(ec === (d.expected_close || null) && c === (d.confidence || null)) return;
+  if(box) box.classList.add('busy');
+  let r; try{ r = await sb.schema('crm').rpc('deal_set_forecast', { p_deal:id, p_expected:ec, p_confidence:c }); }catch(e){ r = { error:e }; }
+  if(box) box.classList.remove('busy');
+  if(!r || r.error){ toast('שמירת הצפי נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); dlFcDraw(id); return; }
+  dealFcApply(id, ec, c);
+  toast('צפי הסגירה נשמר ✓');
+};
+/* 🔴 נקודת העדכון היחידה של צפי הסגירה בלקוח — DEALS, המטמון של מסך הניתוח והכרטיס הפתוח. צרכן חדש עובר כאן. */
+function dealFcApply(id, dt, cf){
+  const d = (DEALS||[]).find(x=>x.id===id); if(d){ d.expected_close = dt; d.confidence = cf; }
+  Object.keys(SA.cache).forEach(k=>{ const h = SA.cache[k]; ((h.d && h.d.open) || []).forEach(o=>{ if(o.id===id){ o.expected_close = dt; o.confidence = cf; } }); });
+  try{ dlFcDraw(id); }catch(_e){}
+  saStale();
+}
 /* ===== תנאי תשלום בכרטיס התהליך (7.13.0 dealpay ⇒ 7.14.0 payplan) =====
    רומן, 17/10/2026: "מקדמה ואחוזים אין בתנאי תשלום בפריוריטי — שווה להפריד" · "תאפשר גם בחירה מרובה, מקדמה 50% באשראי
    והיתר בהעברה" · "אחוזים אחרים ועד 6 פעימות רק לבעלי הרשאה".
