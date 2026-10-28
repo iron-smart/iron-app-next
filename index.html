@@ -1192,6 +1192,31 @@
   #db-reps .dtm-x .t{ min-width:0 }
   #db-reps .dtm-x .t b{ display:block; font-weight:700; color:var(--ink-2); font-size:var(--fs-md); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
   #db-reps .dtm-x .t small{ display:block; font-size:var(--fs-xs); color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  /* 7.41.0 — ניתוח מכירות */
+  #tab-sana .sa-bar{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-3) }
+  #tab-sana .sa-rng{ font-size:var(--fs-sm); font-weight:700; color:var(--ink-3) }
+  #tab-sana .sa-card{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:var(--sp-3); margin:0 0 var(--sp-3); min-width:0 }
+  #tab-sana .sa-card h3{ margin:0 0 var(--sp-1); font-size:var(--fs-md); font-weight:800; color:var(--navy); display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--sp-2) }
+  #tab-sana .sa-card h3 .cnt{ font-size:var(--fs-sm); font-weight:700; color:var(--ink-3) }
+  #tab-sana .sa-card h3.sa-h4{ margin:var(--sp-3) 0 var(--sp-1) }
+  #tab-sana .sa-sub{ font-size:var(--fs-sm); color:var(--ink-3); margin:0 0 var(--sp-2) }
+  #tab-sana .sa-tiles{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-2) }
+  #tab-sana .sa-tile{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2); cursor:pointer; background:var(--bg-subtle); min-width:0; text-align:start; font-family:inherit; color:inherit }
+  #tab-sana .sa-tile.on{ border-color:var(--navy); background:#eef4ff }
+  #tab-sana .sa-tile b{ display:block; font-size:var(--fs-xl); font-weight:800; color:var(--navy) }
+  #tab-sana .sa-tile span{ display:block; font-size:var(--fs-sm); color:var(--ink-2) }
+  #tab-sana .sa-tile small{ display:block; font-size:var(--fs-xs); color:var(--ink-3) }
+  #tab-sana .sa-warn{ color:var(--red); font-weight:700 }
+  #tab-sana .sa-pq{ color:var(--ink-3); font-weight:400 }
+  #tab-sana .sa-chip{ display:inline-block; font-size:var(--fs-xs); padding:0 var(--sp-1h); border-radius:var(--r-md); background:var(--bg-muted); color:var(--ink-2); margin-inline-end:var(--sp-1); white-space:nowrap }
+  #tab-sana .db-row .t small{ white-space:normal }
+  #tab-sana tr.clk{ cursor:pointer }
+  #tab-sana tr.on td{ background:#eef4ff }
+  #tab-sana .sa-reason{ display:grid; grid-template-columns:minmax(0,1fr) minmax(60px,160px) auto auto; gap:var(--sp-2); align-items:center; padding:var(--sp-1) 0; border-top:1px solid var(--line-soft); font-size:var(--fs-sm) }
+  #tab-sana .sa-reason .t{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+  #tab-sana .sa-reason small{ color:var(--ink-3) }
+  #tab-sana .sa-barw{ display:block; height:var(--sp-2); background:var(--bg-muted); border-radius:var(--r-md); overflow:hidden }
+  #tab-sana .sa-barw i{ display:block; height:100%; background:var(--navy) }
   #db-reps .c{ min-width:0 }
   #db-reps .c b, #db-reps .c .v{ display:block; font-size:var(--fs-md); font-weight:800; color:var(--navy); white-space:nowrap }
   #db-reps .c small, #db-reps .dtm-r .c .w{ display:block; min-width:0; background:none; border-radius:0; padding:0; text-align:start; font-size:var(--fs-xs); font-weight:400; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
@@ -1275,7 +1300,7 @@
   .fun-bar div{ height:100%; background:var(--navy); border-radius:var(--r-xl) }
   .fun-row b{ width:28px; text-align:center; flex:none }
   .fun-a{ width:64px; flex:none; font-size:var(--fs-xs); color:var(--ink-3); text-align:left }
-  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } }
+  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } #tab-sana .sa-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
   /* שלד טעינה — במקום להציג 0 עד שהנתונים מגיעים (הערת רומן 29/07) */
   .skel{ display:inline-block; border-radius:var(--r-md); background:#e9eef3;
          background-image:linear-gradient(90deg,#e9eef3 25%,#f7fafc 37%,#e9eef3 63%);
@@ -4032,7 +4057,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.40.0</div>
+      <div class="ver">גרסה 7.41.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4105,12 +4130,13 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <nav aria-label="תפריט ראשי">
     <button class="nav-item active" data-tab="today"><span>דשבורד</span></button>
     <!-- CRM — שבעת מסכי ניהול הלקוחות והמכירה תחת קטגוריית אב אחת (רומן 29/07/2026) -->
-    <div class="nav-wrap" data-tabs="tasks,leads,deals,customers,contacts,meets,paylinks,mkt">
+    <div class="nav-wrap" data-tabs="tasks,leads,deals,sana,customers,contacts,meets,paylinks,mkt">
       <button class="nav-item" data-tab="tasks" aria-expanded="false">CRM <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
       <div class="submenu">
         <button data-tab="tasks"     onclick="gotoTab('tasks')">משימות</button>
         <button data-tab="leads"     onclick="gotoTab('leads')">לידים</button>
         <button data-tab="deals"     onclick="gotoTab('deals')">תהליכי מכירה</button>
+        <button data-tab="sana"      onclick="gotoTab('sana')">ניתוח מכירות</button>
         <button data-tab="customers" onclick="gotoTab('customers')">לקוחות</button>
         <button data-tab="contacts"  onclick="gotoTab('contacts')">אנשי קשר</button>
         <button data-tab="meets"     onclick="gotoTab('meets')">פגישות</button>
@@ -4164,7 +4190,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="webrow-2026-10-28a">גרסה 7.40.0</div>
+    <div class="side-foot" title="sana-2026-10-28a">גרסה 7.41.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -4211,6 +4237,12 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <section id="tab-mkt" class="hidden">
       <div class="mkt-bar" id="mkt-bar"></div>
       <div id="mkt-body"><div class="empty">טוען…</div></div>
+    </section>
+
+    <!-- 7.41.0 — ניתוח מכירות (מנהל המכירות). מצויר כולו ב-JS (renderSana) מתשובת crm.sales_analytics אחת. -->
+    <section id="tab-sana" class="hidden">
+      <div class="sa-bar" id="sa-bar"></div>
+      <div id="sa-body"></div>
     </section>
 
     <!-- פגישות -->
@@ -5488,7 +5520,9 @@ window.TAB_PERM = {
   sup:'acc.sup', sinv:'acc.sinv',
   /* 6.199.0 — דשבורד השיווק. mkt.dash הוא בן של שורש חדש (mkt) ולא של crm: בן של crm היה
      נפתח בירושה לכל מי שיש לו crm≥1. השרת (crm.mkt_dash) בודק את אותו מפתח בשורה הראשונה. */
-  mkt:'mkt.dash'
+  mkt:'mkt.dash',
+  /* 7.41.0 — ניתוח מכירות: אותו מפתח של "צוות המכירות" בלובי ושל crm.sales_analytics (נבדק שם בשורה הראשונה) */
+  sana:'dash.salesteam'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
 window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', general:'set.general' };
@@ -5504,7 +5538,7 @@ window.navCanTab = t=>{
   const k = TAB_PERM[t];
   return k ? canView(k) : true;
 };
-window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt'];
+window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt','sana'];
 window.navLanding = ()=> NAV_LAND_ORDER.find(t=>navCanTab(t)) || null;
 window.canView = k => window.pLevel(k) >= 1;
 window.canEdit = k => window.pLevel(k) >= 2;
@@ -5992,7 +6026,7 @@ $('#logoutBtn').onclick = async ()=>{
    עד 6.1.0 הניווט התבצע דרך b.click() על כפתור התפריט, ולכן כל מסך היה חייב
    כפתור ראשי משלו בסרגל. משנכנסו שבעת מסכי ה-CRM תחת קטגוריית אב אחת, אין
    לכל מסך כפתור ראשי — ולכן הניווט עבר לפונקציה אחת שאינה תלויה ב-DOM. */
-const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','pays','sup','sinv','tasks','logi','skus','inv','po','prc','docs','set','mkt'];
+const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','pays','sup','sinv','tasks','logi','skus','inv','po','prc','docs','set','mkt','sana'];
 let CUR_TAB = 'today';
 /* התצוגה הפנימית הנוכחית של כל מסך שיש לו תתי-קטגוריות — לצורך סימון הפריט הפעיל */
 const NAV_VIEW = {
@@ -6089,6 +6123,7 @@ window.gotoTab = t=>{
   if(t==='set') renderSettings();
   if(t==='today') dashLoad();
   if(t==='mkt') renderMkt();
+  if(t==='sana') renderSana();   /* 7.41.0 */
   if(t==='paylinks') renderPayLinks();   /* 7.25.0 */
   if(_navNarrow()) setSide(false);
 };
@@ -8000,7 +8035,8 @@ const dashMyDeals = ()=> (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) &
       בלבד, ולכן DEALS מחזיק את כל התהליכים אצל כל איש מכירות — אין צורך ב-RPC. */
 const dashTeamView = ()=> canView('dash.sales') && canView('crm.deals') && (!dashPersonal() || canView('dash.salesteam'));
 /* "פתוח" = ACTIVE_STAGES — אותה הגדרה של המשפך, של הצ'יפ "פעילות" ושל "התהליכים שלי" */
-const dashTeamOpen = ()=> (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage));
+/* 7.41.0 — תהליכי בדיקה (is_test) אינם נספרים בתמונת הצוות — נמצא באימות מול פריוריטי (28/10): אחד מהם, ₪88K, נספר ב"ירדו" באוקטובר */
+const dashTeamOpen = ()=> (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) && !d.is_test);
 function dashTeamTile(){
   const tm = dashTeamOpen();
   return kTile('סכום פתוח · צוות', tm.length ? ilsK(dlSum(tm)) : '₪0', "gotoTab('deals');dlGoTeam()", kSub(tm.length+' תהליכים · לפני מע״מ', false), 'sales');
@@ -8117,7 +8153,8 @@ function dtmAgg(R){
   const Z = ()=>({ open:0, openN:0, made:0, madeN:0, won:0, wonN:0, lost:0, lostN:0, leads:0, late:0 });
   const tot = Z(), by = {}, B = k=> by[k] = by[k] || Z();
   const add = (k, f, a)=>{ tot[f] += a; tot[f+'N']++; if(k){ const b = B(k); b[f] += a; b[f+'N']++; } };
-  (DEALS||[]).forEach(d=>{ const k = dlOwnersOf(d)[0], a = +d.amount||0;
+  (DEALS||[]).forEach(d=>{ if(d.is_test) return;   /* 7.41.0 */
+    const k = dlOwnersOf(d)[0], a = +d.amount||0;
     if(ACTIVE_STAGES.includes(d.stage)) add(k, 'open', a);
     if(inR(d.created_at)) add(k, 'made', a);
     if(d.stage==='הזמנה' && inR(d.closed_at)) add(k, 'won', a);
@@ -13888,7 +13925,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'webrow-2026-10-28a';
+const BUILD_ID = 'sana-2026-10-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20528,7 +20565,7 @@ const CRM_Q = {
   tasks: () => sb.schema('crm').from('tasks').select('id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id')
     .order('closed_at',{ascending:false, nullsFirst:true}).order('due_at',{ascending:true}).limit(10000)
     .then(r=>{ if(r && Array.isArray(r.data)) r.data.sort((a,b)=> a.due_at===b.due_at ? 0 : (a.due_at==null ? 1 : (b.due_at==null ? -1 : (a.due_at < b.due_at ? -1 : 1)))); return r; }),
-  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan').order('created_at',{ascending:false}).limit(10000),
+  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test').order('created_at',{ascending:false}).limit(10000),
   meets: () => sb.schema('crm').from('meetings').select('id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone,created_at').order('meet_date',{ascending:false}).limit(10000),
   lown: () => /* שורות הבעלות הראשיות. **לא מיותר מול leads.owner_id**: המראה מחזיקה
          profile_id בלבד, ולעובד לשעבר אין חשבון — 694 לידים היו מוצגים
@@ -20733,6 +20770,162 @@ function mktInit(){
                   col: MKT_PCOLS.some(([k])=>k===pv.col) && pv.col!==pv.row ? pv.col : '',
                   metric: MKT_PMETRICS.some(([k])=>k===pv.metric) ? pv.metric : 'leads' };
 }
+/* ===== 7.41.0 — sana: "ניתוח מכירות", שלב 1 =====
+   רומן, 28/10/2026: "ניתוח של עסקאות שעומדות הרבה זמן ללא סטטוס, ניתוח לפי זמן, ניתוח של בחירה אילו עסקאות מתנדנדות לבדיקת
+   סכום ואפשרות הצעת ערך לסגירה … תחשוב כמו מנהל מכירות" · על ההצעה: "כן, שלב 1".
+   חמישה חלקים מתשובת crm.sales_analytics אחת (security definer; שער dash.salesteam — אותו מפתח של הלשונית):
+     1. בריאות הצנרת — ארבעה אריחים (לא זזו 14+ · באותו שלב 30+ · משימה באיחור · בלי צעד הבא); לחיצה מסננת את הטבלה.
+     2. מתנדנדות — ניקוד שקוף (saSwingOf), כל נקודה היא סיבה שמוצגת כשבב. ההחלטה עצמה (הצעת ערך) — שלב 2.
+     3. לאורך זמן — חודשי/שבועי: נפתחו · נסגרו להזמנה · ירדו · אחוז סגירה · עסקה ממוצעת; וזמן בשלב (חציון).
+     4. לפי איש מכירות — תמיד כל הצוות; לחיצה על שורה מסננת את כל המסך לאותו בעלים (ושוב — מבטלת).
+     5. למה יורדים — סיבות "לא רלוונטי" בטווח.
+   ⚠️ מהשרת ולא מ-DEALS: "נגיעה אחרונה" ו"זמן בשלב" יושבים ביומן הפעילות, שאינו נטען ללקוח.
+   ⚠️ "ירדו" לפני 14/10/2026 הן חותמות אצווה ממאנדיי (אימות מול פריוריטי, 28/10). השרת מחזיר lost_reliable_from, והמסך מסמן.
+   ⚠️ מטמון לכל בחירה (טווח, דגימה, בעלים): 5 דקות; שגיאה — דקה (בלי לולאה). כל תשובה נשמרת תחת הבחירה שלה ומוצגת רק אם היא
+      הבחירה הנוכחית — כך תשובה שחזרה באיחור אינה יכולה להופיע במקום הלא נכון, וחזרה ל"כל הצוות" מיידית. */
+let SA_F = (()=>{ try{ const r = JSON.parse(localStorage.getItem('iron_sana_v1')||'null'); return (r && typeof r==='object') ? r : {}; }catch(_e){ return {}; } })();
+const SA = { busy:{}, cache:{}, flag:'' };
+const SA_ISO = /^\d{4}-\d{2}-\d{2}$/;
+function saSave(){ try{ localStorage.setItem('iron_sana_v1', JSON.stringify(SA_F)); }catch(_e){} }
+function saRange(){
+  const t = new Date(), y = t.getFullYear(), m = t.getMonth(), p = SA_F.p || 'month';
+  if(p==='prev') return { p, from:isoD(new Date(y, m-1, 1)), to:isoD(new Date(y, m, 0)) };
+  if(p==='q')    return { p, from:isoD(new Date(y, m-2, 1)), to:isoD(t) };
+  if(p==='ytd')  return { p, from:isoD(new Date(y, 0, 1)),   to:isoD(t) };
+  if(p==='range'){
+    /* ⚠️ ערך שמור שאינו תאריך — ברירת מחדל ולא טווח ריק (הלקח מ-logiInit) */
+    const a = SA_ISO.test(SA_F.from||'') ? SA_F.from : isoD(new Date(y, m, 1)), b = SA_ISO.test(SA_F.to||'') ? SA_F.to : isoD(t);
+    return { p, from: a<=b ? a : b, to: a<=b ? b : a };
+  }
+  return { p:'month', from:isoD(new Date(y, m, 1)), to:isoD(t) };
+}
+const saGrain = ()=> SA_F.grain==='week' ? 'week' : 'month';
+const saOwner = ()=> (SA_F.owner && LOWN_BY[SA_F.owner]) ? SA_F.owner : '';
+const saKey = ()=>{ const R = saRange(); return JSON.stringify({ from:R.from, to:R.to, grain:saGrain(), owner:saOwner() || null }); };
+window.saSet = (k, v)=>{
+  if(k==='p'){ const R = saRange(); SA_F.p = v; if(v==='range'){ SA_F.from = R.from; SA_F.to = R.to; } }
+  else if(k==='from' || k==='to'){ if(!SA_ISO.test(v||'')) return; const R = saRange(); SA_F.p = 'range'; SA_F.from = R.from; SA_F.to = R.to; SA_F[k] = v; }
+  else SA_F[k] = v;
+  saSave(); renderSana(); };
+window.saFlag = f=>{ SA.flag = SA.flag===f ? '' : f; renderSana(); };
+window.saRefresh = ()=>{ delete SA.cache[saKey()]; renderSana(); };
+function saLoad(){
+  const key = saKey(), hit = SA.cache[key];
+  if(SA.busy[key]) return;
+  if(hit && Date.now()-hit.at < (hit.err ? 60000 : 300000)) return;
+  SA.busy[key] = true;
+  const done = (d, err)=>{ delete SA.busy[key]; SA.cache[key] = { d, err:err||'', at:Date.now() };
+    const ks = Object.keys(SA.cache); if(ks.length > 20) delete SA.cache[ks[0]];   /* 20 בחירות אחרונות */
+    if(CUR_TAB==='sana' && saKey()===key) renderSana(); };
+  try{
+    sb.schema('crm').rpc('sales_analytics', { p: JSON.parse(key) })
+      .then(r=>done(r && r.error ? null : ((r && r.data) || null), r && r.error ? (r.error.message||'שגיאה') : ''),
+            e=>done(null, String((e && e.message) || e)));
+  }catch(e){ done(null, String((e && e.message) || e)); }
+}
+const saFirst = k=>{ const o = LOWN_BY[k]; return o ? String(o.name||'').split(' ')[0] : '—'; };
+const SA_FLAGS = [
+  ['idle',  'לא זזו 14+ יום',     o=>+o.idle >= 14],
+  ['stage', 'באותו שלב 30+ יום',  o=>+o.stage_days >= 30],
+  ['late',  'המשימה הבאה באיחור', o=>!!o.overdue],
+  ['none',  'בלי צעד הבא',         o=>!!o.no_task],
+];
+function saHealth(d){
+  const open = d.open || [], sum = l=> l.reduce((a,o)=>a+(+o.amount||0),0);
+  const tiles = SA_FLAGS.map(([k,l,f])=>{ const L = open.filter(f);
+    return '<button type="button" class="sa-tile'+(SA.flag===k?' on':'')+'" data-flag="'+k+'" onclick="saFlag(\''+k+'\')"><b>'+L.length+'</b><span>'+l+'</span><small>'+ilsK(sum(L))+'</small></button>'; }).join('');
+  const F = (SA_FLAGS.find(x=>x[0]===SA.flag)||[])[2];
+  const rows = open.filter(o=>!F || F(o)).sort((a,b)=>(+b.idle||0)-(+a.idle||0) || (+b.amount||0)-(+a.amount||0));
+  const due = o=> o.no_task ? '<span class="sa-warn">אין</span>' : '<span'+(o.overdue?' class="sa-warn"':'')+'>'+esc(fmtD(isoD(new Date(o.next_due))))+'</span>';
+  return '<div class="sa-card" id="sa-health"><h3>בריאות הצנרת <span class="cnt">'+open.length+' פתוחים · '+ilsK(sum(open))+'</span></h3>'+
+    '<div class="sa-sub">"תזוזה" = פעילות כלשהי על התהליך או משימה שהושלמה. לחיצה על אריח מסננת את הטבלה.</div>'+
+    '<div class="sa-tiles">'+tiles+'</div>'+
+    (rows.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>תהליך</th><th>בעלים</th><th>שלב</th><th class="num">סכום</th><th class="num">ימים בלי תזוזה</th><th class="num">ימים בשלב</th><th>המשימה הבאה</th><th class="num">הצעה נשלחה לפני</th></tr></thead><tbody>'+
+      rows.map(o=>'<tr class="clk" data-id="'+esc(o.id)+'" onclick="openDeal(\''+jsq(o.id)+'\')"><td><b>'+esc(o.cust||o.name||'')+'</b>'+(o.pq?' <small class="sa-pq">'+esc(o.pq)+'</small>':'')+'</td>'+
+        '<td>'+esc(saFirst(o.own))+'</td><td>'+mdPill(o.stage, DEAL_ST_COLORS, LB_TK)+'</td><td class="num">'+ilsK(+o.amount||0)+'</td>'+
+        '<td class="num'+(+o.idle>=14?' sa-warn':'')+'">'+(+o.idle||0)+'</td><td class="num'+(+o.stage_days>=30?' sa-warn':'')+'">'+(+o.stage_days||0)+'</td>'+
+        '<td>'+due(o)+'</td><td class="num">'+(o.quote_age==null ? '—' : (+o.quote_age)+' ימים')+'</td></tr>').join('')+'</tbody></table></div>'
+     : '<div class="empty">אין תהליכים פתוחים'+(SA.flag ? ' בסינון הזה' : '')+'</div>')+'</div>';
+}
+/* ניקוד "מתנדנדת" — שקוף ולא קופסה שחורה: כל נקודה היא סיבה שמוצגת כשבב, וסף 3.
+   "תהליך חדש" בחוץ (עוד לא הוצע מחיר), וגם 45+ ימים בלי תזוזה — זה "תקוע" (חלק 1), לא "מתנדנד". */
+function saSwingOf(o){
+  const late = {'נשלחה הצעת מחיר לחתימה':2, 'אושרה ע״י לקוח':2, 'נשלחה הצעת מחיר ראשונית':1}[o.stage] || 0;
+  if(!late || +o.idle >= 45) return null;
+  const r = [vLbl(o.stage)], a = +o.amount||0, q = o.quote_age==null ? null : +o.quote_age;
+  let s = late;
+  if(a >= 50000){ s += 2; r.push(ilsK(a)); } else if(a >= 20000){ s += 1; r.push(ilsK(a)); }
+  if(q != null && q >= 14){ s += 2; r.push('הצעה נשלחה לפני '+q+' ימים'); } else if(q != null && q >= 7){ s += 1; r.push('הצעה נשלחה לפני '+q+' ימים'); }
+  if(+o.revisions >= 2){ s += 1; r.push((+o.revisions)+' עדכוני הצעה'); }
+  if(+o.idle >= 7){ s += 1; r.push('לא זז '+(+o.idle)+' ימים'); }
+  if(o.overdue){ s += 1; r.push('משימה באיחור'); }
+  return s >= 3 ? { s, r } : null;
+}
+function saSwing(d){
+  const L = (d.open||[]).map(o=>({ o, w:saSwingOf(o) })).filter(x=>x.w).sort((a,b)=>b.w.s-a.w.s || (+b.o.amount||0)-(+a.o.amount||0));
+  const top = L.slice(0, 10), sum = L.reduce((a,x)=>a+(+x.o.amount||0),0);
+  return '<div class="sa-card" id="sa-swing"><h3>מתנדנדות — לבדיקת סכום והצעת ערך <span class="cnt">'+L.length+' · '+ilsK(sum)+'</span></h3>'+
+    '<div class="sa-sub">שלב מתקדם, סכום משמעותי, הצעה שמחכה לתשובה או כמה עדכוני הצעה — כאן החלטה שלך עכשיו יכולה להכריע.</div>'+
+    (top.length ? top.map(({o,w})=>dbRow("openDeal('"+jsq(o.id)+"')", esc(o.cust||o.name||'')+(o.pq ? ' <small class="sa-pq">'+esc(o.pq)+'</small>' : ''),
+        w.r.map(x=>'<span class="sa-chip">'+esc(x)+'</span>').join(''), '<span class="v">'+ilsK(+o.amount||0)+'</span>', esc(saFirst(o.own)))).join('') +
+      (L.length > top.length ? '<div class="sa-sub">ועוד '+(L.length-top.length)+' בניקוד נמוך יותר</div>' : '')
+     : '<div class="empty">אין כרגע תהליכים מתנדנדים</div>')+'</div>';
+}
+const saPct = (w, l)=> (w + l) ? Math.round(100*w/(w + l))+'%' : '—';
+const saNv  = (n, s)=> n ? '<b>'+n+'</b> · '+ilsK(s) : '—';
+function saPerLbl(k, g){ return g==='week' ? 'שבוע '+fmtD(k).slice(0,5) : new Date(k+'T12:00:00').toLocaleDateString('he-IL', {month:'short', year:'2-digit'}); }
+function saTime(d){
+  const S = d.series || [], g = d.grain, rel = d.lost_reliable_from || '';
+  const tot = S.reduce((a,x)=>{ ['opened_n','opened_s','won_n','won_s','lost_n','lost_s'].forEach(k=>{ a[k] = (a[k]||0) + (+x[k]||0); }); return a; }, {});
+  const row = (lbl, x, star)=> '<tr><td>'+lbl+'</td><td class="num">'+saNv(+x.opened_n, +x.opened_s)+'</td><td class="num">'+saNv(+x.won_n, +x.won_s)+'</td>'+
+      '<td class="num">'+saNv(+x.lost_n, +x.lost_s)+(star ? ' <span class="sa-warn" title="תאריכי ירידה לפני 14/10/2026 אינם אמינים">*</span>' : '')+'</td>'+
+      '<td class="num">'+saPct(+x.won_n, +x.lost_n)+'</td><td class="num">'+saPct(+x.won_s, +x.lost_s)+'</td><td class="num">'+(+x.won_n ? ilsK((+x.won_s)/(+x.won_n)) : '—')+'</td></tr>';
+  const st = (d.stage_time||[]).filter(x=>ACTIVE_STAGES.includes(x.stage)).sort((a,b)=>ACTIVE_STAGES.indexOf(a.stage)-ACTIVE_STAGES.indexOf(b.stage));
+  return '<div class="sa-card" id="sa-time"><h3>לאורך זמן <span class="cnt">'+(g==='week' ? 'שבועי' : 'חודשי')+'</span></h3>'+
+    '<div class="sa-sub">אחוז סגירה = נסגרו ÷ (נסגרו + ירדו). תאריך "נסגרו להזמנה" תוקן לפי ההזמנה בפריוריטי (28/10/2026).</div>'+
+    '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>תקופה</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה (כמות)</th><th class="num">אחוז סגירה (סכום)</th><th class="num">עסקה ממוצעת</th></tr></thead><tbody>'+
+      S.map(x=>row(esc(saPerLbl(x.k, g)), x, !!rel && x.from < rel)).join('')+
+      (S.length > 1 ? row('<b>סה״כ</b>', tot, !!rel && (S[0]||{}).from < rel) : '')+'</tbody></table></div>'+
+    (st.length ? '<h3 class="sa-h4">זמן בשלב <span class="cnt">מעברים שהסתיימו בטווח · בלי ימי אצווה</span></h3>'+
+      '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>שלב</th><th class="num">מעברים</th><th class="num">חציון (ימים)</th><th class="num">ממוצע (ימים)</th></tr></thead><tbody>'+
+      st.map(x=>'<tr><td>'+mdPill(x.stage, DEAL_ST_COLORS, LB_TK)+'</td><td class="num">'+(+x.n)+'</td><td class="num">'+(+x.med)+'</td><td class="num">'+(+x.avg)+'</td></tr>').join('')+'</tbody></table></div>' : '')+'</div>';
+}
+function saReps(d){
+  const R = (d.reps||[]).filter(r=>LOWN_BY[r.own]), cur = saOwner();
+  return '<div class="sa-card" id="sa-reps"><h3>לפי איש מכירות <span class="cnt">כל הצוות · לחיצה מסננת את המסך</span></h3>'+
+    (R.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>איש מכירות</th><th class="num">פתוח עכשיו</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה</th><th class="num">לא זזו 14+</th><th class="num">משימה באיחור</th></tr></thead><tbody>'+
+      R.map(r=>'<tr class="clk'+(r.own===cur ? ' on' : '')+'" data-own="'+esc(r.own)+'" onclick="saSet(\'owner\',\''+jsq(r.own===cur ? '' : r.own)+'\')"><td>'+lbAva(r.own,1)+' '+esc(LOWN_BY[r.own].name||'')+(LOWN_BY[r.own].kind==='legacy' ? ' <small>(לשעבר)</small>' : '')+'</td>'+
+        '<td class="num">'+saNv(+r.open_n, +r.open_s)+'</td><td class="num">'+saNv(+r.opened_n, +r.opened_s)+'</td><td class="num">'+saNv(+r.won_n, +r.won_s)+'</td><td class="num">'+saNv(+r.lost_n, +r.lost_s)+'</td>'+
+        '<td class="num">'+saPct(+r.won_n, +r.lost_n)+'</td><td class="num'+(+r.stale_n ? ' sa-warn' : '')+'">'+(+r.stale_n||0)+'</td><td class="num'+(+r.overdue_n ? ' sa-warn' : '')+'">'+(+r.overdue_n||0)+'</td></tr>').join('')+'</tbody></table></div>'
+     : '<div class="empty">אין נתונים בטווח</div>')+'</div>';
+}
+function saLost(d){
+  const L = d.lost_reasons || [], mx = Math.max(1, ...L.map(x=>+x.n||0)), rel = d.lost_reliable_from || '';
+  return '<div class="sa-card" id="sa-lost"><h3>למה יורדים <span class="cnt">סיבות "לא רלוונטי" בטווח</span></h3>'+
+    (rel && d.from < rel ? '<div class="sa-sub sa-warn">הטווח כולל תאריכים לפני '+esc(fmtD(rel))+': רוב הירידות שם הן חותמות מהעברת מאנדיי, וחלקן ירדו מזמן.</div>' : '')+
+    (L.length ? L.slice(0, 8).map(x=>'<div class="sa-reason"><span class="t" title="'+esc(x.reason)+'">'+esc(x.reason)+'</span><span class="sa-barw"><i style="width:'+Math.round((+x.n||0)/mx*100)+'%"></i></span><b>'+(+x.n)+'</b><small>'+ilsK(+x.s||0)+'</small></div>').join('')
+              : '<div class="empty">אין ירידות בטווח</div>')+'</div>';
+}
+window.renderSana = function(){
+  const bar = $('#sa-bar'), body = $('#sa-body'); if(!bar || !body) return;
+  const R = saRange(), g = saGrain(), own = saOwner();
+  const pb = (k, v, l, cur)=> '<button type="button" class="'+(cur===v ? 'on' : '')+'" onclick="saSet(\''+k+'\',\''+v+'\')">'+l+'</button>';
+  const hit = SA.cache[saKey()], D = hit && hit.d;
+  const ks = [...new Set(((D && D.reps) || []).map(r=>r.own).concat(LOWN.filter(o=>o.assignable).map(o=>o.owner_key)))].filter(k=>LOWN_BY[k]);
+  bar.innerHTML = '<span class="dmc-seg">'+pb('p','month','החודש',R.p)+pb('p','prev','החודש הקודם',R.p)+pb('p','q','3 חודשים',R.p)+pb('p','ytd','מתחילת השנה',R.p)+pb('p','range','טווח',R.p)+'</span>'+
+    (R.p==='range'
+      ? '<span class="lf-dates lf-on"><input type="date" value="'+R.from+'" aria-label="מתאריך" onchange="saSet(\'from\',this.value)"><span class="lf-dash">—</span><input type="date" value="'+R.to+'" aria-label="עד תאריך" onchange="saSet(\'to\',this.value)"></span>'
+      : '<span class="sa-rng">'+esc(fmtD(R.from))+' — '+esc(fmtD(R.to))+'</span>')+
+    '<span class="dmc-seg">'+pb('grain','month','חודשי',g)+pb('grain','week','שבועי',g)+'</span>'+
+    '<select class="lf-sel'+(own ? ' lf-on' : '')+'" aria-label="איש מכירות" onchange="saSet(\'owner\',this.value)"><option value="">כל הצוות</option>'+
+      ks.map(k=>'<option value="'+esc(k)+'"'+(k===own ? ' selected' : '')+'>'+esc(LOWN_BY[k].name||'')+(LOWN_BY[k].kind==='legacy' ? ' (לשעבר)' : '')+'</option>').join('')+'</select>'+
+    '<button type="button" class="lf-clear" onclick="saRefresh()">↻ רענון</button>';
+  saLoad();
+  if(!hit){ body.innerHTML = crmLoading(); return; }   /* רכיב הטעינה המשותף (dstest: "טוען…" ידני רק בדשבורד השיווק) */
+  if(hit.err){ body.innerHTML = '<div class="empty">הטעינה נכשלה · <button type="button" class="chip" onclick="saRefresh()">נסה שוב</button></div>'; return; }
+  if(!D){ body.innerHTML = '<div class="empty">אין לך הרשאה לניתוח המכירות</div>'; return; }
+  body.innerHTML = saHealth(D) + saSwing(D) + saTime(D) + saReps(D) + saLost(D);
+};
 window.renderMkt = function(){
   if(!canView('mkt.dash')) return;
   if(!MKT_WIRED){ MKT_WIRED=true; mktInit(); mktWire(); }
@@ -27213,7 +27406,7 @@ let DLIVE_CH = null, DLIVE_T = null, DLIVE_ID = null, DLIVE_CONTACT = null;
 /* 🔴 6.250.0 — בדיוק עמודות הטוען של DEALS (נאכף בבנייה). עד כאן הרשימה הייתה ידנית וחסר בה
    quote_doc_path — ולכן PDF שנמשך בוובהוק לא הגיע למטמון, וגם פתיחה מחדש של הכרטיס הראתה
    "טרם נמשך" (נמדד על PQ26001166, 12/10/2026). */
-const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan';
+const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test';
 
 window.dlLiveStop = ()=>{
   if(DLIVE_T){ clearInterval(DLIVE_T); DLIVE_T = null; }
