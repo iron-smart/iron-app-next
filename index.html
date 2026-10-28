@@ -1187,6 +1187,11 @@
   #db-reps .dtm-tot .t{ min-width:0 }
   #db-reps .dtm-tot .t b{ display:block; font-weight:800; color:var(--navy); font-size:var(--fs-md); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
   #db-reps .dtm-tot .t small{ display:block; font-size:var(--fs-xs); color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  /* 7.40.0 — "הזמנה מהאתר" / "הזמנה ישירה": אותו גריד, קו מקווקו מעליהן — אינן אנשי מכירות ואינן לחיצות */
+  #db-reps .dtm-x{ padding:var(--sp-1h) var(--sp-1); min-height:48px; box-sizing:border-box; border-top:1px dashed var(--line) }
+  #db-reps .dtm-x .t{ min-width:0 }
+  #db-reps .dtm-x .t b{ display:block; font-weight:700; color:var(--ink-2); font-size:var(--fs-md); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  #db-reps .dtm-x .t small{ display:block; font-size:var(--fs-xs); color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
   #db-reps .c{ min-width:0 }
   #db-reps .c b, #db-reps .c .v{ display:block; font-size:var(--fs-md); font-weight:800; color:var(--navy); white-space:nowrap }
   #db-reps .c small, #db-reps .dtm-r .c .w{ display:block; min-width:0; background:none; border-radius:0; padding:0; text-align:start; font-size:var(--fs-xs); font-weight:400; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
@@ -4027,7 +4032,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.39.0</div>
+      <div class="ver">גרסה 7.40.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4159,7 +4164,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="crmdates-2026-10-28a">גרסה 7.39.0</div>
+    <div class="side-foot" title="webrow-2026-10-28a">גרסה 7.40.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -8123,6 +8128,38 @@ function dtmAgg(R){
   (TASKS||[]).filter(t=>t.status!=='הושלם' && t.due_at && t.due_at < now).forEach(t=>{ const k = ownOwnersOf('task', t)[0]; tot.late++; if(k) B(k).late++; });
   return { tot, by };
 }
+/* ===== 7.40.0 — webrow: הזמנות שאינן מתהליך מכירה =====
+   רומן, 28/10/2026: "תכין שורה נפרדת להזמנות שמגיעות מהאתר לדוגמא 'הזמנה מהאתר'". באוקטובר, מתוך ₪660K הזמנות בפריוריטי,
+   82 הזמנות אתר (₪51,777) ו-27 ישירות (₪19,986) נפתחו בלי הצעת מחיר — ולכן אין להן תהליך, והן לא ב"נסגרו להזמנה".
+   הגדרות (בשרת, ord.dash_other_orders): אתר = לקוח WP בלי הצעה · ישירה = לקוח אחר בלי הצעה. הזמנה מהצעה שייכת לתהליך,
+   גם של לקוח אתר — שום הזמנה אינה נספרת פעמיים. לפני מע"מ, לפי תאריך ההזמנה, בלי מבוטלות.
+   ⚠️ RPC ולא ORDS: לבן crm.orders.price=0, ו-orders_v ממסך לו את המחיר. השרת מחזיר מספר וסכום בלבד, בשער של dashTeamView.
+   ⚠️ מטמון לפי הטווח: 5 דקות; שגיאה — דקה. בלי זמן לשגיאה הציור היה מבקש שוב, נכשל, מצייר — לולאה.
+   ⚠️ תשובה שחזרה אחרי שהטווח הוחלף נזרקת (DTO.busy) — אחרת "החודש הקודם" היה מציג את המספרים של החודש. */
+const DTO = { key:'', busy:'', d:null, err:'', at:0 };
+function dtoLoad(R){
+  const key = R.from+'|'+R.to;
+  if(DTO.busy===key) return;
+  if(DTO.key===key && Date.now()-DTO.at < (DTO.err ? 60000 : 300000)) return;
+  DTO.busy = key;
+  const done = (d, err)=>{ if(DTO.busy!==key) return; DTO.busy=''; DTO.key=key; DTO.d=d; DTO.err=err||''; DTO.at=Date.now(); renderRepsBlock(); };
+  try{
+    sb.schema('ord').rpc('dash_other_orders', { p_from:R.from, p_to:R.to })
+      .then(r=>done(r && r.error ? null : ((r && r.data) || null), r && r.error ? (r.error.message||'שגיאה') : ''),
+            e=>done(null, String((e && e.message) || e)));
+  }catch(e){ done(null, String((e && e.message) || e)); }
+}
+function dtoRows(R){
+  const key = R.from+'|'+R.to, mine = DTO.key===key;
+  dtoLoad(R);
+  if(mine && !DTO.err && !DTO.d) return '';   /* השרת החזיר null — אין הרשאה */
+  const d = (mine && DTO.d) || {};
+  const dash = '<span class="c"><i>—</i></span>';
+  const cell = o=> '<span class="c">'+(!mine ? '<i>…</i>' : DTO.err ? '<i title="'+esc(DTO.err)+'">לא נטען</i>'
+    : (o && +o.n) ? '<b>'+ilsK(+o.net||0)+'</b><small>'+(+o.n)+' הזמנות</small>' : '<i>—</i>')+'</span>';
+  const row = (lbl, sub, o)=> '<div class="dtm-r dtm-x"><span class="t"><b>'+lbl+'</b><small>'+sub+'</small></span>'+dash+dash+cell(o)+dash+'</div>';
+  return row('הזמנה מהאתר', 'לקוחות אתר · בלי הצעת מחיר', d.web) + row('הזמנה ישירה', 'בלי הצעת מחיר', d.direct);
+}
 function renderRepsBlock(){
   const el = $('#db-reps'); if(!el) return;
   if(!dashTeamView()){ el.innerHTML=''; el.classList.remove('db-wide'); return; }
@@ -8146,7 +8183,8 @@ function renderRepsBlock(){
     '<div class="dtm-r dtm-tot" onclick="'+go.replace(/"/g,'&quot;')+'"><span class="t"><b>כל הצוות</b><small>'+sub(A.tot)+'</small></span>'+cells(A.tot)+'</div>' +
     rows.slice(0,DB_CAP).map(k=>dbRow("gotoTab('deals');dlGoOwner('"+jsq(k)+"')",
       lbAva(k,1)+' '+esc(LOWN_BY[k].name||'')+(String(k)===me ? ' <span title="שלי">★</span>' : ''), sub(A.by[k]), cells(A.by[k]), '', 'dtm-r')).join('') +
-    (rows.length > DB_CAP ? dbRow(go, 'עוד '+(rows.length-DB_CAP)+' אנשי מכירות', '', '', '') : '');
+    (rows.length > DB_CAP ? dbRow(go, 'עוד '+(rows.length-DB_CAP)+' אנשי מכירות', '', '', '') : '') +
+    dtoRows(R);
 }
 /* ===== שלב D — בלוקי המכירות (תצוגה על הקיים; הכרעת רומן 16/08/2026) ===== */
 /* 7.38.0 — בורר "צוות / שלי" בכרטיס התהליכים, למי שרואה את הצוות ויש לו גם תהליכים משלו (בן; מנכ"ל עם תהליכים).
@@ -13850,7 +13888,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'crmdates-2026-10-28a';
+const BUILD_ID = 'webrow-2026-10-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
