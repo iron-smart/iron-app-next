@@ -231,6 +231,11 @@
   .logi-filters{ display:flex; flex-wrap:wrap; gap:var(--sp-2); margin:var(--sp-1h) 0 var(--sp-2h); align-items:center; }
   .lf-sel{ font-size:var(--fs-sm); padding:6px 10px; border:1px solid var(--field-bd); border-radius:var(--r-md); background:#fff; color:#334155; font-family:inherit; cursor:pointer; max-width:190px; }
   .lf-sel.lf-on{ border-color:var(--navy); background:#eef4ff; color:var(--navy); font-weight:700; }
+  /* 7.39.0 — טווח תאריכים בסרגל הסינון: אותה מסגרת ואותו "פעיל" של .lf-sel */
+  .lf-dates{ display:inline-flex; align-items:center; gap:var(--sp-1); flex-wrap:wrap; }
+  .lf-dates input[type=date]{ font-size:var(--fs-sm); padding:0 var(--sp-1h); border:1px solid var(--field-bd); border-radius:var(--r-md); background:#fff; color:var(--ink-2); font-family:inherit; width:auto; }
+  .lf-dates.lf-on input[type=date]{ border-color:var(--navy); background:#eef4ff; color:var(--navy); font-weight:700; }
+  .lf-dates .lf-dl, .lf-dates .lf-dash{ font-size:var(--fs-sm); color:var(--ink-3); font-weight:700; }
   .lf-clear{ font-size:var(--fs-sm); padding:6px 12px; border:1px solid var(--line); background:#fff; color:var(--ink-2); border-radius:var(--r-md); cursor:pointer; font-family:inherit; font-weight:600; }
   /* 6.24.6 — רב-בחירת סטטוסים, שמירת ברירת מחדל, פתיחת קריאה חדשה */
   .lf-multi{ position:relative; display:inline-block; }
@@ -247,7 +252,7 @@
 .lf-clear:hover{ background:#fef2f2; color:var(--red); border-color:#f0bcbc; }
   .lf-new{ font-size:var(--fs-sm); padding:6px 14px; border:1px solid var(--navy); background:var(--navy); color:#fff; border-radius:var(--r-md); cursor:pointer; font-family:inherit; font-weight:800; }
   .lf-new:hover{ filter:brightness(1.1); }
-  .lf-sel, .lf-multi>summary, .lf-clear, .lf-save, .lf-new{ height:var(--ctl-h-sm); box-sizing:border-box; }
+  .lf-sel, .lf-multi>summary, .lf-clear, .lf-save, .lf-new, .lf-dates input[type=date]{ height:var(--ctl-h-sm); box-sizing:border-box; }
   /* 6.24.10 — חיפוש-השלמה לבחירת לקוח/מוצר והצעת הזמנה מוצלבת */
   .ac-wrap{ position:relative; }
   /* 7.0.3 — בחלון הקצר של קישור פגישה התפריט בזרימה: absolute בגיליון של ~200px נחתך ב-overflow. */
@@ -1169,6 +1174,10 @@
   .dmd-st small{ display:block; font-size:var(--fs-xs); font-weight:700; color:var(--ink-3); min-height:14px }
   .dmd-st.z{ opacity:.45 }
   .db-row .dmd-pill{ flex:none }
+  /* 7.39.0 — כרטיס התהליכים עם בורר "צוות / שלי": אזור השורות בגובה חמש שורות (4 + "עוד N"), כדי שמעבר בין 75 תהליכים
+     ל-2 לא יכווץ את הכרטיס ויקפיץ את הגריד. רק כשיש בורר (.fix) — בלי בורר אין מעבר, ושטח ריק היה "חור". */
+  .dmd-rows.fix{ min-height:calc(48px * 5); display:flex; flex-direction:column }
+  .dmd-rows.fix > .db-empty{ flex:1; display:flex; align-items:center; justify-content:center }
   /* 7.38.0 — salesmgr: "צוות המכירות" — טבלה של חמש עמודות. שורות האנשים הן db-row (dbRow — נקודת החנק של צורת
      הכרטיס), ולכן הגריד חייב לגבור על ה-flex שלה: #db-reps .dtm-r (1,1,0) מול .db-row (0,1,0). ו-.w (מספר התהליכים)
      יושב עכשיו בתוך התא ולא כתג בצד — .db-row .w (0,2,0) מנוטרל ב-#db-reps .dtm-r .c .w (1,3,0). */
@@ -3789,7 +3798,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
    אחרי הבלוק הראשון (1910) באותה ספציפיות, וכלל שם היה מפסיד ב"המאוחר מנצח". נמדד ב-390:
    סרגל הסינון 29–31px, פילי תת-הסטטוס 22, מקטעי הפייפליין 30, ✕ הקישור 13×21, תיבות 15. */
 @media(max-width:1024px){
-  .lf-sel, .lf-multi>summary, .lf-clear, .lf-save, .lf-new{ min-height:var(--ctl-h-touch-sm); display:inline-flex; align-items:center; box-sizing:border-box; }
+  .lf-sel, .lf-multi>summary, .lf-clear, .lf-save, .lf-new, .lf-dates input[type=date]{ min-height:var(--ctl-h-touch-sm); display:inline-flex; align-items:center; box-sizing:border-box; }
   .lb-psub button{ min-height:36px; }
   .lb-pseg{ min-height:var(--ctl-h-touch-sm); }
   .tkl-x{ min-width:40px; min-height:var(--ctl-h-touch-sm); }
@@ -4018,7 +4027,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.38.0</div>
+      <div class="ver">גרסה 7.39.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4150,7 +4159,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="salesmgr-2026-10-28a">גרסה 7.38.0</div>
+    <div class="side-foot" title="crmdates-2026-10-28a">גרסה 7.39.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -7125,8 +7134,9 @@ function dbRow(fn, title, sub, right, w, cls){
 }
 /* כותרת כרטיס: שם · מונה · "עוד N ←" למסך המלא */
 function dbHead(title, cnt, moreFn, moreTxt, mid){
-  /* 7.38.0 — `mid`: פקד בתוך הכותרת (בורר "צוות / שלי"), לפני "הכול ←" שנדחף לקצה (margin-inline-start:auto) */
-  return '<h3>'+title+(cnt!=null?' <span class="cnt">'+cnt+'</span>':'')+(mid||'')+
+  /* 7.38.0 — `mid`: פקד בתוך הכותרת (בורר "צוות / שלי"), לפני "הכול ←" שנדחף לקצה (margin-inline-start:auto).
+     7.39.0 — לפני המונה ולא אחריו: המונה ("75 · ₪2.99M" / "2 · ₪400K") משנה אורך בכל מעבר, והבורר זז איתו. */
+  return '<h3>'+title+(mid||'')+(cnt!=null?' <span class="cnt">'+cnt+'</span>':'')+
     (moreFn?'<button type="button" class="more" onclick="'+String(moreFn).replace(/"/g,'&quot;')+'">'+(moreTxt||'הכול')+' ←</button>':'')+'</h3>';
 }
 const DB_CAP = 5;   /* שורות לכרטיס — השאר מאחורי "עוד N" (רומן: "כמה שפחות צורך לגלול") */
@@ -8041,19 +8051,28 @@ function dmcHtml(){
       '<span class="dmc-nav"><button type="button" onclick="dmcShift(-1)" title="הקודם">▸</button><button type="button" onclick="dmcToday()">היום</button><button type="button" onclick="dmcShift(1)" title="הבא">◂</button></span></div>'+
       body + '<div class="dmc-lg"><span><i class="mine"></i><b style="color:#7c3aed">★</b> הפגישות שלי</span><span><i></i>של אחרים בצוות (שם הבעלים)</span></div>' };
 }
-function renderMyDealsBlock(el, seg){
+/* 7.39.0 — כרטיס התהליכים: אותה צורה ב"צוות" וב"שלי" (רומן, 28/10/2026: "המעבר בין תהליכי מכירה שלי/צוות הוא משתנה
+   ולא נח עיצובית"). ב-7.38.0 "צוות" היה משפך עמודות ברוחב רגיל ו"שלי" רצועת שלבים + רשימה ברוחב כפול — הכרטיס שינה רוחב,
+   גובה וצורה בכל לחיצה, והגריד סביבו קפץ. מכאן כרטיס אחד לשני המצבים: רוחב כפול · רצועת ארבעת השלבים (מספר + סכום) ·
+   עד 4 תהליכים, הקרוב לסגירה ראשון · כשיש בורר — אזור שורות בגובה קבוע (.dmd-rows.fix).
+   בצוות — שם הבעלים הראשי בשורה (dlOwnersOf()[0], כמו "צוות המכירות"). מי שאינו רואה את הצוות (ניב) — "תהליכי
+   המכירה שלי" בלי בורר, כמו מ-6.230.0.
+   6.194.0 — מ-DEALS ולא מ-crm.sales_dash: שם רשימת השלבים קפואה בקוד. כאן ACTIVE_STAGES — אותה רשימה של בורד העסקאות. */
+function renderDealsCard(el, v, seg){
   el.classList.add('db-wide');
-  const dl = dashMyDeals(), sum = dlSum(dl), go = "gotoTab('deals');dlGoMine()";
-  if(!dl.length){ el.innerHTML = dbHead('תהליכי המכירה שלי', 0, go, 'לתהליכים', seg)+'<div class="db-empty">אין לך תהליכי מכירה פתוחים</div>'; return; }
+  const team = v==='team', dl = team ? dashTeamOpen() : dashMyDeals(), sum = dlSum(dl);
+  const go = team ? "gotoTab('deals');dlGoTeam()" : "gotoTab('deals');dlGoMine()";
+  const ttl = (team || seg) ? 'תהליכי מכירה פתוחים' : 'תהליכי המכירה שלי';
   const strip = '<div class="dmd-strip">'+ACTIVE_STAGES.map(s=>{ const l = dl.filter(d=>d.stage===s);
     return '<div class="dmd-st'+(l.length?'':' z')+'" style="--c:'+(DEAL_ST_COLORS[s]||'#cbd5e1')+'" onclick="'+go.replace(/"/g,'&quot;')+'" title="'+esc(s)+'"><b>'+l.length+'</b><span>'+esc(vLbl(s))+'</span><small>'+(l.length?ilsK(dlSum(l)):'')+'</small></div>'; }).join('')+'</div>';
   const rows = dl.slice().sort((a,b)=>ACTIVE_STAGES.indexOf(b.stage)-ACTIVE_STAGES.indexOf(a.stage) || (+b.amount||0)-(+a.amount||0));
-  const cap = 4;
-  el.innerHTML = dbHead('תהליכי המכירה שלי', dl.length+' · '+ilsK(sum), go, 'לתהליכים', seg) + strip +
+  const cap = 4, own = d=>{ const o = LOWN_BY[dlOwnersOf(d)[0]]; return o ? String(o.name||'').split(' ')[0] : ''; };
+  const body = !dl.length ? '<div class="db-empty">'+(team ? 'אין תהליכי מכירה פתוחים' : 'אין לך תהליכי מכירה פתוחים')+'</div>' :
     rows.slice(0,cap).map(d=>dbRow("openDeal('"+jsq(d.id)+"')", esc(d.name||''),
-      [typeof dlCustName==='function' ? dlCustName(d) : '', d.priority_quote_id||''].filter(Boolean).map(esc).join(' · '),
+      [team ? own(d) : '', typeof dlCustName==='function' ? dlCustName(d) : '', d.priority_quote_id||''].filter(Boolean).map(esc).join(' · '),
       '<span class="dmd-pill">'+mdPill(d.stage, DEAL_ST_COLORS, LB_TK)+'</span><span class="v">'+ilsK(+d.amount||0)+'</span>')).join('') +
     (rows.length>cap ? dbRow(go, 'עוד '+(rows.length-cap)+' תהליכים', '', '', '') : '');
+  el.innerHTML = dbHead(ttl, dl.length+' · '+ilsK(sum), go, 'לתהליכים', seg) + strip + '<div class="dmd-rows'+(seg?' fix':'')+'">'+body+'</div>';
 }
 /* 6.233.0 — מנהל: "לפי איש מכירות" — תהליכים פתוחים + סכום, לידים פתוחים ומשימות באיחור לכל אחד.
    הבעלים הראשי בלבד ([0]) — שותף אינו נספר פעמיים בסכום.
@@ -8141,24 +8160,10 @@ function dfnSeg(v){
 }
 function renderFunnelBlock(){
   const el = $('#db-funnel'); if(!el) return;
-  if(!(canView('dash.sales') && canView('crm.deals'))){ el.innerHTML=''; return; }
+  if(!(canView('dash.sales') && canView('crm.deals'))){ el.innerHTML=''; el.classList.remove('db-wide'); return; }
   const team = dashTeamView(), canMine = dashPersonal() || dashMyDeals().length > 0;
   const v = !team ? 'mine' : (canMine && DFN_V==='mine') ? 'mine' : 'team';
-  const seg = team && canMine ? dfnSeg(v) : '';
-  if(v==='mine'){ renderMyDealsBlock(el, seg); return; }
-  el.classList.remove('db-wide');
-  /* 6.194.0 — מ-DEALS ולא מ-crm.sales_dash: שם רשימת השלבים קפואה בקוד (שלב שהוסר
-     ב-6.126.0 ושם ישן). כאן STAGES — אותה רשימה של בורד העסקאות, ואינה יכולה לסטות. */
-  const open = ACTIVE_STAGES.slice();   /* 7.11.0 — 'הזמנה' היא הסוף, לא "פתוח" */
-  const by = {}; open.forEach(s=>by[s]={n:0,amount:0});
-  (DEALS||[]).forEach(d=>{ const b=by[d.stage]; if(b){ b.n++; b.amount += (+d.amount||0); } });
-  const tot = open.reduce((a,s)=>a+by[s].n,0), sum = open.reduce((a,s)=>a+by[s].amount,0);
-  const mx = Math.max(1, ...open.map(s=>by[s].n));
-  /* 7.38.0 — הלחיצה פותחת את "פעילות" (dlGoTeam): מ-7.2.0 הבורד נפתח תמיד ב"שלי", והמשפך של הצוות היה מוביל לרשימה אחרת */
-  el.innerHTML = dbHead('תהליכי מכירה פתוחים', tot+' · '+ilsK(sum), "gotoTab('deals');dlGoTeam()", 'לעסקאות', seg)+
-    open.map(s=>'<div class="fun-row" onclick="gotoTab(\'deals\');dlGoTeam()"><span class="fun-l">'+esc(vLbl(s))+'</span>'+
-      '<div class="fun-bar"><div style="width:'+Math.round(by[s].n/mx*100)+'%;background:'+(DEAL_ST_COLORS[s]||'var(--navy)')+'"></div></div>'+
-      '<b>'+by[s].n+'</b><span class="fun-a">'+ilsK(by[s].amount)+'</span></div>').join('');
+  renderDealsCard(el, v, team && canMine ? dfnSeg(v) : '');
 }
 function renderSalesSrcBlock(){
   /* 6.194.0 — האריחים שכפלו את הקוקפיט ו"לידים לפי מקור" (5 בחודש) ירד. האלמנט נשאר ריק. */
@@ -13845,7 +13850,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'salesmgr-2026-10-28a';
+const BUILD_ID = 'crmdates-2026-10-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20486,7 +20491,7 @@ const CRM_Q = {
     .order('closed_at',{ascending:false, nullsFirst:true}).order('due_at',{ascending:true}).limit(10000)
     .then(r=>{ if(r && Array.isArray(r.data)) r.data.sort((a,b)=> a.due_at===b.due_at ? 0 : (a.due_at==null ? 1 : (b.due_at==null ? -1 : (a.due_at < b.due_at ? -1 : 1)))); return r; }),
   deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan').order('created_at',{ascending:false}).limit(10000),
-  meets: () => sb.schema('crm').from('meetings').select('id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone').order('meet_date',{ascending:false}).limit(10000),
+  meets: () => sb.schema('crm').from('meetings').select('id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone,created_at').order('meet_date',{ascending:false}).limit(10000),
   lown: () => /* שורות הבעלות הראשיות. **לא מיותר מול leads.owner_id**: המראה מחזיקה
          profile_id בלבד, ולעובד לשעבר אין חשבון — 694 לידים היו מוצגים
          כחסרי בעלים. RLS: can_view('crm.leads'). */
@@ -22371,8 +22376,45 @@ const TK_DEF_KEY = 'iron_tasks_default_v1';
    `(TK_F.status||[])` — ברירת מחדל שנשמרה לפני שהמפתח נולד אין בה
    אותו כלל, ו-`.length` עליו זורק ומרוקן את הטבלה בלי הודעה. זו
    המלכודת המדודה של LB_F.status ב-6.104.0, ויש assert בבנייה. */
-let TK_F = { status:[], owner:'', cat:'', kind:'' }, TK_DEF_INIT = false;
-const TK_F0 = ()=>({ status:[], owner:'', cat:'', kind:'' });
+/* ===== 7.39.0 — סינון לפי טווח תאריכים בארבעת מסכי ה-CRM =====
+   רומן, 28/10/2026: "תוסיף גם למסך לידים, משימות, תהליכי מכירה, פגישות באפשרויות סינון גם לפי תאריך [יצירה]
+   שנוכל לבחור בין תאריכים". עוזר אחד ולא ארבעה העתקים — כל מסך מחזיק ב-X_F שלושה מפתחות: dfield (איזה תאריך),
+   from, to (ריק = בלי גבול). ברירת המחדל "נוצר", כמו שביקש; השדות הנוספים הם מה שמנהל שואל בפועל ("מה נסגר בין…").
+   ⚠️ התאריך המקומי (isoD) ולא חיתוך המחרוזת: created_at/closed_at הם UTC, ותהליך שנפתח ב-01:30 בלילה של ה-1 לחודש
+      הוא 22:30 של החודש הקודם ב-UTC. meet_date הוא כבר תאריך — לא עובר דרך Date (שהיה מזיז אותו באזור זמן אחר).
+   ⚠️ "מ" אחרי "עד" — מתהפך, לא טווח ריק שמסנן הכול.
+   ⚠️ הטווח **אינו נשמר** בברירת המחדל (גם לא בשמירה האוטומטית של הפגישות): טווח קבוע מתיישן, ומסך שנפתח בעוד שבוע
+      היה מסנן בשקט. dfield כן נשמר. הלקח מ-logiInit: ערך שמור שאינו תקין יורד. */
+const LF_ISO = /^\d{4}-\d{2}-\d{2}$/;
+const LF_DATES = {
+  lead: [['created_at','נוצר']],
+  task: [['created_at','נוצר'],['due_at','מועד'],['closed_at','הושלם']],
+  deal: [['created_at','נוצר'],['closed_at','נסגר'],['approved_at','אושר']],
+  meet: [['created_at','נוצר'],['meet_date','תאריך הפגישה']],
+};
+const lfDField = (F, kind)=> LF_DATES[kind].some(x=>x[0]===F.dfield) ? F.dfield : LF_DATES[kind][0][0];
+const lfDay = v=>{ if(!v) return ''; const s = String(v); return LF_ISO.test(s) ? s : isoD(new Date(s)); };
+function lfDateOk(row, F, kind){
+  const a = LF_ISO.test(F.from||'') ? F.from : '', b = LF_ISO.test(F.to||'') ? F.to : '';
+  if(!a && !b) return true;
+  const lo = (a && b && a > b) ? b : a, hi = (a && b && a > b) ? a : b;
+  const d = lfDay(row && row[lfDField(F, kind)]); if(!d) return false;
+  return (!lo || d >= lo) && (!hi || d <= hi);
+}
+const lfDatesOn = F=> !!(LF_ISO.test(F.from||'') || LF_ISO.test(F.to||''));
+function lfDatesLoad(F, kind){ F.from = ''; F.to = ''; F.dfield = lfDField(F, kind); }
+function lfDatesHtml(F, kind, fn){
+  const L = LF_DATES[kind], cur = lfDField(F, kind);
+  return '<span class="lf-dates'+(lfDatesOn(F)?' lf-on':'')+'">'+
+    (L.length > 1 ? '<select class="lf-sel" aria-label="סינון לפי תאריך" onchange="'+fn+'(\'dfield\',this.value)">'+
+                      L.map(([k,l])=>'<option value="'+k+'"'+(k===cur?' selected':'')+'>'+l+'</option>').join('')+'</select>'
+                  : '<span class="lf-dl">'+L[0][1]+'</span>')+
+    '<input type="date" value="'+esc(F.from||'')+'" aria-label="מתאריך" onchange="'+fn+'(\'from\',this.value)">'+
+    '<span class="lf-dash">—</span>'+
+    '<input type="date" value="'+esc(F.to||'')+'" aria-label="עד תאריך" onchange="'+fn+'(\'to\',this.value)"></span>';
+}
+let TK_F = { status:[], owner:'', cat:'', kind:'', dfield:'created_at', from:'', to:'' }, TK_DEF_INIT = false;
+const TK_F0 = ()=>({ status:[], owner:'', cat:'', kind:'', dfield:'created_at', from:'', to:'' });
 function tkDefLoad(){ try{ const r=JSON.parse(localStorage.getItem(TK_DEF_KEY)||'null'); return (r&&typeof r==='object')?r:null; }catch(_e){ return null; } }
 function tkDefExists(){ return !!tkDefLoad(); }
 window.tkDefSave = ()=>{ try{ localStorage.setItem(TK_DEF_KEY, JSON.stringify({v:TK_VIEW,f:TK_F})); toast('התצוגה נשמרה כברירת מחדל ✓'); renderTkFilters(); }catch(_e){ toast('הדפדפן חוסם שמירת ברירת מחדל'); } };
@@ -22397,6 +22439,7 @@ function tkInitDef(){
     TK_F.status = TK_F.status.filter(s=>TASK_STATUSES.includes(s));
     if(TK_F.owner && TK_F.owner!=='__none__' && !LOWN_BY[TK_F.owner]) TK_F.owner='';
     if(TK_F.cat && !tkCats().includes(TK_F.cat)) TK_F.cat='';
+    lfDatesLoad(TK_F, 'task');
     if(!['','lead','deal','customer','__none__'].includes(TK_F.kind)) TK_F.kind='';
   }
 }
@@ -22414,6 +22457,7 @@ function tkApplyF(list){
       const k = t.linked_type||'';
       if(TK_F.kind==='__none__' ? !!k : k!==TK_F.kind) return false;
     }
+    if(!lfDateOk(t, TK_F, 'task')) return false;
     return true;
   });
 }
@@ -22426,7 +22470,7 @@ window.tkStatusToggle = (st,on)=>{
   const d=document.querySelector('#tk-filters .lf-multi'); if(d) d.open=true;
 };
 window.tkFilterClear = ()=>{ TK_F=TK_F0(); renderTasks(); };
-function tkFilterActive(){ return !!((TK_F.status||[]).length||TK_F.owner||TK_F.cat||TK_F.kind); }
+function tkFilterActive(){ return !!((TK_F.status||[]).length||TK_F.owner||TK_F.cat||TK_F.kind||lfDatesOn(TK_F)); }
 function renderTkFilters(){
   const box = document.getElementById('tk-filters'); if(!box) return;
   const opt=(v,lbl,cur)=>`<option value="${esc(v)}" ${String(cur)===String(v)?'selected':''}>${esc(lbl)}</option>`;
@@ -22441,6 +22485,7 @@ function renderTkFilters(){
     (TK_VIEW==='mine' ? '' : sel('owner','בעלים — הכל',[['__none__','ללא בעלים']].concat(owners)))+
     sel('cat','סיווג — הכל',tkCats().map(s=>[s,s]))+
     sel('kind','מקושר ל־ — הכל',[['lead','ליד'],['deal','תהליך מכירה'],['customer','לקוח'],['__none__','ללא קישור']])+
+    lfDatesHtml(TK_F,'task','tkFilter')+
     (tkFilterActive()?`<button type="button" class="lf-clear" onclick="tkFilterClear()">✕ ניקוי סינון</button>`:'')+
     `<button type="button" class="lf-save" onclick="tkDefSave()" title="שמירת התצוגה והסינון הנוכחיים כברירת מחדל בדפדפן זה">★ שמור כברירת מחדל</button>`+
     (tkDefExists()?`<button type="button" class="lf-clear" onclick="tkDefClear()">↺ אפס ברירת מחדל</button>`:'');
@@ -26837,8 +26882,8 @@ function dlOrder(grp, nt){
 }
 const DL_DEF_KEY = 'iron_deals_default_v1';
 const DL_STAGE_DEF = STAGES.slice(0,4);
-let DL_F = { stage:DL_STAGE_DEF.slice(), sub:'', link:'', owner:'' }, DL_DEF_INIT = false;
-const DL_F0 = ()=>({ stage:[], sub:'', link:'', owner:'' });
+let DL_F = { stage:DL_STAGE_DEF.slice(), sub:'', link:'', owner:'', dfield:'created_at', from:'', to:'' }, DL_DEF_INIT = false;
+const DL_F0 = ()=>({ stage:[], sub:'', link:'', owner:'', dfield:'created_at', from:'', to:'' });
 function dlDefLoad(){ try{ const r=JSON.parse(localStorage.getItem(DL_DEF_KEY)||'null'); return (r&&typeof r==='object')?r:null; }catch(_e){ return null; } }
 function dlDefExists(){ return !!dlDefLoad(); }
 window.dlDefSave = ()=>{ try{ localStorage.setItem(DL_DEF_KEY, JSON.stringify({v:DEAL_FILTER,f:DL_F})); toast('התצוגה נשמרה כברירת מחדל ✓'); renderDlFilters(); }catch(_e){ toast('הדפדפן חוסם שמירת ברירת מחדל'); } };
@@ -26855,6 +26900,7 @@ function dlInitDef(){
     DL_F.stage = DL_F.stage.filter(s=>STAGES.includes(s));
     if(!['','open','none'].includes(DL_F.link)) DL_F.link='';
     if(DL_F.owner && DL_F.owner!=='__none__' && !LOWN_BY[DL_F.owner]) DL_F.owner='';
+    lfDatesLoad(DL_F, 'deal');
   }
 }
 function dlApplyF(list){
@@ -26869,6 +26915,7 @@ function dlApplyF(list){
       const os = dlOwnersOf(d).map(String);
       if(DL_F.owner==='__none__' ? os.length : !os.includes(DL_F.owner)) return false;
     }
+    if(!lfDateOk(d, DL_F, 'deal')) return false;
     return true;
   });
 }
@@ -26879,7 +26926,7 @@ window.dlStageToggle = (st,on)=>{
   const el=document.querySelector('#dl-filters .lf-multi'); if(el) el.open=true;
 };
 window.dlFilterClear = ()=>{ DL_F=DL_F0(); renderDeals(); };
-function dlFilterActive(){ return !!((DL_F.stage||[]).length||DL_F.sub||DL_F.link||DL_F.owner); }
+function dlFilterActive(){ return !!((DL_F.stage||[]).length||DL_F.sub||DL_F.link||DL_F.owner||lfDatesOn(DL_F)); }
 function renderDlFilters(){
   const box = document.getElementById('dl-filters'); if(!box) return;
   const opt=(v,lbl,cur)=>`<option value="${esc(v)}" ${String(cur)===String(v)?'selected':''}>${esc(lbl)}</option>`;
@@ -26895,6 +26942,7 @@ function renderDlFilters(){
     sel('link','פנייה מקורית — הכל',[['open','מקושרת לליד'],['none','ללא ליד']])+
     (DEAL_FILTER==='mine' ? '' : sel('owner','בעלים — הכל',[['__none__','ללא בעלים']].concat(
       LOWN.filter(o=>o.assignable || _dlHas.has(String(o.owner_key))).map(o=>[o.owner_key, o.name + (o.kind==='legacy'?' (לשעבר)':'')]))))+
+    lfDatesHtml(DL_F,'deal','dlFilter')+
     (dlFilterActive()?`<button type="button" class="lf-clear" onclick="dlFilterClear()">✕ ניקוי סינון</button>`:'')+
     `<button type="button" class="lf-save" onclick="dlDefSave()">★ שמור כברירת מחדל</button>`+
     (dlDefExists()?`<button type="button" class="lf-clear" onclick="dlDefClear()">↺ אפס ברירת מחדל</button>`:'');
@@ -27192,7 +27240,7 @@ window.dlLivePoll = async ()=>{
    ⚠️ כל הציורים **במקום** (innerHTML/outerHTML לפי מזהה) ולא openDeal — הוא מאפס scrollTop, חוטף
       מיקוד ומחזיר ללשונית הראשית. בכרטיס העסקה אין שדה הקלדה מלבד תיבת העדכון, שאינה נוגעת כאן. */
 const DL_TASK_COLS = 'id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id';
-const DL_MEET_COLS = 'id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone';
+const DL_MEET_COLS = 'id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone,created_at';
 const DL_PROT_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason';
 const DL_CUST_COLS = 'id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes';
 const DL_LEAD_COLS = 'id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,send_whatsapp_catalog,owner_id,updated_at,contact_id';
@@ -28938,8 +28986,8 @@ function meetDefSave(){ try{ localStorage.setItem(MEET_DEF_KEY, JSON.stringify({
    ברירת המחדל לכל המשתמשים (רומן, 12/10/2026): חדשה · מתוכננת · תואמה. ⚠️ MT_F0 — "ניקוי סינון" —
    הוא **הכול** (מערך ריק) ולא חזרה לברירת המחדל: אחרת לא הייתה דרך לראות פגישות שהתקיימו. */
 const MT_ST_DEF = ['חדשה','מתוכננת','תואמה'];
-let MT_F = { type:'', owner:'', status:MT_ST_DEF.slice() };
-const MT_F0 = ()=>({ type:'', owner:'', status:[] });
+let MT_F = { type:'', owner:'', status:MT_ST_DEF.slice(), dfield:'created_at', from:'', to:'' };
+const MT_F0 = ()=>({ type:'', owner:'', status:[], dfield:'created_at', from:'', to:'' });
 const mtOwnersOf = m => (m && MOWN_OF[m.id]) || (m && m.owner_id ? [m.owner_id] : []);
 const mtMine = m => mtOwnersOf(m).map(String).includes(String((typeof ME!=='undefined' && ME && ME.id) || ''));
 /* 7.2.0 — "ראשי" (היה "הכל") = כל הפגישות בלי שום סינון, כולל סטטוס (רומן). */
@@ -28953,6 +29001,7 @@ function mtApplyF(list){
       const os = mtOwnersOf(m).map(String);
       if(MT_F.owner==='__none__' ? os.length : !os.includes(MT_F.owner)) return false;
     }
+    if(!lfDateOk(m, MT_F, 'meet')) return false;
     return true;
   });
 }
@@ -28965,7 +29014,7 @@ window.mtStatusToggle = (st,on)=>{
   meetDefSave(); renderMeets();
   const d=document.querySelector('#mt-filters .lf-multi'); if(d) d.open=true;
 };
-function mtFilterActive(){ return !!(MT_F.type||MT_F.owner||(MT_F.status||[]).length); }
+function mtFilterActive(){ return !!(MT_F.type||MT_F.owner||(MT_F.status||[]).length||lfDatesOn(MT_F)); }
 function renderMtFilters(){
   const box=document.getElementById('mt-filters'); if(!box) return;
   const wrap=box.closest('details.lf-wrap');
@@ -28982,6 +29031,7 @@ function renderMtFilters(){
     (()=>{ const stSel=(MT_F.status||[]);
       const items=MEET_STATUSES.map(st=>`<label class="lf-opt"><input type="checkbox" ${stSel.includes(st)?'checked':''} onchange="mtStatusToggle('${jsq(st)}',this.checked)">${mdPill(st,MSTATUS_COLOR,LB_TK)}</label>`).join('');
       return `<details class="lf-multi ${stSel.length?'lf-on':''}"><summary>${stSel.length?`סטטוס (${stSel.length})`:'סטטוס — הכל'}</summary><div class="lf-menu">${items}</div></details>`; })()+
+    lfDatesHtml(MT_F,'meet','mtFilter')+
     (mtFilterActive()?`<button type="button" class="lf-clear" onclick="mtFilterClear()">✕ ניקוי סינון</button>`:'');
 }
 function meetInitDef(){
@@ -29000,6 +29050,7 @@ function meetInitDef(){
     if(!Array.isArray(d.x.status)) MT_F.status = MT_ST_DEF.slice();
     MT_F.status = MT_F.status.filter(s=>MEET_STATUSES.includes(s));
     if(MT_F.owner && MT_F.owner!=='__none__' && !LOWN_BY[MT_F.owner]) MT_F.owner='';
+    lfDatesLoad(MT_F, 'meet');
   }
 }
 /* 🔴 נקודת חנק אחת ל"השבוע" — שלושה צרכנים: המסנן, המונה, וצביעת
@@ -31254,8 +31305,8 @@ window.lbClaim = async (id)=>{
 const LB_DEF_KEY = 'iron_leads_default_v1';
 /* ⚠️ status הוא **מערך**, ושאר המפתחות סקלרים. כל קורא חייב `(LB_F.status||[])`
    — גם ברירת המחדל השמורה מ-6.97.0 אינה מכילה אותו כלל. */
-let LB_F = { status:[], owner:'', source:'', ctype:'', match:'', camp:'' }, LB_DEF_INIT = false;
-const LB_F0 = ()=>({ status:[], owner:'', source:'', ctype:'', match:'', camp:'' });
+let LB_F = { status:[], owner:'', source:'', ctype:'', match:'', camp:'', dfield:'created_at', from:'', to:'' }, LB_DEF_INIT = false;
+const LB_F0 = ()=>({ status:[], owner:'', source:'', ctype:'', match:'', camp:'', dfield:'created_at', from:'', to:'' });
 /* רשימת הקמפיינים נגזרת מהנתונים החיים ולא מקבוע — נמדדו 21 ערכים
    מובחנים, וביניהם שני ערכי זבל ({{campaign.name}} ומזהה מספרי)
    שמוצגים כמות שהם: הסתרתם הייתה יוצרת "לידים שנעלמו". */
@@ -31295,6 +31346,7 @@ function lbInitDef(){
     /* 🔴 קמפיין שנשמר ואינו קיים עוד **מסנן החוצה את הכול** בלי שום
        סימן — הלקח מ-logiInit. `__none__` הוא ערך חוקי ולא קמפיין. */
     if(LB_F.camp && LB_F.camp!=='__none__' && !lbCamps().includes(LB_F.camp)) LB_F.camp='';
+    lfDatesLoad(LB_F, 'lead');
   }
 }
 function lbApplyF(list){
@@ -31318,6 +31370,7 @@ function lbApplyF(list){
     if(LB_F.camp==='__none__' ? (l.utm_campaign||'').trim() : (LB_F.camp && (l.utm_campaign||'').trim()!==LB_F.camp)) return false;
     if(LB_F.match==='cust' && !lbMatch(l)) return false;
     if(LB_F.match==='new'  &&  lbMatch(l)) return false;
+    if(!lfDateOk(l, LB_F, 'lead')) return false;
     return true;
   });
 }
@@ -31331,7 +31384,7 @@ window.lbStatusToggle = (st,on)=>{
   const d=document.querySelector('#lb-filters .lf-multi'); if(d) d.open=true;
 };
 window.lbFilterClear = ()=>{ LB_F=LB_F0(); renderLeads(); };
-function lbFilterActive(){ return !!((LB_F.status||[]).length||LB_F.owner||LB_F.source||LB_F.ctype||LB_F.match||LB_F.camp); }
+function lbFilterActive(){ return !!((LB_F.status||[]).length||LB_F.owner||LB_F.source||LB_F.ctype||LB_F.match||LB_F.camp||lfDatesOn(LB_F)); }
 /* 🔴 6.115.0 — רומן: "מסך 'שלי בתהליך' תמיד יהיו הלידים של המשתמש
    ולכן סינון בעלים שם אינו נחוץ". הבורר מוסתר, והסינון עצמו אינו
    מוחל — אחרת ערך שנשמר בברירת המחדל היה מסנן החוצה בלי שייראה. */
@@ -31357,6 +31410,7 @@ function renderLbFilters(){
     /* ⚠️ select ולא רב-בחירה: 21 קמפיינים ושמות עד ~70 תווים — רשימת
        תיבות סימון כמו הסטטוס הייתה תופסת מסך שלם. */
     sel('camp','קמפיין — הכל',[['__none__','ללא קמפיין']].concat(lbCamps().map(s=>[s,s])))+
+    lfDatesHtml(LB_F,'lead','lbFilter')+
     (lbFilterActive()?`<button type="button" class="lf-clear" onclick="lbFilterClear()">✕ ניקוי סינון</button>`:'')+
     `<button type="button" class="lf-save" onclick="lbDefSave()" title="שמירת התצוגה והסינון הנוכחיים כברירת מחדל בדפדפן זה">★ שמור כברירת מחדל</button>`+
     (lbDefExists()?`<button type="button" class="lf-clear" onclick="lbDefClear()">↺ אפס ברירת מחדל</button>`:'');
