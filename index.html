@@ -1238,6 +1238,40 @@
   #saOfrModal .sa-k.on{ border-color:var(--navy); background:#eef4ff; color:var(--navy); font-weight:800 }
   /* 7.44.0 — יעדים · מה זז · סוג (שורת היעד בכרטיסי התחזית ירדה ב-7.47.0) */
   #tab-sana .sa-tg{ margin-top:var(--sp-3); border-top:1px solid var(--line); padding-top:var(--sp-2); }
+  /* 7.48.0 — עמלות (comm). אותה שפה של #tab-sana, בסקופ נפרד כדי ששינוי שם לא יזיז את המסך הזה. */
+  #tab-comm .sa-bar{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-3) }
+  #tab-comm .cm-mon{ font-size:var(--fs-lg); color:var(--navy) }
+  #tab-comm .sa-card{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:var(--sp-3); margin:0 0 var(--sp-3); min-width:0 }
+  #tab-comm .sa-card h3{ margin:0 0 var(--sp-1); font-size:var(--fs-md); font-weight:800; color:var(--navy); display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--sp-2) }
+  #tab-comm .cnt{ font-size:var(--fs-sm); font-weight:700; color:var(--ink-3) }
+  #tab-comm .sa-sub{ font-size:var(--fs-sm); color:var(--ink-3); margin:0 0 var(--sp-2) }
+  #tab-comm .sa-chip{ display:inline-block; font-size:var(--fs-xs); padding:0 var(--sp-1h); border-radius:var(--r-md); background:var(--bg-muted); color:var(--ink-2) }
+  #tab-comm .sa-warn{ color:var(--red); font-weight:700 }
+  #tab-comm .sa-on{ display:block; color:var(--ink-3); font-size:var(--fs-xs) }
+  #tab-comm tr.clk{ cursor:pointer }
+  #tab-comm tr.on td{ background:#eef4ff }
+  #tab-comm .cm-status{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); margin:0 0 var(--sp-3); padding:var(--sp-2) var(--sp-3);
+                        border:1px solid var(--line); border-radius:var(--r-lg); background:var(--bg-subtle); font-size:var(--fs-sm); color:var(--ink-2) }
+  #tab-comm .cm-status b{ color:var(--ink-1) }
+  #tab-comm .cm-status .btn, #tab-comm .cm-status .ghost{ width:auto; margin-inline-start:auto }
+  #tab-comm .cm-st-ready{ border-color:var(--amber); background:var(--amber-bg) }
+  #tab-comm .cm-st-closed{ border-color:var(--ok) }
+  #tab-comm .cm-tiers{ display:flex; flex-wrap:wrap; gap:var(--sp-1) }
+  #tab-comm tr.cm-det > td{ background:var(--bg-subtle); padding:var(--sp-3) }
+  #tab-comm .cm-h{ margin:var(--sp-3) 0 var(--sp-1); font-size:var(--fs-sm); font-weight:800; color:var(--navy) }
+  #tab-comm .cm-own > .cm-h:first-child{ margin-top:0 }
+  #tab-comm tr.cm-can td{ color:var(--ink-3) }
+  #tab-comm tr.cm-can td.num{ text-decoration:line-through }
+  #tab-comm .cm-cr{ color:var(--red); font-weight:700 }
+  #tab-comm .cm-dim{ color:var(--ink-3) }
+  #tab-comm .cm-pay{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); margin-top:var(--sp-3); font-size:var(--fs-md) }
+  #tab-comm .cm-pay .ghost{ width:auto; margin-inline-start:auto }
+  @media print{
+    body.cm-print *{ visibility:hidden }
+    body.cm-print #tab-comm, body.cm-print #tab-comm *{ visibility:visible }
+    body.cm-print #tab-comm{ position:absolute; inset:0 }
+    body.cm-print .cm-noprint{ display:none }
+  }
   #tab-sana .sa-tg summary{ cursor:pointer; font-weight:800; color:var(--navy); font-size:var(--fs-sm); }
   #tab-sana .sa-tg summary small{ font-weight:600; color:var(--ink-3); }
   #tab-sana .sa-tgnav{ display:flex; align-items:center; gap:var(--sp-2); margin:var(--sp-2) 0; font-size:var(--fs-sm); font-weight:700; color:var(--ink-2); }
@@ -1332,7 +1366,7 @@
   .fun-bar div{ height:100%; background:var(--navy); border-radius:var(--r-xl) }
   .fun-row b{ width:28px; text-align:center; flex:none }
   .fun-a{ width:64px; flex:none; font-size:var(--fs-xs); color:var(--ink-3); text-align:left }
-  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } #tab-sana .sa-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-sana .sa-wks, #tab-sana .sa-wks.c5{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } #tab-sana .sa-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-sana .sa-wks, #tab-sana .sa-wks.c5{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-comm .cm-n{ display:none } }
   /* שלד טעינה — במקום להציג 0 עד שהנתונים מגיעים (הערת רומן 29/07) */
   .skel{ display:inline-block; border-radius:var(--r-md); background:#e9eef3;
          background-image:linear-gradient(90deg,#e9eef3 25%,#f7fafc 37%,#e9eef3 63%);
@@ -4110,7 +4144,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.47.0</div>
+      <div class="ver">גרסה 7.48.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4183,13 +4217,14 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <nav aria-label="תפריט ראשי">
     <button class="nav-item active" data-tab="today"><span>דשבורד</span></button>
     <!-- CRM — שבעת מסכי ניהול הלקוחות והמכירה תחת קטגוריית אב אחת (רומן 29/07/2026) -->
-    <div class="nav-wrap" data-tabs="tasks,leads,deals,sana,customers,contacts,meets,paylinks,mkt">
+    <div class="nav-wrap" data-tabs="tasks,leads,deals,sana,comm,customers,contacts,meets,paylinks,mkt">
       <button class="nav-item" data-tab="tasks" aria-expanded="false">CRM <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
       <div class="submenu">
         <button data-tab="tasks"     onclick="gotoTab('tasks')">משימות</button>
         <button data-tab="leads"     onclick="gotoTab('leads')">לידים</button>
         <button data-tab="deals"     onclick="gotoTab('deals')">תהליכי מכירה</button>
         <button data-tab="sana"      onclick="gotoTab('sana')">ניתוח מכירות</button>
+        <button data-tab="comm"      onclick="gotoTab('comm')">עמלות</button>
         <button data-tab="customers" onclick="gotoTab('customers')">לקוחות</button>
         <button data-tab="contacts"  onclick="gotoTab('contacts')">אנשי קשר</button>
         <button data-tab="meets"     onclick="gotoTab('meets')">פגישות</button>
@@ -4243,7 +4278,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="pref-2026-10-30a">גרסה 7.47.0</div>
+    <div class="side-foot" title="comm-2026-10-30a">גרסה 7.48.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -4296,6 +4331,12 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <section id="tab-sana" class="hidden">
       <div class="sa-bar" id="sa-bar"></div>
       <div id="sa-body"></div>
+    </section>
+
+    <!-- 7.48.0 — עמלות. מצויר כולו ב-JS (renderComm) מתשובת crm.commission_report; המסך אינו מחשב. -->
+    <section id="tab-comm" class="hidden">
+      <div class="sa-bar cm-noprint" id="cm-bar"></div>
+      <div id="cm-body"></div>
     </section>
 
     <!-- פגישות -->
@@ -5590,7 +5631,9 @@ window.TAB_PERM = {
      נפתח בירושה לכל מי שיש לו crm≥1. השרת (crm.mkt_dash) בודק את אותו מפתח בשורה הראשונה. */
   mkt:'mkt.dash',
   /* 7.41.0 — ניתוח מכירות: אותו מפתח של "צוות המכירות" בלובי ושל crm.sales_analytics (נבדק שם בשורה הראשונה) */
-  sana:'dash.salesteam'
+  sana:'dash.salesteam',
+  /* 7.48.0 — עמלות: אותו מפתח של ניתוח המכירות, ושל crm.commission_report (נבדק שם בשורה הראשונה). סגירת חודש — עריכה של המפתח. */
+  comm:'dash.salesteam'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
 window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', general:'set.general' };
@@ -5606,7 +5649,7 @@ window.navCanTab = t=>{
   const k = TAB_PERM[t];
   return k ? canView(k) : true;
 };
-window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt','sana'];
+window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt','sana','comm'];
 window.navLanding = ()=> NAV_LAND_ORDER.find(t=>navCanTab(t)) || null;
 window.canView = k => window.pLevel(k) >= 1;
 window.canEdit = k => window.pLevel(k) >= 2;
@@ -6159,7 +6202,7 @@ $('#logoutBtn').onclick = async ()=>{
    עד 6.1.0 הניווט התבצע דרך b.click() על כפתור התפריט, ולכן כל מסך היה חייב
    כפתור ראשי משלו בסרגל. משנכנסו שבעת מסכי ה-CRM תחת קטגוריית אב אחת, אין
    לכל מסך כפתור ראשי — ולכן הניווט עבר לפונקציה אחת שאינה תלויה ב-DOM. */
-const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','pays','sup','sinv','tasks','logi','skus','inv','po','prc','docs','set','mkt','sana'];
+const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','comm','pays','sup','sinv','tasks','logi','skus','inv','po','prc','docs','set','mkt','sana'];
 let CUR_TAB = 'today';
 /* התצוגה הפנימית הנוכחית של כל מסך שיש לו תתי-קטגוריות — לצורך סימון הפריט הפעיל */
 const NAV_VIEW = {
@@ -6257,6 +6300,7 @@ window.gotoTab = t=>{
   if(t==='today') dashLoad();
   if(t==='mkt') renderMkt();
   if(t==='sana') renderSana();   /* 7.41.0 */
+  if(t==='comm') renderComm();   /* 7.48.0 */
   if(t==='paylinks') renderPayLinks();   /* 7.25.0 */
   if(_navNarrow()) setSide(false);
 };
@@ -14098,7 +14142,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'pref-2026-10-30a';
+const BUILD_ID = 'comm-2026-10-30a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21292,6 +21336,194 @@ window.renderSana = function(){
   if(hit.err){ body.innerHTML = '<div class="empty">הטעינה נכשלה · <button type="button" class="chip" onclick="saRefresh()">נסה שוב</button></div>'; return; }
   if(!D){ body.innerHTML = '<div class="empty">אין לך הרשאה לניתוח המכירות</div>'; return; }
   body.innerHTML = saPref(D) + saWeekly(D) + saHealth(D) + saSwing(D) + saOffers(D) + saTime(D) + saReps(D) + saTypes(D) + saLost(D);   /* 7.47.0 — מועדפות במקום התחזית; "דיוק התחזית" ירד */
+};
+/* ===== 7.48.0 — comm: "עמלות" =====
+   רומן, 30/10/2026: "כשנרצה לפרוס את זה לאנשי המכירות בדשבורד זה יצטרך להיות לחיץ כלומר הם כן ירצו להראות איך
+   זה חושב ושיהיה דוח ... זה צריך להיות שקוף". ו: "על חודש אוקטובר הם יקבלו רק במשכורת דצמבר ... ולכן חשוב גם
+   לעקוב אחרי הביטולים".
+   השרת (פונקציות-מסד/commission_ledger.20261030.sql): crm.commission_sync מעדכן את הרישום — עסקה שהגיעה ל'הזמנה'
+   נרשמת בחודש שבו הגיעה; עסקה שיצאה מ'הזמנה', או שכל ההזמנות שלה בוטלו בפריוריטי, מסומנת 'בוטלה'.
+   crm.commission_report מחזיר את כל מה שמוצג כאן, כולל הפירוק לפי מדרגות והקיזוזים.
+   🔴 המסך **אינו מחשב**. הוא מציג את מה שהשרת חישב — כך שהמספר שאיש המכירות יראה ומה שישולם הם אותו מספר.
+   ⚠️ שער: dash.salesteam (רומן ובן). סגירה ופתיחה — עריכה של אותו מפתח. השרת אוכף; כאן רק מסתירים.
+   ⏭️ פריסה לאנשי המכירות: cmOwnerHtml מקבל בעלים אחד ואינו נוגע באחרים — אותו דוח בדיוק, בלי עותק שני. */
+const CM = { m:'', busy:'', d:null, err:'', at:0, open:null, print:null };
+const CM_MN = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+const CM_ST = { 'פתוח':'open', 'חלון ביטולים':'win', 'מוכן לסגירה':'ready', 'סגור':'closed', 'אקסל':'legacy', 'עתידי':'future' };
+function cmMonth(){
+  if(!CM.m){ const n = new Date(); CM.m = n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-01'; }
+  return CM.m;
+}
+function cmLabel(m){ const p = String(m||'').split('-'); return p.length > 1 ? CM_MN[(+p[1])-1]+' '+p[0] : ''; }
+function cmShift(m, k){
+  const p = m.split('-').map(Number), d = new Date(p[0], p[1]-1+k, 1);
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
+}
+const cmIls = n => n==null || isNaN(+n) ? '—' : '₪'+(+n).toLocaleString('he-IL', { minimumFractionDigits:2, maximumFractionDigits:2 });
+const cmPct = r => r==null || isNaN(+r) ? '—' : String(+(+r*100).toFixed(3))+'%';
+const cmKey = o => o && o.owner_id ? String(o.owner_id) : 'none';
+const cmDay = v => v ? fmtD(isoD(new Date(v))) : '—';
+function cmRange(t){ return t.hi==null ? 'מעל '+shekel(t.lo) : (+t.lo ? shekel(t.lo)+'–'+shekel(t.hi) : 'עד '+shekel(t.hi)); }
+window.cmGo = k=>{ CM.m = cmShift(cmMonth(), k); CM.open = null; CM.err = ''; renderComm(); };
+window.cmRefresh = ()=>{ CM.at = 0; CM.err = ''; renderComm(); };
+window.cmToggle = k=>{ CM.open = CM.open===k ? null : k; renderComm(); };
+function cmLoad(){
+  const m = cmMonth();
+  if(CM.busy === m) return;
+  if(CM.err && Date.now()-CM.at < 60000) return;
+  if(CM.d && CM.d.month === m && Date.now()-CM.at < 120000) return;
+  CM.busy = m;
+  const done = (d, err)=>{
+    if(CM.busy === m) CM.busy = '';
+    if(cmMonth() !== m) return;          /* תשובה של חודש קודם אינה דורסת את החודש שנבחר אחריה */
+    CM.d = d; CM.err = err || ''; CM.at = Date.now();
+    if(CUR_TAB === 'comm') renderComm();
+  };
+  (async ()=>{
+    try{
+      /* הרישום מתעדכן לפני הדוח — ביטול שקרה עכשיו כבר בפנים, ולא רק אחרי ה-cron הלילי */
+      const s = await sb.schema('crm').rpc('commission_sync');
+      if(s && s.error) throw s.error;
+      const r = await sb.schema('crm').rpc('commission_report', { p_month: m });
+      if(r && r.error) throw r.error;
+      done((r && r.data) || null, '');
+    }catch(e){ done(null, String((e && e.message) || e || 'שגיאה')); }
+  })();
+}
+function cmStatus(D){
+  const st = D.status, pay = esc(D.pay_label||'');
+  let t = '', act = '';
+  if(st==='פתוח') t = 'החודש פתוח. נספרות עסקאות שמגיעות ל"הזמנה" עד <b>'+esc(fmtD(D.counted_until))+'</b>, וביטולים נבדקים עד <b>'+esc(fmtD(D.window_until))+'</b>. לתשלום ב<b>'+pay+'</b>.';
+  else if(st==='חלון ביטולים') t = 'החודש נגמר. עד <b>'+esc(fmtD(D.window_until))+'</b> עסקה שמתבטלת יורדת מהחשבון. לתשלום ב<b>'+pay+'</b>.';
+  else if(st==='מוכן לסגירה'){
+    t = 'חלון הביטולים נגמר. אפשר לסגור את החודש לתשלום ב<b>'+pay+'</b>.';
+    if(D.can_close) act = '<button type="button" class="btn cm-noprint" onclick="cmClose()">סגור לתשלום</button>';
+  }
+  else if(st==='סגור'){
+    t = 'נסגר ב-'+esc(fmtDT(D.closed_at))+(D.closed_by ? ' על ידי '+esc(D.closed_by) : '')+'. אלה הסכומים ששולמו ב<b>'+pay+'</b>. ביטול מאוחר יותר מקוזז בחודש שבו התגלה.';
+    if(D.can_reopen) act = '<button type="button" class="ghost cm-noprint" onclick="cmReopen()">פתיחה מחדש</button>';
+  }
+  else if(st==='אקסל') t = esc(D.note||'לפני המעבר למערכת')+'. המספרים כאן לעיון בלבד.';
+  else t = 'החודש עוד לא התחיל.';
+  return '<div class="cm-status cm-st-'+(CM_ST[st]||'open')+'"><span class="sa-chip">'+esc(st||'')+'</span><span>'+t+'</span>'+act+'</div>';
+}
+function cmRules(D){
+  const T = D.tiers || [];
+  return '<div class="sa-card cm-rules"><h3>איך מחושבת העמלה</h3>'
+    + '<div class="sa-sub">מדרגות מצטברות על סך המכירות של איש המכירות בחודש, לפני מע״מ: כל חלק מהסכום מקבל את האחוז של המדרגה שלו. '
+    + 'עסקה נספרת בחודש שבו הגיעה ל"הזמנה", בכל סכום ההצעה (כולל משלוח והתקנה). עסקה שיצאה מ"הזמנה", או שההזמנה שלה בוטלה בפריוריטי, יורדת. '
+    + 'כל חודש משולם במשכורת של החודש שאחרי הבא, אחרי חלון הביטולים.</div>'
+    + '<div class="cm-tiers">'+T.map(t=>'<span class="sa-chip">'+esc(cmRange(t))+' · <b>'+esc(cmPct(t.rate))+'</b></span>').join('')+'</div></div>';
+}
+function cmOwnerHtml(o){
+  const B = o.breakdown || [], hit = B.filter(b=>+b.base > 0), next = B.find(b=>+b.lo > +o.sales);
+  const bd = '<h4 class="cm-h">איך חושב</h4><div class="tbl-wrap"><table class="tbl cm-bd"><thead><tr><th>מדרגה</th><th class="num">אחוז</th><th class="num">הסכום במדרגה</th><th class="num">עמלה</th></tr></thead><tbody>'
+    + (hit.length ? hit.map(b=>'<tr><td>'+esc(cmRange(b))+'</td><td class="num">'+cmPct(b.rate)+'</td><td class="num">'+cmIls(b.base)+'</td><td class="num">'+cmIls(b.amount)+'</td></tr>').join('')
+                  : '<tr><td colspan="4" class="cm-dim">אין מכירות בחודש</td></tr>')
+    + '</tbody><tfoot><tr><td><b>סה״כ</b></td><td></td><td class="num"><b>'+cmIls(o.sales)+'</b></td><td class="num"><b>'+cmIls(o.commission)+'</b></td></tr></tfoot></table></div>'
+    + (next ? '<div class="sa-sub">המדרגה הבאה: '+esc(cmRange(next))+' · '+esc(cmPct(next.rate))+'. חסרים '+shekel(+next.lo - (+o.sales||0))+'.</div>' : '');
+  const L = o.lines || [];
+  const ln = '<h4 class="cm-h">העסקאות <span class="cnt">'+(+o.deals||0)+' נספרות'+(+o.cancelled ? ' · '+(+o.cancelled)+' בוטלו' : '')+'</span></h4>'
+    + (+o.missing_amount ? '<div class="sa-sub sa-warn">'+(+o.missing_amount)+' עסקאות בלי סכום — לא נכנסו לחשבון. יש להשלים את הסכום בעסקה.</div>' : '')
+    + (L.length ? '<div class="tbl-wrap"><table class="tbl cm-ln"><thead><tr><th>עסקה</th><th>לקוח</th><th>הגיעה ל"הזמנה"</th><th class="num">סכום לפני מע״מ</th><th>מצב</th></tr></thead><tbody>'
+        + L.map(l=>{
+            const can = l.status==='בוטלה';
+            return '<tr class="clk'+(can ? ' cm-can' : '')+'" onclick="openDeal(\''+jsq(l.deal_id)+'\')"><td>'+esc(l.deal_name||'')+'</td><td>'+esc(l.customer||'')+'</td><td>'+esc(cmDay(l.won_at))+'</td>'
+              + '<td class="num">'+(l.amount==null ? '<span class="sa-warn">אין סכום</span>' : cmIls(l.amount))+'</td>'
+              + '<td>'+(can ? '<span class="cm-cr">בוטלה '+esc(cmDay(l.cancelled_at))+'</span><small class="sa-on">'+esc(l.cancel_reason||'')+'</small>' : 'נספרת')+'</td></tr>';
+          }).join('')
+        + '</tbody></table></div>'
+      : '<div class="empty">אין עסקאות</div>');
+  const A = o.adjustments || [];
+  const aj = A.length
+    ? '<h4 class="cm-h">קיזוזים מחודשים שנסגרו</h4><div class="sa-sub">עסקה שבוטלה אחרי שהחודש שלה נסגר ושולם. הקיזוז הוא ההפרש בעמלה של אותו חודש, עם הביטול ובלעדיו.</div>'
+      + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>עסקה</th><th>מחודש</th><th class="num">סכום העסקה</th><th class="num">קיזוז</th><th>בוטלה</th></tr></thead><tbody>'
+      + A.map(a=>'<tr class="clk" onclick="openDeal(\''+jsq(a.deal_id)+'\')"><td>'+esc(a.deal_name||'')+'</td><td>'+esc(cmLabel(a.from_month))+'</td><td class="num">'+cmIls(a.amount)+'</td><td class="num">'+cmIls(a.delta)+'</td><td>'+esc(cmDay(a.cancelled_at))+'</td></tr>').join('')
+      + '</tbody></table></div>'
+    : '';
+  return '<div class="cm-own">'+bd+ln+aj
+    + '<div class="cm-pay"><span>עמלה '+cmIls(o.commission)+(+o.adj_total ? ' · קיזוזים '+cmIls(o.adj_total) : '')+' · <b>לתשלום '+cmIls(o.payable)+'</b></span>'
+    + '<button type="button" class="ghost cm-noprint" onclick="cmPrint(\''+jsq(cmKey(o))+'\')">הדפסת הדוח של '+esc(String(o.name||'').split(' ')[0])+'</button></div></div>';
+}
+function cmTable(D){
+  const O = D.owners || [];
+  if(!O.length) return '<div class="sa-card"><div class="empty">אין עסקאות שהגיעו ל"הזמנה" בחודש הזה</div></div>';
+  const sum = k => O.reduce((a,o)=>a+(+o[k]||0), 0);
+  const rows = O.map(o=>{
+    const k = cmKey(o), on = CM.open===k;
+    return '<tr class="clk'+(on ? ' on' : '')+'" data-own="'+esc(k)+'" onclick="cmToggle(\''+jsq(k)+'\')"><td><b>'+esc(o.name||'')+'</b>'+(+o.missing_amount ? ' <span class="sa-warn">'+(+o.missing_amount)+' בלי סכום</span>' : '')+'</td>'
+      + '<td class="num">'+(+o.deals||0)+(+o.cancelled ? ' <small class="cm-dim">+'+(+o.cancelled)+' בוטלו</small>' : '')+'</td>'
+      + '<td class="num">'+shekel(o.sales)+'</td>'
+      + '<td class="num">'+cmIls(o.commission)+'</td>'
+      + '<td class="num cm-n">'+cmPct(o.effective_rate)+'</td>'
+      + '<td class="num cm-n">'+cmPct(o.tier_rate)+'</td>'
+      + '<td class="num cm-n">'+(o.to_next==null ? '—' : shekel(o.to_next))+'</td>'
+      + '<td class="num">'+(+o.adj_total ? cmIls(o.adj_total) : '—')+'</td>'
+      + '<td class="num"><b>'+cmIls(o.payable)+'</b></td></tr>'
+      + (on ? '<tr class="cm-det"><td colspan="9">'+cmOwnerHtml(o)+'</td></tr>' : '');
+  }).join('');
+  return '<div class="sa-card"><h3>לפי איש מכירות <span class="cnt">לחיצה על שורה מראה איך זה חושב</span></h3>'
+    + '<div class="tbl-wrap"><table class="tbl cm-tbl"><thead><tr><th>איש מכירות</th><th class="num">עסקאות</th><th class="num">מכירות לפני מע״מ</th><th class="num">עמלה</th>'
+    + '<th class="num cm-n">אחוז בפועל</th><th class="num cm-n">מדרגה</th><th class="num cm-n">עד המדרגה הבאה</th><th class="num">קיזוזים</th><th class="num">לתשלום</th></tr></thead><tbody>'
+    + rows + '</tbody><tfoot><tr><td><b>סה״כ</b></td><td class="num">'+sum('deals')+'</td><td class="num">'+shekel(sum('sales'))+'</td><td class="num">'+cmIls(sum('commission'))+'</td>'
+    + '<td class="cm-n"></td><td class="cm-n"></td><td class="cm-n"></td><td class="num">'+(sum('adj_total') ? cmIls(sum('adj_total')) : '—')+'</td><td class="num"><b>'+cmIls(sum('payable'))+'</b></td></tr></tfoot></table></div></div>';
+}
+function cmExtra(D){
+  const A = D.after_close || [], G = D.legacy_cancels || [];
+  const row = (a, cols)=>'<tr class="clk" onclick="openDeal(\''+jsq(a.deal_id)+'\')"><td>'+esc(a.deal_name||'')+'<small class="sa-on">'+esc(a.cancel_reason||'')+'</small></td><td>'+esc(a.owner||'')+'</td>'+cols+'</tr>';
+  let h = '';
+  if(A.length) h += '<div class="sa-card"><h3>בוטלו אחרי הסגירה <span class="cnt">'+A.length+'</span></h3><div class="sa-sub">העמלה עליהן כבר שולמה. הקיזוז מופיע בחודש שבו הביטול התגלה.</div>'
+    + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>עסקה</th><th>איש מכירות</th><th class="num">סכום</th><th>בוטלה</th><th>קוזזה ב</th></tr></thead><tbody>'
+    + A.map(a=>row(a, '<td class="num">'+cmIls(a.amount)+'</td><td>'+esc(cmDay(a.cancelled_at))+'</td><td>'+esc(cmLabel(a.offset_month))+'</td>')).join('')
+    + '</tbody></table></div></div>';
+  if(G.length) h += '<div class="sa-card"><h3>ביטולים מחודשים ששולמו לפי האקסל <span class="cnt">'+G.length+'</span></h3>'
+    + '<div class="sa-sub">התגלו החודש בעסקאות מחודשים שלפני המעבר. הם <b>לא</b> קוזזו אוטומטית — לבדיקה ידנית מול מה ששולם.</div>'
+    + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>עסקה</th><th>איש מכירות</th><th>מחודש</th><th class="num">סכום</th><th>בוטלה</th></tr></thead><tbody>'
+    + G.map(a=>row(a, '<td>'+esc(cmLabel(a.from_month))+'</td><td class="num">'+cmIls(a.amount)+'</td><td>'+esc(cmDay(a.cancelled_at))+'</td>')).join('')
+    + '</tbody></table></div></div>';
+  return h;
+}
+window.renderComm = function(){
+  const bar = $('#cm-bar'), body = $('#cm-body'); if(!bar || !body) return;
+  const m = cmMonth();
+  bar.innerHTML = '<button type="button" class="lf-clear" onclick="cmGo(-1)">החודש הקודם</button>'
+    + '<b class="cm-mon">'+esc(cmLabel(m))+'</b>'
+    + '<button type="button" class="lf-clear" onclick="cmGo(1)">החודש הבא</button>'
+    + '<button type="button" class="lf-clear" onclick="cmRefresh()">↻ רענון</button>'
+    + '<button type="button" class="lf-clear" onclick="cmPrint(null)">הדפסה</button>';
+  cmLoad();
+  const D = CM.d && CM.d.month === m ? CM.d : null;
+  if(!D && !CM.err){ body.innerHTML = crmLoading(); return; }
+  if(!D){ body.innerHTML = '<div class="err">הטעינה נכשלה — '+esc(CM.err)+' · <button type="button" class="chip" onclick="cmRefresh()">נסה שוב</button></div>'; return; }
+  const one = CM.print && CM.print !== '*' ? (D.owners || []).find(o=>cmKey(o)===CM.print) : null;
+  body.innerHTML = one
+    ? '<div class="sa-card"><h3>דוח עמלות — '+esc(one.name||'')+' · '+esc(cmLabel(D.month))+'</h3></div>' + cmStatus(D) + '<div class="sa-card">'+cmOwnerHtml(one)+'</div>' + cmRules(D)
+    : cmStatus(D) + cmTable(D) + cmExtra(D) + cmRules(D);
+};
+window.cmPrint = k=>{
+  CM.print = k || '*'; if(k) CM.open = k;
+  renderComm();
+  document.body.classList.add('cm-print');
+  const off = ()=>{ window.removeEventListener('afterprint', off); document.body.classList.remove('cm-print'); CM.print = null; renderComm(); };
+  window.addEventListener('afterprint', off);
+  setTimeout(()=>{ try{ window.print(); }catch(_e){ off(); } }, 50);
+};
+window.cmClose = async ()=>{
+  const D = CM.d; if(!D || !D.can_close) return;
+  const ok = await sysConfirm('לסגור את '+cmLabel(D.month)+' לתשלום ב'+(D.pay_label||'')+'? אחרי הסגירה הסכומים מוקפאים, וביטול מאוחר יותר מקוזז בחודש שבו התגלה.', { ok:'סגור לתשלום' });
+  if(!ok) return;
+  let r; try{ r = await sb.schema('crm').rpc('commission_close', { p_month: D.month }); }catch(e){ r = { error:e }; }
+  if(!r || r.error){ toast('הסגירה נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); return; }
+  CM.d = r.data || null; CM.at = Date.now(); toast('החודש נסגר לתשלום ✓'); renderComm();
+};
+window.cmReopen = async ()=>{
+  const D = CM.d; if(!D || !D.can_reopen) return;
+  /* ⚠️ בלי danger: הכפתור ההרסני שמור למחיקות (dlgtest), ופתיחה מחדש הפיכה — סוגרים שוב */
+  const ok = await sysConfirm('לפתוח מחדש את '+cmLabel(D.month)+'? הסכומים יחושבו שוב מהרישום, וצריך לסגור שוב לפני התשלום.', { ok:'פתיחה מחדש' });
+  if(!ok) return;
+  let r; try{ r = await sb.schema('crm').rpc('commission_reopen', { p_month: D.month }); }catch(e){ r = { error:e }; }
+  if(!r || r.error){ toast('הפתיחה נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); return; }
+  CM.d = r.data || null; CM.at = Date.now(); toast('החודש נפתח מחדש'); renderComm();
 };
 window.renderMkt = function(){
   if(!canView('mkt.dash')) return;
