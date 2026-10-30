@@ -1272,6 +1272,21 @@
     body.cm-print #tab-comm{ position:absolute; inset:0 }
     body.cm-print .cm-noprint{ display:none }
   }
+  /* 7.49.0 — מחשבון סגירה (closecalc) וכללי מכירה */
+  #dl-ccm .sheet{ max-width:560px }
+  #dl-ccm .cc-form{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-3) }
+  #dl-ccm .cc-form label{ display:flex; flex-direction:column; gap:var(--sp-1); font-size:var(--fs-sm); color:var(--ink-2); min-width:0 }
+  #dl-ccm .cc-card{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2) var(--sp-3); margin:0 0 var(--sp-2) }
+  #dl-ccm .cc-card h4{ margin:0 0 var(--sp-1); font-size:var(--fs-sm); font-weight:800; color:var(--navy) }
+  #dl-ccm .cc-r{ display:flex; justify-content:space-between; gap:var(--sp-2); font-size:var(--fs-md); padding:var(--sp-0h) 0 }
+  #dl-ccm .cc-r.cc-tot{ border-top:1px solid var(--line); margin-top:var(--sp-1); padding-top:var(--sp-1) }
+  #dl-ccm .cc-r.cc-bad b{ color:var(--red) }
+  #dl-ccm .cc-appr{ border-radius:var(--r-md); padding:var(--sp-2) var(--sp-3); margin:0 0 var(--sp-2); font-size:var(--fs-sm) }
+  #dl-ccm .cc-need{ background:var(--amber-bg); border:1px solid var(--amber) }
+  #dl-ccm .cc-ok{ background:var(--bg-subtle); border:1px solid var(--line) }
+  #set-wrap .srl-tbl input.st-num{ width:100%; min-width:70px }
+  #set-wrap .srl-tbl input.st-txt{ width:100%; min-width:120px }
+  #set-wrap .srl-act{ white-space:nowrap }
   #tab-sana .sa-tg summary{ cursor:pointer; font-weight:800; color:var(--navy); font-size:var(--fs-sm); }
   #tab-sana .sa-tg summary small{ font-weight:600; color:var(--ink-3); }
   #tab-sana .sa-tgnav{ display:flex; align-items:center; gap:var(--sp-2); margin:var(--sp-2) 0; font-size:var(--fs-sm); font-weight:700; color:var(--ink-2); }
@@ -4144,7 +4159,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.48.1</div>
+      <div class="ver">גרסה 7.49.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4278,7 +4293,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="comm-2026-10-30b">גרסה 7.48.1</div>
+    <div class="side-foot" title="closecalc-2026-10-30a">גרסה 7.49.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5637,7 +5652,7 @@ window.TAB_PERM = {
   comm:'dash.commission'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
-window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', general:'set.general' };
+window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', general:'set.general' };
 window.LOGI_VIEWS = ['orders','calls','cal'];
 window.navCanTab = t=>{
   /* 6.140.0 — logi.screen מפריד בין הנתונים לבין המסך.
@@ -13980,7 +13995,7 @@ window.dlSignBox = (d)=>{
      ⚠️ אבל **שני** בסדר ולא ראשון: הפעולה הראשית של המשבצת היא הפקת
         מסמך החתימה, והמחשבון עזר לה. נתפס בבדיקה — dealtest לוחצת על
         הכפתור הראשון במשבצת, וההיפוך שלח אותה למחשבון. */
-  const shipBtn = `<button type="button" class="chip" onclick="dlShipCalc('${jsq(d.id)}')">חשב משלוח והתקנה</button>`;
+  const shipBtn = `<button type="button" class="chip" onclick="dlShipCalc('${jsq(d.id)}')">חשב משלוח והתקנה</button>` + dlCloseBtn(d);   /* 7.49.0 — closecalc */
   if(!window.canEdit('docs.' + DL_QCAT))
     return `<div class="tk-lnk"><span class="dd-sact">${shipBtn}</span></div><div class="note">אין לך הרשאת עריכה בקטגוריית ההצעות.</div>`;
   /* 7.15.0 — Primary יחיד בסרגל הפעולות; מספר ההצעה כבר בסיכום ולכן ירד מכאן. */
@@ -14143,7 +14158,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'comm-2026-10-30b';
+const BUILD_ID = 'closecalc-2026-10-30a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -18648,7 +18663,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['general','כללי']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['general','כללי']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
@@ -18660,7 +18675,7 @@ function settingsCats(){
    🔴 כל מסך ב-settingsCats חייב להופיע כאן פעם אחת בדיוק (נאכף בבנייה) — מסך שלא שויך נעלם מהתפריט בלי שגיאה. */
 const SET_GROUPS = [
   ['users',   'משתמשים והרשאות', ['users']],
-  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','teams']],
+  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','teams']],
   ['texts',   'טקסטים ומסמכים',   ['texts']],
   ['logs',    'חיבורים ויומנים',  ['conn','synclog','hooks','errors']],
   ['general', 'כללי',             ['general','notif']],
@@ -19318,6 +19333,8 @@ function renderSettings(){
     body = bookSettingsHtml();   /* 7.4.0 — booking1 */
   } else if(SET_VIEW==='crm' && canView('set.crm')){
     body = crmSettingsHtml() + leadSrcDocHtml() + espSectionHtml();   /* 6.244.0 — srcdoc */
+  } else if(SET_VIEW==='salesrules' && canView('set.crm')){
+    body = srlHtml();   /* 7.49.0 — closecalc */
   } else if(SET_VIEW==='conn'){
     body = integHtml();
   } else if(SET_VIEW==='synclog' && canView('set.synclog')){
@@ -19356,6 +19373,7 @@ function renderSettings(){
   if(SET_VIEW==='hooks' && canView('set.hooks')) hooksLogInit();
   if(SET_VIEW==='errors' && canView('set.errors')) errLogInit();
   if(SET_VIEW==='conn') loadIntegrations();
+  if(SET_VIEW==='salesrules' && canView('set.crm')) srlLoad();   /* 7.49.0 */
   stWire(el);
 }
 /* ===== 6.238.0 — statdoc: "סטטוסי פריוריטי מול הלוח" (הגדרות ← CRM ולוגיסטיקה) =====
@@ -21525,6 +21543,149 @@ window.cmReopen = async ()=>{
   let r; try{ r = await sb.schema('crm').rpc('commission_reopen', { p_month: D.month }); }catch(e){ r = { error:e }; }
   if(!r || r.error){ toast('הפתיחה נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); return; }
   CM.d = r.data || null; CM.at = Date.now(); toast('החודש נפתח מחדש'); renderComm();
+};
+/* ===== 7.49.0 — closecalc: "מחשבון סגירה" בכרטיס העסקה =====
+   רומן, 30/10/2026: "הנחות נוספות לפני סגירה · עמלות תשלום אשראי · תשלומים ללא ריבית לפי סכום עסקה · הוראת קבע —
+   כל אלו צריכים להכנס למערכת". הכללים ב-crm.sales_rules (עריכה: הגדרות ← כללי מכירה), החישוב ב-crm.closing_calc.
+   🔴 החלונית **אינה מחשבת** — היא שולחת סכום, אמצעי, תשלומים והנחה נוספת, ומציגה את מה שהשרת החזיר.
+   ⚠️ מראה בלבד: לא כותבת לעסקה ולא לפריוריטי. ההנחה נקבעת בהצעה בפריוריטי, ותנאי התשלום בכרטיס העסקה. */
+const CC = { deal:'', seq:0, t:null };
+const CC_METHODS = [['credit','כרטיס אשראי'],['standing','הוראת קבע'],['immediate','תשלום מיידי — מזומן / העברה'],['beats3','פעימות — עד 3'],['beats_long','פעימות — יותר מ-3']];
+function dlCloseBtn(d){ return ' <button type="button" class="chip" onclick="dlCloseCalc(\''+jsq(d && d.id)+'\')">מחשבון סגירה</button>'; }
+const ccIls = n => n==null || isNaN(+n) ? '—' : '₪'+(+n).toLocaleString('he-IL', { minimumFractionDigits:2, maximumFractionDigits:2 });
+const ccPct = v => v==null || isNaN(+v) ? '—' : String(+(+v).toFixed(3))+'%';
+window.ccEl = ()=>{
+  let e = document.getElementById('dl-ccm');
+  if(!e){
+    e = document.createElement('div');
+    e.id = 'dl-ccm'; e.className = 'modal modal-over hidden';
+    e.innerHTML = '<div class="sheet"><h3>מחשבון סגירה</h3><div id="dl-ccform" class="cc-form"></div><div id="dl-ccbody"></div>'
+      + '<div class="modal-actions"><button type="button" class="btn" onclick="ccClose()">סגירה</button></div></div>';
+    document.body.appendChild(e);
+    e.addEventListener('click', ev=>{ if(ev.target === e) ccClose(); });
+  }
+  return e;
+};
+window.ccClose = ()=>{ const e = document.getElementById('dl-ccm'); if(e) e.classList.add('hidden'); clearTimeout(CC.t); CC.seq++; };
+window.dlCloseCalc = id=>{
+  const d = (typeof DEALS !== 'undefined' && Array.isArray(DEALS) ? DEALS : []).find(x=>x.id===id) || {};
+  CC.deal = id;
+  const e = ccEl(), f = document.getElementById('dl-ccform');
+  f.innerHTML = '<label><span>סכום ההצעה לפני מע״מ</span><input id="cc-amt" type="number" min="0" step="1" value="'+esc(String(Math.round(+d.amount||0)))+'"></label>'
+    + '<label><span>אמצעי תשלום</span><select id="cc-m">'+CC_METHODS.map(([v,l])=>'<option value="'+v+'">'+esc(l)+'</option>').join('')+'</select></label>'
+    + '<label><span>מספר תשלומים</span><input id="cc-n" type="number" min="1" max="36" step="1" value="1"></label>'
+    + '<label><span>הנחה נוספת (%)</span><input id="cc-x" type="number" min="0" max="50" step="0.5" value="0"></label>';
+  f.querySelectorAll('input,select').forEach(x=>x.addEventListener('input', ccQueue));
+  e.classList.remove('hidden');
+  ccRun();
+};
+function ccQueue(){ clearTimeout(CC.t); CC.t = setTimeout(ccRun, 250); }
+async function ccRun(){
+  const b = document.getElementById('dl-ccbody'); if(!b) return;
+  const amt = Math.max(0, +(($('#cc-amt')||{}).value || 0)), m = ($('#cc-m')||{}).value || 'credit';
+  const n = Math.max(1, Math.round(+(($('#cc-n')||{}).value || 1))), x = Math.max(0, +(($('#cc-x')||{}).value || 0));
+  const seq = ++CC.seq;
+  b.innerHTML = crmLoading('מחשב את תנאי הסגירה…');   /* ⚠️ לא 'מחשב…' — cardtest מונה אותו כאתר יחיד של מחשבון המשלוח */
+  let r; try{ r = await sb.schema('crm').rpc('closing_calc', { p_amount: amt, p_method: m, p_n: n, p_extra: x }); }catch(e){ r = { error:e }; }
+  if(seq !== CC.seq) return;   /* תשובה ישנה אינה דורסת את מה שהוקלד אחריה */
+  if(!r || r.error){ b.innerHTML = '<div class="err">החישוב נכשל — '+esc(((r && r.error) && r.error.message) || 'שגיאה')+'</div>'; return; }
+  b.innerHTML = ccHtml(r.data || {});
+}
+function ccHtml(R){
+  const row = (k, v, cls)=>'<div class="cc-r'+(cls ? ' '+cls : '')+'"><span>'+k+'</span><b>'+v+'</b></div>';
+  const A = R.disc_amount || {}, T = R.disc_terms || {}, card = (t, h)=>'<div class="cc-card"><h4>'+t+'</h4>'+h+'</div>';
+  let h = card('ההנחה',
+      row('לפי סכום ההצעה'+(A.label ? ' · '+esc(A.label) : ''), A.pct==null ? 'לאישור מנהל' : ccPct(A.pct))
+    + row('לפי תנאי התשלום'+(T.label ? ' · '+esc(T.label) : ''), ccPct(T.pct))
+    + (+R.disc_extra ? row('הנחה נוספת', ccPct(R.disc_extra)) : '')
+    + row('סך ההנחה', ccPct(R.disc_total)+' · '+ccIls(R.discount_ils), 'cc-tot'));
+  h += R.needs_approval
+    ? '<div class="cc-appr cc-need"><b>נדרש אישור מנהל</b>'+(R.why || []).map(w=>'<div>'+esc(w)+'</div>').join('')+'</div>'
+    : '<div class="cc-appr cc-ok"><b>אין צורך באישור מנהל</b>'+(R.approval_over==null ? '' : '<div>סך ההנחה עד '+ccPct(R.approval_over)+'</div>')+'</div>';
+  const pay = R.method==='credit' || R.method==='standing';
+  h += card('ללקוח',
+      row('לפני מע״מ', ccIls(R.net)) + row('כולל מע״מ', ccIls(R.gross))
+    + (+R.n > 1 ? row((+R.n)+' תשלומים של', ccIls(R.per_payment)) : '')
+    + (pay ? row('ללא ריבית בסכום הזה', R.free_max==null ? '—' : 'עד '+(+R.free_max)+' תשלומים', R.free_ok ? '' : 'cc-bad') : '')
+    + (R.method==='standing' && +R.customer_interest_pct ? row('ריבית שהלקוח משלם', ccPct(R.customer_interest_pct), 'cc-bad') : ''));
+  h += card('לחברה',
+      (R.method==='credit' ? row('עמלת אשראי', ccPct(R.fee_pct)) + row('ריבית ניכיון', ccPct(R.discount_rate_pct)) : '')
+    + (R.method==='standing' ? row('עמלת הוראת קבע', ccPct(R.fee_pct)) : '')
+    + row('עלות התשלום', ccIls(R.cost_ils)) + row('נשאר לחברה לפני מע״מ', ccIls(R.net_after_cost), 'cc-tot'));
+  return h + '<div class="note">המחשבון מראה בלבד: ההנחה נקבעת בהצעה בפריוריטי, ותנאי התשלום בכרטיס העסקה.'
+    + (canView('set.crm') ? ' הכללים — הגדרות ← כללי מכירה.' : '') + '</div>';
+}
+/* ===== 7.49.0 — "כללי מכירה" בהגדרות =====
+   עורך את crm.sales_rules. כתיבה — ה-RLS בודק עריכת set.crm; כאן רק מסתירים את הכפתורים.
+   ⚠️ שמירה שה-RLS דחה מחזירה 0 שורות ולא שגיאה — לכן .select('id') ובדיקת אורך, אחרת "נשמר ✓" היה שקר. */
+const SRL = { rows:[], err:'' };
+const SRL_KINDS = [
+  ['disc_amount', 'הנחה לפי סכום ההצעה', 'לפני מע״מ, כולל משלוח והתקנה. "מ" לא כולל ו"עד" כולל; "עד" ריק — ללא תקרה. אחוז ריק — לאישור מנהל.', ['lo','hi','pct','needs_approval','label','note'], true],
+  ['disc_terms', 'הנחה לפי תנאי תשלום', 'מתווספת להנחת הסכום.', ['label','pct','needs_approval','note'], false],
+  ['approval', 'אישור מנהל', 'סך כל ההנחות מעל האחוז הזה דורש אישור מנהל.', ['pct','note'], false],
+  ['free_installments', 'תשלומים ללא ריבית לפי סכום', 'לפי הסכום לפני מע״מ, אחרי ההנחה.', ['lo','hi','max_n','label','note'], true],
+  ['credit_fee', 'עמלות אשראי', 'לפי מספר התשלומים, על הסכום כולל מע״מ.', ['n_from','n_to','pct','label'], true],
+  ['credit_discount', 'ריבית ניכיון', 'נוספת לעמלת האשראי, בטווח התשלומים.', ['n_from','n_to','pct','note'], false],
+  ['standing_order', 'הוראת קבע', 'לפי מספר התשלומים: מה שבית העסק משלם ומה שהלקוח משלם.', ['n_from','n_to','pct','pct_customer','label','note'], true],
+];
+const SRL_COL = { lo:['מ (₪)','num'], hi:['עד (₪)','num'], pct:['%','num'], pct_customer:['% ללקוח','num'], max_n:['תשלומים','num'],
+  n_from:['מתשלום','num'], n_to:['עד תשלום','num'], needs_approval:['אישור מנהל','bool'], label:['תיאור','txt'], note:['הערה','txt'] };
+function srlHtml(){
+  return '<div class="st-top"><h2 class="sec">כללי מכירה</h2></div><div class="note">הכללים של מחשבון הסגירה בכרטיס העסקה. שינוי חל מיד, בלי פריסה. אחוזים באחוזים (2 = 2%).</div>'
+    + '<div id="srl-box">'+crmLoading('טוען כללים…')+'</div>';
+}
+window.srlLoad = async ()=>{
+  const box = $('#srl-box'); if(!box) return;
+  let r; try{ r = await sb.schema('crm').from('sales_rules').select('*').order('sort').order('id'); }catch(e){ r = { error:e }; }
+  if(!$('#srl-box')) return;
+  if(!r || r.error){ $('#srl-box').innerHTML = '<div class="err">טעינת הכללים נכשלה — '+esc(((r && r.error) && r.error.message) || 'שגיאה')+'</div>'; return; }
+  SRL.rows = r.data || []; srlPaint();
+};
+function srlCell(x, f, dis){
+  const v = x[f], t = SRL_COL[f][1];
+  if(t === 'bool') return '<input type="checkbox" data-f="'+f+'"'+(v ? ' checked' : '')+dis+' aria-label="'+esc(SRL_COL[f][0])+'">';
+  if(t === 'num')  return '<input class="st-num" type="number" step="any" data-f="'+f+'" value="'+(v==null ? '' : esc(String(+v)))+'"'+dis+' aria-label="'+esc(SRL_COL[f][0])+'">';
+  return '<input class="st-txt" data-f="'+f+'" value="'+esc(v || '')+'"'+dis+' aria-label="'+esc(SRL_COL[f][0])+'">';
+}
+function srlPaint(){
+  const box = $('#srl-box'); if(!box) return;
+  const ed = canEdit('set.crm'), dis = ed ? '' : ' disabled';
+  box.innerHTML = SRL_KINDS.map(([k, t, sub, cols, many])=>{
+    const R = SRL.rows.filter(x=>x.kind===k);
+    return '<section class="st-card" data-kind="'+k+'"><div class="st-hd"><h3>'+esc(t)+'</h3><small>'+esc(sub)+'</small></div>'
+      + '<div class="tbl-wrap"><table class="tbl srl-tbl"><thead><tr>'+cols.map(f=>'<th>'+esc(SRL_COL[f][0])+'</th>').join('')+(ed ? '<th></th>' : '')+'</tr></thead><tbody>'
+      + R.map(x=>'<tr data-id="'+(+x.id)+'">'+cols.map(f=>'<td>'+srlCell(x, f, dis)+'</td>').join('')
+          + (ed ? '<td class="srl-act"><button type="button" class="st-save" onclick="srlSave('+(+x.id)+')">שמירה</button>'
+                  + (many ? ' <button type="button" class="ghost" onclick="srlDel('+(+x.id)+')">מחיקה</button>' : '')+'</td>' : '')+'</tr>').join('')
+      + '</tbody></table></div>'
+      + (ed && many ? '<button type="button" class="chip srl-add" onclick="srlAdd(\''+k+'\')">＋ שורה</button>' : '')
+      + '</section>';
+  }).join('');
+}
+window.srlSave = async id=>{
+  const tr = document.querySelector('#srl-box tr[data-id="'+id+'"]'); if(!tr) return;
+  const patch = {};
+  tr.querySelectorAll('[data-f]').forEach(i=>{
+    const f = i.dataset.f, t = SRL_COL[f][1], s = String(i.value == null ? '' : i.value).trim();
+    patch[f] = t === 'bool' ? !!i.checked : t === 'num' ? (s === '' ? null : +s) : (s || null);
+  });
+  let r; try{ r = await sb.schema('crm').from('sales_rules').update(patch).eq('id', id).select('id'); }catch(e){ r = { error:e }; }
+  if(!r || r.error){ toast('השמירה נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); return; }
+  if(!(r.data || []).length){ toast('השמירה לא נקלטה — אין הרשאת עריכה', 'err'); return; }
+  toast('נשמר ✓'); srlLoad();
+};
+window.srlAdd = async k=>{
+  const sort = Math.max(0, ...SRL.rows.filter(x=>x.kind===k).map(x=>+x.sort || 0)) + 1;
+  let r; try{ r = await sb.schema('crm').from('sales_rules').insert({ kind:k, sort }).select('id'); }catch(e){ r = { error:e }; }
+  if(!r || r.error || !(r.data || []).length){ toast('ההוספה נכשלה: '+(((r && r.error) && r.error.message) || 'אין הרשאת עריכה'), 'err'); return; }
+  srlLoad();
+};
+window.srlDel = async id=>{
+  const ok = await sysConfirm('למחוק את השורה? המחשבון יפסיק להשתמש בה מיד.', { ok:'מחיקה', danger:true });
+  if(!ok) return;
+  let r; try{ r = await sb.schema('crm').from('sales_rules').delete().eq('id', id).select('id'); }catch(e){ r = { error:e }; }
+  if(!r || r.error || !(r.data || []).length){ toast('המחיקה נכשלה: '+(((r && r.error) && r.error.message) || 'אין הרשאת עריכה'), 'err'); return; }
+  toast('נמחק'); srlLoad();
 };
 window.renderMkt = function(){
   if(!canView('mkt.dash')) return;
