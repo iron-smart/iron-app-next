@@ -4144,7 +4144,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.48.0</div>
+      <div class="ver">גרסה 7.48.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4278,7 +4278,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="comm-2026-10-30a">גרסה 7.48.0</div>
+    <div class="side-foot" title="comm-2026-10-30b">גרסה 7.48.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5632,8 +5632,9 @@ window.TAB_PERM = {
   mkt:'mkt.dash',
   /* 7.41.0 — ניתוח מכירות: אותו מפתח של "צוות המכירות" בלובי ושל crm.sales_analytics (נבדק שם בשורה הראשונה) */
   sana:'dash.salesteam',
-  /* 7.48.0 — עמלות: אותו מפתח של ניתוח המכירות, ושל crm.commission_report (נבדק שם בשורה הראשונה). סגירת חודש — עריכה של המפתח. */
-  comm:'dash.salesteam'
+  /* 7.48.0 — עמלות. 7.48.1 — מפתח משלו, dash.commission (רומן: "רק אני"); עד כאן היה dash.salesteam, שגם בן מחזיק.
+     השרת בודק את אותו מפתח בשורה הראשונה של crm.commission_*; סגירת חודש — עריכה שלו. */
+  comm:'dash.commission'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
 window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', general:'set.general' };
@@ -14142,7 +14143,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'comm-2026-10-30a';
+const BUILD_ID = 'comm-2026-10-30b';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21345,7 +21346,7 @@ window.renderSana = function(){
    נרשמת בחודש שבו הגיעה; עסקה שיצאה מ'הזמנה', או שכל ההזמנות שלה בוטלו בפריוריטי, מסומנת 'בוטלה'.
    crm.commission_report מחזיר את כל מה שמוצג כאן, כולל הפירוק לפי מדרגות והקיזוזים.
    🔴 המסך **אינו מחשב**. הוא מציג את מה שהשרת חישב — כך שהמספר שאיש המכירות יראה ומה שישולם הם אותו מספר.
-   ⚠️ שער: dash.salesteam (רומן ובן). סגירה ופתיחה — עריכה של אותו מפתח. השרת אוכף; כאן רק מסתירים.
+   ⚠️ שער: dash.commission (רומן בלבד, 7.48.1). סגירה ופתיחה — עריכה של אותו מפתח. השרת אוכף; כאן רק מסתירים.
    ⏭️ פריסה לאנשי המכירות: cmOwnerHtml מקבל בעלים אחד ואינו נוגע באחרים — אותו דוח בדיוק, בלי עותק שני. */
 const CM = { m:'', busy:'', d:null, err:'', at:0, open:null, print:null };
 const CM_MN = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
