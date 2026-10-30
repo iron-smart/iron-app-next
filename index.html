@@ -1270,7 +1270,7 @@
     body.cm-print *{ visibility:hidden }
     body.cm-print #tab-comm, body.cm-print #tab-comm *{ visibility:visible }
     body.cm-print #tab-comm{ position:absolute; inset:0 }
-    body.cm-print .cm-noprint{ display:none }
+    body.cm-print #tab-comm .cm-noprint{ display:none }
   }
   /* 7.49.0 — מחשבון סגירה (closecalc) וכללי מכירה */
   #dl-ccm .sheet{ max-width:560px }
@@ -1287,6 +1287,23 @@
   #set-wrap .srl-tbl input.st-num{ width:100%; min-width:70px }
   #set-wrap .srl-tbl input.st-txt{ width:100%; min-width:120px }
   #set-wrap .srl-act{ white-space:nowrap }
+  /* 7.50.0 — comm3: הדוח שלי · מדרגות · טווח · מדרגות בהגדרות */
+  #tab-comm .cm-tiles{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-3) }
+  #tab-comm .cm-tile{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2); background:var(--bg-subtle); min-width:0 }
+  #tab-comm .cm-tile small{ display:block; font-size:var(--fs-xs); color:var(--ink-3) }
+  #tab-comm .cm-tile b{ display:block; font-size:var(--fs-lg); color:var(--navy) }
+  #tab-comm .cm-tiers-t{ width:auto; min-width:min(100%,420px) }
+  #tab-comm .cm-how{ margin:var(--sp-2) 0 0; padding-inline-start:var(--sp-4); font-size:var(--fs-sm); color:var(--ink-2) }
+  #tab-comm .cm-how li{ margin:0 0 var(--sp-1) }
+  #tab-comm .cm-rng{ display:inline-flex; align-items:center; gap:var(--sp-1); font-size:var(--fs-sm) }
+  #tab-comm .cm-rng select{ width:auto }
+  #tab-comm tr.cm-sub td{ background:var(--bg-subtle); border-top:1px solid var(--line) }
+  #set-wrap .cts-from{ margin:0 0 var(--sp-2); font-size:var(--fs-sm) }
+  #set-wrap .cts-from select{ width:auto; margin-inline-start:var(--sp-1) }
+  #set-wrap .cts-tbl input.st-num{ width:100%; min-width:90px }
+  #set-wrap .cts-act{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); margin-top:var(--sp-2) }
+  #set-wrap .cts-act .btn{ width:auto }
+  #set-wrap .cts-ver{ font-size:var(--fs-sm); color:var(--ink-2); padding:var(--sp-1) 0; border-top:1px solid var(--line) }
   #tab-sana .sa-tg summary{ cursor:pointer; font-weight:800; color:var(--navy); font-size:var(--fs-sm); }
   #tab-sana .sa-tg summary small{ font-weight:600; color:var(--ink-3); }
   #tab-sana .sa-tgnav{ display:flex; align-items:center; gap:var(--sp-2); margin:var(--sp-2) 0; font-size:var(--fs-sm); font-weight:700; color:var(--ink-2); }
@@ -1381,7 +1398,7 @@
   .fun-bar div{ height:100%; background:var(--navy); border-radius:var(--r-xl) }
   .fun-row b{ width:28px; text-align:center; flex:none }
   .fun-a{ width:64px; flex:none; font-size:var(--fs-xs); color:var(--ink-3); text-align:left }
-  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } #tab-sana .sa-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-sana .sa-wks, #tab-sana .sa-wks.c5{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-comm .cm-n{ display:none } }
+  @media(max-width:759.98px){ .dash-date{ font-size:var(--fs-xl) } #db-kpis{ gap:12px } .kgrp{ width:100% } #db-kpis .stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) } #db-kpis .stat{ width:auto } #db-kpis .stat .n{ font-size:var(--fs-h) } .db-block{ padding:var(--sp-3) var(--sp-3) var(--sp-2) } .dmc-col .dmc-ev .tg, .dmc-col .dmc-ev .k{ display:none } .dmd-strip{ grid-template-columns:repeat(3,minmax(0,1fr)) } .dmc-col .dmc-ev .ow, .dmc-col .dmc-ev .sj{ display:none } .dmc-col .dmc-ev .r1{ justify-content:center } .dmc-dh small{ display:block } #db-reps .dtm-r{ column-gap:var(--sp-1) } #db-reps .c b, #db-reps .c .v{ font-size:var(--fs-sm) } #tab-sana .sa-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-sana .sa-wks, #tab-sana .sa-wks.c5{ grid-template-columns:repeat(2,minmax(0,1fr)) } #tab-comm .cm-n{ display:none } #tab-comm .cm-tiles{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
   /* שלד טעינה — במקום להציג 0 עד שהנתונים מגיעים (הערת רומן 29/07) */
   .skel{ display:inline-block; border-radius:var(--r-md); background:#e9eef3;
          background-image:linear-gradient(90deg,#e9eef3 25%,#f7fafc 37%,#e9eef3 63%);
@@ -4159,7 +4176,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.49.0</div>
+      <div class="ver">גרסה 7.50.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4293,7 +4310,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="closecalc-2026-10-30a">גרסה 7.49.0</div>
+    <div class="side-foot" title="comm3-2026-10-30a">גרסה 7.50.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5652,7 +5669,7 @@ window.TAB_PERM = {
   comm:'dash.commission'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
-window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', general:'set.general' };
+window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', general:'set.general' };
 window.LOGI_VIEWS = ['orders','calls','cal'];
 window.navCanTab = t=>{
   /* 6.140.0 — logi.screen מפריד בין הנתונים לבין המסך.
@@ -14158,7 +14175,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'closecalc-2026-10-30a';
+const BUILD_ID = 'comm3-2026-10-30a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -18663,7 +18680,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['general','כללי']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['general','כללי']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
@@ -18675,7 +18692,7 @@ function settingsCats(){
    🔴 כל מסך ב-settingsCats חייב להופיע כאן פעם אחת בדיוק (נאכף בבנייה) — מסך שלא שויך נעלם מהתפריט בלי שגיאה. */
 const SET_GROUPS = [
   ['users',   'משתמשים והרשאות', ['users']],
-  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','teams']],
+  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','commission','teams']],
   ['texts',   'טקסטים ומסמכים',   ['texts']],
   ['logs',    'חיבורים ויומנים',  ['conn','synclog','hooks','errors']],
   ['general', 'כללי',             ['general','notif']],
@@ -19335,6 +19352,8 @@ function renderSettings(){
     body = crmSettingsHtml() + leadSrcDocHtml() + espSectionHtml();   /* 6.244.0 — srcdoc */
   } else if(SET_VIEW==='salesrules' && canView('set.crm')){
     body = srlHtml();   /* 7.49.0 — closecalc */
+  } else if(SET_VIEW==='commission' && canView('set.crm')){
+    body = ctsHtml();   /* 7.50.0 — comm3 */
   } else if(SET_VIEW==='conn'){
     body = integHtml();
   } else if(SET_VIEW==='synclog' && canView('set.synclog')){
@@ -19374,6 +19393,7 @@ function renderSettings(){
   if(SET_VIEW==='errors' && canView('set.errors')) errLogInit();
   if(SET_VIEW==='conn') loadIntegrations();
   if(SET_VIEW==='salesrules' && canView('set.crm')) srlLoad();   /* 7.49.0 */
+  if(SET_VIEW==='commission' && canView('set.crm')) ctsLoad();   /* 7.50.0 */
   stWire(el);
 }
 /* ===== 6.238.0 — statdoc: "סטטוסי פריוריטי מול הלוח" (הגדרות ← CRM ולוגיסטיקה) =====
@@ -21366,7 +21386,8 @@ window.renderSana = function(){
    🔴 המסך **אינו מחשב**. הוא מציג את מה שהשרת חישב — כך שהמספר שאיש המכירות יראה ומה שישולם הם אותו מספר.
    ⚠️ שער: dash.commission (רומן בלבד, 7.48.1). סגירה ופתיחה — עריכה של אותו מפתח. השרת אוכף; כאן רק מסתירים.
    ⏭️ פריסה לאנשי המכירות: cmOwnerHtml מקבל בעלים אחד ואינו נוגע באחרים — אותו דוח בדיוק, בלי עותק שני. */
-const CM = { m:'', busy:'', d:null, err:'', at:0, open:null, print:null };
+const CM = { m:'', busy:'', d:null, err:'', at:0, open:null, print:null,
+             mode:'month', rf:'', rt:'', rd:null, rbusy:'', rerr:'', rat:0, wired:false };   /* 7.50.0 — טווח + רענון */
 const CM_MN = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
 const CM_ST = { 'פתוח':'open', 'חלון ביטולים':'win', 'מוכן לסגירה':'ready', 'סגור':'closed', 'אקסל':'legacy', 'עתידי':'future' };
 function cmMonth(){
@@ -21384,7 +21405,7 @@ const cmKey = o => o && o.owner_id ? String(o.owner_id) : 'none';
 const cmDay = v => v ? fmtD(isoD(new Date(v))) : '—';
 function cmRange(t){ return t.hi==null ? 'מעל '+shekel(t.lo) : (+t.lo ? shekel(t.lo)+'–'+shekel(t.hi) : 'עד '+shekel(t.hi)); }
 window.cmGo = k=>{ CM.m = cmShift(cmMonth(), k); CM.open = null; CM.err = ''; renderComm(); };
-window.cmRefresh = ()=>{ CM.at = 0; CM.err = ''; renderComm(); };
+window.cmRefresh = ()=>{ CM.at = 0; CM.err = ''; CM.rat = 0; CM.rerr = ''; renderComm(); };
 window.cmToggle = k=>{ CM.open = CM.open===k ? null : k; renderComm(); };
 function cmLoad(){
   const m = cmMonth();
@@ -21410,7 +21431,7 @@ function cmLoad(){
   })();
 }
 function cmStatus(D){
-  const st = D.status, pay = esc(D.pay_label||'');
+  const st = D.status, pay = esc(D.pay_label||'') + (D.paid_in ? ' (משולמת ב'+esc(D.paid_in)+')' : '');   /* 7.50.0 */
   let t = '', act = '';
   if(st==='פתוח') t = 'החודש פתוח. נספרות עסקאות שמגיעות ל"הזמנה" עד <b>'+esc(fmtD(D.counted_until))+'</b>, וביטולים נבדקים עד <b>'+esc(fmtD(D.window_until))+'</b>. לתשלום ב<b>'+pay+'</b>.';
   else if(st==='חלון ביטולים') t = 'החודש נגמר. עד <b>'+esc(fmtD(D.window_until))+'</b> עסקה שמתבטלת יורדת מהחשבון. לתשלום ב<b>'+pay+'</b>.';
@@ -21426,13 +21447,20 @@ function cmStatus(D){
   else t = 'החודש עוד לא התחיל.';
   return '<div class="cm-status cm-st-'+(CM_ST[st]||'open')+'"><span class="sa-chip">'+esc(st||'')+'</span><span>'+t+'</span>'+act+'</div>';
 }
+/* 7.50.0 — רומן: "תשקף לאיש מכירות תמיד במסך שהוא רואה את מדרגות העמלות בצורה ברורה וגם אפשר זאת בהדפסה, כי מה
+   שצירפתי בתמונה נראה מבולגן מדי ולא מובן" ⇒ טבלה (מדרגה · טווח · אחוז) ושלוש שורות קצרות במקום פסקה ושבבים. */
 function cmRules(D){
   const T = D.tiers || [];
-  return '<div class="sa-card cm-rules"><h3>איך מחושבת העמלה</h3>'
-    + '<div class="sa-sub">מדרגות מצטברות על סך המכירות של איש המכירות בחודש, לפני מע״מ: כל חלק מהסכום מקבל את האחוז של המדרגה שלו. '
-    + 'עסקה נספרת בחודש שבו הגיעה ל"הזמנה", בכל סכום ההצעה (כולל משלוח והתקנה). עסקה שיצאה מ"הזמנה", או שההזמנה שלה בוטלה בפריוריטי, יורדת. '
-    + 'כל חודש משולם במשכורת של החודש שאחרי הבא, אחרי חלון הביטולים.</div>'
-    + '<div class="cm-tiers">'+T.map(t=>'<span class="sa-chip">'+esc(cmRange(t))+' · <b>'+esc(cmPct(t.rate))+'</b></span>').join('')+'</div></div>';
+  const pay = (D.pay_label ? esc(D.pay_label) : 'משכורת החודש העוקב') + (D.paid_in ? ' (משולמת ב'+esc(D.paid_in)+')' : '');
+  return '<div class="sa-card cm-rules"><h3>מדרגות העמלה</h3>'
+    + '<div class="tbl-wrap"><table class="tbl cm-tiers-t"><thead><tr><th>מדרגה</th><th>מכירות בחודש, לפני מע״מ</th><th class="num">אחוז עמלה</th></tr></thead><tbody>'
+    + T.map((t, i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(cmRange(t))+'</td><td class="num"><b>'+esc(cmPct(t.rate))+'</b></td></tr>').join('')
+    + '</tbody></table></div>'
+    + '<ul class="cm-how">'
+    + '<li>המדרגות מצטברות: כל שקל מקבל את האחוז של המדרגה שבה הוא נמצא — המדרגה הראשונה על הסכום הראשון, הבאה על מה שמעליו, וכן הלאה.</li>'
+    + '<li>עסקה נספרת בחודש שבו נפתחה ההזמנה, לפי סכום ההזמנה לפני מע״מ (כולל משלוח והתקנה). הזמנה שבוטלה יורדת מהחשבון.</li>'
+    + '<li>העמלה משולמת בחודש העוקב לחודש המכירה — על החודש הזה: <b>'+pay+'</b>.</li>'
+    + '</ul></div>';
 }
 function cmOwnerHtml(o){
   const B = o.breakdown || [], hit = B.filter(b=>+b.base > 0), next = B.find(b=>+b.lo > +o.sales);
@@ -21444,10 +21472,10 @@ function cmOwnerHtml(o){
   const L = o.lines || [];
   const ln = '<h4 class="cm-h">העסקאות <span class="cnt">'+(+o.deals||0)+' נספרות'+(+o.cancelled ? ' · '+(+o.cancelled)+' בוטלו' : '')+'</span></h4>'
     + (+o.missing_amount ? '<div class="sa-sub sa-warn">'+(+o.missing_amount)+' עסקאות בלי סכום — לא נכנסו לחשבון. יש להשלים את הסכום בעסקה.</div>' : '')
-    + (L.length ? '<div class="tbl-wrap"><table class="tbl cm-ln"><thead><tr><th>עסקה</th><th>לקוח</th><th>הגיעה ל"הזמנה"</th><th class="num">סכום לפני מע״מ</th><th>מצב</th></tr></thead><tbody>'
+    + (L.length ? '<div class="tbl-wrap"><table class="tbl cm-ln"><thead><tr><th>עסקה</th><th>לקוח</th><th>הזמנה</th><th>תאריך ההזמנה</th><th class="num">סכום לפני מע״מ</th><th>מצב</th></tr></thead><tbody>'
         + L.map(l=>{
             const can = l.status==='בוטלה';
-            return '<tr class="clk'+(can ? ' cm-can' : '')+'" onclick="openDeal(\''+jsq(l.deal_id)+'\')"><td>'+esc(l.deal_name||'')+'</td><td>'+esc(l.customer||'')+'</td><td>'+esc(cmDay(l.won_at))+'</td>'
+            return '<tr class="clk'+(can ? ' cm-can' : '')+'" onclick="openDeal(\''+jsq(l.deal_id)+'\')"><td>'+esc(l.deal_name||'')+'</td><td>'+esc(l.customer||'')+'</td><td>'+esc(l.orders||'—')+'</td><td>'+esc(cmDay(l.won_at))+'</td>'
               + '<td class="num">'+(l.amount==null ? '<span class="sa-warn">אין סכום</span>' : cmIls(l.amount))+'</td>'
               + '<td>'+(can ? '<span class="cm-cr">בוטלה '+esc(cmDay(l.cancelled_at))+'</span><small class="sa-on">'+esc(l.cancel_reason||'')+'</small>' : 'נספרת')+'</td></tr>';
           }).join('')
@@ -21502,22 +21530,116 @@ function cmExtra(D){
     + '</tbody></table></div></div>';
   return h;
 }
+/* 7.50.0 — "הדוח שלי": scope 'own' (dash.commission=1) — השרת כבר מחזיר רק את השורה שלו; כאן רק הצורה. */
+function cmMineHtml(D){
+  const o = (D.owners || [])[0];
+  if(!o) return '<div class="sa-card"><div class="empty">אין לך עסקאות שהגיעו להזמנה בחודש הזה</div></div>';
+  const tile = (l, v)=>'<div class="cm-tile"><small>'+l+'</small><b>'+v+'</b></div>';
+  return '<div class="sa-card cm-mine"><h3>הדוח שלי — '+esc(cmLabel(D.month))+'</h3><div class="cm-tiles">'
+    + tile('מכירות לפני מע״מ', shekel(o.sales)) + tile('עמלה', cmIls(o.commission)) + tile('המדרגה שלי', cmPct(o.tier_rate))
+    + tile('עד המדרגה הבאה', o.to_next==null ? '—' : shekel(o.to_next)) + tile('לתשלום', cmIls(o.payable))
+    + '</div>' + cmOwnerHtml(o) + '</div>';
+}
+/* 7.50.0 — רומן: "אפשר לראות עמלות מכירה החל מחודש מרץ 2026 אחורה או פשוט אפשר לבחור בין תאריכים".
+   החודשים מינואר 2026 (תחילת הרישום) ועד החודש הנוכחי. הטווח נטען מ-crm.commission_range — אותה הרשאה של הדוח. */
+function cmMonths(){
+  const n = new Date(), cur = n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-01', out = [];
+  for(let x = '2026-01-01'; x <= cur && out.length < 120; x = cmShift(x, 1)) out.push(x);
+  return out;
+}
+window.cmMode = v=>{
+  CM.mode = v === 'range' ? 'range' : 'month';
+  if(CM.mode === 'range'){ const ms = cmMonths(); if(!CM.rt) CM.rt = ms[ms.length-1]; if(!CM.rf) CM.rf = ms[0]; }
+  renderComm();
+};
+window.cmSetRf = v=>{ CM.rf = v; CM.rerr = ''; renderComm(); };
+window.cmSetRt = v=>{ CM.rt = v; CM.rerr = ''; renderComm(); };
+window.cmOpenMonth = (m, k)=>{ CM.mode = 'month'; CM.m = m; CM.open = k; CM.err = ''; renderComm(); };
+function cmRangeLoad(){
+  const key = CM.rf+'|'+CM.rt;
+  if(CM.rbusy === key) return;
+  if(CM.rerr && Date.now()-CM.rat < 60000) return;
+  if(CM.rd && CM.rd.key === key && Date.now()-CM.rat < 120000) return;
+  CM.rbusy = key;
+  const done = (d, err)=>{
+    if(CM.rbusy === key) CM.rbusy = '';
+    if(CM.rf+'|'+CM.rt !== key) return;          /* טווח שהוחלף בינתיים אינו נדרס */
+    CM.rd = d ? Object.assign(d, { key }) : null; CM.rerr = err || ''; CM.rat = Date.now();
+    if(CUR_TAB === 'comm' && CM.mode === 'range') renderComm();
+  };
+  (async ()=>{
+    try{
+      const s = await sb.schema('crm').rpc('commission_sync');
+      if(s && s.error) throw s.error;
+      const r = await sb.schema('crm').rpc('commission_range', { p_from: CM.rf, p_to: CM.rt });
+      if(r && r.error) throw r.error;
+      done((r && r.data) || null, '');
+    }catch(e){ done(null, String((e && e.message) || e || 'שגיאה')); }
+  })();
+}
+function cmRangeHtml(R){
+  const rows = [];
+  (R.months || []).forEach(mm=>(mm.owners || []).forEach(o=>rows.push({ m:mm.month, st:mm.status, o })));
+  if(!rows.length) return '<div class="sa-card"><div class="empty">אין עמלות בטווח הזה</div></div>';
+  const by = {}, ks = [];
+  rows.forEach(r=>{ const k = cmKey(r.o); if(!by[k]){ by[k] = { name:r.o.name, list:[] }; ks.push(k); } by[k].list.push(r); });
+  const sum = (L, f)=>L.reduce((a, r)=>a+(+r.o[f]||0), 0);
+  let h = '<div class="sa-card"><h3>עמלות '+esc(cmLabel(R.from))+' — '+esc(cmLabel(R.to))+' <span class="cnt">לחיצה על שורה פותחת את החודש</span></h3>'
+    + '<div class="tbl-wrap"><table class="tbl cm-rtbl"><thead><tr><th>איש מכירות</th><th>חודש</th><th class="num">עסקאות</th><th class="num">מכירות לפני מע״מ</th>'
+    + '<th class="num">עמלה</th><th class="num">קיזוזים</th><th class="num">לתשלום</th><th>מצב</th></tr></thead><tbody>';
+  ks.forEach(k=>{
+    const g = by[k];
+    g.list.forEach(r=>{
+      h += '<tr class="clk" data-m="'+esc(r.m)+'" onclick="cmOpenMonth(\''+jsq(r.m)+'\',\''+jsq(k)+'\')"><td>'+esc(g.name||'')+'</td><td>'+esc(cmLabel(r.m))+'</td>'
+        + '<td class="num">'+(+r.o.deals||0)+'</td><td class="num">'+shekel(r.o.sales)+'</td><td class="num">'+cmIls(r.o.commission)+'</td>'
+        + '<td class="num">'+(+r.o.adj_total ? cmIls(r.o.adj_total) : '—')+'</td><td class="num">'+cmIls(r.o.payable)+'</td><td><span class="sa-chip">'+esc(r.st||'')+'</span></td></tr>';
+    });
+    h += '<tr class="cm-sub"><td><b>'+esc(g.name||'')+' — סה״כ</b></td><td></td><td class="num">'+sum(g.list, 'deals')+'</td><td class="num">'+shekel(sum(g.list, 'sales'))+'</td>'
+      + '<td class="num"><b>'+cmIls(sum(g.list, 'commission'))+'</b></td><td class="num">'+(sum(g.list, 'adj_total') ? cmIls(sum(g.list, 'adj_total')) : '—')+'</td>'
+      + '<td class="num"><b>'+cmIls(sum(g.list, 'payable'))+'</b></td><td></td></tr>';
+  });
+  return h + '</tbody></table></div></div>';
+}
+/* 7.50.0 — רומן: "מסך זה תמיד צריך להתרענן במידה ומשתנים שם פריטים בהזמנה". הסכום מגיע מההזמנות בשרת; כאן — טעינה מחדש
+   כל 5 דקות כשהמסך גלוי, ובחזרה ללשונית אחרי דקה. ⚠️ לא ב-CRM_AUTO_REG: crmautotest סוגרת את הרשימה בכוונה. */
+function cmAutoWire(){
+  if(CM.wired) return; CM.wired = true;
+  setInterval(()=>{ if(typeof CUR_TAB !== 'undefined' && CUR_TAB === 'comm' && !document.hidden){ CM.at = 0; CM.rat = 0; renderComm(); } }, 300000);
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden && typeof CUR_TAB !== 'undefined' && CUR_TAB === 'comm' && Date.now() - Math.max(CM.at, CM.rat) > 60000){ CM.at = 0; CM.rat = 0; renderComm(); }
+  });
+}
 window.renderComm = function(){
   const bar = $('#cm-bar'), body = $('#cm-body'); if(!bar || !body) return;
-  const m = cmMonth();
-  bar.innerHTML = '<button type="button" class="lf-clear" onclick="cmGo(-1)">החודש הקודם</button>'
-    + '<b class="cm-mon">'+esc(cmLabel(m))+'</b>'
-    + '<button type="button" class="lf-clear" onclick="cmGo(1)">החודש הבא</button>'
+  cmAutoWire();
+  const m = cmMonth(), rg = CM.mode === 'range';
+  const sel = (id, v, fn)=>'<select class="lf-sel" id="'+id+'" aria-label="חודש" onchange="'+fn+'(this.value)">'
+    + cmMonths().map(x=>'<option value="'+x+'"'+(x===v ? ' selected' : '')+'>'+esc(cmLabel(x))+'</option>').join('')+'</select>';
+  bar.innerHTML = '<span class="dmc-seg"><button type="button" class="'+(rg ? '' : 'on')+'" onclick="cmMode(\'month\')">חודש</button>'
+    + '<button type="button" class="'+(rg ? 'on' : '')+'" onclick="cmMode(\'range\')">טווח</button></span>'
+    + (rg ? '<span class="cm-rng">מ'+sel('cm-rf', CM.rf, 'cmSetRf')+' עד '+sel('cm-rt', CM.rt, 'cmSetRt')+'</span>'
+          : '<button type="button" class="lf-clear" onclick="cmGo(-1)">החודש הקודם</button><b class="cm-mon">'+esc(cmLabel(m))+'</b>'
+            + '<button type="button" class="lf-clear" onclick="cmGo(1)">החודש הבא</button>')
     + '<button type="button" class="lf-clear" onclick="cmRefresh()">↻ רענון</button>'
     + '<button type="button" class="lf-clear" onclick="cmPrint(null)">הדפסה</button>';
+  if(rg){
+    cmRangeLoad();
+    const R = CM.rd && CM.rd.key === CM.rf+'|'+CM.rt ? CM.rd : null;
+    if(!R && !CM.rerr){ body.innerHTML = crmLoading(); return; }
+    if(!R){ body.innerHTML = '<div class="err">הטעינה נכשלה — '+esc(CM.rerr)+' · <button type="button" class="chip" onclick="cmRefresh()">נסה שוב</button></div>'; return; }
+    body.innerHTML = cmRangeHtml(R);
+    return;
+  }
   cmLoad();
   const D = CM.d && CM.d.month === m ? CM.d : null;
   if(!D && !CM.err){ body.innerHTML = crmLoading(); return; }
   if(!D){ body.innerHTML = '<div class="err">הטעינה נכשלה — '+esc(CM.err)+' · <button type="button" class="chip" onclick="cmRefresh()">נסה שוב</button></div>'; return; }
+  const own = D.scope === 'own';
   const one = CM.print && CM.print !== '*' ? (D.owners || []).find(o=>cmKey(o)===CM.print) : null;
   body.innerHTML = one
     ? '<div class="sa-card"><h3>דוח עמלות — '+esc(one.name||'')+' · '+esc(cmLabel(D.month))+'</h3></div>' + cmStatus(D) + '<div class="sa-card">'+cmOwnerHtml(one)+'</div>' + cmRules(D)
-    : cmStatus(D) + cmTable(D) + cmExtra(D) + cmRules(D);
+    : own ? cmStatus(D) + cmMineHtml(D) + cmExtra(D) + cmRules(D)
+          : cmStatus(D) + cmTable(D) + cmExtra(D) + cmRules(D);
 };
 window.cmPrint = k=>{
   CM.print = k || '*'; if(k) CM.open = k;
@@ -21686,6 +21808,67 @@ window.srlDel = async id=>{
   let r; try{ r = await sb.schema('crm').from('sales_rules').delete().eq('id', id).select('id'); }catch(e){ r = { error:e }; }
   if(!r || r.error || !(r.data || []).length){ toast('המחיקה נכשלה: '+(((r && r.error) && r.error.message) || 'אין הרשאת עריכה'), 'err'); return; }
   toast('נמחק'); srlLoad();
+};
+/* ===== 7.50.0 — "מדרגות עמלה" בהגדרות =====
+   רומן: "עבורי אפשר מסך הגדרות במיקום הנכון לערוך את מספרי הבונוסים". שמירה = גרסה חדשה מחודש נבחר
+   (crm.commission_tiers_save — רומן בלבד; מסרב לחודש שנסגר ולמדרגות שאינן ברצף מ-0 עם תקרה פתוחה בסוף).
+   חודשים שלפני החודש שנבחר נשארים על הגרסה שלהם, ולכן עריכה אינה משנה עמלה שכבר חושבה. */
+const CTS = { rows:[], edit:[], from:'' };
+function ctsHtml(){
+  return '<div class="st-top"><h2 class="sec">מדרגות עמלה</h2></div><div class="note">מדרגות מצטברות על סך המכירות של איש המכירות בחודש, לפני מע״מ. '
+    + 'שמירה יוצרת גרסה חדשה מהחודש שבוחרים; החודשים שלפניו נשארים על המדרגות שלהם, וחודש שנסגר לא משתנה.</div>'
+    + '<div id="cts-box">'+crmLoading('טוען מדרגות…')+'</div>';
+}
+window.ctsLoad = async ()=>{
+  let r; try{ r = await sb.schema('crm').from('commission_tiers').select('valid_from,lo,hi,rate').order('valid_from', { ascending:false }).order('lo'); }catch(e){ r = { error:e }; }
+  const box = $('#cts-box'); if(!box) return;
+  if(!r || r.error){ box.innerHTML = '<div class="err">טעינת המדרגות נכשלה — '+esc(((r && r.error) && r.error.message) || 'שגיאה')+'</div>'; return; }
+  CTS.rows = r.data || [];
+  const cur = CTS.rows.length ? CTS.rows[0].valid_from : '';
+  CTS.edit = CTS.rows.filter(x=>x.valid_from===cur).map(x=>({ lo:+x.lo, hi:x.hi==null ? null : +x.hi, pct:+(+x.rate*100).toFixed(3) }));
+  if(!CTS.edit.length) CTS.edit = [{ lo:0, hi:null, pct:null }];
+  const n = new Date(); CTS.from = n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-01';
+  ctsPaint();
+};
+function ctsPaint(){
+  const box = $('#cts-box'); if(!box) return;
+  const ed = canEdit('set.crm'), dis = ed ? '' : ' disabled';
+  const ms = cmMonths(); let x = ms[ms.length-1]; for(let i = 0; i < 12; i++){ x = cmShift(x, 1); ms.push(x); }
+  const vs = [...new Set(CTS.rows.map(r=>r.valid_from))];
+  const num = (f, v, ph)=>'<input class="st-num" type="number" step="any" data-f="'+f+'" value="'+(v==null ? '' : esc(String(v)))+'"'+(ph ? ' placeholder="'+ph+'"' : '')+dis+'>';
+  box.innerHTML = '<section class="st-card"><div class="st-hd"><h3>עריכה</h3><small>נשמר כגרסה חדשה מהחודש שנבחר</small></div>'
+    + '<div class="cts-from"><label>בתוקף מחודש<select id="cts-from"'+dis+' onchange="ctsFrom(this.value)">'
+    + ms.map(m=>'<option value="'+m+'"'+(m===CTS.from ? ' selected' : '')+'>'+esc(cmLabel(m))+'</option>').join('')+'</select></label></div>'
+    + '<div class="tbl-wrap"><table class="tbl cts-tbl"><thead><tr><th>מדרגה</th><th>מ (₪)</th><th>עד (₪)</th><th>אחוז</th>'+(ed ? '<th></th>' : '')+'</tr></thead><tbody>'
+    + CTS.edit.map((t, i)=>'<tr data-i="'+i+'"><td>'+(i+1)+'</td><td>'+num('lo', t.lo)+'</td><td>'+num('hi', t.hi, 'ללא תקרה')+'</td><td>'+num('pct', t.pct)+'</td>'
+        + (ed ? '<td><button type="button" class="ghost" onclick="ctsDel('+i+')">הסרה</button></td>' : '')+'</tr>').join('')
+    + '</tbody></table></div>'
+    + (ed ? '<div class="cts-act"><button type="button" class="chip" onclick="ctsAdd()">＋ מדרגה</button><button type="button" class="btn" onclick="ctsSave()">שמירה כגרסה</button><span id="cts-msg" class="st-msg"></span></div>' : '')
+    + '</section>'
+    + '<section class="st-card"><div class="st-hd"><h3>גרסאות</h3><small>כל חודש מחושב לפי הגרסה האחרונה שבתוקף בו</small></div>'
+    + (vs.length ? vs.map(v=>'<div class="cts-ver"><b>מ'+esc(cmLabel(v))+'</b> '
+        + CTS.rows.filter(r=>r.valid_from===v).map(r=>esc(cmRange(r))+' · '+esc(cmPct(r.rate))).join(' | ')+'</div>').join('') : '<div class="empty">אין גרסאות</div>')
+    + '</section>';
+}
+function ctsRead(){
+  document.querySelectorAll('#cts-box tr[data-i]').forEach(tr=>{
+    const t = CTS.edit[+tr.dataset.i]; if(!t) return;
+    tr.querySelectorAll('[data-f]').forEach(inp=>{ const s = String(inp.value == null ? '' : inp.value).trim(); t[inp.dataset.f] = s === '' ? null : +s; });
+  });
+}
+window.ctsFrom = v=>{ ctsRead(); CTS.from = v; };
+window.ctsAdd = ()=>{ ctsRead(); const last = CTS.edit[CTS.edit.length-1]; CTS.edit.push({ lo: last && last.hi != null ? last.hi : null, hi:null, pct:null }); ctsPaint(); };
+window.ctsDel = i=>{ ctsRead(); CTS.edit.splice(i, 1); ctsPaint(); };
+window.ctsSave = async ()=>{
+  ctsRead();
+  const msg = $('#cts-msg'), rows = CTS.edit.map(t=>({ lo:t.lo, hi:t.hi, pct:t.pct }));
+  let r; try{ r = await sb.schema('crm').rpc('commission_tiers_save', { p_valid_from: CTS.from, p_rows: rows }); }catch(e){ r = { error:e }; }
+  if(!r || r.error){
+    const m = ((r && r.error) && r.error.message) || 'שגיאה';
+    if(msg) msg.textContent = m;
+    toast('השמירה נכשלה: '+m, 'err'); return;
+  }
+  toast('נשמר — בתוקף מ'+cmLabel(CTS.from)+' ✓'); CM.at = 0; CM.rat = 0; ctsLoad();
 };
 window.renderMkt = function(){
   if(!canView('mkt.dash')) return;
