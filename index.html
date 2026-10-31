@@ -4178,7 +4178,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.51.0</div>
+      <div class="ver">גרסה 7.51.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4320,7 +4320,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="calcmenu-2026-10-31a">גרסה 7.51.0</div>
+    <div class="side-foot" title="returns-2026-10-31a">גרסה 7.51.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -8466,7 +8466,11 @@ function dtoRows(R){
   const cell = o=> '<span class="c">'+(!mine ? '<i>…</i>' : DTO.err ? '<i title="'+esc(DTO.err)+'">לא נטען</i>'
     : (o && +o.n) ? '<b>'+ilsK(+o.net||0)+'</b><small>'+(+o.n)+' הזמנות</small>' : '<i>—</i>')+'</span>';
   const row = (lbl, sub, o)=> '<div class="dtm-r dtm-x"><span class="t"><b>'+lbl+'</b><small>'+sub+'</small></span>'+dash+dash+cell(o)+dash+'</div>';
-  return row('הזמנה מהאתר', 'לקוחות אתר · בלי הצעת מחיר', d.web) + row('הזמנה ישירה', 'בלי הצעת מחיר', d.direct);
+  /* 7.51.1 — רומן, 31/10/2026 ("מאשר את 1 2 3 4"): הזמנות בסכום שלילי בשורה נפרדת, כדי שהסיכום יתאים לפריוריטי.
+     השרת מחזיר returns = כל הזמנה בסכום שלילי (גם מהצעה); אתר/ישירה = בלי הצעה וסכום ≥ 0 — אין ספירה כפולה.
+     שרת בלי המפתח ⇒ "—". */
+  return row('הזמנה מהאתר', 'לקוחות אתר · בלי הצעת מחיר', d.web) + row('הזמנה ישירה', 'בלי הצעת מחיר', d.direct)
+       + row('החזרות וזיכויים', 'הזמנות בסכום שלילי', d.returns);
 }
 function renderRepsBlock(){
   const el = $('#db-reps'); if(!el) return;
@@ -14196,7 +14200,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'calcmenu-2026-10-31a';
+const BUILD_ID = 'returns-2026-10-31a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
