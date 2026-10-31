@@ -4245,7 +4245,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.53.0</div>
+      <div class="ver">גרסה 7.53.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4392,7 +4392,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="calcui-2026-10-31a">גרסה 7.53.0</div>
+    <div class="side-foot" title="splitown-2026-10-31a">גרסה 7.53.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -14275,7 +14275,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'calcui-2026-10-31a';
+const BUILD_ID = 'splitown-2026-10-31a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21517,7 +21517,9 @@ function cmLoad(){
   const done = (d, err)=>{
     if(CM.busy === m) CM.busy = '';
     if(cmMonth() !== m) return;          /* תשובה של חודש קודם אינה דורסת את החודש שנבחר אחריה */
-    CM.d = d; CM.err = err || ''; CM.at = Date.now();
+    /* 7.53.1 — data:null בלי error ⇒ שגיאה גלויה. בלעדיה CM.d=null ו-CM.err='' ⇒ renderComm ⇒ cmLoad מחדש ⇒ לולאה שתוקעת את הדף
+       (ממצא של סשן "סכומי תהליכים", נמדד ב-CDP). השגיאה עוצרת את הטעינה לדקה, כמו כל כשל אחר. */
+    CM.d = d; CM.err = err || (d ? '' : 'הדוח חזר ריק מהשרת'); CM.at = Date.now();
     if(CUR_TAB === 'comm') renderComm();
   };
   (async ()=>{
@@ -21638,6 +21640,17 @@ function cmExtra(D){
     + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>עסקה</th><th>איש מכירות</th><th>מחודש</th><th class="num">סכום</th><th>בוטלה</th></tr></thead><tbody>'
     + G.map(a=>row(a, '<td>'+esc(cmLabel(a.from_month))+'</td><td class="num">'+cmIls(a.amount)+'</td><td>'+esc(cmDay(a.cancelled_at))+'</td>')).join('')
     + '</tbody></table></div></div>';
+  /* 7.53.1 — רומן: "כן, לאפשר" — פיצול גם בעסקה שהבעלים שלה אינו מקבל עמלה (רומן, נח, או לפני תאריך ההתחלה).
+     העסקאות האלה אינן בטבלת הצוות, ולכן זה המקום היחיד שממנו מגיעים אליהן. החלק של הבעלים אינו נספר; של השותף — נספר לו. */
+  const U = D.uncounted || [], sp = !!D.can_split;
+  if(U.length) h += '<div class="sa-card cm-unc"><h3>עסקאות שאינן נספרות לעמלה <span class="cnt">'+U.length+'</span></h3>'
+    + '<div class="sa-sub">עסקאות החודש של מי שאינו מקבל עמלה. '+(sp ? 'אפשר לפצל עסקה כזו עם איש מכירות, והחלק שלו ייספר לו.' : 'החודש נעול לפיצול.')+'</div>'
+    + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>עסקה</th><th>בעלים</th><th>תאריך ההזמנה</th><th class="num">סכום לפני מע״מ</th>'
+    + (sp ? '<th class="cm-noprint">פיצול</th>' : '')+'</tr></thead><tbody>'
+    + U.map(u=>'<tr class="clk" onclick="openDeal(\''+jsq(u.deal_id)+'\')"><td>'+esc(u.customer||u.deal_name||'')+'</td><td>'+esc(u.owner||'')+'</td><td>'+esc(cmDay(u.won_at))+'</td>'
+        + '<td class="num">'+(u.amount==null ? '<span class="sa-warn">אין סכום</span>' : cmIls(u.amount))+(u.split_with ? '<small class="cm-split">'+esc(u.split_with)+'</small>' : '')+'</td>'
+        + (sp ? '<td class="cm-noprint"><button type="button" class="chip" onclick="event.stopPropagation();cmSplitOpen(\''+jsq(u.deal_id)+'\')">'+(u.split_with ? 'עריכת פיצול' : 'פיצול')+'</button></td>' : '')+'</tr>').join('')
+    + '</tbody></table></div></div>';
   return h;
 }
 /* 7.50.0 — "הדוח שלי": scope 'own' (dash.commission=1) — השרת כבר מחזיר רק את השורה שלו; כאן רק הצורה. */
@@ -21676,7 +21689,7 @@ function cmRangeLoad(){
   const done = (d, err)=>{
     if(CM.rbusy === key) CM.rbusy = '';
     if(CM.rf+'|'+CM.rt !== key) return;          /* טווח שהוחלף בינתיים אינו נדרס */
-    CM.rd = d ? Object.assign(d, { key }) : null; CM.rerr = err || ''; CM.rat = Date.now();
+    CM.rd = d ? Object.assign(d, { key }) : null; CM.rerr = err || (d ? '' : 'הטווח חזר ריק מהשרת'); CM.rat = Date.now();   /* 7.53.1 — כמו בחודש: לא לולאה */
     if(CUR_TAB === 'comm' && CM.mode === 'range') renderComm();
   };
   (async ()=>{
@@ -21945,8 +21958,12 @@ window.cmSplitOpen = async id=>{
 };
 function cmSpName(id){
   const D = CM.d || {}, p = (D.split_people || []).find(x=>x.id===id) || (D.owners || []).find(x=>x.owner_id===id);
-  return p ? (p.name || '') : '—';
+  if(p) return p.name || '';
+  const u = (D.uncounted || []).find(x=>x.owner_id===id);   /* 7.53.1 — בעלים שאינו נספר (רומן, נח) אינו ברשימות האחרות */
+  return u ? (u.owner || '') : '—';
 }
+/* 7.53.1 — הבעלים אינו מקבל עמלה בחודש הזה ⇒ החלק שלו אינו נספר (השרת: commission_counts) */
+const cmSpUncounted = id => (((CM.d || {}).uncounted) || []).some(x=>x.owner_id===id);
 function cmSplitPaint(){
   const b = document.getElementById('cm-sp-body'), L = CMS.line, S = CMS.shares || [], D = CM.d || {};
   if(!b || !L) return;
@@ -21980,7 +21997,9 @@ window.cmSplitPrev = ()=>{
   if(!ok || L.amount == null){ pv.textContent = ''; return; }
   const part = Math.round(+L.amount * (100 - a)) / 100, mine = Math.round((+L.amount - part) * 100) / 100;
   pv.innerHTML = esc(cmSpName(L.owner_id))+': <b>'+cmIls(mine)+'</b>'+(pid ? ' · '+esc(cmSpName(pid))+': <b>'+cmIls(part)+'</b>' : '')
-    + ' — כל חלק נספר במכירות החודש של בעליו ובמדרגה שלו.';
+    + (cmSpUncounted(L.owner_id)
+        ? ' — החלק של '+esc(cmSpName(L.owner_id))+' אינו נספר לעמלה; החלק של השותף נספר במכירות החודש שלו ובמדרגה שלו.'
+        : ' — כל חלק נספר במכירות החודש של בעליו ובמדרגה שלו.');
 };
 function cmSplitErr(m){ const e = document.getElementById('cm-sp-err'); if(e){ e.textContent = m; e.hidden = !m; } }
 window.cmSplitSave = async ()=>{
