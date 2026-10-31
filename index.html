@@ -1274,16 +1274,18 @@
   }
   /* 7.49.0 — מחשבון סגירה (closecalc) וכללי מכירה */
   #dl-ccm .sheet{ max-width:560px }
-  #dl-ccm .cc-form{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-3) }
-  #dl-ccm .cc-form label{ display:flex; flex-direction:column; gap:var(--sp-1); font-size:var(--fs-sm); color:var(--ink-2); min-width:0 }
-  #dl-ccm .cc-card{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2) var(--sp-3); margin:0 0 var(--sp-2) }
-  #dl-ccm .cc-card h4{ margin:0 0 var(--sp-1); font-size:var(--fs-sm); font-weight:800; color:var(--navy) }
-  #dl-ccm .cc-r{ display:flex; justify-content:space-between; gap:var(--sp-2); font-size:var(--fs-md); padding:var(--sp-0h) 0 }
-  #dl-ccm .cc-r.cc-tot{ border-top:1px solid var(--line); margin-top:var(--sp-1); padding-top:var(--sp-1) }
-  #dl-ccm .cc-r.cc-bad b{ color:var(--red) }
-  #dl-ccm .cc-appr{ border-radius:var(--r-md); padding:var(--sp-2) var(--sp-3); margin:0 0 var(--sp-2); font-size:var(--fs-sm) }
-  #dl-ccm .cc-need{ background:var(--amber-bg); border:1px solid var(--amber) }
-  #dl-ccm .cc-ok{ background:var(--bg-subtle); border:1px solid var(--line) }
+  /* 7.51.0 — אותו עיצוב למסך מחשבונים ← מחשבון סגירה (tab-calc). רק בורר נוסף לכל כלל — הספציפיות של כל כלל לא השתנתה. */
+  #dl-ccm .cc-form, #tab-calc .cc-form{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-3) }
+  #dl-ccm .cc-form label, #tab-calc .cc-form label{ display:flex; flex-direction:column; gap:var(--sp-1); font-size:var(--fs-sm); color:var(--ink-2); min-width:0 }
+  #dl-ccm .cc-card, #tab-calc .cc-card{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2) var(--sp-3); margin:0 0 var(--sp-2) }
+  #dl-ccm .cc-card h4, #tab-calc .cc-card h4{ margin:0 0 var(--sp-1); font-size:var(--fs-sm); font-weight:800; color:var(--navy) }
+  #dl-ccm .cc-r, #tab-calc .cc-r{ display:flex; justify-content:space-between; gap:var(--sp-2); font-size:var(--fs-md); padding:var(--sp-0h) 0 }
+  #dl-ccm .cc-r.cc-tot, #tab-calc .cc-r.cc-tot{ border-top:1px solid var(--line); margin-top:var(--sp-1); padding-top:var(--sp-1) }
+  #dl-ccm .cc-r.cc-bad b, #tab-calc .cc-r.cc-bad b{ color:var(--red) }
+  #dl-ccm .cc-appr, #tab-calc .cc-appr{ border-radius:var(--r-md); padding:var(--sp-2) var(--sp-3); margin:0 0 var(--sp-2); font-size:var(--fs-sm) }
+  #dl-ccm .cc-need, #tab-calc .cc-need{ background:var(--amber-bg); border:1px solid var(--amber) }
+  #dl-ccm .cc-ok, #tab-calc .cc-ok{ background:var(--bg-subtle); border:1px solid var(--line) }
+  #tab-calc .cc-page{ max-width:640px; background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-card); padding:var(--sp-4) }
   #set-wrap .srl-tbl input.st-num{ width:100%; min-width:70px }
   #set-wrap .srl-tbl input.st-txt{ width:100%; min-width:120px }
   #set-wrap .srl-act{ white-space:nowrap }
@@ -4176,7 +4178,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.50.3</div>
+      <div class="ver">גרסה 7.51.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4264,6 +4266,14 @@ tr.lb-on td{ background-color:#eef5fd !important; }
         <button data-tab="mkt"       onclick="gotoTab('mkt')">דשבורד שיווק</button>
       </div>
     </div>
+    <!-- 7.51.0 — מחשבונים (רומן, 31/10/2026: "אולי נפתח כרטיס חדש בתפריט ״מחשבונים״?"): כלים שאינם רשומה אחת.
+         מחשבון המשלוח וההתקנה יצטרף לכאן כשרומן יחזור אליו — ולכן קבוצה עם חץ גם כשיש בה פריט אחד. -->
+    <div class="nav-wrap" data-tabs="calc">
+      <button class="nav-item" data-tab="calc" aria-expanded="false">מחשבונים <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
+      <div class="submenu">
+        <button data-tab="calc" onclick="gotoTab('calc')">מחשבון סגירה</button>
+      </div>
+    </div>
     <!-- לוגיסטיקה — שלושה מסכים אמיתיים, ולכן תת-קטגוריות. הסדר לפי רומן 29/07/2026 -->
     <div class="nav-wrap" data-tabs="logi">
       <button class="nav-item" data-tab="logi" aria-expanded="false">לוגיסטיקה <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
@@ -4310,7 +4320,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="commrange-2026-10-31a">גרסה 7.50.3</div>
+    <div class="side-foot" title="calcmenu-2026-10-31a">גרסה 7.51.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -4369,6 +4379,14 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <section id="tab-comm" class="hidden">
       <div class="sa-bar cm-noprint" id="cm-bar"></div>
       <div id="cm-body"></div>
+    </section>
+
+    <!-- 7.51.0 — מחשבונים ← מחשבון סגירה: אותו מחשבון של כרטיס העסקה (7.49.0), בלי לפתוח עסקה. renderCalc. -->
+    <section id="tab-calc" class="hidden">
+      <div class="cc-page">
+        <div id="ccs-form" class="cc-form"></div>
+        <div id="ccs-body"></div>
+      </div>
     </section>
 
     <!-- פגישות -->
@@ -5666,7 +5684,9 @@ window.TAB_PERM = {
   sana:'dash.salesteam',
   /* 7.48.0 — עמלות. 7.48.1 — מפתח משלו, dash.commission (רומן: "רק אני"); עד כאן היה dash.salesteam, שגם בן מחזיק.
      השרת בודק את אותו מפתח בשורה הראשונה של crm.commission_*; סגירת חודש — עריכה שלו. */
-  comm:'dash.commission'
+  comm:'dash.commission',
+  /* 7.51.0 — מחשבונים ← מחשבון סגירה: אותו מפתח שהשרת בודק בשורה הראשונה של crm.closing_calc, ושל השבב בכרטיס העסקה */
+  calc:'crm.deals'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
 window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', general:'set.general' };
@@ -5682,7 +5702,7 @@ window.navCanTab = t=>{
   const k = TAB_PERM[t];
   return k ? canView(k) : true;
 };
-window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt','sana','comm'];
+window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','prc','set','mkt','sana','comm','calc'];
 window.navLanding = ()=> NAV_LAND_ORDER.find(t=>navCanTab(t)) || null;
 window.canView = k => window.pLevel(k) >= 1;
 window.canEdit = k => window.pLevel(k) >= 2;
@@ -6235,7 +6255,7 @@ $('#logoutBtn').onclick = async ()=>{
    עד 6.1.0 הניווט התבצע דרך b.click() על כפתור התפריט, ולכן כל מסך היה חייב
    כפתור ראשי משלו בסרגל. משנכנסו שבעת מסכי ה-CRM תחת קטגוריית אב אחת, אין
    לכל מסך כפתור ראשי — ולכן הניווט עבר לפונקציה אחת שאינה תלויה ב-DOM. */
-const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','comm','pays','sup','sinv','tasks','logi','skus','inv','po','prc','docs','set','mkt','sana'];
+const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','comm','pays','sup','sinv','tasks','logi','skus','inv','po','prc','docs','set','mkt','sana','calc'];
 let CUR_TAB = 'today';
 /* התצוגה הפנימית הנוכחית של כל מסך שיש לו תתי-קטגוריות — לצורך סימון הפריט הפעיל */
 const NAV_VIEW = {
@@ -6334,6 +6354,7 @@ window.gotoTab = t=>{
   if(t==='mkt') renderMkt();
   if(t==='sana') renderSana();   /* 7.41.0 */
   if(t==='comm') renderComm();   /* 7.48.0 */
+  if(t==='calc') renderCalc();   /* 7.51.0 */
   if(t==='paylinks') renderPayLinks();   /* 7.25.0 */
   if(_navNarrow()) setSide(false);
 };
@@ -14175,7 +14196,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'commrange-2026-10-31a';
+const BUILD_ID = 'calcmenu-2026-10-31a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21674,6 +21695,10 @@ window.cmReopen = async ()=>{
    🔴 החלונית **אינה מחשבת** — היא שולחת סכום, אמצעי, תשלומים והנחה נוספת, ומציגה את מה שהשרת החזיר.
    ⚠️ מראה בלבד: לא כותבת לעסקה ולא לפריוריטי. ההנחה נקבעת בהצעה בפריוריטי, ותנאי התשלום בכרטיס העסקה. */
 const CC = { deal:'', seq:0, t:null };
+/* 7.51.0 — מסך מחשבונים ← מחשבון סגירה. מזהים (ccs-*) ומונה תשובות משלו: שני המקומות יכולים להיות ב-DOM בבת אחת,
+   ו-$('#cc-amt') מחזיר את הראשון בסדר המסמך — המסך (ב-main) קודם לחלונית (בסוף body). */
+const CCS = { seq:0, t:null };
+const CC_CTX = { cc:{ st:CC, body:'dl-ccbody' }, ccs:{ st:CCS, body:'ccs-body' } };
 const CC_METHODS = [['credit','כרטיס אשראי'],['standing','הוראת קבע'],['immediate','תשלום מיידי — מזומן / העברה'],['beats3','פעימות — עד 3'],['beats_long','פעימות — יותר מ-3']];
 function dlCloseBtn(d){ return ' <button type="button" class="chip" onclick="dlCloseCalc(\''+jsq(d && d.id)+'\')">מחשבון סגירה</button>'; }
 const ccIls = n => n==null || isNaN(+n) ? '—' : '₪'+(+n).toLocaleString('he-IL', { minimumFractionDigits:2, maximumFractionDigits:2 });
@@ -21695,23 +21720,34 @@ window.dlCloseCalc = id=>{
   const d = (typeof DEALS !== 'undefined' && Array.isArray(DEALS) ? DEALS : []).find(x=>x.id===id) || {};
   CC.deal = id;
   const e = ccEl(), f = document.getElementById('dl-ccform');
-  f.innerHTML = '<label><span>סכום ההצעה לפני מע״מ</span><input id="cc-amt" type="number" min="0" step="1" value="'+esc(String(Math.round(+d.amount||0)))+'"></label>'
-    + '<label><span>אמצעי תשלום</span><select id="cc-m">'+CC_METHODS.map(([v,l])=>'<option value="'+v+'">'+esc(l)+'</option>').join('')+'</select></label>'
-    + '<label><span>מספר תשלומים</span><input id="cc-n" type="number" min="1" max="36" step="1" value="1"></label>'
-    + '<label><span>הנחה נוספת (%)</span><input id="cc-x" type="number" min="0" max="50" step="0.5" value="0"></label>';
-  f.querySelectorAll('input,select').forEach(x=>x.addEventListener('input', ccQueue));
+  f.innerHTML = ccFormHtml('cc', String(Math.round(+d.amount||0)));
+  f.querySelectorAll('input,select').forEach(x=>x.addEventListener('input', ()=>ccQueue('cc')));
   e.classList.remove('hidden');
   ccRun();
 };
-function ccQueue(){ clearTimeout(CC.t); CC.t = setTimeout(ccRun, 250); }
-async function ccRun(){
-  const b = document.getElementById('dl-ccbody'); if(!b) return;
-  const amt = Math.max(0, +(($('#cc-amt')||{}).value || 0)), m = ($('#cc-m')||{}).value || 'credit';
-  const n = Math.max(1, Math.round(+(($('#cc-n')||{}).value || 1))), x = Math.min(50, Math.max(0, +(($('#cc-x')||{}).value || 0)));   /* 7.50.3 — כמו השרת: 0–50 */
-  const seq = ++CC.seq;
+/* 7.51.0 — הטופס במקום אחד: p = 'cc' (החלונית) או 'ccs' (המסך). */
+function ccFormHtml(p, amt){
+  return '<label><span>סכום ההצעה לפני מע״מ</span><input id="'+p+'-amt" type="number" min="0" step="1" value="'+esc(amt)+'"></label>'
+    + '<label><span>אמצעי תשלום</span><select id="'+p+'-m">'+CC_METHODS.map(([v,l])=>'<option value="'+v+'">'+esc(l)+'</option>').join('')+'</select></label>'
+    + '<label><span>מספר תשלומים</span><input id="'+p+'-n" type="number" min="1" max="36" step="1" value="1"></label>'
+    + '<label><span>הנחה נוספת (%)</span><input id="'+p+'-x" type="number" min="0" max="50" step="0.5" value="0"></label>';
+}
+/* ⚠️ p שאינו מחרוזת (Event ממאזין ישן) ⇒ החלונית, כמו עד 7.50.3. מחרוזת לא מוכרת היא באג של מי שקרא — נרשם בקונסול,
+   אחרת הקלדה במקום חדש הייתה מחשבת בשקט את החלונית (סקירת Fable, 31/10). */
+const ccKey = p => { if(typeof p === 'string'){ if(CC_CTX[p]) return p; console.error('ccKey: הקשר לא מוכר', p); } return 'cc'; };
+function ccQueue(p){ const k = ccKey(p), S = CC_CTX[k].st; clearTimeout(S.t); S.t = setTimeout(()=>ccRun(k), 250); }
+async function ccRun(p){
+  const k = ccKey(p), S = CC_CTX[k].st, v = id=>(document.getElementById(k+'-'+id)||{}).value;
+  const b = document.getElementById(CC_CTX[k].body); if(!b) return;
+  if(k === 'ccs' && CUR_TAB !== 'calc') return;   /* 7.51.0 — יצא מהמסך לפני שה-debounce ירה; בחזרה renderCalc מחשב מחדש (סקירת Fable) */
+  const amt = Math.max(0, +(v('amt') || 0)), m = v('m') || 'credit';
+  const n = Math.max(1, Math.round(+(v('n') || 1))), x = Math.min(50, Math.max(0, +(v('x') || 0)));   /* 7.50.3 — כמו השרת: 0–50 */
+  const seq = ++S.seq;
+  /* 7.51.0 — במסך אין עסקה שממנה בא הסכום: בלי סכום אין מה לחשב, ואין קריאה לשרת. ה-seq כבר עלה — תשובה ישנה לא תדרוס. */
+  if(k === 'ccs' && !(amt > 0)){ b.innerHTML = '<div class="note">הקלידו את סכום ההצעה לפני מע״מ, והחישוב יופיע כאן.</div>'; return; }
   b.innerHTML = crmLoading('מחשב את תנאי הסגירה…');   /* ⚠️ לא 'מחשב…' — cardtest מונה אותו כאתר יחיד של מחשבון המשלוח */
   let r; try{ r = await sb.schema('crm').rpc('closing_calc', { p_amount: amt, p_method: m, p_n: n, p_extra: x }); }catch(e){ r = { error:e }; }
-  if(seq !== CC.seq) return;   /* תשובה ישנה אינה דורסת את מה שהוקלד אחריה */
+  if(seq !== S.seq) return;   /* תשובה ישנה אינה דורסת את מה שהוקלד אחריה */
   if(!r || r.error){ b.innerHTML = '<div class="err">החישוב נכשל — '+esc(((r && r.error) && r.error.message) || 'שגיאה')+'</div>'; return; }
   b.innerHTML = ccHtml(r.data || {});
 }
@@ -21740,6 +21776,16 @@ function ccHtml(R){
   return h + '<div class="note">המחשבון מראה בלבד: ההנחה נקבעת בהצעה בפריוריטי, ותנאי התשלום בכרטיס העסקה.'
     + (canView('set.crm') ? ' הכללים — הגדרות ← כללי מכירה.' : '') + '</div>';
 }
+/* 7.51.0 — מחשבונים ← מחשבון סגירה. הטופס נבנה פעם אחת ונשמר בין כניסות למסך; כל כניסה מחשבת מחדש (הכללים אולי השתנו). */
+window.renderCalc = ()=>{
+  const f = document.getElementById('ccs-form'); if(!f) return;
+  if(!f.dataset.built){
+    f.innerHTML = ccFormHtml('ccs', '');
+    f.querySelectorAll('input,select').forEach(x=>x.addEventListener('input', ()=>ccQueue('ccs')));
+    f.dataset.built = '1';
+  }
+  ccRun('ccs');
+};
 /* ===== 7.49.0 — "כללי מכירה" בהגדרות =====
    עורך את crm.sales_rules. כתיבה — ה-RLS בודק עריכת set.crm; כאן רק מסתירים את הכפתורים.
    ⚠️ שמירה שה-RLS דחה מחזירה 0 שורות ולא שגיאה — לכן .select('id') ובדיקת אורך, אחרת "נשמר ✓" היה שקר. */
