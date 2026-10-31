@@ -4176,7 +4176,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.50.2</div>
+      <div class="ver">גרסה 7.50.3</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4310,7 +4310,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="predelfix-2026-10-30b">גרסה 7.50.2</div>
+    <div class="side-foot" title="commrange-2026-10-31a">גרסה 7.50.3</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -14175,7 +14175,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'predelfix-2026-10-30b';
+const BUILD_ID = 'commrange-2026-10-31a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21552,8 +21552,10 @@ window.cmMode = v=>{
   if(CM.mode === 'range'){ const ms = cmMonths(); if(!CM.rt) CM.rt = ms[ms.length-1]; if(!CM.rf) CM.rf = ms[0]; }
   renderComm();
 };
-window.cmSetRf = v=>{ CM.rf = v; CM.rerr = ''; renderComm(); };
-window.cmSetRt = v=>{ CM.rt = v; CM.rerr = ''; renderComm(); };
+/* 7.50.3 — רומן: "אפריל עד מרץ לא יכול להיות ... מרץ עד אפריל אולי כן". "מ" שאחרי "עד" מזיז את "עד" אליו, ולהפך,
+   וכל בורר מציע רק חודשים שאינם עוברים את השני (renderComm). עד כאן השרת הפך ביניהם בשקט והכותרת סתרה את הבוררים. */
+window.cmSetRf = v=>{ CM.rf = v; if(CM.rt && CM.rt < v) CM.rt = v; CM.rerr = ''; renderComm(); };
+window.cmSetRt = v=>{ CM.rt = v; if(CM.rf && CM.rf > v) CM.rf = v; CM.rerr = ''; renderComm(); };
 window.cmOpenMonth = (m, k)=>{ CM.mode = 'month'; CM.m = m; CM.open = k; CM.err = ''; renderComm(); };
 function cmRangeLoad(){
   const key = CM.rf+'|'+CM.rt;
@@ -21613,11 +21615,11 @@ window.renderComm = function(){
   const bar = $('#cm-bar'), body = $('#cm-body'); if(!bar || !body) return;
   cmAutoWire();
   const m = cmMonth(), rg = CM.mode === 'range';
-  const sel = (id, v, fn)=>'<select class="lf-sel" id="'+id+'" aria-label="חודש" onchange="'+fn+'(this.value)">'
-    + cmMonths().map(x=>'<option value="'+x+'"'+(x===v ? ' selected' : '')+'>'+esc(cmLabel(x))+'</option>').join('')+'</select>';
+  const sel = (id, v, fn, ok, lbl)=>'<select class="lf-sel" id="'+id+'" aria-label="'+lbl+'" onchange="'+fn+'(this.value)">'
+    + cmMonths().filter(ok).map(x=>'<option value="'+x+'"'+(x===v ? ' selected' : '')+'>'+esc(cmLabel(x))+'</option>').join('')+'</select>';
   bar.innerHTML = '<span class="dmc-seg"><button type="button" class="'+(rg ? '' : 'on')+'" onclick="cmMode(\'month\')">חודש</button>'
     + '<button type="button" class="'+(rg ? 'on' : '')+'" onclick="cmMode(\'range\')">טווח</button></span>'
-    + (rg ? '<span class="cm-rng">מ'+sel('cm-rf', CM.rf, 'cmSetRf')+' עד '+sel('cm-rt', CM.rt, 'cmSetRt')+'</span>'
+    + (rg ? '<span class="cm-rng">מ'+sel('cm-rf', CM.rf, 'cmSetRf', x=>!CM.rt || x <= CM.rt, 'מחודש')+' עד '+sel('cm-rt', CM.rt, 'cmSetRt', x=>!CM.rf || x >= CM.rf, 'עד חודש')+'</span>'
           : '<button type="button" class="lf-clear" onclick="cmGo(-1)">החודש הקודם</button><b class="cm-mon">'+esc(cmLabel(m))+'</b>'
             + '<button type="button" class="lf-clear" onclick="cmGo(1)">החודש הבא</button>')
     + '<button type="button" class="lf-clear" onclick="cmRefresh()">↻ רענון</button>'
@@ -21705,7 +21707,7 @@ function ccQueue(){ clearTimeout(CC.t); CC.t = setTimeout(ccRun, 250); }
 async function ccRun(){
   const b = document.getElementById('dl-ccbody'); if(!b) return;
   const amt = Math.max(0, +(($('#cc-amt')||{}).value || 0)), m = ($('#cc-m')||{}).value || 'credit';
-  const n = Math.max(1, Math.round(+(($('#cc-n')||{}).value || 1))), x = Math.max(0, +(($('#cc-x')||{}).value || 0));
+  const n = Math.max(1, Math.round(+(($('#cc-n')||{}).value || 1))), x = Math.min(50, Math.max(0, +(($('#cc-x')||{}).value || 0)));   /* 7.50.3 — כמו השרת: 0–50 */
   const seq = ++CC.seq;
   b.innerHTML = crmLoading('מחשב את תנאי הסגירה…');   /* ⚠️ לא 'מחשב…' — cardtest מונה אותו כאתר יחיד של מחשבון המשלוח */
   let r; try{ r = await sb.schema('crm').rpc('closing_calc', { p_amount: amt, p_method: m, p_n: n, p_extra: x }); }catch(e){ r = { error:e }; }
@@ -21727,6 +21729,7 @@ function ccHtml(R){
   const pay = R.method==='credit' || R.method==='standing';
   h += card('ללקוח',
       row('לפני מע״מ', ccIls(R.net)) + row('כולל מע״מ', ccIls(R.gross))
+    + (R.gross_with_interest ? row('כולל ריבית ללקוח', ccIls(R.gross_with_interest), 'cc-bad') : '')   /* 7.50.3 */
     + (+R.n > 1 ? row((+R.n)+' תשלומים של', ccIls(R.per_payment)) : '')
     + (pay ? row('ללא ריבית בסכום הזה', R.free_max==null ? '—' : 'עד '+(+R.free_max)+' תשלומים', R.free_ok ? '' : 'cc-bad') : '')
     + (R.method==='standing' && +R.customer_interest_pct ? row('ריבית שהלקוח משלם', ccPct(R.customer_interest_pct), 'cc-bad') : ''));
