@@ -1453,9 +1453,12 @@
   #tab-sana .sa-wks.c6{ grid-template-columns:repeat(6,minmax(0,1fr)); }
   #tab-sana .sa-wks.c7{ grid-template-columns:repeat(7,minmax(0,1fr)); }
   #tab-sana .sa-wks.c9{ grid-template-columns:repeat(9,minmax(0,1fr)); }
-  #tab-sana .sa-chip-wv{ background:var(--amber-bg); color:var(--ink-1); font-weight:700; }
-  #tab-sana .sa-wvb{ width:auto; }
-  #tab-sana .sa-wvb.on{ border-color:var(--navy); color:var(--navy); font-weight:700; }
+  /* 7.56.0 — prefkind: סיווג המועדפת — שבב לקריאה, ושני כפתורים לבעלים/מנהל */
+  #tab-sana .sa-chip-push{ background:var(--amber-bg); color:var(--ink-1); font-weight:700; }
+  #tab-sana .sa-chip-wait{ background:var(--bg-subtle); color:var(--ink-2); font-weight:700; }
+  #tab-sana .sa-pkb{ width:auto; }
+  #tab-sana .sa-pkb.on{ border-color:var(--navy); color:var(--navy); background:#eef4ff; font-weight:700; }
+  #tab-sana td.sa-pk{ white-space:nowrap; }
   #tab-sana td.sa-sig{ white-space:normal; }
   @media(max-width:1024px){
     #tab-sana .sa-wks.c6, #tab-sana .sa-wks.c9{ grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -3607,10 +3610,11 @@ td.lb-today .lb-dt{ background-color:transparent; }
 .dl-fc .chip, .dl-fc .lf-clear{ width:auto; }
 .dl-pf-on{ font-weight:800; color:var(--amber); }
 .dl-star{ color:var(--amber); font-weight:800; }
-/* 7.54.0 waver — שורת "מתנדנדת" מתחת לשורת המועדפת (בלתי תלויה בה) בכרטיס העסקה, ותגית בבורד ליד ★ */
-.dl-fc .dl-wv{ flex:1 0 100%; display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2); }
-.dl-wv-on{ font-weight:800; color:var(--navy); }
-.dl-wav{ display:inline-block; margin-inline-start:var(--sp-1); padding:0 var(--sp-1h); border-radius:var(--r-md); background:var(--amber-bg); color:var(--ink-1); font-size:var(--fs-xs); font-weight:700; white-space:nowrap; }
+/* 7.56.0 prefkind — סיווג המועדפת בכרטיס העסקה (שני כפתורים: ממתינה / לדחיפה) ותגית בבורד ליד ★ */
+.dl-fc .dl-pk{ display:inline-flex; flex-wrap:wrap; gap:var(--sp-1); }
+.dl-pk-b.on{ border-color:var(--navy); color:var(--navy); background:#eef4ff; font-weight:700; }
+.dl-pkt{ display:inline-block; margin-inline-start:var(--sp-1); padding:0 var(--sp-1h); border-radius:var(--r-md); background:var(--bg-subtle); color:var(--ink-2); font-size:var(--fs-xs); font-weight:700; white-space:nowrap; }
+.dl-pkt.push{ background:var(--amber-bg); color:var(--ink-1); }
 .dl-chk{ display:inline-block; margin-inline-start:var(--sp-1); padding:0 var(--sp-1h); border-radius:var(--r-md); background:var(--red-bg); color:var(--red); font-size:var(--fs-xs); font-weight:700; white-space:nowrap; }
 .dl-qo{ margin:0 0 var(--sp-2); font-size:var(--fs-sm); color:var(--ink-2); }
 .dl-qo b{ color:var(--ink-1); }
@@ -4327,7 +4331,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.55.0</div>
+      <div class="ver">גרסה 7.56.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4474,7 +4478,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="calcpos-2026-11-01a">גרסה 7.55.0</div>
+    <div class="side-foot" title="prefkind-2026-11-01a">גרסה 7.56.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -14360,7 +14364,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'calcpos-2026-11-01a';
+const BUILD_ID = 'prefkind-2026-11-01a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20056,7 +20060,7 @@ const NF_KINDS = [
   ['hook_silent','מערכת','וובהוקים מפריוריטי שותקים','שעות עבודה בלי אף וובהוק','מנהל המערכת','admin'],
   ['hook_failed','מערכת','וובהוק נכשל','וובהוק מפריוריטי לא עובד כראוי','מנהל המערכת','admin'],
   /* 7.44.0 — crm.sales_weekly_digest (cron sales-weekly-sun): נמענים = dash.salesteam ומנהלי מערכת. לחיצה ⇒ מסך הניתוח. */
-  ['sales_weekly','הצעות ועסקאות','סיכום שבועי — מכירות','כל יום ראשון ב-07:00 — שבוע שעבר, עמידה ביעד החודש, מועדפות, מתנדנדות ותקועים','מנהל המכירות','sales'],
+  ['sales_weekly','הצעות ועסקאות','סיכום שבועי — מכירות','כל יום ראשון ב-07:00 — שבוע שעבר, עמידה ביעד החודש, מועדפות (לדחיפה / ממתינות), הצעות ערך ותקועים','מנהל המכירות','sales'],
 ];
 const nfKindsOf = r => [r[0]].concat(r[6] || []);
 let NFM_USERS = null, NFM_AUD = null;
@@ -21011,7 +21015,7 @@ const CRM_Q = {
   tasks: () => sb.schema('crm').from('tasks').select('id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id')
     .order('closed_at',{ascending:false, nullsFirst:true}).order('due_at',{ascending:true}).limit(10000)
     .then(r=>{ if(r && Array.isArray(r.data)) r.data.sort((a,b)=> a.due_at===b.due_at ? 0 : (a.due_at==null ? 1 : (b.due_at==null ? -1 : (a.due_at < b.due_at ? -1 : 1)))); return r; }),
-  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test,preferred_at,preferred_by,wavering_at,wavering_by').order('created_at',{ascending:false}).limit(10000),
+  deals: () => sb.schema('crm').from('deals').select('id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test,preferred_at,preferred_by,preferred_kind').order('created_at',{ascending:false}).limit(10000),
   meets: () => sb.schema('crm').from('meetings').select('id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone,created_at').order('meet_date',{ascending:false}).limit(10000),
   lown: () => /* שורות הבעלות הראשיות. **לא מיותר מול leads.owner_id**: המראה מחזיקה
          profile_id בלבד, ולעובד לשעבר אין חשבון — 694 לידים היו מוצגים
@@ -21221,7 +21225,8 @@ function mktInit(){
    סכום ואפשרות הצעת ערך לסגירה … תחשוב כמו מנהל מכירות" · על ההצעה: "כן, שלב 1".
    חמישה חלקים מתשובת crm.sales_analytics אחת (security definer; שער dash.salesteam — אותו מפתח של הלשונית):
      1. בריאות הצנרת — ארבעה אריחים (לא זזו 14+ · באותו שלב 30+ · משימה באיחור · בלי צעד הבא); לחיצה מסננת את הטבלה.
-     2. (7.54.0) "מתנדנדת" היא סימון ידני (saWavSet) — הניקוד האוטומטי ירד; הסימנים שלו (saSignals) מוצגים כשבבים בשורות המועדפות.
+     2. (7.54.0) הניקוד האוטומטי "מתנדנדת" ירד; הסימנים שלו (saSignals) מוצגים כשבבים בשורות המועדפות.
+        (7.56.0) גם הסימון הידני "מתנדנדת" ירד: המועדפת עצמה מסווגת "ממתינה" / "לדחיפה" בידי איש המכירות (saPref, dlPrefSet).
      3. לאורך זמן — חודשי/שבועי: נפתחו · נסגרו להזמנה · ירדו · אחוז סגירה · עסקה ממוצעת; וזמן בשלב (חציון).
      4. לפי איש מכירות — תמיד כל הצוות; לחיצה על שורה מסננת את כל המסך לאותו בעלים (ושוב — מבטלת).
      5. למה יורדים — סיבות "לא רלוונטי" בטווח.
@@ -21324,13 +21329,13 @@ function saTime(d){
       st.map(x=>'<tr><td>'+mdPill(x.stage, DEAL_ST_COLORS, LB_TK)+'</td><td class="num">'+(+x.n)+'</td><td class="num">'+(+x.med)+'</td><td class="num">'+(+x.avg)+'</td></tr>').join('')+'</tbody></table></div>' : '')+'</div>';
 }
 function saReps(d){
-  const R = (d.reps||[]).filter(r=>LOWN_BY[r.own]), cur = saOwner(), hw = R.some(r=>'waver_n' in r);   /* 7.54.0 — hw */
+  const R = (d.reps||[]).filter(r=>LOWN_BY[r.own]), cur = saOwner(), hw = R.some(r=>'push_n' in r);   /* 7.56.0 — לדחיפה (v6) */
   return '<div class="sa-card" id="sa-reps"><h3>לפי איש מכירות <span class="cnt">כל הצוות · לחיצה מסננת את המסך</span></h3>'+
-    (R.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>איש מכירות</th><th class="num">פתוח עכשיו</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה</th><th class="num">לא זזו 14+</th><th class="num">משימה באיחור</th><th class="num">מועדפות</th>'+(hw ? '<th class="num">מתנדנדות</th>' : '')+'<th class="num">יעד החודש</th></tr></thead><tbody>'+
+    (R.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>איש מכירות</th><th class="num">פתוח עכשיו</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה</th><th class="num">לא זזו 14+</th><th class="num">משימה באיחור</th><th class="num">מועדפות</th>'+(hw ? '<th class="num">לדחיפה</th>' : '')+'<th class="num">יעד החודש</th></tr></thead><tbody>'+
       R.map(r=>'<tr class="clk'+(r.own===cur ? ' on' : '')+'" data-own="'+esc(r.own)+'" onclick="saSet(\'owner\',\''+jsq(r.own===cur ? '' : r.own)+'\')"><td>'+lbAva(r.own,1)+' '+esc(LOWN_BY[r.own].name||'')+(LOWN_BY[r.own].kind==='legacy' ? ' <small>(לשעבר)</small>' : '')+'</td>'+
         '<td class="num">'+saNv(+r.open_n, +r.open_s)+'</td><td class="num">'+saNv(+r.opened_n, +r.opened_s)+'</td><td class="num">'+saNv(+r.won_n, +r.won_s)+'</td><td class="num">'+saNv(+r.lost_n, +r.lost_s)+'</td>'+
         '<td class="num">'+saPct(+r.won_n, +r.lost_n)+'</td><td class="num'+(+r.stale_n ? ' sa-warn' : '')+'">'+(+r.stale_n||0)+'</td><td class="num'+(+r.overdue_n ? ' sa-warn' : '')+'">'+(+r.overdue_n||0)+'</td>'+
-        '<td class="num">'+saNv(+r.pref_n, +r.pref_s)+'</td>'+(hw ? '<td class="num">'+saNv(+r.waver_n, +r.waver_s)+'</td>' : '')+
+        '<td class="num">'+saNv(+r.pref_n, +r.pref_s)+'</td>'+(hw ? '<td class="num">'+saNv(+r.push_n, +r.push_s)+'</td>' : '')+
         '<td class="num">'+(+r.target_m > 0 ? '<b>'+Math.round(100*(+r.won_m_s||0)/(+r.target_m))+'%</b> <small>'+ilsK(+r.won_m_s||0)+' / '+ilsK(+r.target_m)+'</small>' : '—')+'</td></tr>').join('')+'</tbody></table></div>'
      : '<div class="empty">אין נתונים בטווח</div>')+'</div>';
 }
@@ -21397,11 +21402,12 @@ function saWeekly(d){
   if(!W) return '<div class="sa-card" id="sa-week"><h3>מה זז השבוע</h3><div class="empty">ההשוואה מתחילה מתמונת המצב הבאה. תמונה נשמרת כל יום ראשון בבוקר, והראשונה נשמרה ב-29.10.26.</div></div>';
   const tile = (n, l, s, cls)=> '<div class="sa-wk'+(cls ? ' '+cls : '')+'"><b>'+(+n||0)+'</b><span>'+l+'</span>'+(s != null ? '<small>'+ilsK(+s||0)+'</small>' : '')+'</div>';
   const M = W.moves || [];
-  const hw = ('waver_new_n' in W);   /* 7.54.0 — מתנדנדות: רק כשהשרת מחזיר (חלק חסר אינו "0") */
+  const hw = ('push_won_n' in W);   /* 7.56.0 — לדחיפה והצעות ערך: רק כשהשרת (v6) מחזיר (חלק חסר אינו "0") */
   return '<div class="sa-card" id="sa-week"><h3>מה זז השבוע <span class="cnt">מאז '+esc(fmtD(W.base))+' · '+(d.owner ? 'איש המכירות שנבחר' : 'כל הצוות')+'</span></h3>'+
     '<div class="sa-wks'+(hw ? ' c9' : '')+'">'+tile(W.adv_n, 'קדמו שלב')+tile(W.won_n, 'נסגרו להזמנה', W.won_s, 'ok')+tile(W.lost_n, 'ירדו', W.lost_s)+tile(W.new_n, 'חדשים', W.new_s)+
       tile(W.pref_new_n, 'סומנו מועדפת', W.pref_new_s)+tile(W.pref_won_n, 'מועדפות שנסגרו', W.pref_won_s, 'ok')+
-      (hw ? tile(W.waver_new_n, 'סומנו מתנדנדת', W.waver_new_s)+tile(W.waver_won_n, 'מתנדנדות שנסגרו', W.waver_won_s, 'ok') : '')+tile(W.back_n, 'חזרו שלב')+'</div>'+
+      (hw ? tile(W.push_won_n, 'לדחיפה שנסגרו', W.push_won_s, 'ok')+
+            '<div class="sa-wk"><b>'+(+W.offer_new_n||0)+'</b><span>הצעות ערך שניתנו</span><small>התקבלו '+(+W.offer_acc_n||0)+'</small></div>' : '')+tile(W.back_n, 'חזרו שלב')+'</div>'+
     (M.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>תהליך</th><th>בעלים</th><th>היה</th><th>עכשיו</th><th class="num">סכום</th></tr></thead><tbody>'+
       M.map(x=>'<tr class="clk" data-id="'+esc(x.id)+'" onclick="openDeal(\''+jsq(x.id)+'\')"><td><b>'+esc(x.cust||x.name||'')+'</b></td><td>'+esc(saFirst(x.own))+'</td>'+
         '<td>'+mdPill(x.from, DEAL_ST_COLORS, LB_TK)+'</td><td>'+mdPill(x.to, DEAL_ST_COLORS, LB_TK)+'</td><td class="num">'+ilsK(+x.amount||0)+'</td></tr>').join('')+'</tbody></table></div>'
@@ -21444,86 +21450,88 @@ function saStale(){ Object.keys(SA.cache).forEach(k=>{ SA.cache[k].at = 0; }); i
      · אריחים — המועדפות הפתוחות עכשיו, ובטווח שבסרגל (שבוע/חודש/טווח): נסגרו מהן · ירדו מהן · סומנו · נסגרו בלי סימון מראש.
      · יעד החודש (אם הוגדר) מול מה שנסגר והמועדפות הפתוחות · הרשימה עם "הצעת ערך" · לפי איש מכירות · עורך היעדים.
    ⚠️ שרת בלי pref (v3) — הכרטיס אינו מצויר בכלל (אותו כלל של 7.44.0: חלק חסר אינו "0"). */
-/* 7.54.0 — waver (רומן, 31/10/2026): "קודם כל תעשה את זה לחיץ" · "לראות גם את כל העסקאות ולא רק את המועדפות" · "לסמן את
-   המתנדנדות ולסכום אותן ורק להן לתת הצעת ערך. כי הרבה מהמועדפות לא נסגרות עדיין כי פשוט ממתינים להסכם חתימה של הנכס, או מעבר
-   בית" · "מתנדנדת לא חייב להיות מועדפת זה יכול להיות גם בלתי תלוי".
-   SA_PV — האריחים הם כפתורים שמחליפים את הטבלה שמתחת; לחיצה חוזרת מחזירה ל"מועדפות פתוחות". שלושת הראשונים — מתוך open[]
-   (ולכן "מתנדנדות" ו"כל הפתוחות" מתעדכנים מיד אחרי סימון, לפני שהשרת חזר); ארבעת הסגורים — הרשימות של v5 (won_l…).
-   ⚠️ שרת ישן (v4): אין waver_n ⇒ אריח "מתנדנדות" לא מצויר כלל (לא "0"); אין רשימה ⇒ אריח הסגורות הוא div ולא כפתור.
-   ⚠️ רשימה סגורה מוגבלת בשרת ל-200 הגדולות — המונה באריח מדויק, והטבלה אומרת "מוצגות 200 הגדולות מתוך N". */
+/* ===== 7.56.0 — prefkind: מועדפת אחת, שתי אפשרויות (01/11/2026) =====
+   רומן: "בכל סוף שבוע ובכל סוף חודש אנחנו עושים פגישה כל הצוות מכירות ורואים אילו מהעסקאות מועדפות ואפשר לסגור לדחיפה אולי
+   עם איזו הצעת ערך … עסקאות שהן מועדפות ורק מחכים לחתימה על הנכס, או לאישור וועד וכדומה הן יסגרו ללא שוב הצעת ערך" ·
+   "אני לא רוצה להכביד על המכירות עם עוד סימון עסקה מתנדנדת" · "אני רוצה שהאיש מכירות ידע לבד לקטלג שבסוף השבוע או סוף
+   החודש כבר נראה את הנתונים".
+   ⇒ הסימון הנפרד "מתנדנדת" (7.54.0) ירד. איש המכירות בוחר באותה לחיצה של ★: 'ממתינה' או 'לדחיפה' (crm.deals.preferred_kind;
+   בשרת הכותב היחיד הוא deal_set_preferred v2, בלקוח dlPrefSet). 'לא סווגו' = מועדפת בלי סיווג — לפני 7.56.0, או דרך המשימה
+   שעברה ל"בעדיפות" — והאריח שלה מסומן כדי שיושלם לפני הפגישה.
+   SA_PV — האריחים מחליפים את הטבלה שמתחת; לחיצה חוזרת מחזירה ל"מועדפות פתוחות". חמשת הראשונים — מתוך open[] (ולכן מתעדכנים
+   מיד אחרי סיווג, לפני שהשרת חזר); ארבעת הסגורים — הרשימות של v5 (won_l…; עד 200 הגדולות, והמונה באריח מדויק).
+   הצעת ערך — רק ל"לדחיפה" (השרת: deal_offer_add, מנהל המכירות). */
 const saSum = L=> L.reduce((a,o)=>a+(+o.amount||0),0);
-const SA_PV_OPEN = ['pref','waver','all'];
+const SA_PK = { 'לדחיפה':'push', 'ממתינה':'wait' };   /* הערכים ב-check של crm.deals ⇒ מחלקת השבב */
+const saKindOf = k=> o=> !!o.pref_at && (k===null ? !o.pref_kind : o.pref_kind===k);
+const SA_PV_OPEN = ['pref','push','wait','unsorted','all'];
 const SA_PV = [   /* [מפתח, תווית, [מונה, סכום](P, open), רשימה(d), מחלקה, תווית עמודת התאריך בטבלה הסגורה] */
-  ['pref',   'מועדפות פתוחות',       (P,o)=>[+P.n||0, +P.s||0],                                  d=>(d.open||[]).filter(o=>o.pref_at),  '',     ''],
-  ['waver',  'מתנדנדות',             (P,o)=>{ const L = o.filter(x=>x.waver_at); return [L.length, saSum(L)]; }, d=>(d.open||[]).filter(o=>o.waver_at), '', ''],
-  ['all',    'כל הפתוחות',           (P,o)=>[o.length, saSum(o)],                                d=>(d.open||[]),                        '',     ''],
-  ['won',    'נסגרו מהמועדפות',      P=>[+P.won_n||0, +P.won_s||0],                              d=>d.pref.won_l,                        'ok',   'נסגר'],
-  ['lost',   'ירדו מהמועדפות',       P=>[+P.lost_n||0, +P.lost_s||0],                            d=>d.pref.lost_l,                       'warn', 'ירד'],
-  ['marked', 'סומנו בטווח',          P=>[+P.marked_n||0, +P.marked_s||0],                        d=>d.pref.marked_l,                     '',     'סומנה'],
-  ['other',  'נסגרו בלי סימון מראש', P=>[+P.won_other_n||0, +P.won_other_s||0],                  d=>d.pref.won_other_l,                  '',     'נסגר'],
+  ['pref',     'מועדפות פתוחות',       (P,o)=>{ const L = o.filter(x=>x.pref_at); return [L.length, saSum(L)]; },    d=>(d.open||[]).filter(o=>o.pref_at),         '',     ''],
+  ['push',     'לדחיפה',               (P,o)=>{ const L = o.filter(saKindOf('לדחיפה')); return [L.length, saSum(L)]; }, d=>(d.open||[]).filter(saKindOf('לדחיפה')), '',     ''],
+  ['wait',     'ממתינות',              (P,o)=>{ const L = o.filter(saKindOf('ממתינה')); return [L.length, saSum(L)]; }, d=>(d.open||[]).filter(saKindOf('ממתינה')), '',     ''],
+  ['unsorted', 'לא סווגו',             (P,o)=>{ const L = o.filter(saKindOf(null)); return [L.length, saSum(L)]; },     d=>(d.open||[]).filter(saKindOf(null)),     '',     ''],
+  ['all',      'כל הפתוחות',           (P,o)=>[o.length, saSum(o)],                                                   d=>(d.open||[]),                               '',     ''],
+  ['won',      'נסגרו מהמועדפות',      P=>[+P.won_n||0, +P.won_s||0],                                                d=>d.pref.won_l,                               'ok',   'נסגר'],
+  ['lost',     'ירדו מהמועדפות',       P=>[+P.lost_n||0, +P.lost_s||0],                                              d=>d.pref.lost_l,                              '',     'ירד'],
+  ['marked',   'סומנו בטווח',          P=>[+P.marked_n||0, +P.marked_s||0],                                          d=>d.pref.marked_l,                            '',     'סומנה'],
+  ['other',    'נסגרו בלי סימון מראש', P=>[+P.won_other_n||0, +P.won_other_s||0],                                    d=>d.pref.won_other_l,                         '',     'נסגר'],
 ];
 window.saPv = k=>{ SA.pv = (SA.pv===k && k!=='pref') ? 'pref' : k; renderSana(); };
 function saPref(d){
   const P = d.pref; if(!P) return '';
-  const open = d.open || [], hasW = ('waver_n' in P), ed = canEdit('crm.deals');
-  const views = SA_PV.filter(([k])=> k!=='waver' || hasW);
+  const open = d.open || [];
   const clkOf = ([k,,,list])=> SA_PV_OPEN.includes(k) || Array.isArray(list(d));
-  let pv = views.some(v=>v[0]===SA.pv && clkOf(v)) ? SA.pv : 'pref';
-  const V = views.find(v=>v[0]===pv), isOpen = SA_PV_OPEN.includes(pv), [vn] = V[2](P, open);
+  let pv = SA_PV.some(v=>v[0]===SA.pv && clkOf(v)) ? SA.pv : 'pref';
+  const V = SA_PV.find(v=>v[0]===pv), isOpen = SA_PV_OPEN.includes(pv), [vn] = V[2](P, open);
   const tile = v=>{ const [k, l, num, , cls] = v, [n, s] = num(P, open), clk = clkOf(v);
-    const c = 'sa-wk'+(k==='lost' ? (n ? ' warn' : '') : (cls ? ' '+cls : ''))+(clk && pv===k ? ' on' : '');
+    const c = 'sa-wk'+((k==='lost' || k==='unsorted') ? (n ? ' warn' : '') : (cls ? ' '+cls : ''))+(clk && pv===k ? ' on' : '');
     const inner = '<b>'+n+'</b><span>'+l+'</span><small>'+ilsK(s)+'</small>';
     return clk ? '<button type="button" class="'+c+'" data-pv="'+k+'" aria-pressed="'+(pv===k)+'" onclick="saPv(\''+k+'\')">'+inner+'</button>'
                : '<div class="'+c+'" data-pv="'+k+'">'+inner+'</div>'; };
-  const L = (V[3](d) || []).slice().sort(isOpen
-      ? (a,b)=> ((b.waver_at?1:0)-(a.waver_at?1:0)) || ((b.pref_at?1:0)-(a.pref_at?1:0)) || (+b.amount||0)-(+a.amount||0)
-      : (a,b)=> (+b.amount||0)-(+a.amount||0));
-  const wL = open.filter(o=>o.waver_at);
+  const kr = o=> o.pref_at ? (o.pref_kind==='לדחיפה' ? 3 : o.pref_kind==='ממתינה' ? 2 : 1) : 0;   /* לדחיפה ← ממתינה ← לא סווגה ← לא מועדפת */
+  const L = (V[3](d) || []).slice().sort(isOpen ? (a,b)=> (kr(b)-kr(a)) || (+b.amount||0)-(+a.amount||0) : (a,b)=> (+b.amount||0)-(+a.amount||0));
+  const pL = open.filter(o=>o.pref_at), uL = pL.filter(saKindOf('לדחיפה'));
   const t = +P.target_m||0, won = +P.won_m_s||0;
   const tg = t > 0 ? '<div class="sa-pt">יעד החודש <b>'+ilsK(t)+'</b> · נסגר <b>'+Math.round(100*won/t)+'%</b> ('+ilsK(won)+')'+
-      (t > won ? ' · חסר ליעד <b>'+ilsK(t - won)+'</b>' : '')+' · מועדפות פתוחות <b>'+ilsK(+P.s||0)+'</b></div>' : '';
+      (t > won ? ' · חסר ליעד <b>'+ilsK(t - won)+'</b>' : '')+' · מועדפות פתוחות <b>'+ilsK(saSum(pL))+'</b></div>' : '';
   const grp = (key, lbl)=>{ const m = {}; L.forEach(o=>{ const k = key(o) || '—'; m[k] = m[k] || { n:0, s:0 }; m[k].n++; m[k].s += +o.amount||0; });
     return Object.keys(m).sort((a,b)=>m[b].s - m[a].s).map(k=>'<span class="sa-chip">'+esc(lbl(k))+': '+m[k].n+' · '+ilsK(m[k].s)+'</span>').join(''); };
   const nm = o=> '<td><b>'+esc(o.cust||o.name||'')+'</b>'+(o.pref_at ? ' <span class="sa-star" title="מועדפת">★</span>' : '')+(o.pq ? ' <small class="sa-pq">'+esc(o.pq)+'</small>' : '')+'</td>'+
       '<td>'+esc(saFirst(o.own))+'</td><td>'+mdPill(o.stage, DEAL_ST_COLORS, LB_TK)+'</td><td class="num">'+ilsK(+o.amount||0)+'</td>';
   const pd = o=> '<td>'+(o.pref_at ? esc(fmtD(isoD(new Date(o.pref_at)))) : '—')+'</td>';
-  /* המתג — כותב אחד (saWavSet) גם מהכרטיס; צופה בלי עריכה רואה טקסט */
-  const wav = o=> ed
-      ? '<button type="button" class="ghost sa-wvb'+(o.waver_at ? ' on' : '')+'" aria-pressed="'+(o.waver_at ? 'true' : 'false')+'" onclick="event.stopPropagation();saWavSet(\''+jsq(o.id)+'\','+(o.waver_at ? 'false' : 'true')+',this)" title="'+(o.waver_at ? 'הסרת הסימון' : 'הלקוח מתלבט — מועמדת להצעת ערך')+'">'+(o.waver_at ? '✓ מתנדנדת' : 'מתנדנדת')+'</button>'
-      : (o.waver_at ? '<span class="sa-chip sa-chip-wv">מתנדנדת</span>' : '—');
+  const pkChip = o=> o.pref_kind ? '<span class="sa-chip sa-chip-'+(SA_PK[o.pref_kind] || 'wait')+'">'+esc(o.pref_kind)+'</span>'
+                   : (o.pref_at ? '<span class="sa-chip">לא סווגה</span>' : '—');
+  /* הסיווג — לבעלי התהליך ולמנהל המכירות (dlPrefMay), דרך הכותב היחיד dlPrefSet. תהליך שאינו מועדף מסמנים בכרטיס,
+     כי שם יש את שאלת "מתי חוזרים ללקוח" כשאין לו משימה פתוחה (need_task). */
+  const pk = o=>{ const dd = (DEALS||[]).find(x=>x.id===o.id);
+    if(!o.pref_at || !dd || !dlPrefMay(dd)) return pkChip(o);
+    return ['ממתינה','לדחיפה'].map(k=>'<button type="button" class="ghost sa-pkb'+(o.pref_kind===k ? ' on' : '')+'" data-k="'+k+'" aria-pressed="'+(o.pref_kind===k)+'"'+
+      ' onclick="event.stopPropagation();dlPrefSet(\''+jsq(o.id)+'\',true,\''+k+'\',this)">'+k+'</button>').join(' '); };
+  const ofr = o=> +o.offers_open ? '<span class="sa-chip sa-chip-of">הצעת ערך ממתינה</span>' : (saKindOf('לדחיפה')(o) ? saOfrBtn(o) : '');
   const rowO = o=> '<tr class="clk" data-id="'+esc(o.id)+'" onclick="openDeal(\''+jsq(o.id)+'\')">'+nm(o)+
-      '<td class="sa-sig">'+saSignals(o).map(x=>'<span class="sa-chip">'+esc(x)+'</span>').join('')+'</td>'+pd(o)+'<td>'+saDue(o)+'</td>'+
+      '<td class="sa-sig">'+saSignals(o).map(x=>'<span class="sa-chip">'+esc(x)+'</span>').join('')+'</td>'+
+      '<td class="sa-out sa-pk" onclick="event.stopPropagation()">'+pk(o)+'</td>'+pd(o)+'<td>'+saDue(o)+'</td>'+
       '<td class="num">'+(+o.q_opens ? (+o.q_opens)+(o.q_last ? ' <small>'+esc(fmtD(isoD(new Date(o.q_last))))+'</small>' : '') : '—')+'</td>'+
-      '<td class="sa-out" onclick="event.stopPropagation()">'+wav(o)+'</td>'+
-      '<td class="sa-out" onclick="event.stopPropagation()">'+(o.waver_at ? (+o.offers_open ? '<span class="sa-chip sa-chip-of">הצעת ערך ממתינה</span>' : saOfrBtn(o)) : '')+'</td></tr>';
+      '<td class="sa-out" onclick="event.stopPropagation()">'+ofr(o)+'</td></tr>';
   const rowC = o=> '<tr class="clk" data-id="'+esc(o.id)+'" onclick="openDeal(\''+jsq(o.id)+'\')">'+nm(o)+pd(o)+
-      '<td>'+(o.waver_at ? '<span class="sa-chip sa-chip-wv">מתנדנדת</span>' : '—')+'</td><td>'+(o.xd ? esc(fmtD(o.xd)) : '—')+'</td></tr>';
+      '<td>'+pkChip(o)+'</td><td>'+(o.xd ? esc(fmtD(o.xd)) : '—')+'</td></tr>';
   const head = isOpen
-      ? '<th>תהליך</th><th>בעלים</th><th>שלב</th><th class="num">סכום</th><th>סימנים</th><th>מועדפת מ-</th><th>המשימה הבאה</th><th class="num">פתיחות ההצעה</th><th>מתנדנדת</th><th>הצעת ערך</th>'
-      : '<th>תהליך</th><th>בעלים</th><th>שלב</th><th class="num">סכום</th><th>מועדפת מ-</th><th>מתנדנדת</th><th>'+V[5]+'</th>';
-  const empty = pv==='pref' ? 'אין כרגע תהליכים מועדפים. מסמנים "☆ סימון כמועדפת" בכרטיס התהליך, או מעבירים את המשימה שלו ל"בעדיפות".'
-              : pv==='waver' ? 'אין כרגע תהליכים שסומנו "מתנדנדת". מסמנים בכרטיס התהליך, או במתג שבטבלת "כל הפתוחות".'
+      ? '<th>תהליך</th><th>בעלים</th><th>שלב</th><th class="num">סכום</th><th>סימנים</th><th>סיווג</th><th>מועדפת מ-</th><th>המשימה הבאה</th><th class="num">פתיחות ההצעה</th><th>הצעת ערך</th>'
+      : '<th>תהליך</th><th>בעלים</th><th>שלב</th><th class="num">סכום</th><th>מועדפת מ-</th><th>סיווג</th><th>'+V[5]+'</th>';
+  const empty = pv==='pref' ? 'אין כרגע תהליכים מועדפים. מסמנים בכרטיס התהליך — "☆ ממתינה" או "☆ לדחיפה".'
+              : pv==='push' ? 'אין כרגע מועדפות "לדחיפה". איש המכירות בוחר "לדחיפה" כשהלקוח מתלבט.'
+              : pv==='wait' ? 'אין כרגע מועדפות "ממתינה".'
+              : pv==='unsorted' ? 'כל המועדפות סווגו.'
               : pv==='all' ? 'אין תהליכים פתוחים' : 'אין תהליכים ב"'+V[1]+'" בטווח שבסרגל';
-  return '<div class="sa-card" id="sa-pref"><h3>מועדפות — רגע לפני סגירה <span class="cnt">'+(+P.n||0)+' · '+ilsK(+P.s||0)+(hasW ? ' · מתנדנדות '+wL.length+' · '+ilsK(saSum(wL)) : '')+'</span></h3>'+
-    '<div class="sa-sub">תהליכים שאיש המכירות סימן "★ מועדפת" אחרי שיחה או פגישה טובה (או שהעביר את המשימה שלהם ל"בעדיפות"). "מתנדנדת" — הלקוח מתלבט, ורק לה מציעים הצעת ערך. לחיצה על אריח מחליפה את הטבלה; המספרים של הסגורות — בטווח שבסרגל.</div>'+
-    '<div class="sa-wks c'+views.length+'">'+views.map(tile).join('')+'</div>'+tg+
+  return '<div class="sa-card" id="sa-pref"><h3>מועדפות — רגע לפני סגירה <span class="cnt">'+pL.length+' · '+ilsK(saSum(pL))+' · לדחיפה '+uL.length+' · '+ilsK(saSum(uL))+'</span></h3>'+
+    '<div class="sa-sub">תהליכים שאיש המכירות סימן "★ מועדפת" אחרי שיחה או פגישה טובה, ובחר: "לדחיפה" — הלקוח מתלבט, מועמדת להצעת ערך; "ממתינה" — מחכים לחתימה על הנכס, לאישור ועד או למעבר, וייסגר בלי הצעת ערך. לחיצה על אריח מחליפה את הטבלה; המספרים של הסגורות — בטווח שבסרגל.</div>'+
+    '<div class="sa-wks c9">'+SA_PV.map(tile).join('')+'</div>'+tg+
     (L.length ? '<div class="sa-ostats">'+grp(o=>o.own, k=>saFirst(k))+'</div>'+(L.some(o=>o.seg) ? '<div class="sa-ostats">'+grp(o=>o.seg, k=>k)+'</div>' : '')+
       '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr>'+head+'</tr></thead><tbody>'+L.map(isOpen ? rowO : rowC).join('')+'</tbody></table></div>'+
       (!isOpen && L.length < vn ? '<div class="sa-more">מוצגות '+L.length+' הגדולות מתוך '+vn+'</div>' : '')
       : '<div class="empty">'+empty+'</div>')+
     saTgEditor(d)+'</div>';
 }
-/* הכותב היחיד של "מתנדנדת" בלקוח — מהטבלה כאן ומכרטיס העסקה (dlPrefDraw). el = הכפתור שנלחץ: נעול עד שהשרת ענה. */
-window.saWavSet = async (id, on, el)=>{
-  if(!canEdit('crm.deals')) return;
-  if(el){ if(el.disabled) return; el.disabled = true; }
-  let r; try{ r = await sb.schema('crm').rpc('deal_set_wavering', { p_deal:id, p_on:!!on }); }catch(e){ r = { error:e }; }
-  if(el) el.disabled = false;
-  if(!r || r.error){ toast('השמירה נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); return; }
-  const row = Array.isArray(r.data) ? r.data[0] : r.data;
-  dealWaverApply(id, on ? ((row && row.wavering_at) || new Date().toISOString()) : null, on ? ((ME||{}).id || null) : null);
-  toast(on ? 'סומנה כמתנדנדת ✓' : 'הוסר הסימון "מתנדנדת" ✓');
-};
 const saOfrBtn = o=> canEdit('crm.deals') ? '<button type="button" class="ghost sa-ofb" onclick="event.stopPropagation();saOfrOpen(\''+jsq(o.id)+'\')">הצעת ערך</button>' : '';
 let SAO = null;   /* { id, kind, busy } */
 window.saOfrOpen = id=>{
@@ -21583,7 +21591,7 @@ function saOffers(d){
   return '<div class="sa-card" id="sa-offers"><h3>הצעות ערך לסגירה <span class="cnt">'+pend+' ממתינות · '+L.length+' בסך הכול</span></h3>'+
     '<div class="sa-sub">הממתינות, ומה שנוצר בטווח. תוצאה סוגרת את המשימה של איש המכירות; "נסגרו להזמנה" — התהליך הגיע להזמנה.</div>'+st+
     (L.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>תהליך</th><th>בעלים</th><th>ההצעה</th><th class="num">סכום</th><th>עד</th><th>שלב</th><th>תוצאה</th></tr></thead><tbody>'+L.map(row).join('')+'</tbody></table></div>'
-              : '<div class="empty">עוד אין הצעות ערך. מציעים מתוך "מועדפות" — לתהליך שסומן "מתנדנדת", בכפתור "הצעת ערך" שבשורה.</div>')+'</div>';
+              : '<div class="empty">עוד אין הצעות ערך. מציעים מתוך "מועדפות" — לתהליך שסומן "לדחיפה", בכפתור "הצעת ערך" שבשורה.</div>')+'</div>';
 }
 window.renderSana = function(){
   const bar = $('#sa-bar'), body = $('#sa-body'); if(!bar || !body) return;
@@ -28626,13 +28634,14 @@ const DL_CHK_TIP = 'התהליך בשלב "הזמנה", אבל בפריוריט�
 function dlChkTag(d){ const k = dlChkOf(d); return k ? ' <span class="dl-chk" title="' + esc(DL_CHK_TIP) + '">' + esc(DL_CHK_LBL[k] || k) + '</span>' : ''; }
 function dlChkPill(d){ const k = dlChkOf(d); return k ? '<span class="pill p-red" id="dl-chkpill" title="' + esc(DL_CHK_TIP) + '">' + esc(DL_CHK_LBL[k] || k) + '</span>' : ''; }
 const dlStar = d=> (d && d.preferred_at && ACTIVE_STAGES.includes(d.stage)) ? '<span class="dl-star" title="מועדפת">★</span> ' : '';
-const dlWav = d=> (d && d.wavering_at && ACTIVE_STAGES.includes(d.stage)) ? '<span class="dl-wav" title="מתנדנדת — הלקוח מתלבט, מועמדת להצעת ערך">מתנדנדת</span>' : '';   /* 7.54.0 */
+const dlPk = d=> (d && d.preferred_at && d.preferred_kind && ACTIVE_STAGES.includes(d.stage))   /* 7.56.0 — סיווג המועדפת ליד ★ */
+  ? '<span class="dl-pkt' + (d.preferred_kind==='לדחיפה' ? ' push' : '') + '" title="' + (d.preferred_kind==='לדחיפה' ? 'הלקוח מתלבט — מועמדת להצעת ערך' : 'ממתינים לחתימה, לוועד או למעבר') + '">' + esc(d.preferred_kind) + '</span>' : '';
 function dlPrefChips(){
   const pf = (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) && !!d.preferred_at);
   const nc = DL_CHK ? (DEALS||[]).filter(d=>DL_CHK.has(d.id)) : [];
-  const wv = (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) && !!d.wavering_at);   /* 7.54.0 */
+  const pu = (DEALS||[]).filter(d=>ACTIVE_STAGES.includes(d.stage) && !!d.preferred_at && d.preferred_kind==='לדחיפה');   /* 7.56.0 */
   return (pf.length ? '<button class="chip ' + (DEAL_FILTER==='pref' ? 'active' : '') + '" onclick="setDealFilter(\'pref\')" title="תהליכים שסומנו מועדפים — רגע לפני סגירה">★ מועדפות ' + pf.length + ' <small>· ' + shekel(dlSum(pf)) + '</small></button>' : '')
-       + (wv.length ? '<button class="chip ' + (DEAL_FILTER==='waver' ? 'active' : '') + '" onclick="setDealFilter(\'waver\')" title="תהליכים שסומנו מתנדנדת — הלקוח מתלבט, מועמדים להצעת ערך">מתנדנדות ' + wv.length + ' <small>· ' + shekel(dlSum(wv)) + '</small></button>' : '')
+       + (pu.length ? '<button class="chip ' + (DEAL_FILTER==='push' ? 'active' : '') + '" onclick="setDealFilter(\'push\')" title="מועדפות שסווגו לדחיפה — הלקוח מתלבט, מועמדות להצעת ערך">לדחיפה ' + pu.length + ' <small>· ' + shekel(dlSum(pu)) + '</small></button>' : '')
        + (nc.length ? '<button class="chip ' + (DEAL_FILTER==='nochk' ? 'active' : '') + '" onclick="dlGoNoChk()" title="' + esc(DL_CHK_TIP) + '">נסגרו בלי הזמנה ' + nc.length + '</button>' : '');
 }
 /* כמו dlGoMain: "נסגרו בלי הזמנה" הם בשלב 'הזמנה', ומסנן השלבים של ברירת המחדל (ארבעת הפתוחים) היה מסתיר את כולם. */
@@ -28718,7 +28727,7 @@ window.dlBulk = async (op)=>{
 };
 function dlViewList(){
   return DEAL_FILTER==='pref'    ? DEALS.filter(d=>ACTIVE_STAGES.includes(d.stage) && !!d.preferred_at)   /* 7.47.0 */
-       : DEAL_FILTER==='waver'   ? DEALS.filter(d=>ACTIVE_STAGES.includes(d.stage) && !!d.wavering_at)    /* 7.54.0 */
+       : DEAL_FILTER==='push'    ? DEALS.filter(d=>ACTIVE_STAGES.includes(d.stage) && !!d.preferred_at && d.preferred_kind==='לדחיפה')   /* 7.56.0 */
        : DEAL_FILTER==='nochk'   ? DEALS.filter(d=>!!dlChkOf(d))
        : DEAL_FILTER==='pending' ? (()=>{ const s=dlPendIds(); return DEALS.filter(d=>s.has(d.id)); })()
        : DEAL_FILTER==='all'     ? DEALS
@@ -28965,7 +28974,7 @@ function dealRow(d, nt){
   const t = nt ? nt[d.id] : null, dmk = lbDueMark(t);
   const due = t ? new Date(t).toLocaleString('he-IL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
   return `<div class="lead${dmk.rowCls?' '+dmk.rowCls:''}" onclick="openDeal('${d.id}')">
-    <div><div class="nm">${dlStar(d)}${esc(d.name)}${dlWav(d)}${dlChkTag(d)}</div>
+    <div><div class="nm">${dlStar(d)}${esc(d.name)}${dlPk(d)}${dlChkTag(d)}</div>
     <div class="meta">${esc(cust?cust.name:'ללא לקוח')}${d.priority_quote_id?' · '+esc(d.priority_quote_id):''}${d.amount?' · '+shekel(d.amount):''}${d.quote_status?' · '+esc(d.quote_status):''}${d.irrelevant_reason?' · '+esc(d.irrelevant_reason):''}</div>
     ${t?`<div class="meta${dmk.cls?' '+dmk.cls:''}"><span class="lb-duew">${dmk.ico}משימה: ${esc(due)}</span></div>`:''}</div>
     ${mdPill(d.stage,DEAL_ST_COLORS)}</div>`;
@@ -28990,7 +28999,7 @@ function dlRow(d, i, nt){
   return `<tr class="${DL_SEL.has(d.id)?'lb-on ':''}${TK_PAINT[tkBucket(t)]||''}" onclick="openDeal('${jsq(d.id)}')">
       ${DL_BULK?`<td class="lb-ck" onclick="event.stopPropagation()"><input type="checkbox" data-id="${esc(d.id)}" ${DL_SEL.has(d.id)?'checked':''} onclick="dlSelOne('${jsq(d.id)}',this.checked)"></td>`:''}
       <td class="rownum">${i}</td>
-      <td class="dl-nm" title="${esc(d.name||'')}">${dlStar(d)}<b>${esc(d.name||'')}</b>${dlWav(d)}${dlChkTag(d)}</td>
+      <td class="dl-nm" title="${esc(d.name||'')}">${dlStar(d)}<b>${esc(d.name||'')}</b>${dlPk(d)}${dlChkTag(d)}</td>
       <td dir="ltr" data-sort="${esc(d.priority_quote_id||'')}">${d.priority_quote_id?`<b>${esc(d.priority_quote_id)}</b>`:'<span class="lb-na">·</span>'}</td>
       <td>${custCell}</td>
       <td>${dlOwnerCell(d)}</td>
@@ -29097,7 +29106,7 @@ let DLIVE_CH = null, DLIVE_T = null, DLIVE_ID = null, DLIVE_CONTACT = null;
 /* 🔴 6.250.0 — בדיוק עמודות הטוען של DEALS (נאכף בבנייה). עד כאן הרשימה הייתה ידנית וחסר בה
    quote_doc_path — ולכן PDF שנמשך בוובהוק לא הגיע למטמון, וגם פתיחה מחדש של הכרטיס הראתה
    "טרם נמשך" (נמדד על PQ26001166, 12/10/2026). */
-const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test,preferred_at,preferred_by,wavering_at,wavering_by';
+const DLIVE_COLS = 'id,name,stage,amount,amount_incl_vat,quote_doc_path,quote_status,irrelevant_reason,priority_quote_id,customer_id,contact_id,lead_id,ship_site,ship_name,ship_address,ship_address2,ship_address3,ship_city,send_channel,sign_link,priority_quote_status,priority_quote_synced_at,approved_at,closed_at,created_at,monday_id,pay_method,pay_installments,pay_term,pay_plan,is_test,preferred_at,preferred_by,preferred_kind';
 
 window.dlLiveStop = ()=>{
   if(DLIVE_T){ clearInterval(DLIVE_T); DLIVE_T = null; }
@@ -29680,65 +29689,68 @@ window.dlSetChan = async (id, ch)=>{
    ⚠️ תהליך בלי משימה פתוחה: השרת מחזיר P0001 עם details='need_task', והשורה מבקשת מועד למשימת המשך (DL_PF) — מועדפת בלי
       צעד הבא אינה מקדמת כלום. השרת פותח את המשימה ישר ב'בעדיפות'. */
 const dlPrefMay = d=> window.canEdit('crm.deals') && (salesMgr() || dlOwnersOf(d).indexOf((ME||{}).id) >= 0);
-const DL_PF = {};   /* id ⇒ true: השרת ביקש מועד למשימת המשך */
+const DL_PF = {};   /* id ⇒ הסיווג שנבחר ('ממתינה'/'לדחיפה'): השרת ביקש מועד למשימת המשך (7.56.0 — היה true) */
 function dlPrefDraw(id){
   const box = document.getElementById('dl-fc'); if(!box) return;
   const pipe = document.getElementById('dl-pipe'); if(!pipe || pipe.dataset.deal !== id) return;   /* רק לכרטיס של העסקה הזאת */
-  const d = (DEALS||[]).find(x=>x.id===id), ed = !!d && dlPrefMay(d), on = !!(d && d.preferred_at), wv = !!(d && d.wavering_at);   /* 7.54.0 — wv */
-  if(!d || ACTIVE_STAGES.indexOf(d.stage) < 0 || (!on && !wv && !ed)){ box.innerHTML = ''; box.classList.add('hidden'); return; }
+  const d = (DEALS||[]).find(x=>x.id===id), ed = !!d && dlPrefMay(d), on = !!(d && d.preferred_at);
+  if(!d || ACTIVE_STAGES.indexOf(d.stage) < 0 || (!on && !ed)){ box.innerHTML = ''; box.classList.add('hidden'); return; }
   box.classList.remove('hidden');
   const q = jsq(id);
-  let h = '';
+  /* 7.56.0 — prefkind: הסימון והסיווג באותה לחיצה — "☆ ממתינה" / "☆ לדחיפה" במקום "☆ סימון כמועדפת" אחד. אחרי הסימון שני
+     השבבים נשארים כדי להחליף (עסקה ממתינה שהתחילה להתלבט). הכותב האחד הוא dlPrefSet; מי שרשאי — dlPrefMay. */
+  const kb = (k, pre)=> '<button type="button" class="chip dl-pf-b dl-pk-b'+(on && d.preferred_kind===k ? ' on' : '')+'" data-k="'+k+'" aria-pressed="'+(on && d.preferred_kind===k)+'"'+
+    ' onclick="dlPrefSet(\'' + q + '\',true,\''+k+'\',this)">'+pre+k+'</button>';
   if(on){
     const by = d.preferred_by && LOWN_BY[d.preferred_by] ? ' · ' + esc(saFirst(d.preferred_by)) : '';
-    h = '<span class="dl-pf-on">★ מועדפת</span><span class="dl-fc-n">מ-' + esc(fmtD(isoD(new Date(d.preferred_at)))) + by + '</span>' +
+    box.innerHTML = '<span class="dl-pf-on">★ מועדפת</span>' +
+      (ed ? '<span class="dl-pk">' + kb('ממתינה', '') + kb('לדחיפה', '') + '</span>'
+          : (d.preferred_kind ? '<span class="dl-pkt' + (d.preferred_kind==='לדחיפה' ? ' push' : '') + '">' + esc(d.preferred_kind) + '</span>' : '')) +
+      '<span class="dl-fc-n">' + (ed && !d.preferred_kind ? 'בחרו: ממתינה או לדחיפה · ' : '') + 'מ-' + esc(fmtD(isoD(new Date(d.preferred_at)))) + by + '</span>' +
       (ed ? '<button type="button" class="lf-clear" onclick="dlPrefSet(\'' + q + '\',false)">הסרה</button>' : '');
   } else if(DL_PF[id]){
     const t = new Date(); t.setDate(t.getDate() + 2);
-    h = '<span class="dl-fc-n warn">לתהליך אין משימה פתוחה — מתי חוזרים ללקוח?</span>' +
+    const k = DL_PF[id] === 'לדחיפה' ? 'לדחיפה' : 'ממתינה';
+    box.innerHTML = '<span class="dl-fc-n warn">לתהליך אין משימה פתוחה — מתי חוזרים ללקוח?</span>' +
       '<input type="date" id="dl-pfd" class="inline-edit" value="' + isoD(t) + '" min="' + isoD(new Date()) + '" aria-label="מועד משימת ההמשך">' +
-      '<button type="button" class="chip" onclick="dlPrefSet(\'' + q + '\',true)">★ סימון ומשימה</button>' +
+      '<button type="button" class="chip" onclick="dlPrefSet(\'' + q + '\',true,\'' + k + '\')">★ ' + k + ' ומשימה</button>' +
       '<button type="button" class="lf-clear" onclick="dlPrefCancel(\'' + q + '\')">ביטול</button>';
-  } else if(ed){
-    h = '<button type="button" class="chip dl-pf-b" onclick="dlPrefSet(\'' + q + '\',true)">☆ סימון כמועדפת</button>' +
-      '<span class="dl-fc-n">אחרי שיחה או פגישה טובה — סיכוי גבוה לסגירה. המשימה תעבור ל"בעדיפות".</span>';
+  } else {
+    box.innerHTML = '<span class="dl-pk">' + kb('ממתינה', '☆ ') + kb('לדחיפה', '☆ ') + '</span>' +
+      '<span class="dl-fc-n">ממתינה — מחכים לחתימה, לוועד או למעבר · לדחיפה — הלקוח מתלבט, מועמדת להצעת ערך · המשימה תעבור ל"בעדיפות"</span>';
   }
-  /* 7.54.0 — waver: "מתנדנדת" — הלקוח מתלבט, מועמדת להצעת ערך בניתוח המכירות. בלתי תלויה ב"מועדפת" (רומן: "זה יכול להיות גם
-     בלתי תלוי"), ולכן השורה מצוירת לכל תהליך פתוח; הכותב האחד הוא saWavSet, ומי שרשאי — אותם כללים של "מועדפת" (dlPrefMay). */
-  let w = '';
-  if(wv){
-    const by = d.wavering_by && LOWN_BY[d.wavering_by] ? ' · ' + esc(saFirst(d.wavering_by)) : '';
-    w = '<span class="dl-wv-on">מתנדנדת</span><span class="dl-fc-n">מ-' + esc(fmtD(isoD(new Date(d.wavering_at)))) + by + '</span>' +
-      (ed ? '<button type="button" class="lf-clear" onclick="saWavSet(\'' + q + '\',false,this)">הסרה</button>' : '');
-  } else if(ed){
-    w = '<button type="button" class="chip dl-wv-b" onclick="saWavSet(\'' + q + '\',true,this)">סימון כמתנדנדת</button>' +
-      '<span class="dl-fc-n">הלקוח מתלבט — מועמדת להצעת ערך בניתוח המכירות.</span>';
-  }
-  box.innerHTML = h + (w ? '<div class="dl-wv">' + w + '</div>' : '');
 }
 window.dlPrefCancel = id=>{ delete DL_PF[id]; dlPrefDraw(id); };
-window.dlPrefSet = async (id, on)=>{
+/* 7.56.0 — kind: 'ממתינה' | 'לדחיפה'. על מועדפת קיימת — רק הסיווג מתחלף (השרת לא נוגע במשימות). el — הכפתור שנלחץ
+   (גם מטבלת ניתוח המכירות): נעול עד שהשרת ענה, כדי ששתי לחיצות לא ישלחו שני סיווגים במרוץ. */
+window.dlPrefSet = async (id, on, kind, el)=>{
   const d = (DEALS||[]).find(x=>x.id===id); if(!d || !dlPrefMay(d)) return;
   const box = document.getElementById('dl-fc'); if(box && box.classList.contains('busy')) return;
+  const k = on ? (kind === 'לדחיפה' ? 'לדחיפה' : kind === 'ממתינה' ? 'ממתינה' : null) : null, was = !!d.preferred_at;
+  if(on && was && k === (d.preferred_kind || null)) return;   /* אותו סיווג — אין מה לשלוח */
   const di = document.getElementById('dl-pfd'), due = (on && DL_PF[id] && di) ? (di.value || null) : null;
   if(on && DL_PF[id] && !due){ toast('בחרו מועד למשימת ההמשך', 'err'); return; }
+  if(el){ if(el.disabled) return; el.disabled = true; }
   if(box) box.classList.add('busy');
-  let r; try{ r = await sb.schema('crm').rpc('deal_set_preferred', { p_deal:id, p_on:!!on, p_due:due }); }catch(e){ r = { error:e }; }
+  let r; try{ r = await sb.schema('crm').rpc('deal_set_preferred', { p_deal:id, p_on:!!on, p_due:due, p_kind:k }); }catch(e){ r = { error:e }; }
   if(box) box.classList.remove('busy');
-  if(r && r.error && r.error.details === 'need_task'){ DL_PF[id] = true; dlPrefDraw(id); return; }
+  if(el) el.disabled = false;
+  if(r && r.error && r.error.details === 'need_task'){ DL_PF[id] = k || 'ממתינה'; dlPrefDraw(id); return; }
   if(!r || r.error){ toast('השמירה נכשלה: ' + (((r && r.error) && r.error.message) || 'שגיאה'), 'err'); dlPrefDraw(id); return; }
   delete DL_PF[id];
   const row = Array.isArray(r.data) ? r.data[0] : r.data, tk = (row && row.task_id) || null;
-  dealPrefApply(id, on ? ((row && row.preferred_at) || new Date().toISOString()) : null, on ? ((ME||{}).id || null) : null, tk);
-  toast(on ? 'סומנה כמועדפת ✓ · המשימה ב"בעדיפות"' + (tk ? ' · נפתחה משימת המשך' : '') : 'הוסרה מהמועדפות ✓');
+  dealPrefApply(id, on ? ((row && row.preferred_at) || d.preferred_at || new Date().toISOString()) : null,
+                on ? (was ? (d.preferred_by || null) : ((ME||{}).id || null)) : null, tk, k);
+  toast(!on ? 'הוסרה מהמועדפות ✓' : was ? 'הסיווג עודכן: ' + k + ' ✓'
+            : 'סומנה כמועדפת · ' + (k || 'לא סווגה') + ' ✓ · המשימה ב"בעדיפות"' + (tk ? ' · נפתחה משימת המשך' : ''));
 };
 /* 🔴 נקודת העדכון היחידה של "מועדפת" בלקוח — DEALS, המשימות שבזיכרון (השרת כבר החליף להן סטטוס), המטמון של מסך הניתוח,
    הכרטיס הפתוח והבורד. צרכן חדש עובר כאן. משימת המשך שהשרת פתח נמשכת באותן עמודות של טוען המשימות (CRM_Q.tasks). */
-function dealPrefApply(id, at, by, newTask){
-  const d = (DEALS||[]).find(x=>x.id===id); if(d){ d.preferred_at = at; d.preferred_by = by; }
+function dealPrefApply(id, at, by, newTask, kind){   /* 7.56.0 — kind: סיווג המועדפת (מתאפס עם ההסרה, כמו בשרת) */
+  const d = (DEALS||[]).find(x=>x.id===id); if(d){ d.preferred_at = at; d.preferred_by = by; d.preferred_kind = at ? (kind || null) : null; }
   (TASKS||[]).forEach(t=>{ if(t.linked_type==='deal' && t.linked_id===id){
     if(at && t.status==='חדש') t.status = 'בעדיפות'; else if(!at && t.status==='בעדיפות') t.status = 'חדש'; } });
-  Object.keys(SA.cache).forEach(k=>{ const h = SA.cache[k]; ((h.d && h.d.open) || []).forEach(o=>{ if(o.id===id) o.pref_at = at; }); });
+  Object.keys(SA.cache).forEach(k=>{ const h = SA.cache[k]; ((h.d && h.d.open) || []).forEach(o=>{ if(o.id===id){ o.pref_at = at; o.pref_kind = at ? (kind || null) : null; } }); });
   try{ dlPrefDraw(id); }catch(_e){}
   try{ dlTmDraw(id); }catch(_e){}
   if(newTask){
@@ -29747,16 +29759,7 @@ function dealPrefApply(id, at, by, newTask){
       .then(r=>{ if(r && r.data && !(TASKS||[]).some(t=>t.id===r.data.id)){ TASKS.push(r.data); try{ dlTmDraw(id); }catch(_e){} try{ crmRepaint(); }catch(_e){} } }, ()=>{});
   }
   saStale();
-  try{ crmRepaint(); }catch(_e){}
-}
-/* 🔴 7.54.0 — נקודת העדכון היחידה של "מתנדנדת" בלקוח — DEALS · המטמון של מסך הניתוח (waver_at) · הכרטיס הפתוח · המסך והבורד.
-   צרכן חדש עובר כאן. השרת כבר כתב; כאן רק המראה המקומית, ואז saStale מביא את הסכומים מהשרת. */
-function dealWaverApply(id, at, by){
-  const d = (DEALS||[]).find(x=>x.id===id); if(d){ d.wavering_at = at; d.wavering_by = by; }
-  Object.keys(SA.cache).forEach(k=>{ const h = SA.cache[k]; ((h.d && h.d.open) || []).forEach(o=>{ if(o.id===id) o.waver_at = at; }); });
-  try{ dlPrefDraw(id); }catch(_e){}
-  saStale();
-  if(CUR_TAB==='sana'){ try{ renderSana(); }catch(_e){} }   /* המראה המקומית מיד; השרת מחליף אותה כשהוא חוזר */
+  if(CUR_TAB==='sana'){ try{ renderSana(); }catch(_e){} }   /* 7.56.0 — הסיווג מטבלת הניתוח מצויר מיד; השרת מחליף כשהוא חוזר */
   try{ crmRepaint(); }catch(_e){}
 }
 /* ===== 7.47.0 — פתיחות קישור ההצעה בכרטיס העסקה =====
