@@ -4427,7 +4427,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.60.0</div>
+      <div class="ver">גרסה 7.60.2</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4574,7 +4574,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="polist-2026-11-03a">גרסה 7.60.0</div>
+    <div class="side-foot" title="pilotflag-2026-11-03a">גרסה 7.60.2</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -14649,7 +14649,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'polist-2026-11-03a';
+const BUILD_ID = 'pilotflag-2026-11-03a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -31274,10 +31274,15 @@ window.lmRcptPaint = ()=>{
   if(ew) ew.classList.toggle('hidden', !(r.t==='lead' && window.canEdit('crm.leads')));
 };
 /* ⚠️ מצב פילוט: outbox-dispatch מבטל כל נמען שאינו ב-ord.settings.wa_allow. בלי הציון הזה
-   המשתמש היה קורא "נכנס לתור" ומסיק שהלקוח קיבל. השוואה על 9 הספרות האחרונות — כמו השרת. */
+   המשתמש היה קורא "נכנס לתור" ומסיק שהלקוח קיבל. השוואה על 9 הספרות האחרונות — כמו השרת.
+   🔴 7.60.2 — '*' = פתוח לכולם, כמו בשרת (outbox-dispatch: allowAll = rawAllow === "*"). עד כאן '*' עבר את lmP9,
+   הפך ל-'' וסונן, והאזהרה הופיעה אחרי כל "שמור ושגר" גם כשההודעה נמסרה (רומן, 03/11/2026: "קיבלנו גם הערה
+   בעת השליחה כאילו משהו עדיין לא פתוח"). אותו דפוס כמו nfPushAllowed. osetStr כבר עושה trim. */
 const lmP9 = s => String(s||'').replace(/\D/g,'').slice(-9);
 window.lmPilotBlocked = phone => {
-  const allow = String(osetStr('wa_allow','')||'').split(/[,;\s]+/).map(lmP9).filter(Boolean);
+  const raw = String(osetStr('wa_allow','')||'');
+  if(raw === '*') return false;
+  const allow = raw.split(/[,;\s]+/).map(lmP9).filter(Boolean);
   return !allow.includes(lmP9(phone));
 };
 /* 🔴 6.157.0 — רג'יסטרי עמודות + מפת-שם למיון, בדפוס LB_COLS/TK_COLS/
@@ -37068,7 +37073,7 @@ boot();
      מבטלות זו את זו. בנוסף קבוצות נפתחות ונסגרות, כדי שתשובה רחבה תיקרא
      כרשימת כותרות ולא כמפולת. */
   var GS = window.GS = {};
-  var GS_PER = 8;                       /* תקרת תוצאות לסוג — ראו core.global_search */
+  var GS_PER = 25;                      /* תקרת תוצאות לסוג: global_search(q, 25) בתוך core.gs_people — מ-7.60.1 הנתיב היחיד */
   function gsSvg(d){ return d; }
   var GS_TYPES = {
     customer:{ lbl:'לקוחות',        pri:1,  ic:'<circle cx="12" cy="8" r="3.4"/><path d="M4.6 20c.6-3.6 3.7-5.7 7.4-5.7s6.8 2.1 7.4 5.7"/>' },
@@ -37093,8 +37098,8 @@ boot();
   var GS_WHY = { phone:'התאמה בטלפון', email:'התאמה במייל', name:'התאמה בשם', id:'התאמה במספר' };
   var gsRows = [], gsOpen = {}, gsIdx = -1, gsTimer = null, gsSeq = 0, gsLast = '', gsCtrl = null;
   /* 7.32.0 — חיפוש לפי שם (רשימת הבאגים 14, רומן 21/10/2026): "קודם כל יוצגו כל האופציות לפי שם ללא חלוקות
-     למסכים … ואז כשבוחרים רק את השם … נפתח מסך שבו מוצגת כל החלוקה". gsPeople = השמות מ-core.gs_people (null
-     בחיפוש מספר/טלפון/מייל — שם הכול כמו קודם); gsRows = שאר התוצאות, שאינן מקושרות לאף שם. gsPerson = מסך השם. */
+     למסכים … ואז כשבוחרים רק את השם … נפתח מסך שבו מוצגת כל החלוקה". gsPeople = השמות מ-core.gs_people (מ-7.60.1
+     בכל חיפוש — גם מספר, טלפון ומייל); gsRows = שאר התוצאות, שאינן מקושרות לאף שם. gsPerson = מסך השם. */
   var gsPeople = null, gsPerson = null, gsRelCache = {}, gsPScroll = 0;
   /* מטמון לכל שאילתה בסשן — חזרה מכרטיס לא מפעילה חיפוש מחדש, וגם הקלדה
      חוזרת של אותו טקסט חוזרת מיד. כל רשומה שומרת גם את מצב הפתיחה של
@@ -37280,12 +37285,12 @@ boot();
 
   /* ===== 7.32.0 — חיפוש לפי שם (רשימת הבאגים 14) =====
      שלב 1: שורה לכל שם (core.gs_people — שם + טלפון, הכרעה 1). שלב 2: מסך השם — כל מה שמקושר (core.gs_related,
-     הכרעה 2). מספר / טלפון / מייל ⇒ החיפוש הקיים (הכרעה 3). שתי הפונקציות SECURITY INVOKER: מה שאסור — לא חוזר. */
+     הכרעה 2). מ-7.60.1 גם מספר / טלפון / מייל (רומן, 03/11/2026: "יציג כמו חיפוש לפי שם") — הכרעה 3 בוטלה.
+     שתי הפונקציות SECURITY INVOKER: מה שאסור — לא חוזר. */
   var GS_ONE = { customer:'לקוח', lead:'ליד', contact:'איש קשר', deal:'תהליך מכירה', order:'הזמנה', call:'קריאת שירות',
                  payment:'תשלום', meeting:'פגישה', task:'משימה', protocol:'מסמך', mdoc:'מסמך ממאנדיי' };
   var GS_PTYPES = ['customer','contact','lead','deal','order','call','payment','meeting','task','protocol','mdoc'];
   var GS_PNONE  = ['lead','deal','order','call','payment','meeting','task'];   /* "אין לשם הזה: …" — מה שעונה על "האם יש" */
-  function gsPeopleMode(q){ var s = String(q || ''); return /[A-Za-zא-ת]/.test(s) && s.indexOf('@') < 0; }
   function gsInit(n){
     var w = String(n || '').trim().split(/ +/).filter(Boolean);
     return ((w[0] || '').charAt(0) + (w.length > 1 ? w[w.length - 1].charAt(0) : '')) || '?';
@@ -37428,17 +37433,16 @@ boot();
     gsBusy(true);
     gsRender('load', q);
     gsPerson = null;
-    /* 7.32.0 — יש אות ואין @ ⇒ חיפוש שם (core.gs_people). מספר / טלפון / מייל ⇒ כמו היום (הכרעה 3). */
-    var pm = gsPeopleMode(q);
-    var call = pm ? sb.schema('core').rpc('gs_people', { q: q })
-                  : sb.schema('core').rpc('global_search', { q: q, per_type: GS_PER });
+    /* 7.60.1 — כל חיפוש ⇒ core.gs_people (רומן, 03/11/2026: "מספר, טלפון או מייל יציג כמו חיפוש לפי שם").
+       עד 7.60.0 רק טקסט עם אות ובלי @; מספר/טלפון/מייל הלכו ל-global_search והוצגו לפי מסכים. gs_people מריצה
+       בעצמה את global_search: מה שאינו שם (הזמנה לפי מספר, מק"ט…) חוזר ב-'other' ומוצג בקיבוץ הקיים. */
+    var call = sb.schema('core').rpc('gs_people', { q: q });
     if(gsCtrl && call.abortSignal) call = call.abortSignal(gsCtrl.signal);
     call.then(function(res){
       if(seq !== gsSeq) return;               /* תשובה מאוחרת לא תדרוס חדשה */
       gsBusy(false);
       if(res.error){ gsRows = []; gsPeople = null; gsRender('err', q); return; }
-      if(pm){ var d = res.data || {}; gsPeople = Array.isArray(d.people) ? d.people : []; gsRows = Array.isArray(d.other) ? d.other : []; }
-      else { gsPeople = null; gsRows = res.data || []; }
+      var d = res.data || {}; gsPeople = Array.isArray(d.people) ? d.people : []; gsRows = Array.isArray(d.other) ? d.other : [];
       gsOpen = gsDefOpen(gsGroup(gsRows).order, gsRows);
       gsCachePut(q, { rows:gsRows, open:gsOpen, people:gsPeople });
       gsRender('ok', q);
