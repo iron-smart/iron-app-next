@@ -2759,6 +2759,22 @@ span.po-est{ cursor:default; }
    התוכן: סה"כ שני מטבעות בשורה אחת בתחתית (135px לעמודת הסכום) וכותרות של שתי מילים שלא נשברו. */
 #po-body tfoot td.po-money{ white-space:normal; }
 #po-body thead th{ white-space:normal; line-height:1.25; }
+/* ===== 7.60.0 — polist: אריחי המסך ושורות-משנה בתאי הטבלה ===== */
+/* min(…, 50%) — בטלפון שניים בשורה בלי נקודת שבירה חדשה (הדפוס של .pod-grid; dstest סופרת את ה-759.98) */
+#po-views .po-ktiles{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(170px, calc(50% - var(--sp-1))), 1fr)); gap:var(--sp-2); width:100%; margin-bottom:var(--sp-1); }
+.po-kt{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--sp-0h); min-width:0; padding:var(--sp-2h) var(--sp-3); border:1px solid var(--line); border-radius:var(--r-md); background:#fff; color:var(--ink-1); font:inherit; text-align:start; cursor:pointer; }
+.po-kt:hover{ border-color:var(--line-strong); box-shadow:var(--sh-card); }
+.po-kt:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+.po-kt>span{ font-size:var(--fs-xs); font-weight:600; color:var(--ink-3); }
+.po-kt>b{ font-size:var(--fs-xl); font-weight:800; line-height:1.15; color:var(--ink-1); }
+.po-kt>small{ font-size:var(--fs-xs); color:var(--ink-3); }
+.po-kt.late>b{ color:var(--red); }
+.po-kt.on{ border-color:var(--navy); box-shadow:inset 0 0 0 1px var(--navy); }
+#po-body small.po-sub{ display:block; font-size:var(--fs-xs); font-weight:400; color:var(--ink-3); }
+#po-body small.po-late-t{ display:block; font-size:var(--fs-xs); font-weight:700; color:var(--red); }
+#po-body .po-port{ display:flex; align-items:center; flex-wrap:wrap; gap:var(--sp-1); margin-top:var(--sp-1); font-size:var(--fs-xs); font-weight:400; color:var(--ink-2); }
+#po-body .po-port-l{ color:var(--ink-3); }
+#po-body .po-port.po-late{ color:var(--red); font-weight:700; }
 /* ===== 7.59.0 — pocard: כותרת הכרטיס (במקום התקציר של 7.58.0 + "פרטי ההזמנה") ===== */
 #poSheet .po-hd{ display:flex; flex-direction:column; gap:var(--sp-2h); padding-bottom:var(--sp-4); margin-bottom:var(--sp-3); border-bottom:1px solid var(--line); }
 #poSheet .po-hd-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:var(--sp-3); flex-wrap:wrap; }
@@ -3027,14 +3043,12 @@ span.po-est{ cursor:default; }
   #po-body table.tbl tbody td.po-num{ order:1; } #po-body table.tbl tbody td.stcell{ order:2; }
   #po-body table.tbl tbody td.po-sup{ order:3; } #po-body table.tbl tbody td.po-money{ order:4; }
   #po-body table.tbl tbody td.po-due{ order:5; } #po-body table.tbl tbody td.po-open{ order:6; }
-  #po-body table.tbl tbody td.datecell{ order:7; }
   #po-body table.tbl tbody td.stcell{ justify-self:end; }
   #po-body table.tbl tbody td.po-money{ justify-self:end; }
   #po-body table.tbl tbody td.po-due, #po-body table.tbl tbody td.po-open{ font-size:var(--fs-sm); color:var(--ink-2); }
   #po-body table.tbl tbody td.po-open{ justify-self:end; }
   #po-body table.tbl tbody td.po-due.po-warn{ color:var(--red); }
-  #po-body table.tbl tbody td.datecell.po-m{ grid-column:1/-1; display:flex; align-items:center; gap:var(--sp-2); }
-  #po-body table.tbl tbody td.datecell.po-m .po-etaw{ flex-direction:row; }
+  #po-body table.tbl tbody td.po-due .po-port .po-etaw{ flex-direction:row; }   /* 7.60.0 — הנמל בתוך תא האספקה: תאריך ו-≈צפי בשורה אחת */
   #po-body table.tbl tbody td[data-l]::before{ content:attr(data-l) ' '; color:var(--ink-3); font-weight:400; }
   #po-body table.tbl tfoot tr{ display:flex; flex-wrap:wrap; gap:var(--sp-1) var(--sp-3); padding:var(--sp-2) var(--sp-1); }
   #po-body table.tbl tfoot td{ display:none; padding:0; border:0; background:none; }
@@ -4413,7 +4427,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.59.0</div>
+      <div class="ver">גרסה 7.60.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4560,7 +4574,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="pocard-2026-11-03a">גרסה 7.59.0</div>
+    <div class="side-foot" title="polist-2026-11-03a">גרסה 7.60.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -12374,6 +12388,13 @@ const poDT = v => { if(!v) return ''; const d=new Date(v); return isNaN(d) ? '' 
 /* מראה של ord.po_is_open — הגדרה אחת ל"פתוח" ללובי ולמסך. שינוי כאן = שינוי גם שם. */
 const poCancelled = r => /בוטל|טיוט/.test(String(r.priority_status||''));
 const poIsOpen = r => !poCancelled(r) && r.our_status !== 'הושלם';
+/* 7.60.0 — polist: שלוש התצוגות של האריחים, כל אחת בהגדרה אחת (לאריח, לסינון ולספירה).
+   "בדרך / בנמל" — פתוחה שסימנו נשלחה/בנמל, או שפריוריטי אומרת "בדרך". "ממתינות לאישור" — טיוטא או מחכה
+   לאישור בפריוריטי; poCancelled מחשיב טיוטא כלא-פתוחה, ולכן היא אינה נספרת ב"פתוחות" ומקבלת אריח משלה. */
+const poOnWay = r => poIsOpen(r) && (['נשלחה','בנמל'].indexOf(r.our_status) >= 0 || /בדרך/.test(String(r.priority_status||'')));
+const poAwait = r => /טיוט|מחכה/.test(String(r.priority_status||'')) && !/בוטל/.test(String(r.priority_status||''));
+/* האריחים סופרים לפי סינון הספקים/המטבע/סטטוס פריוריטי — לא לפי התצוגה והחיפוש, שאותם הם עצמם קובעים */
+const poInScope = r => (!PO_F.sups.length || PO_F.sups.indexOf(r.supplier_no) >= 0) && (!PO_F.pri || r.priority_status === PO_F.pri) && (!PO_F.cur || r.currency === PO_F.cur);
 /* 6.219.0 — ביטול בלבד (בלי טיוטא): הסטטוס הפנימי של הזמנה מבוטלת אינו ניתן לעריכה —
    הטריגר במסד מחזיק 'מבוטלת' כל עוד פריוריטי אומרת כך (po_status_from_priority v2). */
 const poVoid = r => /בוטל/.test(String(r.priority_status||''));
@@ -12525,9 +12546,9 @@ function poTools(){
   const ssf = $('#po-ss');
   if(ssf) ssf.onchange = e => poSsPick(e.target.value);
   const pf = $('#po-pri-f');
-  if(pf) pf.onchange = e => { PO_F.pri = e.target.value; poBody(); };
+  if(pf) pf.onchange = e => { PO_F.pri = e.target.value; poViews(); poBody(); };   /* 7.60.0 — האריחים נספרים באותו היקף (ממצא Fable) */
   const cf = $('#po-cur-f');
-  if(cf) cf.onchange = e => { PO_F.cur = e.target.value; poBody(); };
+  if(cf) cf.onchange = e => { PO_F.cur = e.target.value; poViews(); poBody(); };
   const cl = $('#po-clear');
   if(cl) cl.onclick = ()=>{ PO_F.q=''; PO_F.sups=[]; PO_F.ss=''; PO_F.pri=''; PO_F.cur=''; renderPo(); };
   const sy = $('#po-sync'); if(sy) sy.onclick = poSync;
@@ -12648,10 +12669,8 @@ window.poSsDelete = async ()=>{
 function poViews(){
   const el = $('#po-views'); if(!el) return;
   const act = PO.filter(r=>!poCancelled(r));
-  const chips = [['open','בתהליך', PO.filter(poIsOpen).length]];
-  /* 7.58.0 — "באיחור" אחרי "בתהליך": תת-קבוצה שלו, ומה שדורש טיפול קודם */
-  const nLate = PO.filter(r=>poLateDays(r) > 0).length;
-  if(nLate || PO_VIEW==='late') chips.push(['late','באיחור', nLate]);
+  /* 7.60.0 — "בתהליך" ו"באיחור" עברו לאריחים (למטה); נשארים שבבי הסטטוס ו"הכל" */
+  const chips = [];
   /* צ'יפ סטטוס ריק אינו מוצג — "בייצור 0 · בנמל 0" הופיעו תמיד (0/57 מאז ומעולם) */
   PO_STATUSES.forEach(s=>{ const n = act.filter(r=>r.our_status===s).length; if(n || PO_VIEW==='st:'+s) chips.push(['st:'+s, s, n]); });
   chips.push(['all','הכל · כולל מבוטלות', PO.length]);
@@ -12663,7 +12682,18 @@ function poViews(){
       + esc(s.name) + ' <span class="po-tab-n">'+(s.suppliers||[]).length+'</span>'
       + (PO_SS_DEF===s.id ? ' <span class="po-tab-def" title="ברירת המחדל שלך">✓</span>' : '') + '</button>').join('')
     + '</div>' : '';
-  el.innerHTML = tabs + chips.map(c=>'<button class="chip'+(PO_VIEW===c[0]?' active':'')+'" data-po-view="'+esc(c[0])+'">'
+  /* 7.60.0 — polist: ארבעה אריחים לחיצים — מה שדורש טיפול, במספרים, לפני הטבלה. לחיצה = PO_VIEW */
+  const base = PO.filter(poInScope), lO = base.filter(poIsOpen), lL = base.filter(r=>poLateDays(r) > 0), lW = base.filter(poOnWay), lA = base.filter(poAwait);
+  const sums = {}; lO.forEach(r=>{ const k = poCur(r.currency) || ''; sums[k] = (sums[k]||0) + (Number(r.price_incl_vat)||0); });
+  const tile = (v, lbl, n, sub, cls) => '<button class="po-kt'+(cls ? ' '+cls : '')+(PO_VIEW===v ? ' on' : '')+'" data-po-view="'+v+'" aria-pressed="'+(PO_VIEW===v ? 'true' : 'false')+'">'
+    + '<span>'+lbl+'</span><b class="n">'+fmtNum(n)+'</b>'+(sub ? '<small>'+sub+'</small>' : '')+'</button>';
+  const kpi = '<div class="po-ktiles" id="po-kpi">'
+    + tile('late', 'באיחור', lL.length, lL.length ? 'אספקה שעברה ויש שורות פתוחות' : 'אין הזמנות באיחור', lL.length ? 'late' : '')
+    + tile('way', 'בדרך / בנמל', lW.length, 'נשלחו מהספק או בנמל')
+    + tile('wait', 'ממתינות לאישור', lA.length, 'טיוטא או מחכה לאישור בפריוריטי')
+    + tile('open', 'פתוחות', lO.length, Object.keys(sums).map(k=>'<span dir="ltr">'+k+Number(sums[k]).toLocaleString('he-IL',{maximumFractionDigits:0})+'</span>').join(' · '))
+    + '</div>';
+  el.innerHTML = tabs + kpi + chips.map(c=>'<button class="chip'+(PO_VIEW===c[0]?' active':'')+'" data-po-view="'+esc(c[0])+'">'
     + esc(c[1]) + ' <span class="n">' + fmtNum(c[2]) + '</span></button>').join('');
   el.querySelectorAll('[data-po-tab]').forEach(b=>b.onclick = ()=> poSsPick(b.dataset.poTab));
   el.querySelectorAll('[data-po-view]').forEach(b=>b.onclick = ()=>{ PO_VIEW = b.dataset.poView; poViews(); poBody(); });
@@ -12674,6 +12704,8 @@ function poFiltered(){
   return PO.filter(r=>{
     if(PO_VIEW === 'open'){ if(!poIsOpen(r)) return false; }
     else if(PO_VIEW === 'late'){ if(!(poLateDays(r) > 0)) return false; }
+    else if(PO_VIEW === 'way'){ if(!poOnWay(r)) return false; }
+    else if(PO_VIEW === 'wait'){ if(!poAwait(r)) return false; }
     else if(PO_VIEW.indexOf('st:') === 0){ if(poCancelled(r) || r.our_status !== PO_VIEW.slice(3)) return false; }
     if(PO_F.sups.length && PO_F.sups.indexOf(r.supplier_no) < 0) return false;
     if(PO_F.pri && r.priority_status !== PO_F.pri) return false;
@@ -12699,67 +12731,75 @@ function poBody(){
   if(!PO_LOADED){ el.innerHTML = '<div class="empty">אין נתונים להצגה</div>'; return; }
   const rows = poFiltered();
   if(!rows.length){
-    el.innerHTML = '<div class="empty">אין הזמנות רכש להצגה'
-      + (PO.length ? '' : (poMgr() ? ' — לחצו על "סנכרון מפריוריטי" למשיכה ראשונה' : ' — טרם בוצע סנכרון'))
+    /* 7.60.0 — מצב ריק לפי התצוגה: "אין הזמנות באיחור" הוא מידע, לא תקלה */
+    const emp = { late:'אין הזמנות באיחור', way:'אין הזמנות בדרך או בנמל', wait:'אין הזמנות שממתינות לאישור בפריוריטי' }[PO_VIEW];
+    const filt = !!(PO_F.sups.length || PO_F.pri || PO_F.cur || PO_F.q);
+    el.innerHTML = '<div class="empty">'+(PO.length ? (emp || 'אין הזמנות רכש להצגה')+(filt ? ' בסינון הנוכחי' : '')
+      : 'אין הזמנות רכש להצגה' + (poMgr() ? ' — לחצו על "סנכרון מפריוריטי" למשיכה ראשונה' : ' — טרם בוצע סנכרון'))
       + '</div>';
     return;
   }
+  /* 7.60.0 — סדר ברירת המחדל: באיחור קודם (המאחר ביותר ראשון), אחר כך ת.אספקה הקרובה; הזמנה בלי שורות
+     פתוחות — בסוף, בסדר הטעינה. מיון לפי עמודה (לחיצה על הכותרת) נשאר כמו שהיה. */
+  const ord = rows.map((r, i)=>{ const g = poAgg(r.ordname); return { r, i, l: poLateDays(r), n: g.open ? (g.next||'') : '' }; });
+  ord.sort((a, b)=> (b.l - a.l) || ((a.n && b.n) ? (a.n < b.n ? -1 : (a.n > b.n ? 1 : 0)) : (a.n ? -1 : (b.n ? 1 : 0))) || (a.i - b.i));
+  rows.splice(0, rows.length, ...ord.map(x=>x.r));
   const today = isoD(new Date());
   const canE = canIE('po');
   const num = v => (v==null||v===''||isNaN(Number(v))) ? '' : String(Number(v));
   /* שורת סה"כ — לפי מטבע, על הסינון הנוכחי בלבד */
-  /* 7.58.0 — עמודות לפי הקשר: "הזמנת ספק" רק כשלהזמנה כלשהי יש; נמל ותיק רק כשיש הזמנת יבוא.
-     7.59.0 — מכל ההזמנות ולא מהמסוננות (ממצא Fable): כל לחיצה על שבב או לשונית הוסיפה והורידה עמודות,
-     והטבלה "קפצה" תחת היד. העמודות קבועות למסך, ומשתנות רק כשהנתונים עצמם משתנים. */
-  const colSup = PO.some(r=>String(r.supordnum||'').trim());
-  const colImp = PO.some(poImp);
-  const tot = {}; let totOpen = 0, totBal = 0;
+  const tot = {}; let totOpen = 0;
   rows.forEach(r=>{ const k = poCur(r.currency) || String(r.currency||''); tot[k] = (tot[k]||0) + (Number(r.price_incl_vat)||0);
-                    const g = poAgg(r.ordname); totOpen += g.open; totBal += g.bal; });
-  el.innerHTML = '<div class="tbl-wrap"><table class="tbl"><thead><tr>'
+                    totOpen += poAgg(r.ordname).open; });
+  /* 7.60.0 — polist: שבע עמודות קבועות. מה שהיה עמודה נפרדת ורוב הזמן ריק עבר לשורת-משנה בתא של הנושא שלו:
+     הזמנת הספק מתחת למספר, היתרה מתחת לשורות הפתוחות, הנמל מתחת ל-ת.אספקה (רק ביבוא), המכולה מתחת למסמכים.
+     תאריך ההזמנה ומס' התיק — בכרטיס. עד כאן 13 עמודות, והטבלה גלשה ב-1440 (7.58.0). */
+  el.innerHTML = '<div class="tbl-wrap"><table class="tbl" data-v="polist"><thead><tr>'
     + '<th class="rownum">#</th>'
-    + '<th>מס\' הזמנה</th><th>ספק</th><th>תאריך</th>'+(colSup ? '<th>הזמנת ספק</th>' : '')
+    + '<th>הזמנה</th><th>ספק</th><th class="stcell">סטטוס</th>'
+    + '<th title="מועד האספקה הקרוב בשורות הפתוחות (מפריוריטי) · +N = תאריכי אספקה נוספים · ביבוא — גם תאריך ההגעה לנמל">ת.אספקה</th>'
+    + '<th class="num" title="שורות שטרם סופקו, מתוך כלל שורות ההזמנה · מתחת: יתרת הכמות לאספקה">שורות פתוחות</th>'
     + '<th class="num" title="כולל מע&quot;מ, במטבע ההזמנה">סכום</th>'
-    + '<th class="num" title="שורות שטרם סופקו, מתוך כלל שורות ההזמנה">שורות פתוחות</th>'
-    + '<th class="num" title="יתרת הכמות לאספקה בשורות הפתוחות">יתרה</th>'
-    + '<th title="מועד האספקה הקרוב בשורות הפתוחות (מפריוריטי) · +N = תאריכי אספקה נוספים בשורות הפתוחות">ת.אספקה</th>'
-    + '<th class="stcell">סטטוס</th>'+(colImp ? '<th>הגעה לנמל</th><th title="מספר תיק ייבוא (מהכרטיס; אם ריק — תיק היבוא בפריוריטי)">מס\' תיק</th>' : '')+'<th class="num" title="מסמכי ספק שהועלו להזמנה (PI · Packing List · CI · B/L)">מסמכים</th>'
+    + '<th class="num" title="מסמכי ספק שהועלו להזמנה (PI · Packing List · CI · B/L) · מתחת: מספר המכולה">מסמכים</th>'
     + '</tr></thead><tbody>'
     + rows.map((r,i)=>{
       const g = poAgg(r.ordname), open = poIsOpen(r);
       const nd = poDocsOf(r.ordname).length;   /* 6.219.0 — עמודת המסמכים */
       const late = open && r.eta_port && r.eta_port < today;
-      const lateN = poLateDays(r), dueLate = lateN > 0, impR = colImp && !!(poImp(r) || r.eta_port);
-      /* "＋ תאריך" ולא שדה תאריך ריק: 11 מ-12 השורות הפתוחות בלי ETA, ושדה ריק בכל שורה הוא רעש */
+      const lateN = poLateDays(r), dueLate = lateN > 0, impR = !!(poImp(r) || r.eta_port);
+      /* "＋ נמל" ולא שדה תאריך ריק: 11 מ-12 השורות הפתוחות בלי ETA, ושדה ריק בכל שורה הוא רעש */
       /* 6.240.0 — "צפי בלבד" לצד התאריך (poEstChip): לעורך כפתור, לצופה שבב רק כשמסומן */
       const eta = r.eta_port
         ? '<div class="po-etaw">' + (canE ? '<div class="datewrap">'+ieDate('po', r.ordname, 'eta_port', r.eta_port)+'</div>'
                 : '<span class="'+(late?'po-late':'')+'">'+poDate(r.eta_port)+'</span>') + poEstChip(r, canE) + '</div>'
         : ((canE && open) ? '<span class="po-eta-add" data-po-eta="'+esc(r.ordname)+'" title="קביעת תאריך הגעה משוער לנמל">＋ תאריך</span>' : '—');
+      const cont = String(r.container_no||'').trim();
       return '<tr data-po="'+esc(r.ordname)+'">'
         + '<td class="rownum">'+(i+1)+'</td>'
         /* 7.58.0 — po-m: התאים שמוצגים בכרטיס של הטלפון; data-l: התווית שלהם שם */
-        + '<td class="po-num po-m" dir="ltr">'+esc(r.ordname)+'</td>'
+        + '<td class="po-num po-m" dir="ltr" data-sort="'+esc(r.ordname)+'">'+esc(r.ordname)+(r.supordnum ? '<small class="po-sub">'+esc(r.supordnum)+'</small>' : '')+'</td>'
         + '<td class="po-sup po-m" title="'+esc(r.supplier_name||'')+'">'+esc(poSupShort(r.supplier_name) || r.supplier_no || '—')+'</td>'
-        + '<td data-sort="'+esc(r.curdate||'')+'">'+poDate(r.curdate)+'</td>'
-        + (colSup ? '<td dir="ltr">'+esc(r.supordnum||'—')+'</td>' : '')
-        + '<td class="po-money num" data-sort="'+num(r.price_incl_vat)+'" title="לפני מע&quot;מ: '+esc(poMoney(r.price_before_vat, r.currency))+'">'+poMoney(r.price_incl_vat, r.currency)+'</td>'
-        + '<td class="num po-open'+(g.lines ? ' po-m' : '')+'" data-l="שורות פתוחות" data-sort="'+g.open+'">'+(g.lines ? g.open+' / '+g.lines : '—')+'</td>'
-        + '<td class="num" data-sort="'+g.bal+'">'+(g.lines ? fmtNum(g.bal) : '—')+'</td>'
-        + '<td class="po-due'+(g.open ? ' po-m' : '')+(dueLate ? ' po-warn' : '')+'" data-l="אספקה" data-sort="'+esc(g.next||'')+'"'+(dueLate ? ' title="באיחור '+lateN+(lateN===1 ? ' יום' : ' ימים')+' · מועד האספקה עבר ויש שורות פתוחות"' : '')+'>'+(g.open ? poDate(g.next)+poMoreDates(g) : '—')+'</td>'
         /* 6.219.0 — צבע אחד (LB_TK) בשלושת האתרים; מבוטלת = שבב בלבד; והכתיבה דרך poStatusSet
            ולא ieSave: ieSave עושה update בלי .select() ואז Object.assign, בעוד הטריגר במסד
            עשוי להחזיר ערך אחר ("הזמנה חדשה" על הזמנה שבדרך ← "נשלחה") — והטבלה הציגה את מה שנבחר. */
         + '<td class="stcell po-m">'+(poVoid(r) ? mdPill(r.our_status||'מבוטלת', PO_ST_MD, LB_TK)
             : ieSel('po', r.ordname, 'our_status', PO_STATUSES, r.our_status, {mdColors:PO_ST_MD, mdK:LB_TK, on:"poStatusSet(this,'"+jsq(r.ordname)+"')"}))+'</td>'
-        + (colImp ? '<td class="datecell'+(late?' po-late':'')+(impR ? ' po-m" data-l="נמל' : '')+'">'+(impR ? eta : '—')+'</td>'
-        + '<td class="po-ifn" dir="ltr" data-sort="'+esc(poIfn(r))+'"'+((!String(r.import_file_no||'').trim() && r.impfnum) ? ' title="תיק היבוא בפריוריטי"' : '')+'>'+esc(poIfn(r) || '—')+'</td>' : '')
-        + '<td class="num" data-sort="'+nd+'" data-po-docs="'+esc(r.ordname)+'" title="מסמכי ספק — לחיצה פותחת אותם בכרטיס">'+(DOCFILES===null ? (DOCFILES_ERR ? '—' : '…') : (nd ? ico('doc')+' '+nd : '—'))+'</td>'
+        + '<td class="po-due'+((g.open || impR) ? ' po-m' : '')+(dueLate ? ' po-warn' : '')+'" data-l="אספקה" data-sort="'+esc(g.next||'')+'">'
+          + (g.open ? poDate(g.next)+poMoreDates(g) : '—')
+          + (dueLate ? '<small class="po-late-t" title="מועד האספקה עבר ויש שורות פתוחות">באיחור '+lateN+(lateN===1 ? ' יום' : ' ימים')+'</small>' : '')
+          + (impR ? '<div class="po-port'+(late ? ' po-late' : '')+'"><span class="po-port-l">נמל</span>'+eta+'</div>' : '')
+        + '</td>'
+        + '<td class="num po-open'+(g.lines ? ' po-m' : '')+'" data-l="שורות פתוחות" data-sort="'+g.open+'">'+(g.lines ? g.open+' / '+g.lines : '—')
+          + (g.open ? '<small class="po-sub">יתרה '+fmtNum(g.bal)+' יח׳</small>' : '')+'</td>'
+        + '<td class="po-money num" data-sort="'+num(r.price_incl_vat)+'" title="לפני מע&quot;מ: '+esc(poMoney(r.price_before_vat, r.currency))+'">'+poMoney(r.price_incl_vat, r.currency)+'</td>'
+        + '<td class="num" data-sort="'+nd+'" data-po-docs="'+esc(r.ordname)+'" title="מסמכי ספק — לחיצה פותחת אותם בכרטיס">'+(DOCFILES===null ? (DOCFILES_ERR ? '—' : '…') : (nd ? ico('doc')+' '+nd : '—'))
+          + (cont ? '<small class="po-sub" dir="ltr" title="מספר מכולה">'+esc(cont)+'</small>' : '')+'</td>'
         + '</tr>';
     }).join('')
-    + '</tbody><tfoot><tr><td></td><td class="po-m" colspan="'+(colSup ? 4 : 3)+'" style="text-align:right">סה"כ · '+rows.length+' הזמנות</td>'
+    + '</tbody><tfoot><tr><td></td><td class="po-m" colspan="4" style="text-align:right">סה"כ · '+rows.length+' הזמנות</td>'
+    + '<td class="num">'+totOpen+'</td>'
     + '<td class="po-money num">'+Object.keys(tot).map(k=>k+Number(tot[k]).toLocaleString('he-IL',{maximumFractionDigits:0})).join(' · ')+'</td>'
-    + '<td class="num">'+totOpen+'</td><td class="num">'+fmtNum(totBal)+'</td><td colspan="'+(colImp ? 5 : 3)+'"></td></tr></tfoot></table></div>';
+    + '<td></td></tr></tfoot></table></div>';
   el.onclick = ev=>{
     /* 6.240.0 — "צפי בלבד": נשמר מיד, לפני פתיחת הכרטיס של השורה */
     const eb = ev.target.closest('[data-po-est]');
@@ -12767,8 +12807,9 @@ function poBody(){
     const a = ev.target.closest('[data-po-eta]');
     if(a){
       ev.stopPropagation();
-      const td = a.closest('td');
-      td.innerHTML = '<div class="datewrap">'+ieDate('po', a.dataset.poEta, 'eta_port', '')+'</div>';
+      /* 7.60.0 — הנמל הוא שורת-משנה בתא ת.אספקה: מחליפים את קופסת הנמל בלבד */
+      const td = a.closest('.po-port') || a.closest('td');
+      td.innerHTML = (td.classList.contains('po-port') ? '<span class="po-port-l">נמל</span>' : '')+'<div class="datewrap">'+ieDate('po', a.dataset.poEta, 'eta_port', '')+'</div>';
       const inp = td.querySelector('input'); if(inp){ inp.focus(); try{ if(inp.showPicker) inp.showPicker(); }catch(_e){} }
       return;
     }
@@ -14608,7 +14649,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'pocard-2026-11-03a';
+const BUILD_ID = 'polist-2026-11-03a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
