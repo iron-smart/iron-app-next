@@ -4451,7 +4451,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.62.2</div>
+      <div class="ver">גרסה 7.62.3</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4598,7 +4598,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="leadirr-2026-11-04a">גרסה 7.62.2</div>
+    <div class="side-foot" title="srchci-2026-11-04a">גרסה 7.62.3</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -9121,19 +9121,19 @@ function logiRenderTable(){
   if(!$('#logi-tbl')) return;
   const isCalls = LOGI_VIEW==='calls';
   if(isCalls){
-    const q=($('#logiSearchCalls').value||'').trim();
+    const q=($('#logiSearchCalls').value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
     const _scDone=['הושלם','הושלמה','בוטלה','סגורה'];
     const stF=(SC_F.status||[]);
     let list = stF.some(x=>_scDone.includes(x)) ? SCALLS.slice() : SCALLS.filter(s=>!_scDone.includes(s.status));
     if(q) list = list.filter(s=>[s.customer_name,s.call_number,s.city,s.product,s.address,s.team,s.phone]
-      .some(v=>String(v||'').includes(q)));
+      .some(v=>String(v||'').toLowerCase().includes(q)));
     if(stF.length)   list = list.filter(s=>stF.includes(s.status));
     if(SC_F.urgency) list = list.filter(s=>(s.urgency||'רגילה')===SC_F.urgency);
     if(SC_F.team)    list = list.filter(s=>s.team===SC_F.team);
     if(SC_F.region)  list = list.filter(s=>s.region===SC_F.region);
     $('#logi-tbl').innerHTML = wideScreen() ? scTable(list) : capped(list, scRow, 'אין קריאות שירות');
   } else {
-    const q=($('#logiSearchOrders').value||'').trim();
+    const q=($('#logiSearchOrders').value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
     const stF = LOGI_F.status||[];
     const doneScope = LOGI_SCOPE==='done';
     const pendScope = LOGI_SCOPE==='pend';
@@ -9160,7 +9160,7 @@ function logiRenderTable(){
       return !doneScope && !pendScope;
     });
     if(q) list = list.filter(o=>[o.customer_name,o.order_number,o.city,o.address,o.team,o.team2,o.phone]
-      .some(v=>String(v||'').includes(q)));
+      .some(v=>String(v||'').toLowerCase().includes(q)));
     if(stF.length) list = list.filter(o=>stF.includes(o.order_status));
     if(LOGI_NODATE)    list = list.filter(o=>!o.scheduled_date);
     if(LOGI_F.contact) list = list.filter(o=>o.contact_status===LOGI_F.contact);
@@ -9623,11 +9623,12 @@ function etaMates(e){
    התצוגות כאחת, כולל מוני האירועים בתאי החודש (רומן 29/07/2026). */
 let CAL_Q='';
 function evMatch(e,q){
+  q = String(q||'').toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   const o=e.o;
   return [o.customer_name, o.city, o.address, o.team, o.team2, o.phone, o.time_slot,
           e.kind==='svc'?o.call_number:o.order_number,
           e.kind==='svc'?o.product:o.order_notes]
-    .some(v=>String(v||'').includes(q));
+    .some(v=>String(v||'').toLowerCase().includes(q));
 }
 /* ===== 6.2.5 — רשת שעות (רומן 30/07/2026) =====
    הלוח השבועי והיומי מציגים את שעות העבודה 08:00–17:00 כרשת, וכל שיבוץ ממוקם
@@ -14630,7 +14631,7 @@ function docRow(p){
 }
 function renderDocs(){
   docChips();
-  const q=($('#docSearch').value||'').trim();
+  const q=($('#docSearch').value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   if(DOC_CAT==='monday'){
     if(!window.canView('docs.monday')){ $('#docs-list').innerHTML='<div class="empty">אין לך הרשאה לקטגוריה הזו</div>'; return; }
     if(DOCFILES===null){
@@ -14655,7 +14656,7 @@ function renderDocs(){
        עם "—" בעמודת האב וכפתור מחיקה של media (ממצא הסוקר). */
     let ml = DOCFILES.filter(f=>f.category==='media');
     if(DOC_MEDIA_REP) ml = ml.filter(f=>f.protocol_id===DOC_MEDIA_REP);
-    if(q) ml = ml.filter(f=>(f.file_name||'').includes(q)||mediaParentLabel(f).includes(q)||mediaRepLabel(f).includes(q));
+    if(q) ml = ml.filter(f=>String(f.file_name||'').toLowerCase().includes(q)||String(mediaParentLabel(f)||'').toLowerCase().includes(q)||String(mediaRepLabel(f)||'').toLowerCase().includes(q));
     let _g;   /* 7.10.0 — כותרת קבוצה כשהדוח מתחלף (capped מצייר לפי הסדר) */
     $('#docs-list').innerHTML = (DOC_MEDIA_REP ? '<div style="margin-bottom:var(--sp-2)"><button class="chip" onclick="docPhotosOf(null)">← כל התמונות</button></div>' : '')
       + capped(mediaGroupSort(ml), f=>{ const g = f.protocol_id||''; const h = g!==_g ? '<div class="doc-grp">'+esc(mediaParentLabel(f))+' · '+esc(mediaRepLabel(f))+'</div>' : ''; _g = g; return h+mediaCard(f); }, 'אין עדיין תמונות מהשטח');
@@ -14663,7 +14664,7 @@ function renderDocs(){
   }
   let list = docsVisible().filter(p=>DOC_CAT==='all'||(p.category||'protocols')===DOC_CAT);
   list = DOC_FILTER==='all'?list:(DOC_FILTER==='signed'?list.filter(p=>p.status==='נחתם'):list.filter(docPending));
-  if(q) list=list.filter(p=>(p.customer_name||'').includes(q)||(p.order_number||'').includes(q));
+  if(q) list=list.filter(p=>String(p.customer_name||'').toLowerCase().includes(q)||String(p.order_number||'').toLowerCase().includes(q));
   $('#docs-list').innerHTML = capped(list, p=>docRow(p), 'אין מסמכים בסינון הזה');
 }
 debounceSearch($('#docSearch'), renderDocs);
@@ -15076,7 +15077,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'leadirr-2026-11-04a';
+const BUILD_ID = 'srchci-2026-11-04a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -24684,10 +24685,10 @@ window.tkBulkToggle = ()=>{ TK_BULK = !TK_BULK; if(!TK_BULK){ TK_SEL.clear(); TK
 window.tkSelOne = (id, on)=>{ on ? TK_SEL.add(id) : TK_SEL.delete(id); tkSelBar(); tkSelPaint(); };
 /* 🔴 6.216.0 — נקודת חנק אחת ל"מה על המסך", לציור ולסימון גם יחד. */
 window.tkShown = ()=>{
-  const q = ((document.getElementById('taskSearch')||{}).value||'').trim();
+  const q = ((document.getElementById('taskSearch')||{}).value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   const base = tkApplyF(tkViewList());
   if(!q) return base;
-  return base.filter(t=>(t.name||'').includes(q)||tkLinkName(t).includes(q)||tkLinkPhone(t).includes(q));
+  return base.filter(t=>String(t.name||'').toLowerCase().includes(q)||String(tkLinkName(t)||'').toLowerCase().includes(q)||String(tkLinkPhone(t)||'').includes(q));
 };
 window.tkSelAll = (on)=>{
   const list = tkShown();
@@ -25651,12 +25652,12 @@ function custTable(list){
 }
 function renderCustomers(){
   cuInitDef(); cuChips(); renderCuFilters(); lfWrapSync('cu-filters');
-  const q=($('#custSearch').value||'').trim();
+  const q=($('#custSearch').value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   const base = cuApplyF(cuViewList());
   if(q){
     /* 6.186.0 — מכבד את הסינון, כמו בשאר המסכים. כולל שם הליד. */
-    const list=base.filter(c=>(c.name||'').includes(q)||(c.phone||'').includes(q)
-      ||(c.priority_id||'').includes(q)||custLeads(c).some(l=>(l.full_name||'').includes(q)));
+    const list=base.filter(c=>String(c.name||'').toLowerCase().includes(q)||String(c.phone||'').includes(q)
+      ||String(c.priority_id||'').toLowerCase().includes(q)||custLeads(c).some(l=>String(l.full_name||'').toLowerCase().includes(q)));
     paintKeep('#customers-list', wideScreen() ? custTable(list) : capped(list, custRow, crmEmptyMsg('לקוחות')));
     return;
   }
@@ -25826,9 +25827,9 @@ function contTable(list){
   return `<div class="tbl-wrap"><table class="tbl"><thead><tr><th class="rownum">#</th><th>שם</th><th>טלפון</th><th>מייל</th><th>תפקיד</th><th>לקוח</th></tr></thead><tbody>${rows}</tbody></table></div>${pgFoot('cont',list.length,'אנשי קשר')}`;
 }
 function renderConts(){
-  const q=($('#contSearch').value||'').trim();
+  const q=($('#contSearch').value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   let list=CONTS;
-  if(q) list=CONTS.filter(k=>(k.full_name||'').includes(q)||(k.phone||'').includes(q)||(k.email||'').includes(q));
+  if(q) list=CONTS.filter(k=>String(k.full_name||'').toLowerCase().includes(q)||String(k.phone||'').includes(q)||String(k.email||'').toLowerCase().includes(q));
   $('#contacts-list').innerHTML = wideScreen() ? contTable(list) : capped(list, contRow, 'לא נמצאו אנשי קשר');
 }
 debounceSearch($('#contSearch'), renderConts);
@@ -27770,9 +27771,9 @@ function renderPays(){
   PAY_PENDING = false;
   payChips();
   payTiles();
-  const q = (($('#paySearch')||{}).value||'').trim();
+  const q = (($('#paySearch')||{}).value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   let list = finRows();
-  if(q) list = list.filter(f => String(f.order_number||'').includes(q) || String(f.customer_name||'').includes(q));
+  if(q) list = list.filter(f => String(f.order_number||'').toLowerCase().includes(q) || String(f.customer_name||'').toLowerCase().includes(q));
   list = list.slice().sort(paySortFn);
   /* במובייל אין עמודת סימון, ולכן בחירה שנשארה מהמסך הרחב אינה ניתנת
      לניהול ואינה נראית — מנקים במקום להשאיר פס פעולות מרחף על בחירה
@@ -29396,14 +29397,14 @@ window.dlBulkToggle = ()=>{ DL_BULK = !DL_BULK; if(!DL_BULK){ DL_SEL.clear(); DL
 window.dlSelOne = (id, on)=>{ on ? DL_SEL.add(id) : DL_SEL.delete(id); dlSelBar(); dlSelPaint(); };
 /* 🔴 6.216.0 — ראו tkShown. כאן זה סוגר גם את היעדר dlApplyF בענף החיפוש. */
 window.dlShown = ()=>{
-  const q = ((document.getElementById('dealSearch')||{}).value||'').trim();
+  const q = ((document.getElementById('dealSearch')||{}).value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   const base = dlApplyF(dlViewList());
   if(!q) return base;
   return base.filter(d=>{
-    if((d.name||'').includes(q) || (d.priority_quote_id||'').includes(q)) return true;
+    if(String(d.name||'').toLowerCase().includes(q) || String(d.priority_quote_id||'').toLowerCase().includes(q)) return true;
     const l = dlLead(d), k = dlCust(d);
-    return ((k&&k.name)||'').includes(q)
-        || ((l&&l.full_name)||'').includes(q)
+    return String((k&&k.name)||'').toLowerCase().includes(q)
+        || String((l&&l.full_name)||'').toLowerCase().includes(q)
         || (((l&&l.phone)||(k&&k.phone)||'')).includes(q);
   });
 };
@@ -31890,7 +31891,7 @@ function mSpan(m){
   return {s:s,e:e};
 }
 const mSortKey=m=>{ const sp=mSpan(m); return sp?sp.s:-1; };
-function mMatch(m,q){ const ln=linkedName(m); return [m.subject,m.location,m.organizer_name,m.meet_type,m.status,ln&&ln.name].some(v=>String(v||'').includes(q)); }
+function mMatch(m,q){ q=String(q||'').toLowerCase(); const ln=linkedName(m); return [m.subject,m.location,m.organizer_name,m.meet_type,m.status,ln&&ln.name].some(v=>String(v||'').toLowerCase().includes(q)); }   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
 function meetsOn(ds){
   let l=MEETS.filter(m=>m.meet_date===ds && m.status!=='בוטלה');
   if(MCAL_Q) l=l.filter(m=>mMatch(m,MCAL_Q));
@@ -32636,10 +32637,10 @@ window.lbBulkToggle = ()=>{ LB_BULK = !LB_BULK; if(!LB_BULK) LB_SEL.clear(); ren
 window.lbSelOne = (id, on)=>{ on ? LB_SEL.add(id) : LB_SEL.delete(id); lbSelBar(); lbSelPaint(); };
 /* 🔴 6.216.0 — ראו tkShown. */
 window.lbShown = ()=>{
-  const q = ((document.getElementById('search')||{}).value||'').trim();
+  const q = ((document.getElementById('search')||{}).value||'').trim().toLowerCase();   /* 7.62.3 — לא תלוי רישיות (רומן, 04/11/2026: "vic" לא מצא את Victor) */
   const base = lbApplyF(lbViewList());
   if(!q) return base;
-  return base.filter(l=>(l.full_name||'').includes(q)||(l.phone||'').includes(q)||(l.company||'').includes(q));
+  return base.filter(l=>String(l.full_name||'').toLowerCase().includes(q)||String(l.phone||'').includes(q)||String(l.company||'').toLowerCase().includes(q));
 };
 window.lbSelAll = (on)=>{
   const list = lbShown();
