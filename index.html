@@ -4451,7 +4451,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.62.0</div>
+      <div class="ver">גרסה 7.62.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4598,7 +4598,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="posplit-2026-11-03a">גרסה 7.62.0</div>
+    <div class="side-foot" title="gsfix-2026-11-04a">גרסה 7.62.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -15076,7 +15076,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'posplit-2026-11-03a';
+const BUILD_ID = 'gsfix-2026-11-04a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -37538,7 +37538,8 @@ boot();
   function gsBusy(on){
     var h = document.querySelector('#gsModal .gs-head'), b = gsBody();
     if(h) h.classList.toggle('busy', !!on);
-    if(b) b.classList.toggle('busy', !!(on && gsRows.length));
+    /* 7.62.1 — גם כשכל התוצאות נבלעו בשמות (gsRows ריק): הרשימה מתעמעמת ולא מתחלפת ב"מחפש…" */
+    if(b) b.classList.toggle('busy', !!(on && (gsRows.length || (gsPeople && gsPeople.length))));
   }
   function gsCacheGet(q){ return Object.prototype.hasOwnProperty.call(gsCache, q) ? gsCache[q] : null; }
   function gsCachePut(q, ent){
@@ -37665,7 +37666,7 @@ boot();
   function gsRender(state, q, keepIdx){
     var b = gsBody(); if(!b) return;
     if(state === 'short'){ gsCnt(''); b.innerHTML = '<div class="gs-msg">הקלד לפחות שני תווים, או שש ספרות לחיפוש טלפון.</div>'; return; }
-    if(state === 'load'){ if(!gsRows.length) b.innerHTML = '<div class="gs-msg">מחפש…</div>'; return; }
+    if(state === 'load'){ if(!gsRows.length && !(gsPeople && gsPeople.length)) b.innerHTML = '<div class="gs-msg">מחפש…</div>'; return; }
     if(state === 'err'){ gsCnt(''); b.innerHTML = '<div class="gs-msg">החיפוש נכשל. נסה שוב בעוד רגע.</div>'; return; }
     if(gsPeople){ gsRenderPeople(b, q, keepIdx); return; }   /* 7.32.0 — מצב שמות */
     if(!gsRows.length){ gsCnt(''); b.innerHTML = '<div class="gs-msg">לא נמצאו תוצאות ל־"' + esc(q) + '".</div>'; return; }
@@ -37722,18 +37723,32 @@ boot();
     var w = String(n || '').trim().split(/ +/).filter(Boolean);
     return ((w[0] || '').charAt(0) + (w.length > 1 ? w[w.length - 1].charAt(0) : '')) || '?';
   }
+  /* 7.62.1 — "מוצגים 12 מתוך 46": השמות שמעבר לתקרה אינם ב-'other', ולכן בלי זה הקיטוע היה שקט */
+  function gsPCut(P){ return !!(P && ((+P.total || 0) > P.length || P.capped)); }
+  function gsPCount(P){
+    var n = P.length, all = Math.max(+(P && P.total) || 0, n);
+    /* capped: global_search קטמה 25 לסוג — המונה הוא חסם תחתון, ולכן "46+" ולא "46" */
+    return gsPCut(P) ? n + ' מתוך ' + all + (P.capped ? '+' : '') + ' שמות' : (n === 1 ? 'שם אחד' : n + ' שמות');
+  }
   function gsCntLbl(t, n){ var m = GS_TYPES[t]; return n === 1 ? (GS_ONE[t] || (m ? m.lbl : t)) : n + ' ' + (m ? m.lbl : t); }
+  /* 7.62.1 — why/email מ-gs_people_20261104. המייל רק כשההתאמה הייתה בו: אחרת השורה מתארכת בלי סיבה. */
+  function gsPWhy(p){ return Array.isArray(p && p.why) ? p.why : []; }
   function gsPSub(p){
-    return [p.phone, p.city, (Array.isArray(p.pid) && p.pid.length) ? 'לקוח ' + p.pid.join(', ') : ''].filter(Boolean).join(' · ');
+    return [p.phone, gsPWhy(p).indexOf('email') >= 0 ? p.email : '', p.city,
+            (Array.isArray(p.pid) && p.pid.length) ? 'לקוח ' + p.pid.join(', ') : ''].filter(Boolean).join(' · ');
   }
   function gsRenderPeople(b, q, keepIdx){
     var P = gsPeople || [];
     if(!P.length && !gsRows.length){ gsCnt(''); b.innerHTML = '<div class="gs-msg">לא נמצאו תוצאות ל־"' + esc(q) + '".</div>'; return; }
     var h = '';
     if(P.length){
-      h += '<div class="gs-hint"><b>' + (P.length === 1 ? 'שם אחד' : P.length + ' שמות') + '</b> · לחיצה פותחת את כל מה שקשור לשם</div>';
+      var cut = gsPCut(P);
+      h += '<div class="gs-hint">' + (cut ? 'מוצגים ' : '') + '<b>' + esc(gsPCount(P)) + '</b> · ' +
+           (cut ? 'דייק את החיפוש כדי לראות את השאר' : 'לחיצה פותחת את כל מה שקשור לשם') + '</div>';
       P.forEach(function(p, i){
         var cn = p.counts || {}, tags = '';
+        /* 7.62.1 — "התאמה בטלפון/במייל/במספר" לפני השבבים, כמו בקיבוץ לפי סוג. "בשם" לא מוצג: בחיפוש שם זה רעש. */
+        gsPWhy(p).forEach(function(k){ if(k !== 'name' && GS_WHY[k]) tags += '<span class="gs-tag why">' + esc(GS_WHY[k]) + '</span>'; });
         GS_PTYPES.forEach(function(t){ var n = +cn[t] || 0; if(n > 0) tags += '<span class="gs-tag">' + esc(gsCntLbl(t, n)) + '</span>'; });
         var st = p.status;   /* ⚠️ לא esc(p.status): protosendtest סופר את המחרוזת הזו בהקשר המסמכים */
         if(st) tags += '<span class="gs-tag">' + esc(st) + '</span>';
@@ -37749,7 +37764,7 @@ boot();
     if(gsRows.length) h += '<div class="gs-more">' + (P.length ? 'תוצאות נוספות' : 'תוצאות') + '</div>' + gsGroupedHtml(q);
     b.innerHTML = h;
     if(!keepIdx) gsIdx = -1;
-    gsCnt([P.length ? (P.length === 1 ? 'שם אחד' : P.length + ' שמות') : '',
+    gsCnt([P.length ? gsPCount(P) : '',
            gsRows.length ? gsRows.length + (P.length ? ' תוצאות נוספות' : ' תוצאות') : ''].filter(Boolean).join(' · '));
   }
   function gsRenderPerson(){
@@ -37804,6 +37819,9 @@ boot();
   }
   GS.person = function(i){
     var p = gsPeople && gsPeople[i]; if(!p) return;
+    /* 7.62.1 — בזמן טעינה הרשימה הישנה נשארת (מתעמעמת); לחיצה/Enter עליה הייתה פותחת את השם הישן, ותשובת
+       gs_related המאוחרת מציירת אותו מעל התוצאות החדשות. השורות אינן פעילות עד שהתשובה מגיעה. */
+    var bb = gsBody(); if(bb && bb.classList.contains('busy')) return;
     var b = gsBody(); gsScroll = b ? b.scrollTop : 0;
     var tok = gsPerson = { p:p, q:gsLast, rows:gsRelCache[p.key] || null, tab:'all', err:null };
     gsPScroll = 0;
@@ -37870,6 +37888,9 @@ boot();
       gsBusy(false);
       if(res.error){ gsRows = []; gsPeople = null; gsRender('err', q); return; }
       var d = res.data || {}; gsPeople = Array.isArray(d.people) ? d.people : []; gsRows = Array.isArray(d.other) ? d.other : [];
+      /* 7.62.1 — people_total (gs_people_20261104): כמה שמות היו לפני התקרה. נשמר על המערך עצמו כדי שיעבור
+         עם המטמון בכל מסלולי החזרה (GS.run מהמטמון, GS.open(q,true)) בלי לגעת בהם. שרת ישן ⇒ אין מפתח ⇒ 0. */
+      gsPeople.total = +d.people_total || 0; gsPeople.capped = !!d.people_capped;
       gsOpen = gsDefOpen(gsGroup(gsRows).order, gsRows);
       gsCachePut(q, { rows:gsRows, open:gsOpen, people:gsPeople });
       gsRender('ok', q);
