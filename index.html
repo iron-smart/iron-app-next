@@ -4451,7 +4451,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.62.1</div>
+      <div class="ver">גרסה 7.62.2</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4598,7 +4598,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="gsfix-2026-11-04a">גרסה 7.62.1</div>
+    <div class="side-foot" title="leadirr-2026-11-04a">גרסה 7.62.2</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5514,7 +5514,7 @@ const LEAD_STATUSES = ['ליד חדש','ללא מענה','ללא מענה2','ל�
 const LEAD_ST_COLORS = {'ליד חדש':'#fdab3d','ללא מענה':'#ffadad','ללא מענה2':'#faa1f1','ללא מענה3':'#ff5ac4','רלוונטי':'#9cd326','סירוב':'#df2f4a','לא רלוונטי':'#bb3354'};
 const SUB_RELEVANT = ['פולואפ','תואמה פגישה','הצעת מחיר','הפניה לאתר'];
 const SUB_REFUSAL = ['מחיר יקר','העדיף מתחרים','אין מענה מספר פעמים','ירד מהעניין','היה צריך ציוד כללי שאין לנו','אין הבשלה כלכלית','מועד רחוק מדי','ייצור קשר עצמאית','אפשרות לשותפות','לקוח פעיל'];
-const SUB_IRRELEVANT = ['ליד פיקטיבי','טוען שלא השאיר פניה','לא הבין את המוצר','חיפשו חדר כושר','כפל'];
+const SUB_IRRELEVANT = ['ליד פיקטיבי','טוען שלא השאיר פניה','לא הבין את המוצר','חיפשו חדר כושר','כפל','טעות/בדיקה'];   /* 7.62.2 — רומן, 04/11/2026: לידי בדיקה ⇒ "טעות/בדיקה", כמו בתהליכי מכירה (7.50.1) */
 /* ===== טבלת הלידים — צבעים, עמודות והצלבה (6.97.0) =====
    רומן, 18/08/2026: "סוג לקוח תוסיף צבעים, מקור הגעה גם". הצבעים עוברים
    דרך mdPill/tint כמו צבעי הסטטוס, ולכן הם פסטל אחיד ולא כתם רווי. */
@@ -5525,7 +5525,7 @@ const LEAD_TYPES = ['בסיס','פ.ע','עסקי','ארגוני','מוסדי','�
    יוצאים פסטל אחיד — גם #333333 נהיה אפור קריא ולא ריבוע שחור. */
 const SUB_RELEVANT_COLORS = {'פולואפ':'#5559df','תואמה פגישה':'#9d50dd','הצעת מחיר':'#00c875','הפניה לאתר':'#9cd326'};
 const SUB_REFUSAL_COLORS = {'מחיר יקר':'#faa1f1','העדיף מתחרים':'#ffadad','אין מענה מספר פעמים':'#784bd1','ירד מהעניין':'#7e3b8a','היה צריך ציוד כללי שאין לנו':'#9d99b9','אין הבשלה כלכלית':'#333333','מועד רחוק מדי':'#bca58a','ייצור קשר עצמאית':'#4eccc6','אפשרות לשותפות':'#cab641','לקוח פעיל':'#ff007f'};
-const SUB_IRRELEVANT_COLORS = {'ליד פיקטיבי':'#9d50dd','טוען שלא השאיר פניה':'#faa1f1','לא הבין את המוצר':'#df2f4a','חיפשו חדר כושר':'#333333','כפל':'#563e3e'};
+const SUB_IRRELEVANT_COLORS = {'ליד פיקטיבי':'#9d50dd','טוען שלא השאיר פניה':'#faa1f1','לא הבין את המוצר':'#df2f4a','חיפשו חדר כושר':'#333333','כפל':'#563e3e','טעות/בדיקה':'#7d8b94'};
 const SUB_COLORS = {'רלוונטי':SUB_RELEVANT_COLORS,'סירוב':SUB_REFUSAL_COLORS,'לא רלוונטי':SUB_IRRELEVANT_COLORS};
 /* 6.107.0 — עוצמת הגוון בבורד הלידים בלבד (רומן: "צבעים בולטים").
    ⚠️ אל תחיל את זה על mdPill/ieSel מחוץ ללידים בלי למדוד onWhite:
@@ -15076,7 +15076,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'gsfix-2026-11-04a';
+const BUILD_ID = 'leadirr-2026-11-04a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
