@@ -4495,7 +4495,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.68.0</div>
+      <div class="ver">גרסה 7.69.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4642,7 +4642,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="salestotal-2026-11-09a">גרסה 7.68.0</div>
+    <div class="side-foot" title="shipapply-2026-11-09a">גרסה 7.69.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -15299,7 +15299,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'salestotal-2026-11-09a';
+const BUILD_ID = 'shipapply-2026-11-09a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -19742,6 +19742,52 @@ window.shipCalcEl = ()=>{
 };
 window.shipCalcClose = ()=>{ const e = document.getElementById('dl-shipm'); if(e) e.classList.add('hidden'); };
 
+/* 7.69.0 — shipapply: כתיבת SH-1/IN-2 להצעה בטיוטא דרך deal-ship-apply.
+   🔴 ההצלחה מוצגת רק מ-verified של השרת (GET נפרד אחרי הכתיבה) — לא מתשובת ה-PATCH: פריוריטי החזירה בעבר
+      "הצליח" על ערכים שלא נשמרו (כמות ב-POST, ביטול הצעה).
+   ⚠️ חישוב חלקי ⇒ השרת מחזיר need_confirm; כותבים עם force רק אחרי אישור מפורש — לא סכום חלקי בשקט.
+   ⚠️ SHIP_APPLY_BUSY — לחיצה כפולה הייתה שולחת שני POST ומוסיפה שתי שורות SH-1 (השרת בודק "קיימת" לפני הכתיבה,
+      ושתי בקשות במקביל שתיהן רואות "אין"). */
+let SHIP_APPLY_BUSY = false;
+async function shipApplyCall(dealId, force){
+  const { data, error } = await sb.functions.invoke('deal-ship-apply', { body:{ deal_id: dealId, force: !!force } });
+  if(!error) return data || {};
+  let j = null;
+  try{ if(error.context && typeof error.context.json === 'function') j = await error.context.json(); }catch(_e){}
+  return j || { ok:false, error: error.message || 'שגיאת רשת' };
+}
+window.dlShipApply = async (dealId)=>{
+  if(SHIP_APPLY_BUSY) return;
+  const btn = document.getElementById('dl-shipapply'), res = document.getElementById('dl-shipres');
+  if(!res) return;
+  SHIP_APPLY_BUSY = true; if(btn) btn.disabled = true;
+  try{
+    res.innerHTML = crmLoading('מוסיף לפריוריטי ומאמת…');
+    let r = await shipApplyCall(dealId, false);
+    if(r && r.need_confirm){
+      res.innerHTML = '';
+      const go = await sysConfirm('לחלק מהמק"טים בהצעה אין מחיר משלוח או התקנה בכרטיס הפריט, ולכן הסכום חלקי. להוסיף בכל זאת את הסכום החלקי?',
+        { ok:'הוסף סכום חלקי', cancel:'ביטול' });
+      if(!go) return;
+      res.innerHTML = crmLoading('מוסיף לפריוריטי ומאמת…');
+      r = await shipApplyCall(dealId, true);
+    }
+    if(!r || !r.ok){
+      res.innerHTML = '<div class="err">' + esc(String((r && r.error) || 'ההוספה נכשלה')) + '</div>';
+      return;
+    }
+    const A = { added:'נוספה', updated:'עודכנה', unchanged:'כבר הייתה נכונה', none:'לא נדרשה (₪0)', kept_zero_calc:'קיימת — לא שונתה (החישוב ₪0)' };
+    const line = (code, lbl, amt)=> '<div class="row"><span class="k">' + lbl + ' (' + code + ')</span><span class="v">'
+      + esc(A[(r.actions || {})[code]] || '—') + (amt > 0 ? ' · <b>₪' + shipMoney(amt) + '</b>' : '') + '</span></div>';
+    res.innerHTML = '<div class="tbl-wrap" style="padding:12px">'
+      + '<div class="note" style="margin-top:0">✓ נבדק מול פריוריטי — ההצעה ' + esc(r.quote || '') + ' מעודכנת.'
+      + (r.partial_calc ? ' <b>הסכום חלקי</b> — חסרים מחירים בכרטיסי הפריט.' : '') + '</div>'
+      + line('SH-1', 'משלוח', Number(r.ship || 0)) + line('IN-2', 'התקנה', Number(r.install || 0)) + '</div>';
+    toast('נוסף להצעה בפריוריטי ✓');
+  }finally{
+    SHIP_APPLY_BUSY = false; if(btn) btn.disabled = false;
+  }
+};
 function shipMoney(n){ return Number(n || 0).toLocaleString('he-IL', {minimumFractionDigits:2, maximumFractionDigits:2}); }
 
 function shipGapList(title, arr, withKind){
@@ -19755,12 +19801,13 @@ window.dlShipCalc = async (dealId)=>{
   const e = shipCalcEl(), b = document.getElementById('dl-shipbody');
   b.innerHTML = crmLoading('מושך את שורות ההצעה מפריוריטי…');
   e.classList.remove('hidden');
-  let items = null;
+  let items = null, qStat = '', qNum = '';
   try{
     const { data, error } = await sb.functions.invoke('deal-quote-doc', { body:{ deal_id: dealId, preview: true } });
     if(error) throw new Error(error.message || 'שגיאת רשת');
     if(!data || !data.ok) throw new Error((data && data.error) || 'תשובה לא צפויה');
     items = ((data.snapshot || {}).items) || [];
+    qStat = String((data.snapshot || {}).statdes || ''); qNum = String((data.snapshot || {}).qnum || data.quote || '');
   }catch(err){
     /* 6.200.0 — שגיאה ב-.err ולא ב-.empty: אפור נקרא כ"אין נתונים", וזה כשל. */
     b.innerHTML = '<div class="err">משיכת ההצעה נכשלה — ' + esc(String(err && err.message || err)) + '</div>';
@@ -19798,7 +19845,21 @@ window.dlShipCalc = async (dealId)=>{
   h += shipGapList('מק"טים שאינם בכרטיסי הפריט', r.unknown, false)
      + shipGapList('טרם הוגדר בכרטיס הפריט', r.undecided, true)
      + shipGapList('מסומן "יש" בלי מחיר', r.missing_price, true);
-  h += '<div class="note">להזין את שני הסכומים בשורות <b>SH-1</b> ו-<b>IN-2</b> בהצעה בפריוריטי.</div>';
+  /* 7.69.0 — shipapply (רומן, 09/11/2026): "איש המכירות יסיים להזין את המוצרים בפריוריטי ואז הוא ילחץ על הכפתור
+     והמערכת תזין בתחתית ההצעה כשזה עוד בסטטוס טיוטא". הכתיבה והאימות בשרת (deal-ship-apply); כאן רק השער החזותי.
+     ⚠️ השרת בודק שוב את הסטטוס מפריוריטי — הסטטוס כאן מתשובת ה-preview ויכול להתיישן בין הפתיחה ללחיצה. */
+  if(qStat === 'טיוטא' && window.canEdit('crm.deals')){
+    h += '<div class="note">הכפתור מוסיף להצעה ' + esc(qNum) + ' את השורות <b>SH-1</b> ו-<b>IN-2</b> בסכומים שלמעלה, '
+       + 'בלי הנחה. שורה שכבר קיימת — מתעדכנת ולא משוכפלת.</div>'
+       + '<div class="modal-actions" style="justify-content:flex-start"><button type="button" class="btn" id="dl-shipapply" '
+       + 'onclick="dlShipApply(\'' + jsq(dealId) + '\')">הוסף להצעה בפריוריטי</button></div>'
+       + '<div id="dl-shipres"></div>';
+  } else if(qStat && qStat !== 'טיוטא'){
+    h += '<div class="note">ההצעה ' + esc(qNum) + ' בסטטוס <b>' + esc(qStat) + '</b> — הוספה אוטומטית אפשרית רק בטיוטא. '
+       + 'להזין ידנית בשורות <b>SH-1</b> ו-<b>IN-2</b> בפריוריטי.</div>';
+  } else {
+    h += '<div class="note">להזין את שני הסכומים בשורות <b>SH-1</b> ו-<b>IN-2</b> בהצעה בפריוריטי.</div>';
+  }
   b.innerHTML = h;
 };
 
