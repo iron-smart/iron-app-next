@@ -4359,6 +4359,9 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 .so-chips .chip.on{ background:var(--navy); color:#fff; border-color:var(--navy); }
 #tab-mkt .mkt-sales-fin > div{ cursor:pointer; border:1px solid transparent; }
 #tab-mkt .mkt-sales-fin > div.on{ border-color:var(--navy); }
+#tab-mkt .mkt-sales-camp tfoot td{ font-weight:800; border-top:2px solid var(--line); }   /* 7.69.2 — סה״כ הקמפיינים */
+#tab-mkt .mkt-sales-camp td.lt{ background:var(--bg-subtle); }
+#tab-mkt .mkt-sales-camp .so-cn{ display:block; color:var(--ink-3); font-size:var(--fs-xs); }
 #mktDrillList .kd{ font-size:var(--fs-xs); padding:2px 7px; border-radius:var(--r-pill); background:#eef4ff; color:var(--navy); }
 #mktDrillList .kd.deal{ background:#f3e8ff; color:#5b21b6; }
 /* ── 6.202.0 — תיקוני הביקורת + ניתוח דינמי ── */
@@ -4505,7 +4508,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.69.1</div>
+      <div class="ver">גרסה 7.69.2</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4652,7 +4655,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="salesrows-2026-11-09a">גרסה 7.69.1</div>
+    <div class="side-foot" title="camplife-2026-11-09a">גרסה 7.69.2</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -15359,7 +15362,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'salesrows-2026-11-09a';
+const BUILD_ID = 'camplife-2026-11-09a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -24215,8 +24218,22 @@ function mktSalesHtml(D){
   const p = Object.assign(mktSalesPayload(), cur ? { cls:cur } : {});
   const n = solGet('mkt_sales_list', p, ()=>{ const e = document.getElementById('mkt-sales'); if(e && MKT_SL.data) e.innerHTML = MKT_SL_HEAD + mktSalesHtml(MKT_SL.data); });
   h += soList(n);
-  if(B.length) h += '<div class="tbl-wrap"><table class="tbl mkt-sales-camp"><thead><tr><th>קמפיין</th><th class="num">הזמנות</th><th class="num">הכנסות</th><th class="num">הוצאה</th><th class="num">ROAS</th></tr></thead><tbody>'+
-    B.map(b=>'<tr><td>'+esc(b.k)+'</td><td class="num">'+mktN(b.n)+'</td><td class="num">'+mktM(b.net)+'</td><td class="num">'+(+b.spend > 0 ? mktM(b.spend) : '—')+'</td><td class="num">'+(b.roas != null ? mktX(b.roas) : '—')+'</td></tr>').join('')+'</tbody></table></div>';
+  /* 7.69.2 — רומן, על "ביתי 14/06" (ROAS 57.8× בטווח של 9 ימים): לצד הטווח — "מאז ההשקה" (מ-01/01/2026 לכל המוקדם, כי שיוך
+     האתר מתחיל ב-25/12/2025). ROAS בטווח מחלק מכירות של הטווח בהוצאה של הטווח, וליד שנפתח קודם נקנה בהוצאה קודמת —
+     לכן מאז ההשקה הוא המספר שעליו מחליטים. שורת הסה״כ ב-tfoot, מחוץ למיון. */
+  const rx = v=> v != null ? mktX(v) : '—', mo = v=> +v > 0 ? mktM(v) : '—', sum = f=> B.reduce((a, b)=>a + (+b[f]||0), 0);
+  const lt = B.some(b=>'spend_all' in b);
+  const tr = (cells, cls)=> '<tr'+(cls ? ' class="'+cls+'"' : '')+'>'+cells+'</tr>';
+  const row = b=> '<td>'+esc(b.k)+(lt && b.since ? '<small class="so-cn">מאז '+esc(fmtD(b.since))+'</small>' : '')+'</td><td class="num">'+mktN(b.n)+'</td><td class="num">'+mktM(b.net)+'</td><td class="num">'+mo(b.spend)+'</td><td class="num">'+rx(b.roas)+'</td>'+
+    (lt ? '<td class="num lt">'+mktM(b.net_all)+'</td><td class="num lt">'+mo(b.spend_all)+'</td><td class="num lt"><b>'+rx(b.roas_all)+'</b></td>' : '');
+  const T2 = { n:sum('n'), net:sum('net'), spend:sum('spend'), net_all:sum('net_all'), spend_all:sum('spend_all') };
+  const tot = '<td>סה״כ הקמפיינים</td><td class="num">'+mktN(T2.n)+'</td><td class="num">'+mktM(T2.net)+'</td><td class="num">'+mo(T2.spend)+'</td><td class="num">'+rx(T2.spend > 0 ? Math.round(100*T2.net/T2.spend)/100 : null)+'</td>'+
+    (lt ? '<td class="num lt">'+mktM(T2.net_all)+'</td><td class="num lt">'+mo(T2.spend_all)+'</td><td class="num lt">'+rx(T2.spend_all > 0 ? Math.round(100*T2.net_all/T2.spend_all)/100 : null)+'</td>' : '');
+  if(B.length) h += '<div class="tbl-wrap"><table class="tbl mkt-sales-camp"><thead><tr><th>קמפיין</th><th class="num">הזמנות</th><th class="num">הכנסות</th><th class="num">הוצאה</th><th class="num">ROAS</th>'+
+      (lt ? '<th class="num">הכנסות מאז ההשקה</th><th class="num">הוצאה מאז ההשקה</th><th class="num">ROAS מאז ההשקה</th>' : '')+'</tr></thead><tbody>'+
+    B.map(b=>tr(row(b))).join('')+'</tbody><tfoot>'+tr(tot)+'</tfoot></table></div>'+
+    '<div class="mkt-note">הוצאת פרסום כוללת בטווח (כל הקמפיינים, גם בלי מכירות): <b>'+mktM(+D.spend||0)+'</b>'+
+      (lt ? ' · "מאז ההשקה" — כל ההוצאה וכל המכירות של הקמפיין מתחילתו (מ-01/01/2026 לכל המוקדם). ROAS בטווח מחלק מכירות של הטווח בהוצאה של הטווח, וליד שנפתח לפני הטווח נקנה בהוצאה קודמת.' : '')+'</div>';
   return h + '<div class="mkt-note">ליד = לקוח שהגיע מליד (עד 6 חודשים מהליד, או דרך תהליך עם ליד) · לקוח קיים = הזמנה מתהליך מכירה בלי ליד · אתר = הזמנה מהאתר, לפי הערוץ שבו נכנס הגולש · ידני = בלי הצעת מחיר ולא מהאתר · החזרות = סכום שלילי. לחיצה על אריח מסננת את ההזמנות.</div>';
 }
 async function mktPaintSales(){
