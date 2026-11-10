@@ -1416,6 +1416,7 @@
   #set-wrap .srl-tbl input.st-txt[data-f="note"]{ min-width:220px }
   /* 7.52.0 — פיצול עמלה */
   #tab-comm .cm-split{ display:block; font-size:var(--fs-xs); color:var(--ink-3); font-weight:400 }
+  #tab-comm .cm-team{ margin-top:var(--sp-3); padding-top:var(--sp-2); border-top:1px solid var(--line) }   /* 7.70.0 */
   #cm-spm .sheet{ max-width:520px }
   #cm-spm .cm-sp-sub{ font-size:var(--fs-sm); color:var(--ink-2); margin:0 0 var(--sp-3) }
   #cm-spm .cm-sp-row{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,7rem); gap:var(--sp-2); align-items:end; margin:0 0 var(--sp-2) }
@@ -4508,7 +4509,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.69.2</div>
+      <div class="ver">גרסה 7.70.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4655,7 +4656,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="camplife-2026-11-09a">גרסה 7.69.2</div>
+    <div class="side-foot" title="commteam-2026-11-10a">גרסה 7.70.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -15362,7 +15363,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'camplife-2026-11-09a';
+const BUILD_ID = 'commteam-2026-11-10a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -22844,6 +22845,28 @@ function cmSplitInfo(l){
   if(!(+l.share_pct < 100)) return '';
   return '<small class="cm-split">'+esc(cmPct(+l.share_pct/100))+' מ-'+cmIls(l.deal_amount)+(l.split_with ? ' · עם '+esc(l.split_with) : '')+'</small>';
 }
+/* ===== 7.70.0 — commteam: עמלת צוות =====
+   רומן, 10/11/2026: "שלבן קויפמן בלבד הרי הוא מנהל המכירות יתווסף לחישוב העמלות מכירה גם מדרגות מכירה על הצוות (לא כולל אותו)".
+   הכרעות: "מצטבר" · "ללא נח וללא רומן רק ניב ותומר ועובדי מכירות יעודים הבאים שיכנסו" · מאוקטובר 2026.
+   השרת מחזיר o.team רק למנהל שב-crm.commission_team, ו-payable כבר כולל את עמלת הצוות. 🔴 כאן לא מחשבים — רק מציגים.
+   כל מדרגות הצוות מוצגות (גם אלה שלא נגעו בהן): לבן זה היעד, ושלוש שורות קצרות. */
+function cmTeamHtml(o){
+  const t = o && o.team; if(!t) return '';
+  const M = t.members || [], B = t.breakdown || [];
+  return '<div class="cm-team"><h4 class="cm-h">עמלת צוות <span class="cnt">'+esc(M.map(m=>m.name||'').join(' · '))+'</span></h4>'
+    + '<div class="sa-sub">על המכירות של הצוות בחודש, בלי המכירות שלך. המדרגות מצטברות, כמו בעמלה האישית.</div>'
+    + '<div class="tbl-wrap"><table class="tbl cm-tm"><thead><tr><th>איש מכירות</th><th class="num">עסקאות</th><th class="num">מכירות לפני מע״מ</th></tr></thead><tbody>'
+    + (M.length ? M.map(m=>'<tr><td>'+esc(m.name||'')+'</td><td class="num">'+(+m.deals||0)+'</td><td class="num">'+cmIls(m.sales)+'</td></tr>').join('')
+                : '<tr><td colspan="3" class="cm-dim">אין אנשי צוות בחודש הזה</td></tr>')
+    + '</tbody><tfoot><tr><td><b>הצוות</b></td><td class="num"><b>'+(+t.deals||0)+'</b></td><td class="num"><b>'+cmIls(t.sales)+'</b></td></tr></tfoot></table></div>'
+    + '<div class="tbl-wrap"><table class="tbl cm-bd cm-tbd"><thead><tr><th>מדרגה</th><th class="num">אחוז</th><th class="num">הסכום במדרגה</th><th class="num">עמלה</th></tr></thead><tbody>'
+    + B.map(b=>'<tr><td>'+esc(cmRange(b))+'</td><td class="num">'+cmPct(b.rate)+'</td><td class="num">'+cmIls(b.base)+'</td><td class="num">'+cmIls(b.amount)+'</td></tr>').join('')
+    + '</tbody><tfoot><tr><td><b>סה״כ עמלת צוות</b></td><td></td><td class="num"><b>'+cmIls(t.sales)+'</b></td><td class="num"><b>'+cmIls(t.commission)+'</b></td></tr></tfoot></table></div>'
+    + (t.to_next != null ? '<div class="sa-sub">עד המדרגה הבאה של הצוות חסרים '+shekel(t.to_next)+'.</div>' : '')
+    + '</div>';
+}
+/* "+ צוות ₪951.24" תחת העמלה — בטבלת הצוות ובטווח. העמלה עצמה נשארת האישית, ו"לתשלום" (מהשרת) כולל את שתיהן. */
+const cmTeamSub = v => +v ? '<small class="cm-split cm-tsub">+ צוות '+cmIls(v)+'</small>' : '';
 function cmOwnerHtml(o){
   const sp = !!(CM.d && CM.d.can_split);   /* 7.52.0 — רומן, בן ונח (dash.commission.all בעריכה), בחודש שלא נסגר */
   const B = o.breakdown || [], hit = B.filter(b=>+b.base > 0), next = B.find(b=>+b.lo > +o.sales);
@@ -22871,11 +22894,12 @@ function cmOwnerHtml(o){
   const aj = A.length
     ? '<h4 class="cm-h">קיזוזים מחודשים שנסגרו</h4><div class="sa-sub">עסקה שבוטלה אחרי שהחודש שלה נסגר ושולם. הקיזוז הוא ההפרש בעמלה של אותו חודש, עם הביטול ובלעדיו.</div>'
       + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>עסקה</th><th>מחודש</th><th class="num">סכום העסקה</th><th class="num">קיזוז</th><th>בוטלה</th></tr></thead><tbody>'
-      + A.map(a=>'<tr class="clk" onclick="openDeal(\''+jsq(a.deal_id)+'\')"><td>'+esc(a.deal_name||'')+'</td><td>'+esc(cmLabel(a.from_month))+'</td><td class="num">'+cmIls(a.amount)+'</td><td class="num">'+cmIls(a.delta)+'</td><td>'+esc(cmDay(a.cancelled_at))+'</td></tr>').join('')
+      + A.map(a=>'<tr class="clk" onclick="openDeal(\''+jsq(a.deal_id)+'\')"><td>'+esc(a.deal_name||'')+(a.team ? '<small class="cm-split">עמלת צוות · '+esc(a.member||'')+'</small>' : '')+'</td><td>'+esc(cmLabel(a.from_month))+'</td><td class="num">'+cmIls(a.amount)+'</td><td class="num">'+cmIls(a.delta)+'</td><td>'+esc(cmDay(a.cancelled_at))+'</td></tr>').join('')
       + '</tbody></table></div>'
     : '';
-  return '<div class="cm-own">'+bd+ln+aj
-    + '<div class="cm-pay"><span>עמלה '+cmIls(o.commission)+(+o.adj_total ? ' · קיזוזים '+cmIls(o.adj_total) : '')+' · <b>לתשלום '+cmIls(o.payable)+'</b></span>'
+  return '<div class="cm-own">'+bd+cmTeamHtml(o)+ln+aj
+    + '<div class="cm-pay"><span>'+(o.team ? 'עמלה אישית '+cmIls(o.commission)+' · עמלת צוות '+cmIls(o.team_commission) : 'עמלה '+cmIls(o.commission))
+    + (+o.adj_total ? ' · קיזוזים '+cmIls(o.adj_total) : '')+' · <b>לתשלום '+cmIls(o.payable)+'</b></span>'
     + '<button type="button" class="ghost cm-noprint" onclick="cmPrint(\''+jsq(cmKey(o))+'\')">הדפסת הדוח של '+esc(String(o.name||'').split(' ')[0])+'</button></div></div>';
 }
 function cmTable(D){
@@ -22887,7 +22911,7 @@ function cmTable(D){
     return '<tr class="clk'+(on ? ' on' : '')+'" data-own="'+esc(k)+'" onclick="cmToggle(\''+jsq(k)+'\')"><td><b>'+esc(o.name||'')+'</b>'+(+o.missing_amount ? ' <span class="sa-warn">'+(+o.missing_amount)+' בלי סכום</span>' : '')+'</td>'
       + '<td class="num">'+(+o.deals||0)+(+o.cancelled ? ' <small class="cm-dim">+'+(+o.cancelled)+' בוטלו</small>' : '')+'</td>'
       + '<td class="num">'+shekel(o.sales)+'</td>'
-      + '<td class="num">'+cmIls(o.commission)+'</td>'
+      + '<td class="num">'+cmIls(o.commission)+cmTeamSub(o.team_commission)+'</td>'
       + '<td class="num cm-n">'+cmPct(o.effective_rate)+'</td>'
       + '<td class="num cm-n">'+cmPct(o.tier_rate)+'</td>'
       + '<td class="num cm-n">'+(o.to_next==null ? '—' : shekel(o.to_next))+'</td>'
@@ -22898,7 +22922,7 @@ function cmTable(D){
   return '<div class="sa-card"><h3>לפי איש מכירות <span class="cnt">לחיצה על שורה מראה איך זה חושב</span></h3>'
     + '<div class="tbl-wrap"><table class="tbl cm-tbl"><thead><tr><th>איש מכירות</th><th class="num">עסקאות</th><th class="num">מכירות לפני מע״מ</th><th class="num">עמלה</th>'
     + '<th class="num cm-n">אחוז בפועל</th><th class="num cm-n">מדרגה</th><th class="num cm-n">עד המדרגה הבאה</th><th class="num">קיזוזים</th><th class="num">לתשלום</th></tr></thead><tbody>'
-    + rows + '</tbody><tfoot><tr><td><b>סה״כ</b></td><td class="num">'+sum('deals')+'</td><td class="num">'+shekel(sum('sales'))+'</td><td class="num">'+cmIls(sum('commission'))+'</td>'
+    + rows + '</tbody><tfoot><tr><td><b>סה״כ</b></td><td class="num">'+sum('deals')+'</td><td class="num">'+shekel(sum('sales'))+'</td><td class="num">'+cmIls(sum('commission'))+cmTeamSub(sum('team_commission'))+'</td>'
     + '<td class="cm-n"></td><td class="cm-n"></td><td class="cm-n"></td><td class="num">'+(sum('adj_total') ? cmIls(sum('adj_total')) : '—')+'</td><td class="num"><b>'+cmIls(sum('payable'))+'</b></td></tr></tfoot></table></div></div>';
 }
 function cmExtra(D){
@@ -22990,11 +23014,11 @@ function cmRangeHtml(R){
     const g = by[k];
     g.list.forEach(r=>{
       h += '<tr class="clk" data-m="'+esc(r.m)+'" onclick="cmOpenMonth(\''+jsq(r.m)+'\',\''+jsq(k)+'\')"><td>'+esc(g.name||'')+'</td><td>'+esc(cmLabel(r.m))+'</td>'
-        + '<td class="num">'+(+r.o.deals||0)+'</td><td class="num">'+shekel(r.o.sales)+'</td><td class="num">'+cmIls(r.o.commission)+'</td>'
+        + '<td class="num">'+(+r.o.deals||0)+'</td><td class="num">'+shekel(r.o.sales)+'</td><td class="num">'+cmIls(r.o.commission)+cmTeamSub(r.o.team_commission)+'</td>'
         + '<td class="num">'+(+r.o.adj_total ? cmIls(r.o.adj_total) : '—')+'</td><td class="num">'+cmIls(r.o.payable)+'</td><td><span class="sa-chip">'+esc(r.st||'')+'</span></td></tr>';
     });
     h += '<tr class="cm-sub"><td><b>'+esc(g.name||'')+' — סה״כ</b></td><td></td><td class="num">'+sum(g.list, 'deals')+'</td><td class="num">'+shekel(sum(g.list, 'sales'))+'</td>'
-      + '<td class="num"><b>'+cmIls(sum(g.list, 'commission'))+'</b></td><td class="num">'+(sum(g.list, 'adj_total') ? cmIls(sum(g.list, 'adj_total')) : '—')+'</td>'
+      + '<td class="num"><b>'+cmIls(sum(g.list, 'commission'))+'</b>'+cmTeamSub(sum(g.list, 'team_commission'))+'</td><td class="num">'+(sum(g.list, 'adj_total') ? cmIls(sum(g.list, 'adj_total')) : '—')+'</td>'
       + '<td class="num"><b>'+cmIls(sum(g.list, 'payable'))+'</b></td><td></td></tr>';
   });
   return h + '</tbody></table></div></div>';
@@ -23070,6 +23094,7 @@ html, body{ margin:0; padding:0; background:#fff }
 #cm-doc .cmd-alert b{ font-weight:700 }
 #cm-doc .cmd-alert.cmd-final{ border-color:var(--d-line); background:var(--d-zebra) }
 #cm-doc .cmd-kpis{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:3mm; margin:4mm 0 2mm }
+#cm-doc .cmd-kpis.k5{ grid-template-columns:repeat(5,minmax(0,1fr)) }
 #cm-doc .cmd-kpi{ border:.6pt solid var(--d-line); border-top:1.8pt solid var(--d-navy); padding:2.2mm 3mm 2.4mm }
 #cm-doc .cmd-kpi small{ display:block; font-size:8pt; color:var(--d-gray); margin-bottom:.8mm }
 #cm-doc .cmd-kpi b{ display:block; font-size:13pt; font-weight:700; font-variant-numeric:tabular-nums; direction:ltr; text-align:right }
@@ -23124,9 +23149,10 @@ function cmDocHtml(D, o){
     + '<div class="cmd-dates"><div>חודש המכירות: '+esc(cmLabel(D.month))+'</div><div>תאריך הפקה: '+today+'</div></div></div>'
     + '<div class="cmd-title">דוח עמלות — '+esc(cmLabel(D.month))+'</div>'
     + alert
-    + '<div class="cmd-kpis">'
+    + '<div class="cmd-kpis'+(o.team ? ' k5' : '')+'">'   /* 7.70.0 — מנהל צוות: אריח חמישי "עמלת צוות" */
     + '<div class="cmd-kpi"><small>מכירות לפני מע״מ</small><b>'+ils0(o.sales)+'</b></div>'
-    + '<div class="cmd-kpi"><small>עמלה</small><b>'+ils(o.commission)+'</b></div>'
+    + '<div class="cmd-kpi"><small>'+(o.team ? 'עמלה אישית' : 'עמלה')+'</small><b>'+ils(o.commission)+'</b></div>'
+    + (o.team ? '<div class="cmd-kpi"><small>עמלת צוות</small><b>'+ils(o.team_commission)+'</b></div>' : '')
     + '<div class="cmd-kpi"><small>קיזוזים</small><b>'+(+o.adj_total ? ils(o.adj_total) : '—')+'</b></div>'
     + '<div class="cmd-kpi cmd-pay"><small>'+(fin || old ? 'לתשלום' : 'לתשלום (לא סופי)')+'</small><b>'+ils(o.payable)+'</b></div></div>';
   h += '<div class="cmd-h">איך חושבה העמלה <span>אחוז בפועל '+esc(cmPct(o.effective_rate))+'</span></div>'
@@ -23135,6 +23161,17 @@ function cmDocHtml(D, o){
                 : '<tr><td colspan="5">אין מכירות בחודש</td></tr>')
     + '</tbody><tfoot><tr><td colspan="3">סה״כ</td><td class="num">'+ils(o.sales)+'</td><td class="num">'+ils(o.commission)+'</td></tr></tfoot></table>'
     + (next ? '<div class="cmd-note">המדרגה הבאה: '+esc(cmRange(next))+' · '+esc(cmPct(next.rate))+'. חסרים '+ils0(+next.lo - (+o.sales||0))+'.</div>' : '');
+  if(o.team){   /* 7.70.0 — עמלת צוות: אנשי הצוות ומדרגות הצוות, כפי שהשרת חישב */
+    const t = o.team, TM = t.members || [], TB = (t.breakdown || []).filter(b=>+b.base > 0);
+    h += '<div class="cmd-h">עמלת צוות <span>'+esc(TM.map(m=>m.name||'').join(' · '))+' · בלי המכירות שלך</span></div>'
+      + '<table class="cmd-t cmd-tm"><thead><tr><th>איש מכירות</th><th class="num">עסקאות</th><th class="num">מכירות לפני מע״מ</th></tr></thead><tbody>'
+      + (TM.length ? TM.map(m=>'<tr><td>'+esc(m.name||'')+'</td><td class="num">'+(+m.deals||0)+'</td><td class="num">'+ils(m.sales)+'</td></tr>').join('') : '<tr><td colspan="3">אין אנשי צוות</td></tr>')
+      + '</tbody><tfoot><tr><td>הצוות</td><td class="num">'+(+t.deals||0)+'</td><td class="num">'+ils(t.sales)+'</td></tr></tfoot></table>'
+      + '<table class="cmd-t cmd-tbd"><thead><tr><th>מדרגה</th><th>מכירות הצוות בחודש</th><th class="num">אחוז</th><th class="num">הסכום במדרגה</th><th class="num">עמלה</th></tr></thead><tbody>'
+      + (TB.length ? TB.map((b,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(cmRange(b))+'</td><td class="num">'+esc(cmPct(b.rate))+'</td><td class="num">'+ils(b.base)+'</td><td class="num">'+ils(b.amount)+'</td></tr>').join('')
+                   : '<tr><td colspan="5">אין מכירות לצוות בחודש</td></tr>')
+      + '</tbody><tfoot><tr><td colspan="3">סה״כ עמלת צוות</td><td class="num">'+ils(t.sales)+'</td><td class="num">'+ils(t.commission)+'</td></tr></tfoot></table>';
+  }
   h += '<div class="cmd-h">העסקאות <span>'+(+o.deals||0)+' נספרות'+(+o.cancelled ? ' · '+(+o.cancelled)+' בוטלו' : '')+'</span></div>'
     + (+o.missing_amount ? '<div class="cmd-warn">'+(+o.missing_amount)+' עסקאות בלי סכום — לא נכנסו לחשבון.</div>' : '')
     + '<table class="cmd-t cmd-ln"><thead><tr><th class="cmd-i">#</th><th>לקוח</th><th>הצעה</th><th>הזמנה</th><th>תאריך</th><th class="num">סכום לפני מע״מ</th></tr></thead><tbody>'
@@ -23148,12 +23185,16 @@ function cmDocHtml(D, o){
     + '</tbody><tfoot><tr><td></td><td colspan="4">סה״כ נספר</td><td class="num">'+ils(o.sales)+'</td></tr></tfoot></table>';
   const A = o.adjustments || [];
   if(A.length) h += '<div class="cmd-h">קיזוזים מחודשים שנסגרו</div><table class="cmd-t"><thead><tr><th>עסקה</th><th>מחודש</th><th class="num">סכום העסקה</th><th class="num">קיזוז</th></tr></thead><tbody>'
-    + A.map(a=>'<tr><td>'+esc(a.deal_name||'')+'</td><td>'+esc(cmLabel(a.from_month))+'</td><td class="num">'+ils(a.amount)+'</td><td class="num">'+ils(a.delta)+'</td></tr>').join('') + '</tbody></table>';
+    + A.map(a=>'<tr><td>'+esc(a.deal_name||'')+(a.team ? '<small>עמלת צוות · '+esc(a.member||'')+'</small>' : '')+'</td><td>'+esc(cmLabel(a.from_month))+'</td><td class="num">'+ils(a.amount)+'</td><td class="num">'+ils(a.delta)+'</td></tr>').join('') + '</tbody></table>';
   const T = D.tiers || [];
   h += '<div class="cmd-rules"><div><div class="cmd-h">מדרגות העמלה</div><table class="cmd-t"><thead><tr><th>מדרגה</th><th>מכירות בחודש, לפני מע״מ</th><th class="num">אחוז</th></tr></thead><tbody>'
-    + T.map((t,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(cmRange(t))+'</td><td class="num">'+esc(cmPct(t.rate))+'</td></tr>').join('') + '</tbody></table></div>'
+    + T.map((t,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(cmRange(t))+'</td><td class="num">'+esc(cmPct(t.rate))+'</td></tr>').join('') + '</tbody></table>'
+    + (o.team ? '<div class="cmd-h">מדרגות עמלת הצוות</div><table class="cmd-t cmd-ttiers"><thead><tr><th>מדרגה</th><th>מכירות הצוות בחודש</th><th class="num">אחוז</th></tr></thead><tbody>'
+        + (o.team.tiers || []).map((t,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(cmRange(t))+'</td><td class="num">'+esc(cmPct(t.rate))+'</td></tr>').join('') + '</tbody></table>' : '')
+    + '</div>'
     + '<div><div class="cmd-h">איך זה עובד</div><ul class="cmd-how">'
     + '<li>המדרגות מצטברות: כל שקל מקבל את האחוז של המדרגה שבה הוא נמצא.</li>'
+    + (o.team ? '<li>עמלת צוות: על המכירות של '+esc((o.team.members || []).map(m=>m.name||'').join(' ו'))+' בחודש, בלי המכירות שלך, לפי מדרגות הצוות — גם הן מצטברות.</li>' : '')
     + '<li>עסקה נספרת בחודש שבו נפתחה ההזמנה, לפי סכום ההזמנה לפני מע״מ, כולל משלוח והתקנה. עסקה מפוצלת נספרת לפי החלק של כל אחד.</li>'
     + '<li>הזמנה שבוטלה יורדת מהחשבון. ביטול אחרי שהחודש נסגר מקוזז בחודש שבו התגלה.</li>'
     + '<li>העמלה משולמת במשכורת של החודש העוקב — על החודש הזה: '+pay+'.</li></ul></div></div>'
