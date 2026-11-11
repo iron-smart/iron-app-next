@@ -4356,6 +4356,18 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 .so-tbl td.so-tags{ white-space:normal; }
 .so-tbl .so-cn{ color:var(--ink-3); }
 .so-tbl tr.clk{ cursor:pointer; }
+/* 7.71.1 — sotags: עמודה לכל תגית. רק הסיווג שבב; ערוץ = נקודה + טקסט; קמפיין = טקסט שנחתך */
+.so-tbl td .so-tag{ margin:0; }
+.so-tbl .so-ch{ display:inline-flex; align-items:center; gap:var(--sp-1h); color:var(--ink-1); font-weight:600; }
+.so-tbl .so-ch::before{ content:''; flex:none; width:var(--sp-2); height:var(--sp-2); border-radius:var(--r-pill); background:var(--line-strong); }
+.so-tbl .so-ch.ch-ad::before{ background:var(--navy); }
+.so-tbl .so-ch.ch-org::before{ background:var(--green); }
+.so-tbl .so-ch.ch-ppl::before{ background:var(--amber); }
+.so-tbl .so-ch.ch-unk{ color:var(--ink-3); font-weight:400; }
+.so-tbl .so-ch small{ font-size:inherit; font-weight:400; color:var(--ink-3); }
+.so-tbl .so-camp{ display:block; max-width:calc(var(--sp-6) * 9); overflow:hidden; text-overflow:ellipsis; color:var(--ink-1); }
+.so-tbl .so-no{ color:var(--line-strong); }
+.so-tbl td.so-own{ color:var(--ink-2); }
 .so-chips{ display:flex; flex-wrap:wrap; gap:var(--sp-1h); margin:0 0 var(--sp-2); }
 .so-chips .chip.on{ background:var(--navy); color:#fff; border-color:var(--navy); }
 /* ===== 7.71.0 — airy: מדורים · הסברים מקופלים · ריווח (ניתוח מכירות + דשבורד שיווק) =====
@@ -4582,7 +4594,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.71.0</div>
+      <div class="ver">גרסה 7.71.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4729,7 +4741,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="airy-2026-11-11a">גרסה 7.71.0</div>
+    <div class="side-foot" title="sotags-2026-11-11a">גרסה 7.71.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -8906,10 +8918,33 @@ function solGet(rpc, p, paint){
   solFetch(n, 0); return n;
 }
 window.solMore = key=>{ const n = SOL[key]; if(!n || n.busy || n.rows.length >= n.total) return; solFetch(n, n.rows.length); try{ if(n.paint) n.paint(); }catch(_e){} };
-function soTags(x){
-  return '<span class="so-tag k-'+esc(x.cls||'')+'">'+esc(x.cls_label||'')+'</span>'+
-    (x.s1 ? '<span class="so-tag">'+esc(x.s1)+'</span>' : '')+(x.s2 ? '<span class="so-tag">'+esc(x.s2)+'</span>' : '')+
-    (x.owner && LOWN_BY[x.owner] ? '<span class="so-tag k-own">'+esc(LOWN_BY[x.owner].name||'')+'</span>' : '');
+/* ===== 7.71.1 — sotags: עמודה לכל תגית (רומן, 11/11/2026) =====
+   "אני צריך לשפר את התגיות … בשביל סדר בעין וגם הסתכלות שיווקית". עד כאן: עמודת "תגיות" אחת עם שבבים זורמים.
+   עכשיו: סיווג · ערוץ · קמפיין · איש מכירות — עמודות קבועות, כל אחת ניתנת למיון; רק הסיווג שבב צבוע.
+   soChan — תצוגה בלבד, [שם, פירוט, סוג]: השרת מחזיר את אותה פלטפורמה בשני שמות ("Meta · Instagram" לליד, "מטא" להזמנת אתר;
+   "Google" ו"גוגל אדס"), וכאן הן שם אחד. הסוג הוא המבט השיווקי: ad = פלטפורמת פרסום · org = הגיע לבד (חיפוש, ישיר, האתר) ·
+   ppl = דרך אדם (הפניה, הזנה ידנית) · unk = לא ידוע. "ידני" כמקור ליד מוצג "הוזן ידנית" — "ידני" הוא גם שם של סיווג.
+   ⚠️ ערך שאינו ברשימה מוצג כמות שהוא (org) ואינו נבלע: מקור חדש בשרת חייב להיראות במסך גם לפני שמישהו סיווג אותו כאן. */
+const SO_CH_T = { ad:'פלטפורמת פרסום', org:'הגיע לבד — חיפוש, ישיר, האתר', ppl:'דרך אדם — הפניה או הזנה ידנית', unk:'המקור לא ידוע' };
+function soChan(x){
+  const s = String((x && x.s1) || '').trim(); if(!s) return null;
+  const i = s.indexOf(' · '), a = i < 0 ? s : s.slice(0, i), b = i < 0 ? '' : s.slice(i + 3);
+  if(a==='Meta' || a==='מטא') return ['Meta', b, 'ad'];
+  if(a==='Google') return ['Google', b, 'ad'];
+  if(a==='גוגל אדס') return ['Google', b || 'Ads', 'ad'];
+  if(s==='ידני') return ['הוזן ידנית', '', 'ppl'];
+  if(s==='הפניה') return ['הפניה', '', 'ppl'];
+  if(s==='לא ידוע') return ['לא ידוע', '', 'unk'];
+  if(s==='אתר / דף נחיתה') return ['דף נחיתה', '', 'org'];
+  return [s, '', 'org'];
+}
+const SO_NO = '<span class="so-no">—</span>';
+function soCells(x, hc, ho){
+  const ch = soChan(x), own = x.owner && LOWN_BY[x.owner] ? (LOWN_BY[x.owner].name||'') : '';
+  return (hc ? '<td class="so-c"><span class="so-tag k-'+esc(x.cls||'')+'">'+esc(x.cls_label||'')+'</span></td>' : '')+
+    '<td class="so-c">'+(ch ? '<span class="so-ch ch-'+ch[2]+'" title="'+esc(SO_CH_T[ch[2]])+'">'+esc(ch[0])+(ch[1] ? ' <small>'+esc(ch[1])+'</small>' : '')+'</span>' : SO_NO)+'</td>'+
+    '<td class="so-c">'+(x.s2 ? '<span class="so-camp" title="'+esc(x.s2)+'">'+esc(x.s2)+'</span>' : SO_NO)+'</td>'+
+    (ho ? '<td class="so-c so-own">'+(own ? esc(own) : SO_NO)+'</td>' : '');
 }
 function soList(n){
   if(!n) return '';
@@ -8918,10 +8953,12 @@ function soList(n){
   if(!n.rows.length) return '<div class="empty">אין הזמנות בטווח</div>';
   /* 7.71.0 — עשר ראשונות; "הצג הכול" פותח את מה שנטען, ורק אז "עוד" מהשרת. הספירה בכפתור היא הסה״כ מהשרת. */
   const cap = !SO_OPEN[n.key] && n.rows.length > SO_CAP, rows = cap ? n.rows.slice(0, SO_CAP) : n.rows;
-  return '<div class="tbl-wrap"><table class="tbl so-tbl"><thead><tr><th>הזמנה</th><th>תאריך</th><th>לקוח</th><th class="num">סכום</th><th>תגיות</th></tr></thead><tbody>'+
+  /* 7.71.1 — עמודה שכל שורותיה זהות אינה מוצגת: סיווג כשהרשימה מסוננת לסיווג, איש מכירות כשמסוננת אליו */
+  const hc = !(n.p && n.p.cls), ho = !(n.p && n.p.owner);
+  return '<div class="tbl-wrap"><table class="tbl so-tbl"><thead><tr><th>הזמנה</th><th>תאריך</th><th>לקוח</th><th class="num">סכום</th>'+(hc ? '<th>סיווג</th>' : '')+'<th>ערוץ</th><th>קמפיין</th>'+(ho ? '<th>איש מכירות</th>' : '')+'</tr></thead><tbody>'+
     rows.map(x=>'<tr'+(x.deal_id ? ' class="clk" data-deal="'+esc(x.deal_id)+'" onclick="openDeal(\''+jsq(x.deal_id)+'\')"' : '')+'><td><b>'+esc(x.order_number||'')+'</b></td>'+
       '<td>'+esc(x.order_date ? fmtD(x.order_date) : '')+'</td><td>'+esc(x.customer_name||'')+' <small class="so-cn">'+esc(x.customer_number||'')+'</small></td>'+
-      '<td class="num">'+shekel(+x.net||0)+'</td><td class="so-tags">'+soTags(x)+'</td></tr>').join('')+'</tbody></table></div>'+
+      '<td class="num">'+shekel(+x.net||0)+'</td>'+soCells(x, hc, ho)+'</tr>').join('')+'</tbody></table></div>'+
     (n.err ? '<div class="empty">'+esc('טעינת ההמשך נכשלה: '+n.err+' — אפשר לנסות שוב')+'</div>' : '')+
     (cap ? '<div class="so-more-row"><button type="button" class="chip so-all" onclick="soOpen(\''+jsq(n.key)+'\')">הצג את כל '+(n.total || n.rows.length)+' ההזמנות</button></div>' :
     (n.rows.length < n.total ? '<div style="text-align:center;padding:var(--sp-2)"><button type="button" class="chip so-more" onclick="solMore(\''+jsq(n.key)+'\')"'+(n.busy ? ' disabled' : '')+'>'+
@@ -15442,7 +15479,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'airy-2026-11-11a';
+const BUILD_ID = 'sotags-2026-11-11a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -24465,7 +24502,7 @@ function mktSalesHtml(D){
     '<div class="mkt-fact">הוצאת פרסום כוללת בטווח: <b>'+mktM(+D.spend||0)+'</b></div>'+
     '<div class="mkt-note">ההוצאה הכוללת — כל הקמפיינים, גם בלי מכירות.'+
       (lt ? ' "מאז ההשקה" — כל ההוצאה וכל המכירות של הקמפיין מתחילתו (מ-01/01/2026 לכל המוקדם). ROAS בטווח מחלק מכירות של הטווח בהוצאה של הטווח, וליד שנפתח לפני הטווח נקנה בהוצאה קודמת.' : '')+'</div>';
-  return h + '<div class="mkt-note">ליד = לקוח שהגיע מליד (עד 6 חודשים מהליד, או דרך תהליך עם ליד) · לקוח קיים = הזמנה מתהליך מכירה בלי ליד · אתר = הזמנה מהאתר, לפי הערוץ שבו נכנס הגולש · ידני = בלי הצעת מחיר ולא מהאתר · החזרות = סכום שלילי. לחיצה על אריח מסננת את ההזמנות.</div>';
+  return h + '<div class="mkt-note">ליד = לקוח שהגיע מליד (עד 6 חודשים מהליד, או דרך תהליך עם ליד) · לקוח קיים = הזמנה מתהליך מכירה בלי ליד · אתר = הזמנה מהאתר, לפי הערוץ שבו נכנס הגולש · ידני = בלי הצעת מחיר ולא מהאתר · החזרות = סכום שלילי. לחיצה על אריח מסננת את ההזמנות. הנקודה ליד הערוץ: כהה — פלטפורמת פרסום (Meta, Google) · ירוקה — הגיע לבד (חיפוש, ישיר, האתר) · כתומה — דרך אדם (הפניה, הזנה ידנית).</div>';
 }
 async function mktPaintSales(){
   const el = document.getElementById('mkt-sales'); if(!el || !MKT_D) return;
