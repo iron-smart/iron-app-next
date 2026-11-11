@@ -4358,6 +4358,79 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 .so-tbl tr.clk{ cursor:pointer; }
 .so-chips{ display:flex; flex-wrap:wrap; gap:var(--sp-1h); margin:0 0 var(--sp-2); }
 .so-chips .chip.on{ background:var(--navy); color:#fff; border-color:var(--navy); }
+/* ===== 7.71.0 — airy: מדורים · הסברים מקופלים · ריווח (ניתוח מכירות + דשבורד שיווק) =====
+   רומן, 11/11/2026: "תרווח ותאוורר את המסכים … שיהיה נעים ונוח לעין". טוקנים בלבד (polishtest).
+   ⚠️ הבלוק יושב אחרי שני בלוקי המסכים בכוונה: כללים בספציפיות שווה — המאוחר מנצח. */
+.vs-row{ display:flex; flex-basis:100%; margin:0 0 var(--sp-4); min-width:0; }
+.vsec{ display:flex; flex-wrap:wrap; gap:var(--sp-1); padding:var(--sp-1); background:var(--bg-muted); border-radius:var(--r-lg); max-width:100%; box-sizing:border-box; }
+.vsec button{ width:auto; flex:none; border:0; background:transparent; font-family:inherit; font-size:var(--fs-md); font-weight:700; color:var(--ink-2); padding:0 var(--sp-4); min-height:var(--ctl-h-md); border-radius:var(--r-md); cursor:pointer; }
+.vsec button:hover{ color:var(--navy); }
+.vsec button.on{ background:#fff; color:var(--navy); box-shadow:var(--sh-card); }
+@media(max-width:1024px){ .vsec button{ min-height:var(--ctl-h-touch-sm); padding:0 var(--sp-3); } }
+#tab-sana #sa-body > .vs-off, #tab-mkt #mkt-body > .vs-off{ display:none; }
+#tab-sana .sa-bar .vs-row{ margin:var(--sp-2) 0 0; }
+.vs-nt[aria-pressed="true"]{ background:var(--navy); color:#fff; border-color:var(--navy); }
+/* הסברים: מוסתרים עד שמבקשים. אזהרה נשארת (sa-warn), וכך גם mkt-note שבתוך תא טבלה (שם הוא נתון — הפלטפורמה של הקמפיין). */
+#tab-sana:not(.nt-on) .sa-sub:not(.sa-warn),
+#tab-mkt:not(.nt-on) #mkt-body > .mkt-note,
+#tab-mkt:not(.nt-on) .mkt-card > .mkt-note:not(.mkt-keep),
+#tab-mkt:not(.nt-on) .mkt-card h3 small{ display:none; }
+/* ריווח */
+#tab-sana .sa-bar{ margin:0 0 var(--sp-4); }
+#tab-sana .sa-card{ padding:var(--sp-4h) var(--sp-5); margin:0 0 var(--sp-4); box-shadow:var(--sh-card); }
+#tab-sana .sa-card h3{ font-size:var(--fs-lg); margin:0 0 var(--sp-3); }
+#tab-sana .sa-card h3.sa-h4{ margin:var(--sp-5) 0 var(--sp-3); }
+#tab-sana .sa-sub{ margin:0 0 var(--sp-3); line-height:1.6; }
+#tab-sana .sa-tiles{ gap:var(--sp-3); margin:0 0 var(--sp-4); }
+#tab-sana .sa-tile{ padding:var(--sp-3) var(--sp-4); background:#fff; border-radius:var(--r-lg); }
+#tab-sana .sa-tile b{ font-size:var(--fs-h); line-height:1.25; }
+#tab-mkt .mkt-card{ padding:var(--sp-4h) var(--sp-5); margin-bottom:var(--sp-4); box-shadow:var(--sh-card); }
+#tab-mkt .mkt-card h3{ margin:0 0 var(--sp-3); }
+#tab-mkt .mkt-kpis{ gap:var(--sp-3); margin-bottom:var(--sp-4); }
+#tab-mkt .stat .tg{ font-size:var(--fs-xs); font-weight:700; color:var(--ink-3); }
+#tab-mkt .mkt-grid2, #tab-mkt .mkt-grid3{ gap:var(--sp-4); }
+#tab-mkt .mkt-sales-fin{ gap:var(--sp-3); margin:0 0 var(--sp-3); }
+#tab-mkt .mkt-fact{ font-size:var(--fs-md); color:var(--ink-2); margin:0 0 var(--sp-4); }
+#tab-mkt .tbl-wrap + .mkt-fact{ margin:var(--sp-3) 0 0; }
+#tab-mkt .mkt-fact b{ color:var(--ink-1); }
+#tab-mkt .mkt-card > .tbl-wrap + .tbl-wrap, #tab-mkt .mkt-card > .so-more-row + .tbl-wrap{ margin-top:var(--sp-5); }
+.so-chips{ gap:var(--sp-2); margin:0 0 var(--sp-3); }
+.so-more-row{ text-align:center; padding:var(--sp-3) 0 0; }
+/* כותרות טבלה בהירות בשני מסכי הניתוח: עשר טבלאות בזו אחר זו עם פס כהה היו רוב ה"רעש" במסך */
+#tab-sana .tbl th, #tab-mkt table.tbl th{ background:var(--bg-subtle); color:var(--ink-2); box-shadow:inset 0 -1px 0 var(--line); padding:var(--sp-2h) var(--sp-3); }
+#tab-sana .tbl td, #tab-mkt table.tbl td{ padding:var(--sp-2h) var(--sp-3); }
+#tab-sana .tbl tfoot td{ font-weight:800; background:var(--bg-subtle); border-top:1px solid var(--line); }
+/* כרטיס הסיכום */
+#tab-sana .sa-kpis{ display:grid; grid-template-columns:minmax(0,1.7fr) repeat(4,minmax(0,1fr)); gap:var(--sp-5); align-items:end; }
+#tab-sana .sa-kpis.c2{ grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); }
+#tab-sana .sa-kpi{ min-width:0; }
+#tab-sana .sa-kpi + .sa-kpi{ border-inline-start:1px solid var(--line-soft); padding-inline-start:var(--sp-5); }
+#tab-sana .sa-kpi > span{ display:block; font-size:var(--fs-sm); font-weight:700; color:var(--ink-3); }
+#tab-sana .sa-kpi > b{ display:block; font-size:var(--fs-h); font-weight:800; color:var(--navy); line-height:1.35; white-space:nowrap; }
+#tab-sana .sa-kpi.main > b{ font-size:calc(var(--fs-h) * 1.5); line-height:1.2; }
+#tab-sana .sa-kpi > small{ display:block; font-size:var(--fs-sm); color:var(--ink-2); line-height:1.5; }
+#tab-sana .sa-kpi > small b{ color:var(--ink-1); }
+/* מכירות חודשיות */
+#tab-sana .sa-mbars{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:var(--sp-2); height:calc(var(--sp-6) * 6); margin:0 0 var(--sp-4); }
+#tab-sana .sa-mb{ display:flex; flex-direction:column; align-items:center; gap:var(--sp-1); width:auto; min-width:0; height:100%; padding:0; border:0; background:transparent; font-family:inherit; color:var(--ink-3); cursor:pointer; }
+#tab-sana .sa-mbt{ flex:1 1 auto; min-height:0; width:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; gap:var(--sp-1); }
+#tab-sana .sa-mbt small{ flex:none; font-size:var(--fs-xs); font-weight:700; color:var(--ink-2); white-space:nowrap; line-height:var(--sp-4); }
+#tab-sana .sa-mbt i{ flex:none; display:block; width:100%; max-width:calc(var(--sp-6) * 1.5); min-height:var(--sp-0h); border-radius:var(--r-sm) var(--r-sm) 0 0; background:var(--hol-bg); }
+#tab-sana .sa-mbl{ flex:none; font-size:var(--fs-sm); font-weight:600; }
+#tab-sana .sa-mb:hover .sa-mbt i{ background:var(--green); }
+#tab-sana .sa-mb.on .sa-mbt i{ background:var(--navy); }
+#tab-sana .sa-mb.on, #tab-sana .sa-mb.on .sa-mbt small{ color:var(--navy); }
+#tab-sana .sa-mb.on .sa-mbl{ font-weight:800; }
+@media(max-width:1024px){
+  #tab-sana .sa-kpis{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--sp-4); }
+  #tab-sana .sa-kpi.main{ grid-column:1 / -1; }
+  #tab-sana .sa-kpi + .sa-kpi{ border-inline-start:0; padding-inline-start:0; }
+}
+@media(max-width:759.98px){
+  #tab-sana .sa-card, #tab-mkt .mkt-card{ padding:var(--sp-3); }
+  #tab-sana .sa-mbars{ gap:var(--sp-0h); height:calc(var(--sp-6) * 4); }
+  #tab-sana .sa-mbt small{ display:none; }
+}
 #tab-mkt .mkt-sales-fin > div{ cursor:pointer; border:1px solid transparent; }
 #tab-mkt .mkt-sales-fin > div.on{ border-color:var(--navy); }
 #tab-mkt .mkt-sales-camp tfoot td{ font-weight:800; border-top:2px solid var(--line); }   /* 7.69.2 — סה״כ הקמפיינים */
@@ -4509,7 +4582,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.70.0</div>
+      <div class="ver">גרסה 7.71.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4656,7 +4729,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="commteam-2026-11-10a">גרסה 7.70.0</div>
+    <div class="side-foot" title="airy-2026-11-11a">גרסה 7.71.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -8843,14 +8916,20 @@ function soList(n){
   if(!n.rows.length && n.busy) return crmLoading();
   if(!n.rows.length && n.err) return n.err==='אין הרשאה' ? '' : '<div class="empty">'+esc('טעינת ההזמנות נכשלה: '+n.err)+'</div>';
   if(!n.rows.length) return '<div class="empty">אין הזמנות בטווח</div>';
+  /* 7.71.0 — עשר ראשונות; "הצג הכול" פותח את מה שנטען, ורק אז "עוד" מהשרת. הספירה בכפתור היא הסה״כ מהשרת. */
+  const cap = !SO_OPEN[n.key] && n.rows.length > SO_CAP, rows = cap ? n.rows.slice(0, SO_CAP) : n.rows;
   return '<div class="tbl-wrap"><table class="tbl so-tbl"><thead><tr><th>הזמנה</th><th>תאריך</th><th>לקוח</th><th class="num">סכום</th><th>תגיות</th></tr></thead><tbody>'+
-    n.rows.map(x=>'<tr'+(x.deal_id ? ' class="clk" data-deal="'+esc(x.deal_id)+'" onclick="openDeal(\''+jsq(x.deal_id)+'\')"' : '')+'><td><b>'+esc(x.order_number||'')+'</b></td>'+
+    rows.map(x=>'<tr'+(x.deal_id ? ' class="clk" data-deal="'+esc(x.deal_id)+'" onclick="openDeal(\''+jsq(x.deal_id)+'\')"' : '')+'><td><b>'+esc(x.order_number||'')+'</b></td>'+
       '<td>'+esc(x.order_date ? fmtD(x.order_date) : '')+'</td><td>'+esc(x.customer_name||'')+' <small class="so-cn">'+esc(x.customer_number||'')+'</small></td>'+
       '<td class="num">'+shekel(+x.net||0)+'</td><td class="so-tags">'+soTags(x)+'</td></tr>').join('')+'</tbody></table></div>'+
     (n.err ? '<div class="empty">'+esc('טעינת ההמשך נכשלה: '+n.err+' — אפשר לנסות שוב')+'</div>' : '')+
+    (cap ? '<div class="so-more-row"><button type="button" class="chip so-all" onclick="soOpen(\''+jsq(n.key)+'\')">הצג את כל '+(n.total || n.rows.length)+' ההזמנות</button></div>' :
     (n.rows.length < n.total ? '<div style="text-align:center;padding:var(--sp-2)"><button type="button" class="chip so-more" onclick="solMore(\''+jsq(n.key)+'\')"'+(n.busy ? ' disabled' : '')+'>'+
-      (n.busy ? 'טוען…' : 'עוד '+(n.total - n.rows.length)+' הזמנות')+'</button></div>' : '');
+      (n.busy ? 'טוען…' : 'עוד '+(n.total - n.rows.length)+' הזמנות')+'</button></div>' : '')+
+    (SO_OPEN[n.key] && n.rows.length > SO_CAP ? '<div class="so-more-row"><button type="button" class="chip so-less" onclick="soOpen(\''+jsq(n.key)+'\')">הצג פחות</button></div>' : ''));
 }
+const SO_CAP = 10, SO_OPEN = {};
+window.soOpen = key=>{ SO_OPEN[key] = !SO_OPEN[key]; const n = SOL[key]; try{ if(n && n.paint) n.paint(); }catch(_e){} };
 /* שבבי הסינון — counts: { all:{n,net}, lead:{n,net}, … } מהשרת; שבב בלי הזמנות לא מצויר */
 function soChips(counts, cur, fn){
   const b = (k, l, o)=> '<button type="button" class="chip'+(cur===k ? ' on' : '')+'" data-cls="'+k+'" onclick="'+fn+'(\''+k+'\')">'+l+
@@ -15363,7 +15442,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'commteam-2026-11-10a';
+const BUILD_ID = 'airy-2026-11-11a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -22308,6 +22387,110 @@ function mktInit(){
                   col: MKT_PCOLS.some(([k])=>k===pv.col) && pv.col!==pv.row ? pv.col : '',
                   metric: MKT_PMETRICS.some(([k])=>k===pv.metric) ? pv.metric : 'leads' };
 }
+/* ===== 7.71.0 — airy: מדורים, הסברים מקופלים ומכירות חודשיות (רומן, 11/11/2026) =====
+   "תוריד לי טקסט מיותר ותרווח ותאוורר את המסכים … שיהיה נעים ונוח לעין לקרוא כל כך הרבה מידע" · "לא מוצא מכירות
+   חודשיות במסך מכירות". שלושה כלים משותפים לשני המסכים (ניתוח מכירות, דשבורד שיווק):
+     1. מדורים (vsec) — הכרטיסים מקובצים ורק מדור אחד מוצג. כל הכרטיסים נשארים ב-DOM (הסתרה במחלקה vs-off), ולכן
+        הנתונים, המטמונים והציור לא השתנו. "הכול" מחזיר את המסך הארוך. הבחירה נשמרת בדפדפן.
+     2. הסברים — שורות ההסבר (sa-sub · mkt-note של כרטיס · small בכותרת) מוסתרות עד שלוחצים "הסברים".
+        אזהרה (sa-warn) ונתון (mkt-fact, mkt-note בתוך טבלה) נשארים גלויים.
+     3. טבלת הזמנות מקוצרת — עשר ראשונות ו"הצג הכול" (soList).
+   ⚠️ הבחירה נקראת בכל ציור (זיכרון הסשן, ואז localStorage) ולא נשמרת במשתנה שנטען פעם אחת — מה שנשמר לפני הציור חל מיד,
+      וכשל של localStorage (גלישה פרטית) אינו מבטל את הלחיצה. */
+const VSEC = {
+  sana: [['sales','מכירות',['sa-hero','sa-monthly','sa-orders']], ['pipe','צנרת',['sa-pref','sa-health','sa-offers']],
+         ['team','צוות',['sa-reps','sa-week']], ['trend','מגמות',['sa-time','sa-types','sa-lost']]],
+  mkt:  [['sales','מכירות',['mkt-sales','mkt-orders']], ['leads','לידים',['mkt-kpi','mkt-more','mkt-trend','mkt-fr','mkt-intent','mkt-lost','mkt-quality']],
+         ['camp','מקורות וקמפיינים',['mkt-sources','mkt-campaigns','mkt-owners','mkt-spend']], ['pivot','ניתוח דינמי',['mkt-pivot']]] };
+const VS_MEM = {};
+function vsGet(scr){
+  let v = VS_MEM[scr] || '';
+  if(!v){ try{ v = localStorage.getItem('iron_vsec_'+scr) || ''; }catch(_e){} }
+  return (v==='all' || VSEC[scr].some(s=>s[0]===v)) ? v : VSEC[scr][0][0];   /* ערך שמור שאינו מדור — המדור הראשון, לא מסך ריק */
+}
+function vsTabs(scr){
+  const cur = vsGet(scr);
+  return '<div class="vs-row"><div class="vsec" id="vs-'+scr+'" role="tablist" aria-label="מדורים">'+VSEC[scr].concat([['all','הכול']]).map(([k, l])=>
+    '<button type="button" role="tab" data-sec="'+k+'" aria-selected="'+(cur===k)+'" class="'+(cur===k ? 'on' : '')+'" onclick="vsSet(\''+scr+'\',\''+k+'\')">'+l+'</button>').join('')+'</div></div>';
+}
+/* אלמנטים בלי id בראש דשבורד השיווק (אריחי המדדים, "עוד מדדים", הערת ההשוואה) שייכים למדור הלידים; שני הכרטיסים שבגריד — משפך וזמן טיפול */
+function vsKey(el){
+  if(el.id) return el.id;
+  if(el.classList.contains('mkt-grid2')) return 'mkt-fr';
+  return /(^| )mkt-(kpis|more-bar|modenote|note)( |$)/.test(el.className||'') ? 'mkt-kpi' : '';
+}
+function vsApply(scr){
+  const body = document.getElementById(scr==='sana' ? 'sa-body' : 'mkt-body'); if(!body) return;
+  const cur = vsGet(scr), of = {}; VSEC[scr].forEach(([k, , ids])=>ids.forEach(i=>{ of[i] = k; }));
+  [...body.children].forEach(el=>{ const k = of[vsKey(el)]; if(!k) return;
+    el.dataset.sec = k; el.classList.toggle('vs-off', cur!=='all' && k!==cur); });
+  const t = document.getElementById('vs-'+scr);
+  if(t) t.querySelectorAll('button').forEach(b=>{ const on = b.dataset.sec===cur; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+}
+window.vsSet = (scr, k)=>{ if(!VSEC[scr]) return; VS_MEM[scr] = k; try{ localStorage.setItem('iron_vsec_'+scr, k); }catch(_e){} vsApply(scr); };
+function vnOn(){ if(VS_MEM.notes != null) return !!VS_MEM.notes; let v = false; try{ v = localStorage.getItem('iron_vnotes')==='1'; }catch(_e){} return v; }
+function vnApply(){
+  const on = vnOn();
+  ['tab-sana','tab-mkt'].forEach(i=>{ const e = document.getElementById(i); if(e) e.classList.toggle('nt-on', on); });
+  document.querySelectorAll('.vs-nt').forEach(b=>b.setAttribute('aria-pressed', String(on)));
+}
+window.vnToggle = ()=>{ const on = !vnOn(); VS_MEM.notes = on; try{ localStorage.setItem('iron_vnotes', on ? '1' : '0'); }catch(_e){} vnApply(); };
+const vnBtn = ()=> '<button type="button" class="lf-clear vs-nt" aria-pressed="'+vnOn()+'" onclick="vnToggle()" title="הצגה והסתרה של שורות ההסבר בכרטיסים">הסברים</button>';
+/* ── ניתוח מכירות: כרטיס הסיכום ו"מכירות חודשיות" ──
+   אותו מקור של "סך המכירות" (crm.sales_orders_agg = הזמנות פריוריטי, בלי מבוטלות). הסכום הראשי בשקלים מלאים ולא ב-K:
+   זה המספר שמשווים לדוח של פריוריטי. "כולל מע״מ" = עמודת "מחיר כולל מע״מ" בדוח "מכירות חודשי", שקל בשקל (נמדד 11/11:
+   416,251 = 416,251); ל"לפני מע״מ" שלנו (אחרי הנחת מסמך) אין עמודה מקבילה בדוח, ולכן שני המספרים מוצגים יחד.
+   היעד נמדד מול "מתהליכי מכירה" — אותו בסיס של הלובי ושל כרטיס המועדפות (7.68.0), ורק כשהטווח הוא החודש. */
+const saMoney = v=> shekel(Math.round(+v||0));
+function saHero(){
+  const R = saRange(), own = saOwner(), e = soaGet(R.from, R.to, saGrain()), D = (e && e.d && !e.err) ? e.d : null;
+  if(!D) return '';   /* טעינה / כשל / אין הרשאה — כרטיס "סך המכירות" שמתחת מדווח */
+  const T = D.total || {}, bc = D.by_class || {};
+  const k = (l, v, s, cls)=> '<div class="sa-kpi'+(cls ? ' '+cls : '')+'"><span>'+l+'</span><b>'+v+'</b><small>'+(s||'')+'</small></div>';
+  const lbl = ({ month:'החודש', prev:'בחודש הקודם', q:'ב-3 חודשים', ytd:'מתחילת השנה' })[R.p] || 'בטווח';
+  if(own){ const o = soaOwn(D, own);
+    return '<div class="sa-card sa-hero" id="sa-hero"><div class="sa-kpis c2">'+
+      k('מכירות '+lbl+' · '+esc((LOWN_BY[own]||{}).name||''), saMoney(o.s), 'לפני מע״מ · '+o.n+' הזמנות מתהליכים', 'main')+
+      k('כל המכירות', saMoney(T.net), (+T.n||0)+' הזמנות')+'</div></div>'; }
+  const n = +T.n||0, net = +T.net||0, sl = bc.sales || {}, wb = bc.web || {}, mn = bc.manual || {}, rt = bc['return'] || {};
+  const P = (SA.cache[saKey()] || {}).d, tg = (R.p==='month' && P && P.pref) ? (+P.pref.target_m||0) : 0;
+  const pc = v=> net > 0 ? Math.round(100*(+v||0)/net)+'% מהמכירות' : '';
+  return '<div class="sa-card sa-hero" id="sa-hero"><div class="sa-kpis">'+
+    k('מכירות '+lbl, saMoney(net), 'לפני מע״מ'+(T.gross != null ? ' · <b>'+saMoney(T.gross)+'</b> כולל מע״מ' : ''), 'main')+
+    k('הזמנות', n, n ? 'ממוצע '+saMoney(net/n) : '')+
+    k('מתהליכי מכירה', saMoney(sl.net), (+sl.n||0)+' הזמנות · '+(tg > 0 ? Math.round(100*(+sl.net||0)/tg)+'% מיעד '+ilsK(tg) : pc(sl.net)))+
+    k('אתר', saMoney(wb.net), (+wb.n||0)+' הזמנות · '+pc(wb.net))+
+    k('ידני והחזרות', saMoney((+mn.net||0)+(+rt.net||0)), ((+mn.n||0)+(+rt.n||0))+' הזמנות')+'</div></div>';
+}
+function saMonthR(){ const t = new Date(); return { from:isoD(new Date(t.getFullYear(), t.getMonth()-11, 1)), to:isoD(t) }; }
+/* לחיצה על חודש = הטווח של אותו חודש (עד היום, לחודש הנוכחי); לחיצה שנייה על אותו חודש מחזירה ל"החודש" */
+window.saMonth = k=>{
+  if(!SA_ISO.test(k||'')) return;
+  const d = new Date(k+'T12:00:00'), t = new Date(), a = isoD(new Date(d.getFullYear(), d.getMonth(), 1)), z = new Date(d.getFullYear(), d.getMonth()+1, 0), b = isoD(z > t ? t : z);
+  const R = saRange();
+  if(R.p==='range' && R.from===a && R.to===b) SA_F.p = 'month';
+  else { SA_F.p = 'range'; SA_F.from = a; SA_F.to = b; }
+  saSave(); renderSana(); };
+function saMonthly(){
+  if(saOwner()) return '';   /* הסדרה היא של כל המכירות; לאיש מכירות אחד — כרטיס הסיכום וטבלת ההזמנות */
+  const M = saMonthR(), e = soaGet(M.from, M.to, 'month'), D = (e && e.d && !e.err) ? e.d : null;
+  if(!D) return '';
+  const S = D.series || [], R = saRange(), mx = Math.max(1, ...S.map(x=>+x.total_s||0)), hg = S.some(x=>x.total_g != null);
+  if(!S.length) return '';
+  const cur = x=> R.from===x.from && R.to===x.to;
+  const dt = k=> new Date(k+'T12:00:00'), mS = k=> dt(k).toLocaleDateString('he-IL', { month:'short' }), mL = k=> dt(k).toLocaleDateString('he-IL', { month:'long', year:'numeric' });
+  const tot = f=> S.reduce((a, x)=>a + (+x[f]||0), 0), oth = x=> (+x.manual_s||0) + (+x.return_s||0);
+  const bars = '<div class="sa-mbars">'+S.map(x=>'<button type="button" class="sa-mb'+(cur(x) ? ' on' : '')+'" data-k="'+esc(x.k)+'" aria-pressed="'+cur(x)+'" onclick="saMonth(\''+jsq(x.k)+'\')" title="'+esc(mL(x.k)+' — '+saMoney(x.total_s))+'">'+
+      '<span class="sa-mbt"><small>'+ilsK(+x.total_s||0)+'</small><i style="height:calc((100% - var(--sp-5)) * '+(Math.max(0, +x.total_s||0)/mx).toFixed(3)+')"></i></span><span class="sa-mbl">'+esc(mS(x.k))+'</span></button>').join('')+'</div>';
+  const row = x=> '<tr class="clk'+(cur(x) ? ' on' : '')+'" data-k="'+esc(x.k)+'" onclick="saMonth(\''+jsq(x.k)+'\')"><td><b>'+esc(mL(x.k))+'</b></td><td class="num">'+(+x.total_n||0)+'</td>'+
+      '<td class="num"><b>'+saMoney(x.total_s)+'</b></td>'+(hg ? '<td class="num">'+saMoney(x.total_g)+'</td>' : '')+
+      '<td class="num">'+saMoney(x.sales_s)+'</td><td class="num">'+saMoney(x.web_s)+'</td><td class="num">'+saMoney(oth(x))+'</td></tr>';
+  return '<div class="sa-card" id="sa-monthly"><h3>מכירות חודשיות <span class="cnt">12 חודשים · לחיצה על חודש מציגה אותו</span></h3>'+bars+
+    '<div class="tbl-wrap"><table class="tbl sa-mtbl"><thead><tr><th>חודש</th><th class="num">הזמנות</th><th class="num">לפני מע״מ</th>'+(hg ? '<th class="num">כולל מע״מ</th>' : '')+
+      '<th class="num">מתהליכי מכירה</th><th class="num">אתר</th><th class="num">ידני והחזרות</th></tr></thead><tbody>'+S.slice().reverse().map(row).join('')+'</tbody>'+
+    '<tfoot><tr><td>סה״כ</td><td class="num">'+tot('total_n')+'</td><td class="num">'+saMoney(tot('total_s'))+'</td>'+(hg ? '<td class="num">'+saMoney(tot('total_g'))+'</td>' : '')+
+      '<td class="num">'+saMoney(tot('sales_s'))+'</td><td class="num">'+saMoney(tot('web_s'))+'</td><td class="num">'+saMoney(tot('manual_s')+tot('return_s'))+'</td></tr></tfoot></table></div></div>';
+}
 /* ===== 7.41.0 — sana: "ניתוח מכירות", שלב 1 =====
    רומן, 28/10/2026: "ניתוח של עסקאות שעומדות הרבה זמן ללא סטטוס, ניתוח לפי זמן, ניתוח של בחירה אילו עסקאות מתנדנדות לבדיקת
    סכום ואפשרות הצעת ערך לסגירה … תחשוב כמו מנהל מכירות" · על ההצעה: "כן, שלב 1".
@@ -22348,6 +22531,7 @@ window.saSet = (k, v)=>{
   saSave(); renderSana(); };
 window.saFlag = f=>{ SA.flag = SA.flag===f ? '' : f; renderSana(); };
 window.saRefresh = ()=>{ delete SA.cache[saKey()]; const R = saRange(); delete SOA[R.from+'|'+R.to+'|'+saGrain()];
+  { const M = saMonthR(); delete SOA[M.from+'|'+M.to+'|month']; }   /* 7.71.0 — וגם סדרת 12 החודשים */
   Object.keys(SOL).forEach(k=>{ if(k.indexOf('sales_orders_list|')===0) delete SOL[k]; }); renderSana(); };   /* 7.68.0 — גם ההזמנות · 7.69.1 — וגם הרשימה */
 function saLoad(){
   const key = saKey(), hit = SA.cache[key];
@@ -22532,8 +22716,8 @@ function saTypes(d){
   const un = T.find(x=>x.seg==='לא מסווג'), unN = un ? (+un.opened_n||0)+(+un.won_n||0)+(+un.lost_n||0)+(+un.open_n||0) : 0;
   const allN = tot('opened_n')+tot('won_n')+tot('lost_n')+tot('open_n');
   return '<div class="sa-card" id="sa-types"><h3>לפי סוג לקוח <span class="cnt">שבעת הסוגים של תוכנית המכירות</span></h3>'+
-    '<div class="sa-sub">הסוג = המחירון של הלקוח בפריוריטי (בסיס = פרטי, פ.ע = פרטי-עסקי, ה.פ/מסחרי = מסחרי, סטונאי = סיטונאי); לקוח WP = אתר.'+
-      (unN ? ' <span class="sa-warn">'+Math.round(100*unN/Math.max(1,allN))+'% מהשורות בלי מחירון בפריוריטי.</span>' : '')+'</div>'+
+    '<div class="sa-sub">הסוג = המחירון של הלקוח בפריוריטי (בסיס = פרטי, פ.ע = פרטי-עסקי, ה.פ/מסחרי = מסחרי, סטונאי = סיטונאי); לקוח WP = אתר.</div>'+
+      (unN ? '<div class="sa-sub sa-warn">'+Math.round(100*unN/Math.max(1,allN))+'% מהשורות בלי מחירון בפריוריטי.</div>' : '')+
     (T.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>סוג</th><th class="num">פתוח עכשיו</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה</th></tr></thead><tbody>'+
       T.map(x=>'<tr data-seg="'+esc(x.seg)+'"><td><b>'+esc(x.seg)+'</b></td><td class="num">'+saNv(+x.open_n, +x.open_s)+'</td><td class="num">'+saNv(+x.opened_n, +x.opened_s)+'</td>'+
         '<td class="num">'+saNv(+x.won_n, +x.won_s)+'</td><td class="num">'+saNv(+x.lost_n, +x.lost_s)+'</td><td class="num">'+saPct(+x.won_n, +x.lost_n)+'</td></tr>').join('')+'</tbody></table></div>'
@@ -22745,12 +22929,13 @@ window.renderSana = function(){
     '<span class="dmc-seg">'+pb('grain','month','חודשי',g)+pb('grain','week','שבועי',g)+'</span>'+
     '<select class="lf-sel'+(own ? ' lf-on' : '')+'" aria-label="איש מכירות" onchange="saSet(\'owner\',this.value)"><option value="">כל הצוות</option>'+
       ks.map(k=>'<option value="'+esc(k)+'"'+(k===own ? ' selected' : '')+'>'+esc(LOWN_BY[k].name||'')+(LOWN_BY[k].kind==='legacy' ? ' (לשעבר)' : '')+'</option>').join('')+'</select>'+
-    '<button type="button" class="lf-clear" onclick="saRefresh()">↻ רענון</button>';
+    '<button type="button" class="lf-clear" onclick="saRefresh()">↻ רענון</button>'+vnBtn()+vsTabs('sana');
+  vnApply();
   saLoad();
   if(!hit){ body.innerHTML = crmLoading(); return; }   /* רכיב הטעינה המשותף (dstest: "טוען…" ידני רק בדשבורד השיווק) */
   if(hit.err){ body.innerHTML = '<div class="empty">הטעינה נכשלה · <button type="button" class="chip" onclick="saRefresh()">נסה שוב</button></div>'; return; }
   if(!D){ body.innerHTML = '<div class="empty">אין לך הרשאה לניתוח המכירות</div>'; return; }
-  body.innerHTML = saOrders() + saPref(D) + saWeekly(D) + saHealth(D) + saOffers(D) + saTime(D) + saReps(D) + saTypes(D) + saLost(D);   /* 7.68.0 — סך המכירות = פריוריטי, בראש */   /* 7.47.0 — מועדפות במקום התחזית; "דיוק התחזית" ירד · 7.54.0 — הרשימה האוטומטית "מתנדנדות" ירדה */
+  body.innerHTML = saHero() + saMonthly() + saOrders() + saPref(D) + saWeekly(D) + saHealth(D) + saOffers(D) + saTime(D) + saReps(D) + saTypes(D) + saLost(D); vsApply('sana');   /* 7.68.0 — סך המכירות = פריוריטי, בראש */   /* 7.47.0 — מועדפות במקום התחזית; "דיוק התחזית" ירד · 7.54.0 — הרשימה האוטומטית "מתנדנדות" ירדה */
 };
 /* ===== 7.48.0 — comm: "עמלות" =====
    רומן, 30/10/2026: "כשנרצה לפרוס את זה לאנשי המכירות בדשבורד זה יצטרך להיות לחיץ כלומר הם כן ירצו להראות איך
@@ -23863,6 +24048,7 @@ function mktPaintBar(){
   });
   if(mktActive()) f += `<button type="button" class="lf-clear" onclick="mktClear()">✕ ניקוי מסננים</button>`;
   h += `<button type="button" class="lf-save" onclick="mktRefresh()" title="טעינה מחדש מהשרת">↻ רענון</button>`;
+  h += vnBtn();   /* 7.71.0 */
   h += `<span class="mkt-upd" id="mkt-upd">${MKT_AT?('עודכן '+new Date(MKT_AT).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})):''}</span>`;
   /* 6.207.0 — M15: הסרגל בדפוס פאזה 2 — .toolbar עם הטווח, הרענון ו"עודכן"; המסננים ב-details.lf-wrap (#mkt-filters),
      lfBarInit מוסיף "מסננים (N)" וצ'יפים, ובדסקטופ פותח לפי מה שהמשתמש זכר (הדפוס של ששת הבורדים, 6.204.0 —
@@ -23917,9 +24103,9 @@ function mktDelta(cur, prev, upIsGood){
   const good = upIsGood===false ? d<0 : d>0;
   return '<div class="d '+(good?'up':'dn')+'">'+(d>0?'↑':'↓')+' '+pct+'% מול התקופה הקודמת</div>';
 }
-function mktTile(label, val, cur, prev, kind, cls, upIsGood, sub){
+function mktTile(label, val, cur, prev, kind, cls, upIsGood, sub, tag){
   return '<div class="stat'+(kind?' clk':'')+(cls?' '+cls:'')+'"'+(kind?' data-mkt="'+esc(kind)+'" data-title="'+esc(label)+'" role="button" tabindex="0"':'')+'>'+
-    '<div class="n">'+val+(sub?'<small class="sub">'+esc(sub)+'</small>':'')+'</div><div class="l">'+esc(label)+'</div>'+mktDelta(cur, prev, upIsGood)+'</div>';
+    '<div class="n">'+val+(sub?'<small class="sub">'+esc(sub)+'</small>':'')+'</div><div class="l">'+esc(label)+'</div>'+(tag ? '<div class="tg">'+esc(tag)+'</div>' : '')+mktDelta(cur, prev, upIsGood)+'</div>';
 }
 /* ── SVG: קווים (מונים) ועמודות (הכנסות) — שני גרפים, ציר אחד לכל אחד, לעולם לא ציר כפול ── */
 function mktGLabel(g){
@@ -24101,12 +24287,12 @@ window.mktMore = btn => {
 function mktPaint(){
   const D=MKT_D, body=document.getElementById('mkt-body'); if(!D||!body) return;
   const k=D.kpi.cur, pv=D.kpi.prev, lm=mktLeadMode();
-  let h=mktKpiGrid(
+  let h=vsTabs('mkt')+mktKpiGrid(
     mktTile('לידים', mktN(k.leads), k.leads, pv.leads, lm?'leads':null)+
     mktTile('לידים רלוונטיים', mktN(k.qualified), k.qualified, pv.qualified, lm?'leads_qualified':null)+
     mktTile('עסקאות שנסגרו', mktN(k.won_n), k.won_n, pv.won_n, 'deals_won')+
     mktTile('אחוז המרה (עסקאות / לידים)', mktPct(k.conv), k.conv, pv.conv, lm?'deals_won':null)+
-    mktTile('הכנסות (לפני מע"מ)', mktTM(k.revenue), k.revenue, pv.revenue, 'deals_won', 'money', undefined, k.won_no_amount>0 ? mktN(k.won_no_amount)+' עסקאות בלי סכום' : '')+
+    mktTile('הכנסות (לפני מע"מ)', mktTM(k.revenue), k.revenue, pv.revenue, 'deals_won', 'money', undefined, k.won_no_amount>0 ? mktN(k.won_no_amount)+' עסקאות בלי סכום' : '', 'עסקאות CRM')+
     mktTile('עסקה ממוצעת', mktTM(k.avg_deal), k.avg_deal, pv.avg_deal, 'deals_won', 'money')+
     mktTile('הכנסה לליד', mktTM(k.rpl), k.rpl, pv.rpl, lm?'leads':null, 'money')+
     mktTile('Pipeline פתוח', mktTM(k.open_amount)+' <small style="font-size:var(--fs-sm);color:var(--ink-3)">· '+mktN(k.open_n)+'</small>', k.open_amount, pv.open_amount, 'deals_open', 'money')+
@@ -24128,6 +24314,7 @@ function mktPaint(){
     '<div class="mkt-card" id="mkt-quality"></div>'+
     '<div class="mkt-card" id="mkt-spend"></div>';
   body.innerHTML=h;
+  vsApply('mkt'); vnApply();   /* 7.71.0 */
   mktPaintSales(); mktPaintOrders(); mktPaintTrend(); mktPaintFunnel(); mktPaintResponse(); mktPaintTables(); mktPaintIntent(); mktPaintPivot(); mktPaintLost(); mktPaintQuality(); mktPaintSpend();
 }
 function mktPaintFunnel(){
@@ -24148,7 +24335,7 @@ function mktPaintFunnel(){
     h+='<div class="fun-row" role="button" tabindex="0" data-mkt="funnel:'+esc(s.key)+'" data-title="'+esc(s.label)+'"><span class="fun-l">'+esc(s.label)+'</span><div class="fun-bar"><div style="width:'+(tot?Math.round(s.n/tot*100):0)+'%;background:'+(s.key==='won'?MKT_COL.won_n:'var(--navy)')+'"></div></div><b>'+mktN(s.n)+'</b>'+
        '<span class="fun-a">'+(prev!=null?(prev?mktPct(s.n/prev):'—')+' מהקודם · ':'')+(tot?mktPct(s.n/tot):'—')+' מהכל'+(s.amount!=null&&s.amount>0?' · '+mktMk(s.amount):'')+'</span></div>'; });
   const won=f.find(s=>s.key==='won');
-  if(won && x.attributed_n!=null && +x.attributed_n!==+won.n) h+='<div class="mkt-note" style="margin:var(--sp-0h) 0 0">'+esc(mktN(won.n)+' לידים שנסגרו = '+mktN(x.attributed_n)+' עסקאות משויכות (ליד עם יותר מעסקה אחת)')+'</div>';
+  if(won && x.attributed_n!=null && +x.attributed_n!==+won.n) h+='<div class="mkt-note mkt-keep" style="margin:var(--sp-0h) 0 0">'+esc(mktN(won.n)+' לידים שנסגרו = '+mktN(x.attributed_n)+' עסקאות משויכות (ליד עם יותר מעסקה אחת)')+'</div>';
   el.innerHTML=h+recon+'<div class="mkt-note">נוצר קשר = הסטטוס יצא מ"ליד חדש"/"ללא מענה" (או יש עסקה) · רלוונטי = סטטוס "רלוונטי" או עסקה · הצעת מחיר = יש עסקה · לחתימה/אושרה = העסקה הגיעה לשלב חתימה · לידים שנסגרו = ליד עם עסקה בשלב הושלם/הזמנה</div>';
 }
 function mktPaintResponse(){
@@ -24256,6 +24443,8 @@ function mktSalesHtml(D){
   const tile = (k, v, s)=> '<div class="'+(cur===k ? 'on' : '')+'" data-cls="'+k+'" role="button" tabindex="0" onclick="mktSlCls(\''+k+'\')"><b>'+v+'</b><small>'+s+'</small></div>';
   let h = '<div class="db-fin mkt-sales-fin">'+tile('', mktTM(T.net), 'סה״כ · '+mktN(T.n)+' הזמנות · '+mktN(T.customers_n)+' לקוחות')+
     C.map(k=>tile(k.k, mktTM(k.net), esc(k.label)+' · '+mktN(k.n)+' הזמנות')).join('')+'</div>';
+  /* 7.71.0 — הסכום בשקלים מלאים, ו"כולל מע״מ" = עמודת "מחיר כולל מע״מ" בדוח המכירות של פריוריטי (שקל בשקל) */
+  h += '<div class="mkt-fact mkt-sl-exact">לפני מע״מ <b>'+shekel(Math.round(+T.net||0))+'</b>'+(T.gross != null ? ' · כולל מע״מ <b>'+shekel(Math.round(+T.gross||0))+'</b>' : '')+'</div>';
   const p = Object.assign(mktSalesPayload(), cur ? { cls:cur } : {});
   const n = solGet('mkt_sales_list', p, ()=>{ const e = document.getElementById('mkt-sales'); if(e && MKT_SL.data) e.innerHTML = MKT_SL_HEAD + mktSalesHtml(MKT_SL.data); });
   h += soList(n);
@@ -24273,8 +24462,9 @@ function mktSalesHtml(D){
   if(B.length) h += '<div class="tbl-wrap"><table class="tbl mkt-sales-camp"><thead><tr><th>קמפיין</th><th class="num">הזמנות</th><th class="num">הכנסות</th><th class="num">הוצאה</th><th class="num">ROAS</th>'+
       (lt ? '<th class="num">הכנסות מאז ההשקה</th><th class="num">הוצאה מאז ההשקה</th><th class="num">ROAS מאז ההשקה</th>' : '')+'</tr></thead><tbody>'+
     B.map(b=>tr(row(b))).join('')+'</tbody><tfoot>'+tr(tot)+'</tfoot></table></div>'+
-    '<div class="mkt-note">הוצאת פרסום כוללת בטווח (כל הקמפיינים, גם בלי מכירות): <b>'+mktM(+D.spend||0)+'</b>'+
-      (lt ? ' · "מאז ההשקה" — כל ההוצאה וכל המכירות של הקמפיין מתחילתו (מ-01/01/2026 לכל המוקדם). ROAS בטווח מחלק מכירות של הטווח בהוצאה של הטווח, וליד שנפתח לפני הטווח נקנה בהוצאה קודמת.' : '')+'</div>';
+    '<div class="mkt-fact">הוצאת פרסום כוללת בטווח: <b>'+mktM(+D.spend||0)+'</b></div>'+
+    '<div class="mkt-note">ההוצאה הכוללת — כל הקמפיינים, גם בלי מכירות.'+
+      (lt ? ' "מאז ההשקה" — כל ההוצאה וכל המכירות של הקמפיין מתחילתו (מ-01/01/2026 לכל המוקדם). ROAS בטווח מחלק מכירות של הטווח בהוצאה של הטווח, וליד שנפתח לפני הטווח נקנה בהוצאה קודמת.' : '')+'</div>';
   return h + '<div class="mkt-note">ליד = לקוח שהגיע מליד (עד 6 חודשים מהליד, או דרך תהליך עם ליד) · לקוח קיים = הזמנה מתהליך מכירה בלי ליד · אתר = הזמנה מהאתר, לפי הערוץ שבו נכנס הגולש · ידני = בלי הצעת מחיר ולא מהאתר · החזרות = סכום שלילי. לחיצה על אריח מסננת את ההזמנות.</div>';
 }
 async function mktPaintSales(){
@@ -24318,8 +24508,8 @@ function mktOrdersHtml(D){
         '<td class="num">'+mktN(r.customers_n)+'</td><td class="num">'+mktN(r.orders_n)+'</td><td class="num">'+mktM(r.revenue)+'</td>'+
         '<td class="num">'+mktM(r.revenue_new)+'</td><td class="num">'+(+r.spend > 0 ? mktM(r.spend) : '—')+'</td><td class="num">'+(r.roas != null ? mktX(r.roas) : '—')+'</td></tr>'; }).join('')+
     '</tbody></table></div>';
-  return h + '<div class="mkt-note">'+(+D.revenue_existing > 0 ? 'מזה '+mktM(D.revenue_existing)+' מלקוחות שהיו קיימים לפני הליד — רק מה שנמכר להם דרך הליד · ' : '')+
-    'לקוח מקושר לליד דרך עסקה, דרך המרת הליד או לפי טלפון שתואם ללקוח אחד בלבד · ליד כפול נספר פעם אחת, לליד הראשון · לחיצה על קמפיין פותחת את ההזמנות</div>';
+  return h + (+D.revenue_existing > 0 ? '<div class="mkt-note mkt-keep">מזה '+mktM(D.revenue_existing)+' מלקוחות שהיו קיימים לפני הליד — רק מה שנמכר להם דרך הליד</div>' : '')+
+    '<div class="mkt-note">לקוח מקושר לליד דרך עסקה, דרך המרת הליד או לפי טלפון שתואם ללקוח אחד בלבד · ליד כפול נספר פעם אחת, לליד הראשון · לחיצה על קמפיין פותחת את ההזמנות</div>';
 }
 async function mktPaintOrders(){
   const el = document.getElementById('mkt-orders'); if(!el || !MKT_D) return;
