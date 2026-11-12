@@ -4594,7 +4594,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.71.1</div>
+      <div class="ver">גרסה 7.71.2</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4741,7 +4741,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="sotags-2026-11-11a">גרסה 7.71.1</div>
+    <div class="side-foot" title="recpull-2026-11-12a">גרסה 7.71.2</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -6685,6 +6685,140 @@ async function dealPushRun(){
   }catch(e){ console.warn('dealPushRun', e); CRM_AUTO_AT.deals = 0; }
 }
 window.dealPushOn = dealPushOn;
+
+/* ═══ recpull (7.71.2) — רשומה שנוצרה אחרי טעינת המסך נמשכת בלחיצה (רומן, 12/11/2026) ═════════════════════════
+   רומן, על PQ26001343: "אני פותח אותך במערכת בכדי להגיע להצעה ולשלוח ללקוח ואז אני מקבל את ההערה הזו … לא תמיד אבל
+   רוב הפעמים" — "הרשומה נוצרה אחרי טעינת המסך — רענן את הדף". החיפוש והפעמון שואלים את השרת; הכרטיסים נפתחים
+   מהמערכים שנטענו בכניסה. הדחיפה החיה (dealpush) אינה סוגרת את הפער: היא ממתינה כל עוד חלון פתוח (crmAutoHeld —
+   וחלון החיפוש הוא .modal), ו-broadcast שהתפספס כשהלשונית ברקע אינו משוחזר.
+   ⇒ כאן מושכים את הרשומה האחת **דרך CRM_Q** — אותן עמודות של הטעינה ואותו RLS — ומכניסים אותה למערך. בלי ציור:
+   הקורא פותח כרטיס מעל, והמסכים מתעדכנים בסקירה הרגילה (לתהליך — dealPushOn מזמין ציור כשהשער ישתחרר).
+   מחזיר: 'ok' (במערך) · 'none' (השרת לא החזיר — נמחקה או אין הרשאה) · 'err' (השליפה נכשלה) · 'no' (סוג בלי משיכה).
+   🔴 כרטיס חלקי גרוע מכרטיס שלא נפתח: ליד בלי המשימה שלו מזמין משימה כפולה. לכן נמשכות גם המשימות והפגישות
+      המקושרות (recKin) והבעלות, וכשל באחת מהן הוא 'err' — לא פתיחה. לקוח/ליד מקושר שהשרת לא החזיר ('none' — אין
+      הרשאה) אינו עוצר: כך בדיוק היה נראה הכרטיס אחרי רענון.
+   ⚠️ הזמנה · קריאת שירות · רכש · מק"ט אינם כאן בכוונה: הכרטיסים שלהם נשענים על מטמונים נוספים (FIN · FINM_BY ·
+      OPEN_BY · PO_AGG), ושורה בלי המטמונים היא בדיוק הכרטיס החלקי — בורר תנאי תשלום ריק שבחירה בו מנקה תנאי קיים.
+   ⚠️ RECP_TASK_COLS הועתק מתוך CRM_Q.tasks בזמן הבנייה (הוא מחזיר Promise ולא builder); mk4789 ו-recpulltest
+      אוכפות את השוויון — הדפוס של PROTS_COLS. */
+const RECP_T = { deal:1, lead:1, customer:1, task:1, meeting:1 };
+const RECP_TASK_COLS = 'id,name,status,value_tag,category,due_at,closed_at,created_at,linked_type,linked_id,owner_id';
+const RECP_BUSY = {};
+function recArr(t){ return t==='deal' ? DEALS : (t==='lead' ? LEADS : (t==='customer' ? CUSTS : (t==='task' ? TASKS : (t==='meeting' ? MEETS : null)))); }
+function recHas(t, id){ const a = recArr(t); return !!(a && a.some(x => x.id === id)); }
+/* אותו סדר של reIndexDealOwners / ownReindex: הראשי ראשון. בלי שורות ⇒ המפתח נמחק והנפילה ל-owner_id חלה. */
+function recOwnPut(map, key, rows){
+  delete map[key];
+  for(const r of (rows||[])){
+    if(!r.profile_id) continue;
+    const a = map[key] || (map[key] = []);
+    if(a.includes(r.profile_id)) continue;
+    if(r.is_primary === false) a.push(r.profile_id); else a.unshift(r.profile_id);
+  }
+}
+/* כמו lownOfApply (כולל עובד לשעבר — legacy), לליד אחד בלי לאפס את המפה */
+function recLownPut(id, rows){
+  delete LOWN_OF[id];
+  for(const r of (rows||[])){
+    const k = r.profile_id || (r.legacy_owner ? 'legacy:'+r.legacy_owner : null);
+    if(!k) continue;
+    const a = LOWN_OF[id] || (LOWN_OF[id] = []);
+    if(a.includes(k)) continue;
+    if(r.is_primary === false) a.push(k); else a.unshift(k);
+  }
+}
+/* TASKS ממוין due_at עולה, ריקים בסוף (CRM_Q.tasks) — הצרכנים נשענים על הסדר, ולכן נכנסים במקום ולא בראש */
+function recTaskIn(r){
+  if(recHas('task', r.id)) return;
+  let i = r.due_at == null ? -1 : TASKS.findIndex(x => x.due_at == null || x.due_at > r.due_at);
+  if(i < 0) i = TASKS.length;
+  TASKS.splice(i, 0, r);
+}
+/* MEETS ממוין meet_date יורד; בלי תאריך — בראש (ברירת המחדל של Postgres ל-DESC) */
+function recMeetIn(r){
+  if(recHas('meeting', r.id)) return;
+  let i = r.meet_date == null ? 0 : MEETS.findIndex(x => x.meet_date != null && x.meet_date <= r.meet_date);
+  if(i < 0) i = MEETS.length;
+  MEETS.splice(i, 0, r);
+}
+const recBad = q => !q || q.error || !Array.isArray(q.data);
+/* המשימות והפגישות שמקושרות לליד / לתהליך — מה שהכרטיס מציג בבלוק "משימות ופגישות" */
+async function recKin(lt, lid){
+  const [tq, mq] = await Promise.all([
+    sb.schema('crm').from('tasks').select(RECP_TASK_COLS).eq('linked_type', lt).eq('linked_id', lid).limit(500),
+    CRM_Q.meets().eq('linked_type', lt).eq('linked_id', lid) ]);
+  if(recBad(tq) || recBad(mq)) return 'err';
+  const nt = tq.data.filter(r => !recHas('task', r.id)), nm = mq.data.filter(r => !recHas('meeting', r.id));
+  const [to, mo] = await Promise.all([
+    nt.length ? CRM_Q.town().in('task_id', nt.map(r => r.id)) : null,
+    nm.length ? CRM_Q.mown().in('meeting_id', nm.map(r => r.id)) : null ]);
+  if((nt.length && recBad(to)) || (nm.length && recBad(mo))) return 'err';
+  nt.forEach(r => { recTaskIn(r); recOwnPut(TOWN_OF, r.id, to.data.filter(o => o.task_id === r.id)); });
+  nm.forEach(r => { recMeetIn(r); recOwnPut(MOWN_OF, r.id, mo.data.filter(o => o.meeting_id === r.id)); });
+  return 'ok';
+}
+async function recPullRun(t, id){
+  if(t === 'customer'){
+    const cq = await CRM_Q.custs().in('id', [id]);
+    if(recBad(cq)) return 'err';
+    if(!cq.data[0]) return 'none';
+    if(!recHas('customer', id)) CUSTS.unshift(cq.data[0]);
+    return 'ok';
+  }
+  if(t === 'lead'){
+    const [lq, oq] = await Promise.all([ CRM_Q.leads().in('id', [id]), CRM_Q.lown().in('lead_id', [id]) ]);
+    if(recBad(lq) || recBad(oq)) return 'err';
+    const row = lq.data[0]; if(!row) return 'none';
+    const sub = await Promise.all([ row.customer_id ? recPull('customer', row.customer_id) : 'ok', recKin('lead', id) ]);
+    if(sub.indexOf('err') >= 0) return 'err';
+    if(!recHas('lead', id)) LEADS.unshift(row);
+    recLownPut(id, oq.data);
+    return 'ok';
+  }
+  if(t === 'deal'){
+    const [dq, oq] = await Promise.all([ CRM_Q.deals().in('id', [id]), CRM_Q.down().in('deal_id', [id]) ]);
+    if(recBad(dq) || recBad(oq)) return 'err';
+    const row = dq.data[0]; if(!row) return 'none';
+    const sub = await Promise.all([ row.customer_id ? recPull('customer', row.customer_id) : 'ok',
+                                    row.lead_id ? recPull('lead', row.lead_id) : 'ok', recKin('deal', id) ]);
+    if(sub.indexOf('err') >= 0) return 'err';
+    if(!recHas('deal', id)) DEALS.unshift(row);
+    recOwnPut(DOWN_OF, id, oq.data);
+    /* הציור של המסכים שמאחור — דרך dealpush, כשהשער ישתחרר (עכשיו פתוח חלון, ומיד ייפתח כרטיס) */
+    try{ dealPushOn({ ids:[id] }); }catch(_e){}
+    return 'ok';
+  }
+  /* משימה / פגישה: השורה, הבעלות, ומה שהיא מקושרת אליו (הכרטיס מציג את שמו ואת הטלפון שלו) */
+  const isT = t === 'task';
+  const [rq, oq] = await Promise.all(isT
+    ? [ sb.schema('crm').from('tasks').select(RECP_TASK_COLS).in('id', [id]), CRM_Q.town().in('task_id', [id]) ]
+    : [ CRM_Q.meets().in('id', [id]), CRM_Q.mown().in('meeting_id', [id]) ]);
+  if(recBad(rq) || recBad(oq)) return 'err';
+  const row = rq.data[0]; if(!row) return 'none';
+  if(row.linked_id && (row.linked_type === 'lead' || row.linked_type === 'deal' || row.linked_type === 'customer')){
+    if(await recPull(row.linked_type, row.linked_id) === 'err') return 'err';
+  }
+  if(isT){ recTaskIn(row); recOwnPut(TOWN_OF, id, oq.data); }
+  else   { recMeetIn(row); recOwnPut(MOWN_OF, id, oq.data); }
+  return 'ok';
+}
+/* לחיצה כפולה / שני קוראים לאותה רשומה ⇒ שליפה אחת */
+function recPull(t, id){
+  id = String(id || '');
+  if(!RECP_T[t] || !DPUSH_RE.test(id)) return Promise.resolve('no');
+  if(recHas(t, id)) return Promise.resolve('ok');
+  const k = t + ':' + id;
+  if(!RECP_BUSY[k]){
+    RECP_BUSY[k] = recPullRun(t, id)
+      .catch(e => { console.warn('recPull', t, e); return 'err'; })
+      .then(r => { delete RECP_BUSY[k]; return r; });
+  }
+  return RECP_BUSY[k];
+}
+window.recPull = recPull;
+window.recPullCan = t => !!RECP_T[t];
+window.recPullMsg = st => st === 'none' ? 'הרשומה אינה זמינה — ייתכן שנמחקה או שאין לך הרשאה אליה'
+                                        : 'טעינת הרשומה נכשלה — בדוק את החיבור ונסה שוב';
 
 $('#logoutBtn').onclick = async ()=>{
   if(VAS){ await vasEnd(); return; }
@@ -15479,7 +15613,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'sotags-2026-11-11a';
+const BUILD_ID = 'recpull-2026-11-12a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -38113,6 +38247,15 @@ boot();
     if(!fn){ toast('אין לך הרשאה לפתוח את הרשומה הזו'); return true; }
     if(n.linked_type !== 'tasks' && !nfLoaded(n.linked_type, n.linked_id)){
       if(quiet) return false;
+      /* 7.71.2 — recpull: מושכים את הרשומה ופותחים, במקום "רענן את הדף". הזמנה / קריאת שירות — ההודעה הישנה. */
+      if(typeof window.recPull === 'function' && window.recPullCan(n.linked_type)){
+        window.recPull(n.linked_type, n.linked_id).then(function(st){
+          if(st !== 'ok'){ toast(window.recPullMsg(st)); return; }
+          var p = document.getElementById('nfPanel'); if(p) p.classList.add('hidden');
+          window.goCard(fn);
+        });
+        return true;
+      }
       toast('הרשומה נוצרה אחרי טעינת המסך — רענן את הדף כדי לפתוח אותה'); return true;
     }
     var p = document.getElementById('nfPanel'); if(p) p.classList.add('hidden');
@@ -38705,9 +38848,8 @@ boot();
     var r = gsPerson && gsPerson.rows && gsPerson.rows[i]; if(!r) return;
     var fn = gsTarget(r);
     if(!fn){ toast('אין לך הרשאה לפתוח את הרשומה הזו'); return; }
-    if(!gsLoaded(r.entity_type, r.entity_id)){ toast('הרשומה נוצרה אחרי טעינת המסך — רענן את הדף כדי לפתוח אותה'); return; }
-    var b = gsBody(); gsPScroll = b ? b.scrollTop : 0;
-    window.goCard(fn);     /* דרך מחסנית הכרטיסים — "→ חזרה" יחזיר למסך השם */
+    /* דרך מחסנית הכרטיסים — "→ חזרה" יחזיר למסך השם. 7.71.2 — רשומה שלא נטענה נמשכת (gsGo) */
+    gsGo(r, fn, function(){ var b = gsBody(); gsPScroll = b ? b.scrollTop : 0; });
   };
 
   /* ניווט המקלדת עובר גם על הכותרות — אחרת קבוצה סגורה אינה נגישה בלי עכבר. */
@@ -38823,15 +38965,32 @@ boot();
     for(var i=0;i<a.length;i++){ if(String(a[i][k]) === String(id)) return true; }
     return false;
   }
+  /* 7.71.2 — recpull (רומן, 12/11/2026): רשומה שנוצרה אחרי הכניסה נמשכת מהשרת ונפתחת, במקום "רענן את הדף".
+     keep = שמירת הגלילה של המסך שממנו נלחץ, רגע לפני הפתיחה. בזמן המשיכה הרשימה מתעמעמת (gsBusy) ולחיצה נוספת
+     אינה פותחת; חיפוש שנסגר או מסך שם שהוחלף בינתיים ⇒ לא פותחים כרטיס מעל מסך אחר. סוג בלי משיכה ⇒ ההודעה הישנה. */
+  var gsPulling = false;
+  function gsGo(r, fn, keep){
+    if(gsLoaded(r.entity_type, r.entity_id)){ keep(); window.goCard(fn); return; }
+    if(typeof window.recPull !== 'function' || !window.recPullCan(r.entity_type)){
+      toast('הרשומה נוצרה אחרי טעינת המסך — רענן את הדף כדי לפתוח אותה'); return;
+    }
+    if(gsPulling) return;
+    gsPulling = true; gsBusy(true);
+    var view = gsPerson;
+    window.recPull(r.entity_type, r.entity_id).then(function(st){
+      gsPulling = false; gsBusy(false);
+      if(st !== 'ok'){ toast(window.recPullMsg(st)); return; }
+      var m = document.getElementById('gsModal');
+      if(!m || m.classList.contains('hidden') || gsPerson !== view) return;
+      keep(); window.goCard(fn);
+    });
+  }
   GS.pick = function(i){
     var r = gsRows[i]; if(!r) return;
     var fn = gsTarget(r);
     if(!fn){ toast('אין לך הרשאה לפתוח את הרשומה הזו'); return; }
-    if(!gsLoaded(r.entity_type, r.entity_id)){
-      toast('הרשומה נוצרה אחרי טעינת המסך — רענן את הדף כדי לפתוח אותה'); return;
-    }
-    var b = gsBody(); gsScroll = b ? b.scrollTop : 0;
-    window.goCard(fn);     /* דרך מחסנית הכרטיסים — "→ חזרה" יחזיר לחיפוש */
+    /* דרך מחסנית הכרטיסים — "→ חזרה" יחזיר לחיפוש. 7.71.2 — רשומה שלא נטענה נמשכת (gsGo) */
+    gsGo(r, fn, function(){ var b = gsBody(); gsScroll = b ? b.scrollTop : 0; });
   };
 
   /* keep=true — חזרה מכרטיס. משחזרים מהמטמון בלי לפנות לשרת ובלי לאבד גלילה. */
