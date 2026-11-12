@@ -4604,7 +4604,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.73.0</div>
+      <div class="ver">גרסה 7.74.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4752,7 +4752,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="leadcols-2026-11-12a">גרסה 7.73.0</div>
+    <div class="side-foot" title="ownrule-2026-11-12a">גרסה 7.74.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -15662,7 +15662,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'leadcols-2026-11-12a';
+const BUILD_ID = 'ownrule-2026-11-12a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -25713,7 +25713,7 @@ function tkSelBar(){
   const el = document.getElementById('tk-selbar'); if(!el) return;
   if(!TK_BULK){ el.innerHTML=''; return; }
   const n = TK_SEL.size;
-  const own = LOWN.filter(o=>o.assignable).map(o=>`<option value="${esc(o.owner_key)}">${esc(o.name)}</option>`).join('');
+  const own = LOWN.filter(o=>o.assignable && (window.canEdit('crm.leads.assign') || o.owner_key!==lbMe())).map(o=>`<option value="${esc(o.owner_key)}">${esc(o.name)}</option>`).join('');
   el.innerHTML = `<div class="lb-selbar">
     <b>${n} מסומנות</b>
     ${n?`<button type="button" class="chip" onclick="tkBulk('done')">✓ סימון כבוצע</button>
@@ -25732,6 +25732,9 @@ window.tkBulk = async (op)=>{
   const val = op==='owner' ? (document.getElementById('tk-blk-own')||{}).value
             : op==='due'   ? (document.getElementById('tk-blk-due')||{}).value : '';
   if(op!=='done' && !val){ toast('בחרו ערך'); return; }
+  /* 7.74.0 — ownrule: כמו בלידים. */
+  if(op==='owner' && !window.canEdit('crm.leads.assign')
+     && !(await sysConfirm('להעביר ' + ids.length + ' משימות ל' + ((LOWN_BY[val]||{}).name||'') + '?\n\nיעברו רק משימות שאתה הבעלים שלהן.\nאחרי ההעברה רק מנהל יכול להחזיר אליך.', { ok:'העברה', cancel:'ביטול' }))) return;
   const nameOf = id => (((TASKS||[]).find(x=>x.id===id)||{}).name)||id;
   if(op==='done'){
     const names = ids.slice(0,8).map(nameOf).join(' · ') + (ids.length>8?` ועוד ${ids.length-8}`:'');
@@ -33697,7 +33700,7 @@ function lbSelBar(){
         ל"בתהליך" מחזירה את הסרגל עם אותה בחירה בדיוק. */
   if(!LB_BULK || LB_VIEW==='trash'){ el.innerHTML=''; return; }
   const n = LB_SEL.size;
-  const own = LOWN.filter(o=>o.assignable).map(o=>`<option value="${esc(o.owner_key)}">${esc(o.name)}</option>`).join('');
+  const own = LOWN.filter(o=>o.assignable && (window.canEdit('crm.leads.assign') || o.owner_key!==lbMe())).map(o=>`<option value="${esc(o.owner_key)}">${esc(o.name)}</option>`).join('');
   el.innerHTML = `<div class="lb-selbar">
     <b>${n} מסומנים</b>
     ${n?`<select id="lb-blk-own"><option value="">העברת בעלות אל…</option>${own}</select>
@@ -33721,6 +33724,9 @@ window.lbBulk = async (op)=>{
             : op==='partner' ? (document.getElementById('lb-blk-prt')||{}).value
             : op==='status' ? (document.getElementById('lb-blk-st')||{}).value : '';
   if(op!=='delete' && !val){ toast('בחרו ערך'); return; }
+  /* 7.74.0 — ownrule: העברה מרוכזת של איש מכירות רגיל היא חד-כיוונית. השרת מעביר רק לידים שהוא הראשי שלהם. */
+  if(op==='owner' && !window.canEdit('crm.leads.assign')
+     && !(await sysConfirm('להעביר ' + ids.length + ' לידים ל' + ((LOWN_BY[val]||{}).name||'') + '?\n\nיעברו רק לידים שאתה הבעלים שלהם.\nאחרי ההעברה רק מנהל יכול להחזיר אליך.', { ok:'העברה', cancel:'ביטול' }))) return;
   const nameOf = id => ((LEADS.find(x=>x.id===id)||{}).full_name)||id;
   if(op==='delete'){
     const names = ids.slice(0,8).map(nameOf).join(' · ') + (ids.length>8?` ועוד ${ids.length-8}`:'');
@@ -35168,6 +35174,7 @@ window.saveLead = async (id)=>{
 };
 window.lbClaim = async (id)=>{
   if(!window.canEdit('crm.leads')){ toast('אין לך הרשאת עריכה ללידים'); return; }
+  if(!window.canEdit('crm.leads.assign')){ toast('רק מנהל משייך לידים'); return; }   /* 7.74.0 */
   const l=LEADS.find(x=>x.id===id); if(!l || l.owner_id) return;
   /* 🔴 עובר דרך ה-RPC ולא דרך update על crm.leads: owner_id הוא מראה
      שמתוחזקת בטריגר, וכתיבה ישירה אליה נדרסת בעדכון הבא של lead_owners.
@@ -35335,6 +35342,30 @@ const OWN_KIND = {
 let LBOWN_K = 'lead';
 const ownK = () => OWN_KIND[LBOWN_K] || OWN_KIND.lead;
 const ownEnt = () => (ownK().rows()||[]).find(x=>x.id===LBOWN_LEAD);
+/* ═══ 7.74.0 — ownrule (רומן, 12/11/2026) ═══════════════════════════════════════════════
+   "איש מכירות רגיל לא יוכל לקחת לידים, אבל ליד שכבר שלו ... להעביר את המשימה או הליד לאיש מכירות אחר
+   שהוא יוכל, אבל לא יוכל לקחת חזרה". "רגיל" = בלי crm.leads.assign (הרשאה ולא תפקיד).
+   'all'  — מחלק לידים, או סוג שהכלל אינו חל עליו (עסקה, פגישה).
+   'mine' — אני הבעלים הראשי: מותר להעביר לאחר ולנהל שותפים; אסור לנקות בעלות.
+   'none' — לא שלי (או בלי בעלים): קריאה בלבד.
+   🔴 האכיפה בשרת (lead_set_owner · task_set_owner ואחיותיהן, guard:lead_own_* / guard:task_own_*).
+      כאן רק מיישרים את המסך אליו — אל תסתמך על הפונקציה הזאת כהגנה. */
+const OWN_RULED = { lead:1, task:1 };
+function ownRule(kind, e){
+  if(!OWN_RULED[kind] || window.canEdit('crm.leads.assign')) return 'all';
+  const k = OWN_KIND[kind];
+  const all = (e && ((k.map()[e.id]) || (e.owner_id ? [e.owner_id] : []))) || [];
+  return (all[0] && all[0] === lbMe()) ? 'mine' : 'none';
+}
+window.ownRule = ownRule;
+/* אישור לפני העברה שאין ממנה חזרה. true = להמשיך. מי שאינו 'mine' אינו נשאל. */
+async function ownMoveOk(key){
+  if(ownRule(LBOWN_K, ownEnt()) !== 'mine') return true;
+  const what = LBOWN_K==='task' ? 'המשימה' : 'הליד';
+  return await sysConfirm('להעביר את ' + what + ' ל' + ((LOWN_BY[key]||{}).name||'') + '?\n\n'
+    + (LBOWN_K==='lead' ? 'המשימות הפתוחות של הליד יעברו יחד איתו.\n' : '')
+    + 'אחרי ההעברה רק מנהל יכול להחזיר אליך.', { ok:'העברה', cancel:'ביטול' });
+}
 window.lbOwnerPick = (leadId, ev, kind)=>{
   LBOWN_LEAD = leadId;
   /* ⚠️ ברירת המחדל 'lead' — כל קורא קיים אינו מעביר סוג. */
@@ -35389,7 +35420,9 @@ function lbOwnerDraw(keepQ){
   const _k = ownK();
   const l = ownEnt(); if(!l) return;
   if(!keepQ) LBOWN_Q = '';
-  const can = window.canEdit(_k.perm);
+  /* 7.74.0 — ownrule: מי שאינו מחלק לידים רואה ליד/משימה שאינם שלו לקריאה בלבד. */
+  const _rule = ownRule(LBOWN_K, l), _me = lbMe(), _canK = window.canEdit(_k.perm);
+  const can = _canK && _rule !== 'none';
   const _all = (_k.map()[l.id]) || (l.owner_id ? [l.owner_id] : []);
   const prim = _all[0] || '', parts = _all.slice(1);
   const nameOf = k => (LOWN_BY[k]||{}).name || '—';
@@ -35403,7 +35436,8 @@ function lbOwnerDraw(keepQ){
        הפעולה נעלמה מהמסך בלי שאיש יבחין. הבדיקות תפסו את זה. */
     + (can && !pri?`<button type="button" class="lbop-x" title="הפוך לראשי"`
         + ` onclick="lbOwnerPromote('${jsq(k)}')">⇧</button>`:'')
-    + (can?`<button type="button" class="lbop-x" title="הסרה"`
+    /* 7.74.0 — 'mine': אין ✕ על הראשי (ניקוי בעלות למנהל בלבד) · 'none': שותף יכול להסיר את עצמו. */
+    + (((can && !(pri && _rule==='mine')) || (!pri && _rule==='none' && _canK && k===_me))?`<button type="button" class="lbop-x" title="הסרה"`
         + ` onclick="${pri?'lbOwnerClear()':`lbOwnerRemove('${jsq(k)}')`}">✕</button>`:'')
     + `</span>`;
   const q = LBOWN_Q.trim().toLowerCase();
@@ -35430,6 +35464,8 @@ function lbOwnerDraw(keepQ){
     </div>
     ${can?`<div class="lbop-hint">אנשי מכירות שאפשר לשייך</div>
     <div class="lbop-list">${rows || '<div class="lbop-empty">'+(q?'אין התאמה לחיפוש.':'כל אנשי המכירות כבר משויכים.')+'</div>'}</div>`:''}
+    ${_canK && _rule==='none'?`<div class="lbop-hint lbop-rule">${LBOWN_K==='task'?'המשימה אינה משויכת אליך':'הליד אינו משויך אליך'}. רק מנהל משייך ומעביר.</div>`:''}
+    ${_canK && _rule==='mine'?`<div class="lbop-hint lbop-rule">אפשר להעביר לאיש מכירות אחר. אחרי ההעברה רק מנהל יכול להחזיר אליך.</div>`:''}
     <div class="modal-actions"><button class="btn btnw" onclick="lbOwnerClose()">סגירה</button></div>`;
   if(can && LBOWN_Q){ const qi=document.getElementById('lbop-q');
     if(qi){ qi.focus(); qi.setSelectionRange(qi.value.length, qi.value.length); } }
@@ -35487,16 +35523,21 @@ window.lbOwnerRemove = async (key)=>{
    בשקט — פיצול בין מה שהמסך מבטיח למה שהשרת עושה הוא מקור לבאג. */
 window.lbOwnerMakePrimary = async (key)=>{
   const id = LBOWN_LEAD;
+  if(!(await ownMoveOk(key))) return;   /* 7.74.0 */
   await window.lbSetOwner(id, lbOwnUuid(key), true);
   lbOwnerDraw();
 };
 window.lbOwnerPromote = async (key)=>{
   const id = LBOWN_LEAD;
-  if(!(await sysConfirm('להפוך את ' + ((LOWN_BY[key]||{}).name||'') + ' לבעלים הראשי?\n\nהבעלים הראשי הנוכחי יוסר מ' + ownK().hd.replace('שיוך ','') + '.'))) return;
+  if(!(await sysConfirm('להפוך את ' + ((LOWN_BY[key]||{}).name||'') + ' לבעלים הראשי?\n\nהבעלים הראשי הנוכחי יוסר מ' + ownK().hd.replace('שיוך ','') + '.'
+      + (ownRule(LBOWN_K, ownEnt())==='mine' ? '\nאחרי ההעברה רק מנהל יכול להחזיר אליך.' : '')))) return;
   await window.lbSetOwner(id, lbOwnUuid(key), true);
   lbOwnerDraw();
 };
-window.lbOwnerClear = async ()=>{ await window.lbSetOwner(LBOWN_LEAD, null, true); lbOwnerDraw(); };
+window.lbOwnerClear = async ()=>{
+  /* 7.74.0 — ניקוי בעלות למחלק לידים בלבד (השרת: guard:*_own_clear). */
+  if(ownRule(LBOWN_K, ownEnt()) !== 'all'){ toast('רק מנהל יכול להשאיר בלי בעלים'); return; }
+  await window.lbSetOwner(LBOWN_LEAD, null, true); lbOwnerDraw(); };
 /* הכרטיס הפתוח מאחורי המודאל חייב להתרענן, אחרת הוא מציג את המצב הישן
    עד סגירה ופתיחה (הכלל מ-6.83.1: לכל מטמון נקודת ריענון אחת). */
 function lbOwnerSync(id){
@@ -35686,19 +35727,11 @@ async function lbOwnAsk(leadId){
     if(lbOwnersOf(l).length) return true;
     if(window.canEdit('crm.leads.assign')) return true;
     if(!(LOWN||[]).some(o=>o.assignable && o.owner_key===me)) return true;
-    /* "היסטוריה של בעלות" או "נגיעה של איש מכירות אחר" — שורה אחת מספיקה. actor_id.neq אינו תופס null,
-       ולכן שורות מערכת ('ליד נקלט', שינוי סטטוס מהיומן) אינן נחשבות נגיעה. */
-    const { data, error } = await sb.schema('crm').from('activities').select('id')
-      .eq('linked_type','lead').eq('linked_id', leadId)
-      .or('kind.eq.בעלות,actor_id.neq.' + me).limit(1);
-    if(error || (data||[]).length) return true;
   }catch(_e){ return true; }
-  const go = await sysConfirm('לליד הזה אין עדיין בעלים.\nלפני שכותבים עליו עדכון צריך לקחת עליו בעלות.',
-                              { ok:'קח בעלות והמשך', cancel:'ביטול' });
-  if(!go) return false;
-  const _k0 = LBOWN_K; LBOWN_K = 'lead';
-  try{ await window.lbSetOwner(leadId, me, true); } finally { LBOWN_K = _k0; }
-  return ((LOWN_OF[leadId]||[])[0] === me);
+  /* 7.74.0 — ownrule (רומן, 12/11/2026: "לחסום"). עד כאן הוצע כאן "קח בעלות והמשך"; איש מכירות רגיל כבר אינו
+     לוקח לידים, ולכן ליד בלי בעלים חסום לעדכון שלו עד שמנהל משייך אותו — בלי קשר להיסטוריה ביומן. */
+  await sysAlert('לליד הזה אין עדיין בעלים, ורק מנהל משייך לידים.\nפנה למנהל כדי שישייך אותו אליך, ואז תוכל לכתוב עדכון.');
+  return false;
 }
 window.lbOwnAsk = lbOwnAsk;
 /* יומן העדכונים — הוספה.
