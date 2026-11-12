@@ -4594,7 +4594,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.71.3</div>
+      <div class="ver">גרסה 7.71.4</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4741,7 +4741,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="cntbtn-2026-11-12a">גרסה 7.71.3</div>
+    <div class="side-foot" title="leadsubj-2026-11-12a">גרסה 7.71.4</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -15621,7 +15621,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'cntbtn-2026-11-12a';
+const BUILD_ID = 'leadsubj-2026-11-12a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -22353,7 +22353,7 @@ const LOAD_NAMES = ['לידים','לקוחות','משימות','עסקאות','�
    expires_at נוסף — בלעדיו "פג תוקף" אינו ניתן לחישוב. */
 const PROTS_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason';
 const CRM_Q = {
-  leads: () => sb.schema('crm').from('leads').select('id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind').order('created_at',{ascending:false}).limit(10000),
+  leads: () => sb.schema('crm').from('leads').select('id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,inquiry_subject,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind').order('created_at',{ascending:false}).limit(10000),
   custs: () => sb.schema('core').from('customers').select('id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes').order('created_at',{ascending:false}).limit(10000),
   /* 7.31.0 — הפתוחות קודם, ואז מיון מקומי לפי due_at (הסדר שהצרכנים מכירים — עולה, ריקים בסוף). עד כאן
      order(due_at).limit(10000) — 8,524 ב-21/10/2026; מעבר לתקרה היו נחתכות **בשקט** המשימות עם המועד הרחוק,
@@ -30875,7 +30875,7 @@ const DL_TASK_COLS = 'id,name,status,value_tag,category,due_at,closed_at,created
 const DL_MEET_COLS = 'id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone,created_at';
 const DL_PROT_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason';
 const DL_CUST_COLS = 'id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes';
-const DL_LEAD_COLS = 'id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind';
+const DL_LEAD_COLS = 'id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,inquiry_subject,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind';
 window.dlDatesHtml = (d)=>{
   const dt = v => v ? fmtIso(v) : '—';   /* 6.206.0 */
   return `<div class="c2-half"><label>תאריך אישור ההצעה</label>${roIn(dt(d.approved_at))}</div>`
@@ -34560,6 +34560,19 @@ function lbSnapshot(id){
   const sub=document.getElementById('lb-sub'); snap['lb-sub']= sub ? String(sub.value ?? '') : '';
   LEAD_SNAP=snap;
 }
+/* ===== 7.71.4 — leadsubj: "סיבת הפנייה" בכרטיס הליד (רומן, 12/11/2026) =====
+   "למה אין פירוט במערכת? סיבת פניה צריכה להיות רשומה" — על ליד מטופס האתר שבחר סיבה ולא כתב הודעה.
+   הסיבה נקלטה תמיד, אבל רק לתוך notes ("נושא הפנייה: … | דף שהשאיר פנייה: …"), ואף מסך אינו מצייר את notes.
+   מ-lead-intake v17 (12/11/2026) ליד חדש נושא אותה גם ב-inquiry_subject; ליד ישן — רק ב-notes.
+   ⚠️ הנפילה ל-notes מכוונת ואינה שריד: מילוי העמודה לאחור הוא UPDATE על crm.leads, והטריגר zz_touch_updated_at
+      היה חותם "עודכן לאחרונה" = היום על 467 לידים. מי שימלא את העמודה יום אחד — הנפילה פשוט תפסיק לירות.
+   ⚠️ [^|] ולא .* — ב-notes הנושא הוא החלק הראשון, והחלקים מופרדים ב-" | ". */
+function lbSubj(l){
+  const s = String((l && l.inquiry_subject) || '').trim();
+  if(s) return s;
+  const m = /(?:^|\| )נושא הפנייה: ([^|]*)/.exec(String((l && l.notes) || ''));
+  return m ? m[1].trim() : '';
+}
 /* קישור מאומת-סכימה — landing_page_url/chat_url מגיעים מטפסים חיצוניים */
 const lbLpTxt=u=>{ try{ const x=new URL(u); return (x.host + x.pathname).replace(/\/$/,''); }catch(_e){ return u; } };
 const lbLink=(u,txt)=>{ const s=esc(safeUrl(u)); return s?`<a href="${s}" target="_blank" rel="noopener">${esc(txt)} ↗</a>`:''; };
@@ -35000,13 +35013,15 @@ window.openLead = (id)=>{
       <div><label>בעלים ושותפים</label><div id="lb-ownbox">${lbOwnerCellName(l)}</div></div>
       <div><label>נוצר</label>${roIn(fmtDT(l.created_at),{ltr:1})}</div>
       <div><label>עודכן לאחרונה</label>${roIn(fmtDT(l.updated_at),{ltr:1})}</div>
-      <!-- 6.255.0 — תא איש הקשר נוסף בסוף הסקשן. כדי שהגריד יישאר בלי חור: בלי לקוח מקושר —
-           דף(2) · UTM · איש קשר; עם לקוח — הדף בשורה מלאה, ואז UTM · לקוח · איש קשר(2). שורת
-           "קטלוג · בעלים · נוצר · עודכן" לא זזה (רומן, 26/08 ו-28/08 — cardtest). -->
-      <div class="${cust?'span4':'span2'}"><label>דף שהשאיר פנייה</label>${lpA?`<div class="lb-links lb-lp" title="${esc(lpU)}">${lpA}</div>`:roIn('—')}</div>
-      <div title="${esc(utmRest)}"><label>UTM_CAMPAIGN</label>${roIn(l.utm_campaign||'—')}</div>
+      <!-- 6.255.0 — תא איש הקשר נוסף בסוף הסקשן. שורת "קטלוג · בעלים · נוצר · עודכן" לא זזה
+           (רומן, 26/08 ו-28/08 — cardtest).
+           7.71.4 — נוסף "סיבת הפנייה" (רומן, 12/11/2026), והגריד נשאר בלי חור: סיבה(2) · דף(2), ואחריהם
+           בלי לקוח מקושר — UTM(2) · איש קשר(2); עם לקוח — UTM · לקוח · איש קשר(2). איש הקשר תמיד span2. -->
+      <div class="span2" id="lb-subj-cell"><label>סיבת הפנייה</label>${roIn(lbSubj(l)||'—')}</div>
+      <div class="span2"><label>דף שהשאיר פנייה</label>${lpA?`<div class="lb-links lb-lp" title="${esc(lpU)}">${lpA}</div>`:roIn('—')}</div>
+      <div${cust?'':' class="span2"'} title="${esc(utmRest)}"><label>UTM_CAMPAIGN</label>${roIn(l.utm_campaign||'—')}</div>
       ${cust?`<div><label>לקוח מקושר${l.customer_id?'':' <span class="note" style="font-weight:400">(הוצלב לפי טלפון)</span>'}</label><div class="lb-links"><a href="#" onclick="event.preventDefault();goCard(()=>openCust('${jsq(cust.id)}'))">${esc(cust.name||'כרטיס הלקוח')} ↗</a></div></div>`:''}
-      ${lbCtCell(l, !!cust)}
+      ${lbCtCell(l, true)}
 
       <div class="form-sep">משימות ופגישות</div>
       <div class="span4" id="lb-tmblock" data-lead="${esc(l.id)}">${lbTmBlock(myTasks, myMeets, lbTmActs(l.id))}</div>
