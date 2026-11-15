@@ -2435,6 +2435,27 @@
   .st-add{ display:grid; grid-template-columns:minmax(0,1fr) 150px auto auto; gap:var(--sp-2); padding:var(--sp-2h) var(--sp-4); border-top:1px dashed var(--line); background:var(--bg-subtle); align-items:center; }
   .st-add[hidden]{ display:none; }
   .st-empty{ padding:var(--sp-4); text-align:center; color:var(--ink-3); font-size:var(--fs-sm); }
+  /* 7.75.0 — admnote: "הודעה לעובד" */
+  #tab-set .am-people{ display:flex; flex-wrap:wrap; gap:var(--sp-1h) var(--sp-2); }
+  #tab-set .am-p{ display:inline-flex; align-items:center; gap:var(--sp-1h); padding:var(--sp-1) var(--sp-2h); border:1px solid var(--line); border-radius:var(--r-pill); background:#fff; font-size:var(--fs-sm); color:var(--ink-2); cursor:pointer; }
+  #tab-set .am-p.on{ border-color:var(--navy); background:var(--bg-subtle); color:var(--ink-1); font-weight:700; }
+  #tab-set .am-p input{ margin:0; min-height:0; }
+  #tab-set .am-res{ display:flex; flex-direction:column; gap:var(--sp-0h); margin-top:var(--sp-1); }
+  #tab-set .am-res[hidden]{ display:none; }
+  #tab-set .am-lr{ text-align:start; background:#fff; border:1px solid var(--line-soft); border-radius:var(--r-md); padding:var(--sp-1h) var(--sp-2h); font-family:inherit; font-size:var(--fs-sm); color:var(--ink-1); cursor:pointer; }
+  #tab-set .am-lr:hover{ background:var(--bg-subtle); }
+  #tab-set .am-lr small, #tab-set .am-st small{ color:var(--ink-3); font-size:var(--fs-xs); }
+  #tab-set .am-link{ display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap; }
+  #tab-set .am-lk{ font-size:var(--fs-sm); font-weight:700; color:var(--ink-1); background:var(--bg-subtle); border:1px solid var(--line); border-radius:var(--r-pill); padding:var(--sp-1) var(--sp-2h); }
+  #tab-set .am-when{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-2) var(--sp-3); }
+  #tab-set .am-act{ display:flex; align-items:center; gap:var(--sp-2h); flex-wrap:wrap; }
+  #tab-set .am-sub{ display:block; margin-top:var(--sp-0h); font-size:var(--fs-xs); color:var(--ink-3); white-space:pre-wrap; }
+  #tab-set .am-tbl td{ vertical-align:top; }
+  #tab-set .am-tbl td.am-wc{ white-space:nowrap; }
+  #tab-set .am-s-plan{ color:var(--warn-ink); font-weight:700; }
+  #tab-set .am-s-sent{ color:var(--ink-2); }
+  #tab-set .am-s-read{ color:var(--ok); }
+  #tab-set .am-s-off{ color:var(--ink-3); }
   .st-errline{ margin:0 var(--sp-4) var(--sp-2h); }
   .st-grp{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-card); margin-bottom:var(--sp-2h); overflow:hidden; }
   .st-grp[hidden]{ display:none; }
@@ -4604,7 +4625,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.74.0</div>
+      <div class="ver">גרסה 7.75.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4752,7 +4773,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="ownrule-2026-11-12a">גרסה 7.74.0</div>
+    <div class="side-foot" title="admnote-2026-11-15a">גרסה 7.75.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -6168,7 +6189,7 @@ window.TAB_PERM = {
   calc:'crm.deals'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
-window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', general:'set.general' };
+window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', msg:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', general:'set.general' };
 window.LOGI_VIEWS = ['orders','calls','cal'];
 window.navCanTab = t=>{
   /* 6.140.0 — logi.screen מפריד בין הנתונים לבין המסך.
@@ -15662,7 +15683,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'ownrule-2026-11-12a';
+const BUILD_ID = 'admnote-2026-11-15a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20229,7 +20250,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['general','כללי']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['general','כללי']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
@@ -20244,7 +20265,7 @@ const SET_GROUPS = [
   ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','commission','teams']],
   ['texts',   'טקסטים ומסמכים',   ['texts']],
   ['logs',    'חיבורים ויומנים',  ['conn','synclog','hooks','errors']],
-  ['general', 'כללי',             ['general','notif']],
+  ['general', 'כללי',             ['general','notif','msg']],
 ];
 /* כותרת הלשונית = שם המסך ב-settingsCats, פרט ל-CRM שבתוך הקבוצה "CRM ולוגיסטיקה" */
 const SET_TAB_LBL = { crm:'CRM' };
@@ -20923,6 +20944,8 @@ function renderSettings(){
     body = textsHtml();
   } else if(SET_VIEW==='notif' && canView('set.notif')){
     body = notifSettingsHtml();
+  } else if(SET_VIEW==='msg' && canView('set.notif')){
+    body = amHtml();   /* 7.75.0 — admnote */
   } else if(SET_VIEW==='booking' && canView('set.crm')){
     body = bookSettingsHtml();   /* 7.4.0 — booking1 */
   } else if(SET_VIEW==='crm' && canView('set.crm')){
@@ -20971,8 +20994,175 @@ function renderSettings(){
   if(SET_VIEW==='conn') loadIntegrations();
   if(SET_VIEW==='salesrules' && canView('set.crm')) srlLoad();   /* 7.49.0 */
   if(SET_VIEW==='commission' && canView('set.crm')) ctsLoad();   /* 7.50.0 */
+  if(SET_VIEW==='msg' && canView('set.notif')) amLoad();   /* 7.75.0 — admnote */
   stWire(el);
 }
+/* ═══ 7.75.0 — admnote: "הודעה לעובד" (רומן, 15/11/2026) ══════════════════════════════════════
+   "תשלח לניב התראה למרכז מסך ... אפשר לעשות דבר כזה שיראה את זה מסך בבוקר?" ⇒ "האם אני יכול לעשות את זה להבא
+   ידנית?" ⇒ "כן, לבנות". מנהל כותב הודעה לעובד אחד או יותר, אופציונלית מקושרת לליד/תהליך, ושולח מיד או מתזמן.
+   🔴 הכול בשרת (פונקציות-מסד/admin_notes.20261115.sql): core.admin_note_send/_cancel/_list בשער set.notif, והמסירה
+      core.admin_note_flush — מיד, וכל דקה מ-cron. ההודעה היא core.notify בסוג 'admin_note' ⇒ חלון במרכז / פעמון /
+      טלפון / השתקה נשלטים מטבלת ההתראות (NF_KINDS) כמו כל סוג אחר. אין כאן שום כתיבה ישירה לטבלה.
+   ⚠️ p_body / p_linked_type / p_linked_id / p_send_at נשלחים תמיד, גם null — supabase-js משמיט מפתח undefined,
+      ו"משהו שלא נשלח" צריך להיות החלטה מפורשת ולא תאונה.
+   ⚠️ עריכת הודעה מתוזמנת — אין, במכוון: ביטול ושליחה מחדש. עריכה הייתה מחייבת מרוץ מול המסירה של אותה דקה. */
+let AM = { people:null, notes:null, err:'', busy:false };
+const AM_SEL = new Set();
+let AM_LINK = null;
+function amPad(n){ return String(n).padStart(2, '0'); }
+/* ברירת המחדל לתזמון: מחר 08:00 — זה בדיוק המקרה שהוליד את המסך */
+function amDefAt(){ const d = new Date(); d.setDate(d.getDate() + 1); return d.getFullYear() + '-' + amPad(d.getMonth() + 1) + '-' + amPad(d.getDate()) + 'T08:00'; }
+function amFmt(v){ try{ return new Date(v).toLocaleString('he-IL', { weekday:'short', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }); }catch(_e){ return String(v || ''); } }
+function amLinkHtml(){
+  if(AM_LINK) return `<div class="am-link"><span class="am-lk">${AM_LINK.t === 'lead' ? 'ליד' : 'תהליך מכירה'} · ${esc(AM_LINK.name)}</span><button type="button" class="st-save" onclick="amLinkClear()">הסרה</button></div>`;
+  return `<input id="am-link-q" class="st-txt" placeholder="חיפוש ליד או תהליך מכירה — שם או טלפון" oninput="amLinkSearch(this.value)" autocomplete="off" aria-label="חיפוש ליד או תהליך מכירה לקישור"><div class="am-res" id="am-link-res" hidden></div>`;
+}
+function amHtml(){
+  const ed = canEdit('set.notif');
+  const form = ed ? `<section class="st-card" id="am-form"><div class="st-rows">
+      <div class="st-row st-wide"><div class="st-l"><b>למי</b></div><div class="am-people" id="am-people">${crmLoading('טוען עובדים…')}</div></div>
+      <div class="st-row st-wide"><label class="st-l" for="am-title"><b>כותרת</b></label><input id="am-title" class="st-txt" maxlength="200" placeholder="למשל: לבדוק ליד קיים לפני שפותחים ליד ידני"></div>
+      <div class="st-row st-wide"><label class="st-l" for="am-body"><b>טקסט</b> <small>לא חובה</small></label><textarea id="am-body" class="st-ta" maxlength="2000" rows="4"></textarea></div>
+      <div class="st-row st-wide"><div class="st-l"><b>קישור</b> <small>לא חובה — "פתיחה" בחלון מובילה אליו</small></div><div id="am-link-box">${amLinkHtml()}</div></div>
+      <div class="st-row st-wide"><div class="st-l"><b>מתי</b></div><div class="am-when">
+        <label class="st-swl"><input type="radio" name="am-when" value="now" checked onchange="amWhen()"><span>עכשיו</span></label>
+        <label class="st-swl"><input type="radio" name="am-when" value="at" onchange="amWhen()"><span>בתאריך ושעה</span></label>
+        <input type="datetime-local" id="am-at" value="${amDefAt()}" disabled aria-label="מועד השליחה"></div></div>
+      <div class="st-row st-wide"><div class="am-act"><button type="button" class="btn" id="am-send" onclick="amSend()">שליחה</button></div><div class="err" id="am-err"></div></div>
+    </div></section>` : '<div class="st-lead">צפייה בלבד — שליחה דורשת הרשאת עריכה במסך «התראות».</div>';
+  return `<div class="st-top"><h2 class="sec">הודעה לעובד</h2></div>
+    <div class="st-lead">הודעה שלך לעובד אחד או יותר. היא נכנסת לפעמון שלו ונפתחת אצלו בחלון במרכז המסך (נשלט במסך «התראות», הסוג «הודעה ממנהל»). הודעה מתוזמנת יוצאת בשעה שנבחרה גם כשהמערכת סגורה אצלך; כדי לשנות אותה — ביטול ושליחה מחדש.</div>
+    ${form}
+    <div class="st-top"><h2 class="sec">הודעות שנשלחו ומתוזמנות</h2><span class="st-cnt" id="am-cnt"></span></div>
+    <section class="st-card" id="am-list">${crmLoading()}</section>`;
+}
+function amPeopleRender(){
+  const box = document.getElementById('am-people'); if(!box) return;
+  if(!AM.people){ if(AM.err) box.innerHTML = `<div class="err">${esc(AM.err)}</div>`; return; }
+  box.innerHTML = AM.people.map(p => `<label class="am-p${AM_SEL.has(p.id) ? ' on' : ''}"><input type="checkbox" value="${esc(p.id)}"${AM_SEL.has(p.id) ? ' checked' : ''} onchange="amPick(this)"><span>${esc(p.name || '—')}</span></label>`).join('')
+    || '<div class="st-note">אין עובדים פעילים</div>';
+}
+window.amPick = el => {
+  if(el.checked) AM_SEL.add(el.value); else AM_SEL.delete(el.value);
+  const l = el.closest('.am-p'); if(l) l.classList.toggle('on', !!el.checked);
+};
+window.amWhen = () => {
+  const w = document.querySelector('input[name="am-when"]:checked'), at = document.getElementById('am-at');
+  if(at) at.disabled = !(w && w.value === 'at');
+};
+/* חיפוש בזיכרון המסך (LEADS / DEALS). השרת מאמת שהרשומה קיימת — כאן רק בוחרים. */
+window.amLinkSearch = q => {
+  const box = document.getElementById('am-link-res'); if(!box) return;
+  q = String(q || '').trim().toLowerCase();
+  const dg = q.replace(/\D/g, '');
+  if(q.length < 2){ box.hidden = true; box.innerHTML = ''; return; }
+  const hit = s => String(s || '').toLowerCase().includes(q);
+  const ph = p => dg.length >= 4 && String(p || '').replace(/\D/g, '').includes(dg);
+  const out = [];
+  (LEADS || []).forEach(l => { if(out.length < 8 && !l.deleted_at && (hit(l.full_name) || hit(l.company) || ph(l.phone))) out.push(['lead', l.id, l.full_name || l.phone || '—', [l.phone, l.status].filter(Boolean).join(' · ')]); });
+  (typeof DEALS !== 'undefined' && Array.isArray(DEALS) ? DEALS : []).forEach(d => { if(out.length < 12 && hit(d.name)) out.push(['deal', d.id, d.name || '—', d.stage || '']); });
+  box.innerHTML = out.length
+    ? out.map(r => `<button type="button" class="am-lr" onclick="amLinkPick('${r[0]}','${esc(r[1])}')"><b>${r[0] === 'lead' ? 'ליד' : 'תהליך'}</b> ${esc(r[2])}${r[3] ? ` <small>${esc(r[3])}</small>` : ''}</button>`).join('')
+    : '<div class="st-note">לא נמצא ליד או תהליך מכירה במסך</div>';
+  box.hidden = false;
+};
+window.amLinkPick = (t, id) => {
+  const a = t === 'lead' ? LEADS : (typeof DEALS !== 'undefined' ? DEALS : []);
+  const r = (a || []).find(x => String(x.id) === String(id)); if(!r) return;
+  AM_LINK = { t, id:r.id, name:(t === 'lead' ? (r.full_name || r.phone) : r.name) || '—' };
+  const b = document.getElementById('am-link-box'); if(b) b.innerHTML = amLinkHtml();
+};
+window.amLinkClear = () => { AM_LINK = null; const b = document.getElementById('am-link-box'); if(b) b.innerHTML = amLinkHtml(); };
+function amStatus(m){
+  if(m.cancelled_at) return ['בוטלה', 'am-s-off'];
+  if(!m.sent_at) return ['מתוזמנת', 'am-s-plan'];
+  /* core.notify החזיר null — הסוג כבוי או מושתק לעובד במסך «התראות». החלטה, לא כשל. */
+  if(!m.notification_id) return ['לא נמסרה — כבויה או מושתקת לעובד', 'am-s-off'];
+  if(m.read_at) return ['נקראה ' + amFmt(m.read_at), 'am-s-read'];
+  return ['נמסרה, טרם נקראה', 'am-s-sent'];
+}
+function amListRender(){
+  const box = document.getElementById('am-list'); if(!box) return;
+  const cnt = document.getElementById('am-cnt');
+  if(AM.notes === null){ box.innerHTML = AM.err ? `<div class="st-empty err">${esc(AM.err)}</div>` : crmLoading(); return; }
+  const plan = AM.notes.filter(m => !m.sent_at && !m.cancelled_at).length;
+  if(cnt) cnt.textContent = AM.notes.length ? AM.notes.length + ' הודעות' + (plan ? ' · ' + plan + ' מתוזמנות' : '') : '';
+  if(!AM.notes.length){ box.innerHTML = '<div class="st-empty">עוד לא נשלחו הודעות</div>'; return; }
+  const ed = canEdit('set.notif');
+  box.innerHTML = `<div class="tbl-wrap"><table class="tbl am-tbl"><thead><tr><th>מתי</th><th>למי</th><th>הודעה</th><th>קישור</th><th>מצב</th>${ed ? '<th></th>' : ''}</tr></thead><tbody>${AM.notes.map(m => {
+    const st = amStatus(m), live = !m.sent_at && !m.cancelled_at;
+    const lk = m.linked_type
+      ? `<a href="#" onclick="amOpen('${esc(m.linked_type)}','${esc(m.linked_id)}');return false">${m.linked_type === 'lead' ? 'ליד' : 'תהליך'} · ${esc(m.link_name || '—')}</a>`
+      : '—';
+    return `<tr data-am="${Number(m.id)}"><td class="am-wc">${esc(amFmt(m.sent_at || m.send_at))}</td><td>${esc(m.user_name || '—')}</td>`
+      + `<td><b>${esc(m.title)}</b>${m.body ? `<span class="am-sub">${esc(m.body)}</span>` : ''}</td><td>${lk}</td>`
+      + `<td><span class="${st[1]}">${esc(st[0])}</span></td>`
+      + (ed ? `<td>${live ? `<button type="button" class="st-save" onclick="amCancel(${Number(m.id)})">ביטול</button>` : ''}</td>` : '') + '</tr>';
+  }).join('')}</tbody></table></div>`;
+}
+window.amOpen = (t, id) => {
+  const go = () => { if(t === 'lead') openLead(id); else if(t === 'deal') openDeal(id); };
+  const a = recArr(t);
+  if(a && !a.some(x => String(x.id) === String(id)) && typeof window.recPull === 'function'){
+    window.recPull(t, id).then(st => { if(st === 'ok') go(); else toast(window.recPullMsg(st)); });
+    return;
+  }
+  go();
+};
+window.amLoad = async () => {
+  AM.err = '';
+  try{
+    const { data, error } = await sb.schema('core').rpc('admin_note_list');
+    if(error) throw error;
+    AM.people = Array.isArray(data && data.people) ? data.people : [];
+    AM.notes  = Array.isArray(data && data.notes)  ? data.notes  : [];
+  }catch(e){ AM.err = 'הטעינה נכשלה: ' + String((e && e.message) || e); }
+  if(SET_VIEW !== 'msg') return;
+  amPeopleRender(); amListRender();
+};
+window.amSend = async () => {
+  if(AM.busy) return;
+  const err = document.getElementById('am-err'), btn = document.getElementById('am-send');
+  const say = m => { if(err) err.textContent = m; };
+  const title = String((document.getElementById('am-title') || {}).value || '').trim();
+  const body  = String((document.getElementById('am-body')  || {}).value || '').trim();
+  const w = document.querySelector('input[name="am-when"]:checked'), at = !!(w && w.value === 'at');
+  say('');
+  if(!AM_SEL.size) return say('בחר לפחות עובד אחד');
+  if(!title) return say('חסרה כותרת');
+  let sendAt = null;
+  if(at){
+    const v = String((document.getElementById('am-at') || {}).value || ''), d = new Date(v);
+    if(!v || isNaN(d.getTime())) return say('בחר תאריך ושעה');
+    if(d.getTime() < Date.now() - 60000) return say('השעה שנבחרה כבר עברה');
+    sendAt = d.toISOString();
+  }
+  AM.busy = true; if(btn){ btn.disabled = true; btn.textContent = 'שולח…'; }
+  try{
+    const { data, error } = await sb.schema('core').rpc('admin_note_send', {
+      p_users:[...AM_SEL], p_title:title, p_body:body || null,
+      p_linked_type:AM_LINK ? AM_LINK.t : null, p_linked_id:AM_LINK ? AM_LINK.id : null, p_send_at:sendAt });
+    if(error) throw error;
+    const n = (data && data.count) || AM_SEL.size;
+    toast(data && data.scheduled ? 'תוזמנה ל' + amFmt(data.send_at) + ' — ' + n + ' עובדים' : 'נשלחה ✓ — ' + n + ' עובדים');
+    AM_SEL.clear(); AM_LINK = null;
+    ['am-title', 'am-body'].forEach(id => { const e = document.getElementById(id); if(e) e.value = ''; });
+    const lb = document.getElementById('am-link-box'); if(lb) lb.innerHTML = amLinkHtml();
+    amPeopleRender();
+    await window.amLoad();
+  }catch(e){ say('השליחה נכשלה: ' + String((e && e.message) || e)); }
+  finally{ AM.busy = false; if(btn){ btn.disabled = false; btn.textContent = 'שליחה'; } }
+};
+window.amCancel = async id => {
+  const n = (AM.notes || []).find(x => Number(x.id) === Number(id)); if(!n) return;
+  if(!(await sysConfirm('לבטל את ההודעה ל' + (n.user_name || 'עובד') + ' שמתוזמנת ל' + amFmt(n.send_at) + '?', { ok:'ביטול ההודעה', cancel:'חזרה', danger:true }))) return;
+  try{
+    const { data, error } = await sb.schema('core').rpc('admin_note_cancel', { p_id:Number(id) });
+    if(error) throw error;
+    toast(data ? 'ההודעה בוטלה' : 'ההודעה כבר נשלחה ולא בוטלה');
+  }catch(e){ toast('הביטול נכשל: ' + String((e && e.message) || e)); }
+  await window.amLoad();
+};
 /* ===== 6.238.0 — statdoc: "סטטוסי פריוריטי מול הלוח" (הגדרות ← CRM ולוגיסטיקה) =====
    רומן (10/10/2026): תיעוד טבלאי במערכת של מה שקורה לכל סטטוס הזמנה בפריוריטי מול הלוח אצלנו,
    כפי שאומת על SO26001814 — 11 מעברים דרך חוק 3485. המקור: laneFor ב-priority-sync v34 ומדיניות
@@ -21446,6 +21636,8 @@ const NF_KINDS = [
   ['scall_done','לוגיסטיקה','קריאת שירות בוצעה','טכנאי סגר קריאת שירות','צוות הלוגיסטיקה, חוץ ממי שסגר','logi'],
   ['hook_silent','מערכת','וובהוקים מפריוריטי שותקים','שעות עבודה בלי אף וובהוק','מנהל המערכת','admin'],
   ['hook_failed','מערכת','וובהוק נכשל','וובהוק מפריוריטי לא עובד כראוי','מנהל המערכת','admin'],
+  /* 7.75.0 — admnote: core.admin_note_flush. קהל 'all' אינו מפתח ב-core.nf_audience ⇒ ids=null ⇒ כל העובדים (במכוון). */
+  ['admin_note','מערכת','הודעה ממנהל','נשלחת ידנית מ«הגדרות ← כללי ← הודעה לעובד» — מיד או בשעה שנקבעה','העובדים שנבחרו','all'],
   /* 7.44.0 — crm.sales_weekly_digest (cron sales-weekly-sun): נמענים = dash.salesteam ומנהלי מערכת. לחיצה ⇒ מסך הניתוח. */
   ['sales_weekly','הצעות ועסקאות','סיכום שבועי — מכירות','כל יום ראשון ב-07:00 — שבוע שעבר, עמידה ביעד החודש, מועדפות (לדחיפה / ממתינות), הצעות ערך ותקועים','מנהל המכירות','sales'],
 ];
