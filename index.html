@@ -2473,6 +2473,12 @@
   #tab-set .am-s-sent{ color:var(--ink-2); }
   #tab-set .am-s-read{ color:var(--ok); }
   #tab-set .am-s-off{ color:var(--ink-3); }
+  /* 7.77.1 — admnote2: עריכה. ⚠️ [hidden] מפורש: .st-row (grid) ו-.ghost גוברים על ה-hidden של הדפדפן */
+  #tab-set #am-form [hidden]{ display:none; }
+  #tab-set .am-edhd{ font-size:var(--fs-sm); font-weight:700; color:var(--warn-ink); background:var(--amber-bg); }
+  #tab-set .am-acts{ white-space:nowrap; }
+  #tab-set .am-acts .st-save + .st-save{ margin-inline-start:var(--sp-1h); }
+  #tab-set .am-tbl tr.am-editing td{ background-color:var(--amber-bg); }
   .st-errline{ margin:0 var(--sp-4) var(--sp-2h); }
   .st-grp{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-card); margin-bottom:var(--sp-2h); overflow:hidden; }
   .st-grp[hidden]{ display:none; }
@@ -4642,7 +4648,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.77.0</div>
+      <div class="ver">גרסה 7.77.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4790,7 +4796,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="techfield2-2026-11-15a">גרסה 7.77.0</div>
+    <div class="side-foot" title="admnote2-2026-11-16a">גרסה 7.77.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -15859,7 +15865,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'techfield2-2026-11-15a';
+const BUILD_ID = 'admnote2-2026-11-16a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21245,6 +21251,8 @@ function renderSettings(){
 let AM = { people:null, notes:null, err:'', busy:false };
 const AM_SEL = new Set();
 let AM_LINK = null;
+/* 7.77.1 — admnote2: השורה שבעריכה (null = הודעה חדשה). כל מעבר בין המצבים עובר ב-amFormReset / amEdit. */
+let AM_EDIT = null;
 function amPad(n){ return String(n).padStart(2, '0'); }
 /* ברירת המחדל לתזמון: מחר 08:00 — זה בדיוק המקרה שהוליד את המסך */
 function amDefAt(){ const d = new Date(); d.setDate(d.getDate() + 1); return d.getFullYear() + '-' + amPad(d.getMonth() + 1) + '-' + amPad(d.getDate()) + 'T08:00'; }
@@ -21256,6 +21264,7 @@ function amLinkHtml(){
 function amHtml(){
   const ed = canEdit('set.notif');
   const form = ed ? `<section class="st-card" id="am-form"><div class="st-rows">
+      <div class="st-row st-wide am-edhd" id="am-edhd" hidden></div>
       <div class="st-row st-wide"><div class="st-l"><b>למי</b></div><div class="am-people" id="am-people">${crmLoading('טוען עובדים…')}</div></div>
       <div class="st-row st-wide"><label class="st-l" for="am-title"><b>כותרת</b></label><input id="am-title" class="st-txt" maxlength="200" placeholder="למשל: לבדוק ליד קיים לפני שפותחים ליד ידני"></div>
       <div class="st-row st-wide"><label class="st-l" for="am-body"><b>טקסט</b> <small>לא חובה</small></label><textarea id="am-body" class="st-ta" maxlength="2000" rows="4"></textarea></div>
@@ -21264,7 +21273,7 @@ function amHtml(){
         <label class="st-swl"><input type="radio" name="am-when" value="now" checked onchange="amWhen()"><span>עכשיו</span></label>
         <label class="st-swl"><input type="radio" name="am-when" value="at" onchange="amWhen()"><span>בתאריך ושעה</span></label>
         <input type="datetime-local" id="am-at" value="${amDefAt()}" disabled aria-label="מועד השליחה"></div></div>
-      <div class="st-row st-wide"><div class="am-act"><button type="button" class="btn" id="am-send" onclick="amSend()">שליחה</button></div><div class="err" id="am-err"></div></div>
+      <div class="st-row st-wide"><div class="am-act"><button type="button" class="btn" id="am-send" onclick="amSend()">שליחה</button><button type="button" class="ghost" id="am-edx" hidden onclick="amEditEnd()">ביטול עריכה</button></div><div class="err" id="am-err"></div></div>
     </div></section>` : '<div class="st-lead">צפייה בלבד — שליחה דורשת הרשאת עריכה במסך «התראות».</div>';
   return `<div class="st-top"><h2 class="sec">הודעה לעובד</h2></div>
     <div class="st-lead">הודעה שלך לעובד אחד או יותר. היא נכנסת לפעמון שלו ונפתחת אצלו בחלון במרכז המסך (נשלט במסך «התראות», הסוג «הודעה ממנהל»). הודעה מתוזמנת יוצאת בשעה שנבחרה גם כשהמערכת סגורה אצלך; כדי לשנות אותה — ביטול ושליחה מחדש.</div>
@@ -21275,7 +21284,7 @@ function amHtml(){
 function amPeopleRender(){
   const box = document.getElementById('am-people'); if(!box) return;
   if(!AM.people){ if(AM.err) box.innerHTML = `<div class="err">${esc(AM.err)}</div>`; return; }
-  box.innerHTML = AM.people.map(p => `<label class="am-p${AM_SEL.has(p.id) ? ' on' : ''}"><input type="checkbox" value="${esc(p.id)}"${AM_SEL.has(p.id) ? ' checked' : ''} onchange="amPick(this)"><span>${esc(p.name || '—')}</span></label>`).join('')
+  box.innerHTML = AM.people.map(p => `<label class="am-p${AM_SEL.has(p.id) ? ' on' : ''}"><input type="checkbox" value="${esc(p.id)}"${AM_SEL.has(p.id) ? ' checked' : ''} onchange="amPick(this)"${AM_EDIT ? ' disabled' : ''}><span>${esc(p.name || '—')}</span></label>`).join('')
     || '<div class="st-note">אין עובדים פעילים</div>';
 }
 window.amPick = el => {
@@ -21309,6 +21318,50 @@ window.amLinkPick = (t, id) => {
   const b = document.getElementById('am-link-box'); if(b) b.innerHTML = amLinkHtml();
 };
 window.amLinkClear = () => { AM_LINK = null; const b = document.getElementById('am-link-box'); if(b) b.innerHTML = amLinkHtml(); };
+/* 7.77.1 — admnote2. ניתנת לעריכה = מתוזמנת ויוצאת בעוד יותר מדקה. השרת אוכף את אותו תנאי (P0001) —
+   כאן רק לא מציעים כפתור שהשרת ידחה. */
+function amEditable(m){
+  return !!m && !m.sent_at && !m.cancelled_at && (new Date(m.send_at).getTime() - Date.now() > 60000);
+}
+/* ISO ⇒ ערך ל-datetime-local בשעון המקומי (לא toISOString, שהוא UTC ויזיז את השעה בשעתיים) */
+function amLocal(v){
+  const d = new Date(v);
+  return d.getFullYear() + '-' + amPad(d.getMonth() + 1) + '-' + amPad(d.getDate()) + 'T' + amPad(d.getHours()) + ':' + amPad(d.getMinutes());
+}
+function amFormReset(){
+  AM_EDIT = null; AM_SEL.clear(); AM_LINK = null;
+  ['am-title', 'am-body'].forEach(id => { const e = document.getElementById(id); if(e) e.value = ''; });
+  const r = document.querySelector('input[name="am-when"][value="now"]'); if(r) r.checked = true;
+  const at = document.getElementById('am-at'); if(at) at.value = amDefAt();
+  window.amWhen();
+  const lb = document.getElementById('am-link-box'); if(lb) lb.innerHTML = amLinkHtml();
+  const hd = document.getElementById('am-edhd'); if(hd){ hd.textContent = ''; hd.hidden = true; }
+  const x = document.getElementById('am-edx'); if(x) x.hidden = true;
+  const s = document.getElementById('am-send'); if(s) s.textContent = 'שליחה';
+  amPeopleRender(); amListRender();
+}
+window.amEdit = id => {
+  const m = (AM.notes || []).find(x => Number(x.id) === Number(id)); if(!m) return;
+  if(!amEditable(m)){ toast('אי אפשר לערוך: ההודעה כבר נשלחה, בוטלה או יוצאת בדקה הקרובה'); return; }
+  AM_EDIT = m;
+  AM_SEL.clear(); AM_SEL.add(m.user_id);
+  AM_LINK = m.linked_type ? { t:m.linked_type, id:m.linked_id, name:m.link_name || '—' } : null;
+  const t = document.getElementById('am-title'), b = document.getElementById('am-body'), at = document.getElementById('am-at');
+  if(t) t.value = m.title || '';
+  if(b) b.value = m.body || '';
+  if(at) at.value = amLocal(m.send_at);
+  const r = document.querySelector('input[name="am-when"][value="at"]'); if(r) r.checked = true;
+  window.amWhen();
+  const lb = document.getElementById('am-link-box'); if(lb) lb.innerHTML = amLinkHtml();
+  const hd = document.getElementById('am-edhd');
+  if(hd){ hd.textContent = 'עריכת ההודעה ל' + (m.user_name || 'עובד') + ' · הנמען אינו משתנה — כדי לשלוח לאחר: ביטול ושליחה חדשה'; hd.hidden = false; }
+  const x = document.getElementById('am-edx'); if(x) x.hidden = false;
+  const s = document.getElementById('am-send'); if(s) s.textContent = 'שמירת השינויים';
+  const e = document.getElementById('am-err'); if(e) e.textContent = '';
+  amPeopleRender(); amListRender();
+  const f = document.getElementById('am-form'); if(f && f.scrollIntoView) f.scrollIntoView({ block:'start', behavior:'smooth' });
+};
+window.amEditEnd = () => { const e = document.getElementById('am-err'); if(e) e.textContent = ''; amFormReset(); };
 function amStatus(m){
   if(m.cancelled_at) return ['בוטלה', 'am-s-off'];
   if(!m.sent_at) return ['מתוזמנת', 'am-s-plan'];
@@ -21330,10 +21383,10 @@ function amListRender(){
     const lk = m.linked_type
       ? `<a href="#" onclick="amOpen('${esc(m.linked_type)}','${esc(m.linked_id)}');return false">${m.linked_type === 'lead' ? 'ליד' : 'תהליך'} · ${esc(m.link_name || '—')}</a>`
       : '—';
-    return `<tr data-am="${Number(m.id)}"><td class="am-wc">${esc(amFmt(m.sent_at || m.send_at))}</td><td>${esc(m.user_name || '—')}</td>`
+    return `<tr data-am="${Number(m.id)}"${AM_EDIT && Number(AM_EDIT.id) === Number(m.id) ? ' class="am-editing"' : ''}><td class="am-wc">${esc(amFmt(m.sent_at || m.send_at))}</td><td>${esc(m.user_name || '—')}</td>`
       + `<td><b>${esc(m.title)}</b>${m.body ? `<span class="am-sub">${esc(m.body)}</span>` : ''}</td><td>${lk}</td>`
       + `<td><span class="${st[1]}">${esc(st[0])}</span></td>`
-      + (ed ? `<td>${live ? `<button type="button" class="st-save" onclick="amCancel(${Number(m.id)})">ביטול</button>` : ''}</td>` : '') + '</tr>';
+      + (ed ? `<td class="am-acts">${amEditable(m) ? `<button type="button" class="st-save" onclick="amEdit(${Number(m.id)})">עריכה</button>` : ''}${live ? `<button type="button" class="st-save" onclick="amCancel(${Number(m.id)})">ביטול</button>` : ''}</td>` : '') + '</tr>';
   }).join('')}</tbody></table></div>`;
 }
 window.amOpen = (t, id) => {
@@ -21373,21 +21426,27 @@ window.amSend = async () => {
     if(d.getTime() < Date.now() - 60000) return say('השעה שנבחרה כבר עברה');
     sendAt = d.toISOString();
   }
-  AM.busy = true; if(btn){ btn.disabled = true; btn.textContent = 'שולח…'; }
+  AM.busy = true; if(btn){ btn.disabled = true; btn.textContent = AM_EDIT ? 'שומר…' : 'שולח…'; }
   try{
-    const { data, error } = await sb.schema('core').rpc('admin_note_send', {
-      p_users:[...AM_SEL], p_title:title, p_body:body || null,
-      p_linked_type:AM_LINK ? AM_LINK.t : null, p_linked_id:AM_LINK ? AM_LINK.id : null, p_send_at:sendAt });
-    if(error) throw error;
-    const n = (data && data.count) || AM_SEL.size;
-    toast(data && data.scheduled ? 'תוזמנה ל' + amFmt(data.send_at) + ' — ' + n + ' עובדים' : 'נשלחה ✓ — ' + n + ' עובדים');
-    AM_SEL.clear(); AM_LINK = null;
-    ['am-title', 'am-body'].forEach(id => { const e = document.getElementById(id); if(e) e.value = ''; });
-    const lb = document.getElementById('am-link-box'); if(lb) lb.innerHTML = amLinkHtml();
-    amPeopleRender();
+    /* 7.77.1 — בעריכה: admin_note_update (נמען לא נשלח — אינו משתנה). שני המסלולים שולחים את ארבעת המפתחות במפורש. */
+    if(AM_EDIT){
+      const { data, error } = await sb.schema('core').rpc('admin_note_update', {
+        p_id:Number(AM_EDIT.id), p_title:title, p_body:body || null,
+        p_linked_type:AM_LINK ? AM_LINK.t : null, p_linked_id:AM_LINK ? AM_LINK.id : null, p_send_at:sendAt });
+      if(error) throw error;
+      toast(data && data.scheduled ? 'ההודעה עודכנה — תצא ב' + amFmt(data.send_at) : 'ההודעה עודכנה ונשלחה ✓');
+    } else {
+      const { data, error } = await sb.schema('core').rpc('admin_note_send', {
+        p_users:[...AM_SEL], p_title:title, p_body:body || null,
+        p_linked_type:AM_LINK ? AM_LINK.t : null, p_linked_id:AM_LINK ? AM_LINK.id : null, p_send_at:sendAt });
+      if(error) throw error;
+      const n = (data && data.count) || AM_SEL.size;
+      toast(data && data.scheduled ? 'תוזמנה ל' + amFmt(data.send_at) + ' — ' + n + ' עובדים' : 'נשלחה ✓ — ' + n + ' עובדים');
+    }
+    amFormReset();
     await window.amLoad();
-  }catch(e){ say('השליחה נכשלה: ' + String((e && e.message) || e)); }
-  finally{ AM.busy = false; if(btn){ btn.disabled = false; btn.textContent = 'שליחה'; } }
+  }catch(e){ say((AM_EDIT ? 'השמירה נכשלה: ' : 'השליחה נכשלה: ') + String((e && e.message) || e)); }
+  finally{ AM.busy = false; if(btn){ btn.disabled = false; btn.textContent = AM_EDIT ? 'שמירת השינויים' : 'שליחה'; } }
 };
 window.amCancel = async id => {
   const n = (AM.notes || []).find(x => Number(x.id) === Number(id)); if(!n) return;
@@ -21396,6 +21455,7 @@ window.amCancel = async id => {
     const { data, error } = await sb.schema('core').rpc('admin_note_cancel', { p_id:Number(id) });
     if(error) throw error;
     toast(data ? 'ההודעה בוטלה' : 'ההודעה כבר נשלחה ולא בוטלה');
+    if(AM_EDIT && Number(AM_EDIT.id) === Number(id)) amFormReset();
   }catch(e){ toast('הביטול נכשל: ' + String((e && e.message) || e)); }
   await window.amLoad();
 };
