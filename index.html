@@ -4652,7 +4652,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.80.0</div>
+      <div class="ver">גרסה 7.80.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4800,7 +4800,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="leadhist-2026-11-17a">גרסה 7.80.0</div>
+    <div class="side-foot" title="noreport2-2026-11-17a">גרסה 7.80.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -8920,7 +8920,7 @@ window.mdDone = async (id, kind)=>{
       if(!ch) return;
       const key = isOrd ? 'order_id' : 'call_id';
       await loadDocFiles(true);
-      if(!DOCFILES_ERR && !(DOCFILES||[]).some(f=>isFieldMedia(f) && (f[key]===id || (PROTS||[]).some(p=>p.id===f.protocol_id && p[key]===id)))){
+      if(window.canView('docs.media') && !DOCFILES_ERR && !(DOCFILES||[]).some(f=>isFieldMedia(f) && (f[key]===id || (PROTS||[]).some(p=>p.id===f.protocol_id && p[key]===id)))){
         if(await sysConfirm('בסגירה בלי דוח נדרשת תמונה או סרטון מהשטח. להעלות עכשיו? אחרי ההעלאה לחצו שוב "בוצע".', { ok:'העלאה בלי דוח' })) uploadMedia(k2, id, true);
         return;
       }
@@ -15244,7 +15244,8 @@ function repPick(kind, parentId){
   const key = kind==='call' ? 'call_id' : 'order_id';
   const mine = (PROTS||[]).filter(p=>p[key]===parentId && p.category==='reports')
     .sort((a,b)=>String(b.sent_at||'').localeCompare(String(a.sent_at||'')));
-  const open = mine.find(p=>!repSigned(p) && p.status!=='בוטל' && !repExpired(p));
+  /* 7.80.1 — פתוח רק מהסוג של ההקשר: דוח תקינות פתוח ישן על קריאה אינו "תופס" את דוח השירות (כמו protocol_create מ-17/11) */
+  const open = mine.find(p=>!repSigned(p) && p.status!=='בוטל' && !repExpired(p) && p.doc_type===repDocType(kind));
   if(open) return { p:open, mode:'open' };
   const fresh = mine.find(p=>repSigned(p) && p.signed_at && (Date.now() - Date.parse(p.signed_at)) < REP_FRESH_MS);
   if(fresh) return { p:fresh, mode:'signed' };
@@ -15324,18 +15325,23 @@ window.reportBlock = (kind, parentId)=>{
       +`<button class="ghost" data-up="${parentId}" style="margin-top:var(--sp-2)" title="תמונה או סרטון שאינם שייכים לדוח" onclick="uploadMedia('${kind}','${parentId}',true)">העלאה בלי דוח</button>`:'')+noRepLine(kind, parentId)+'</section>';
 };
 /* 7.79.0 — "נסגר בלי דוח · <סיבה>" בכרטיס. ord.done_noreport נטען פעם אחת (500 אחרונות), עצל, ומתאפס אחרי סגירה בלי דוח. */
-let NOREP = null, NOREP_BUSY = false;
-async function noRepLoad(){
-  if(NOREP_BUSY) return; NOREP_BUSY = true;
-  try{
-    const r = await sb.schema('ord').from('done_noreport').select('order_id,call_id,reason,note,created_at').order('created_at', { ascending:false }).limit(500);
-    NOREP = (r && !r.error && Array.isArray(r.data)) ? r.data : [];
-  }catch(_e){ NOREP = []; }
-  finally{ NOREP_BUSY = false; }
+/* 7.80.1 — סקירה 17/11: promise משותף. ב-7.79.0 קורא מקביל קיבל promise פתור (BUSY), שרשר fieldRefresh ⇒
+   reportBlock ⇒ noRepLine ⇒ שוב — לולאת microtasks שהקפיאה את הלשונית לפני שהתשובה מהרשת נקלטה. */
+let NOREP = null, NOREP_REQ = null;
+function noRepLoad(){
+  if(NOREP_REQ) return NOREP_REQ;
+  NOREP_REQ = (async ()=>{
+    try{
+      const r = await sb.schema('ord').from('done_noreport').select('order_id,call_id,reason,note,created_at').order('created_at', { ascending:false }).limit(500);
+      NOREP = (r && !r.error && Array.isArray(r.data)) ? r.data : [];
+    }catch(_e){ NOREP = []; }
+    finally{ NOREP_REQ = null; }
+  })();
+  return NOREP_REQ;
 }
 function noRepLine(kind, parentId){
   if(!window.canView('logi')) return '';
-  if(NOREP === null){ noRepLoad().then(()=>{ try{ window.fieldRefresh(kind, parentId); }catch(_e){} }); return ''; }
+  if(NOREP === null){ noRepLoad().then(()=>{ if(NOREP !== null){ try{ window.fieldRefresh(kind, parentId); }catch(_e){} } }); return ''; }
   const key = kind==='call' ? 'call_id' : 'order_id';
   const n = NOREP.find(x=>x[key]===parentId);
   return n ? '<div class="note" style="margin-top:var(--sp-2)"><b>נסגר בלי דוח</b> · '+esc(n.reason)+(n.note?' — '+esc(n.note):'')+'</div>' : '';
@@ -16011,7 +16017,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'leadhist-2026-11-17a';
+const BUILD_ID = 'noreport2-2026-11-17a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
