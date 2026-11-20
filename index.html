@@ -4652,7 +4652,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.81.0</div>
+      <div class="ver">גרסה 7.81.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4725,7 +4725,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     <nav aria-label="תפריט ראשי">
     <button class="nav-item active" data-tab="today"><span>דשבורד</span></button>
     <!-- CRM — שבעת מסכי ניהול הלקוחות והמכירה תחת קטגוריית אב אחת (רומן 29/07/2026) -->
-    <div class="nav-wrap" data-tabs="tasks,leads,deals,customers,contacts,meets,paylinks">
+    <div class="nav-wrap" data-tabs="tasks,leads,deals,customers,contacts,meets,paylinks,revreq">
       <button class="nav-item" data-tab="tasks" aria-expanded="false">CRM <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
       <div class="submenu">
         <button data-tab="tasks"     onclick="gotoTab('tasks')">משימות</button>
@@ -4735,6 +4735,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
         <button data-tab="contacts"  onclick="gotoTab('contacts')">אנשי קשר</button>
         <button data-tab="meets"     onclick="gotoTab('meets')">פגישות</button>
         <button data-tab="paylinks"  onclick="gotoTab('paylinks')">קישורי תשלום</button>
+        <button data-tab="revreq"    onclick="gotoTab('revreq')">בקשת ביקורת</button>
       </div>
     </div>
     <!-- 7.51.0 — מחשבונים (רומן, 31/10/2026: "אולי נפתח כרטיס חדש בתפריט ״מחשבונים״?"): כלים שאינם רשומה אחת.
@@ -4754,13 +4755,12 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
     </div>
     <!-- לוגיסטיקה — שלושה מסכים אמיתיים, ולכן תת-קטגוריות. הסדר לפי רומן 29/07/2026 -->
-    <div class="nav-wrap" data-tabs="logi,revreq">
+    <div class="nav-wrap" data-tabs="logi">
       <button class="nav-item" data-tab="logi" aria-expanded="false">לוגיסטיקה <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
       <div class="submenu">
         <button data-view="orders" onclick="gotoLogi('orders')">הזמנות ותיאומים</button>
         <button data-view="calls"  onclick="gotoLogi('calls')">קריאות שירות</button>
         <button data-view="cal"    onclick="gotoLogi('cal')">לוח שנה</button>
-        <button data-tab="revreq"  onclick="gotoTab('revreq')">בקשת ביקורת</button>
       </div>
     </div>
     <!-- מסמכים / מק״טים — "ממתינים לחתימה", "נחתמו", "תצוגות שמורות" הם פילטרים על
@@ -4801,7 +4801,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="revreq-2026-11-20a">גרסה 7.81.0</div>
+    <div class="side-foot" title="revreq2-2026-11-20a">גרסה 7.81.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5071,7 +5071,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
     </section>
 
-    <!-- 7.81.0 — בקשת ביקורת גוגל (logi.review). הסרגל סטטי: ציור הרשימה אינו נוגע בו, ולכן המיקוד בחיפוש נשמר. -->
+    <!-- 7.81.0 — בקשת ביקורת גוגל (crm.review, תחת CRM מ-7.81.1). הסרגל סטטי: ציור הרשימה אינו נוגע בו, ולכן המיקוד בחיפוש נשמר. -->
     <section id="tab-revreq" class="hidden">
       <div id="rr-note"></div>
       <div class="rr-bar" id="rr-bar">
@@ -6262,9 +6262,10 @@ window.TAB_PERM = {
   /* 7.72.0 — שקים שהחברה נותנת (רומן, 12/11/2026: "רק אני"). acc.checks הוא בן של acc עם 0 מפורש לכל משתמש —
      בלי השורות האלה מי שיש לו acc=2 היה יורש את המסך. אותו מפתח ב-RLS של ord.checks ובפונקציית הקצה check-extract. */
   checks:'acc.checks',
-  /* 7.81.0 — בקשת ביקורת גוגל בוואטסאפ (רומן, 20/11/2026: רק רומן ונח). logi.review הוא בן של logi עם 0 מפורש לכל
-     משתמש — בלי השורות האלה מי שיש לו logi=2 (מיקי) היה יורש את הלשונית. אותו מפתח בשורה הראשונה של ord.review_req_*. */
-  revreq:'logi.review',
+  /* 7.81.0 — בקשת ביקורת גוגל בוואטסאפ (רומן, 20/11/2026: רק רומן ונח). 7.81.1 — תחת CRM ("יותר הגיוני"), ולכן crm.review:
+     בן של crm עם 0 מפורש לכל משתמש — בלי השורות האלה חמשת אנשי המכירות (crm=2) היו יורשים את הלשונית.
+     אותו מפתח בשורה הראשונה של ord.review_req_*. */
+  revreq:'crm.review',
   /* 6.199.0 — דשבורד השיווק. mkt.dash הוא בן של שורש חדש (mkt) ולא של crm: בן של crm היה
      נפתח בירושה לכל מי שיש לו crm≥1. השרת (crm.mkt_dash) בודק את אותו מפתח בשורה הראשונה. */
   mkt:'mkt.dash',
@@ -16035,7 +16036,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'revreq-2026-11-20a';
+const BUILD_ID = 'revreq2-2026-11-20a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -37605,7 +37606,7 @@ function rrInjectCss(){
   document.head.appendChild(st);
 }
 
-const RR_PERM = 'logi.review';
+const RR_PERM = 'crm.review';
 const RR_CHIPS = [['new','לא נשלחו'],['sent','נשלחו'],['all','הכל']];
 const RR_OFF_MSG = 'שליחת בקשות הביקורת עדיין כבויה. התבנית "בקשת ביקורת גוגל" ממתינה לאישור מטא, וההפעלה היא של רומן בלבד '
   + '(הגדרות ← מתקדם ← "בקשות ביקורת גוגל — שליחה"). בינתיים אפשר לעבור על הרשימה ולהסיר ממנה לקוחות.';
