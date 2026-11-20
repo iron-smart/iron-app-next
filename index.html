@@ -4652,7 +4652,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.80.1</div>
+      <div class="ver">גרסה 7.81.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4754,12 +4754,13 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
     </div>
     <!-- לוגיסטיקה — שלושה מסכים אמיתיים, ולכן תת-קטגוריות. הסדר לפי רומן 29/07/2026 -->
-    <div class="nav-wrap" data-tabs="logi">
+    <div class="nav-wrap" data-tabs="logi,revreq">
       <button class="nav-item" data-tab="logi" aria-expanded="false">לוגיסטיקה <span class="nav-arrow"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
       <div class="submenu">
         <button data-view="orders" onclick="gotoLogi('orders')">הזמנות ותיאומים</button>
         <button data-view="calls"  onclick="gotoLogi('calls')">קריאות שירות</button>
         <button data-view="cal"    onclick="gotoLogi('cal')">לוח שנה</button>
+        <button data-tab="revreq"  onclick="gotoTab('revreq')">בקשת ביקורת</button>
       </div>
     </div>
     <!-- מסמכים / מק״טים — "ממתינים לחתימה", "נחתמו", "תצוגות שמורות" הם פילטרים על
@@ -4800,7 +4801,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="noreport2-2026-11-17a">גרסה 7.80.1</div>
+    <div class="side-foot" title="revreq-2026-11-20a">גרסה 7.81.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5068,6 +5069,19 @@ tr.lb-on td{ background-color:#eef5fd !important; }
         <div id="logi-bulk" class="toolbar hidden"></div>
         <div id="logi-tbl"></div>
       </div>
+    </section>
+
+    <!-- 7.81.0 — בקשת ביקורת גוגל (logi.review). הסרגל סטטי: ציור הרשימה אינו נוגע בו, ולכן המיקוד בחיפוש נשמר. -->
+    <section id="tab-revreq" class="hidden">
+      <div id="rr-note"></div>
+      <div class="rr-bar" id="rr-bar">
+        <input id="rr-q" class="rr-q" type="search" placeholder="חיפוש — לקוח, איש קשר, הזמנה או טלפון" aria-label="חיפוש בבקשות הביקורת">
+        <span class="rr-sp"></span>
+        <button type="button" class="ghost" onclick="rrReload()">רענון</button>
+      </div>
+      <div class="chips" id="rr-chips"></div>
+      <div id="rr-bulk" class="rr-bulk hidden"></div>
+      <div id="rr-body"></div>
     </section>
 
     <!-- הגדרות — כלליות לכל המערכת -->
@@ -6248,6 +6262,9 @@ window.TAB_PERM = {
   /* 7.72.0 — שקים שהחברה נותנת (רומן, 12/11/2026: "רק אני"). acc.checks הוא בן של acc עם 0 מפורש לכל משתמש —
      בלי השורות האלה מי שיש לו acc=2 היה יורש את המסך. אותו מפתח ב-RLS של ord.checks ובפונקציית הקצה check-extract. */
   checks:'acc.checks',
+  /* 7.81.0 — בקשת ביקורת גוגל בוואטסאפ (רומן, 20/11/2026: רק רומן ונח). logi.review הוא בן של logi עם 0 מפורש לכל
+     משתמש — בלי השורות האלה מי שיש לו logi=2 (מיקי) היה יורש את הלשונית. אותו מפתח בשורה הראשונה של ord.review_req_*. */
+  revreq:'logi.review',
   /* 6.199.0 — דשבורד השיווק. mkt.dash הוא בן של שורש חדש (mkt) ולא של crm: בן של crm היה
      נפתח בירושה לכל מי שיש לו crm≥1. השרת (crm.mkt_dash) בודק את אותו מפתח בשורה הראשונה. */
   mkt:'mkt.dash',
@@ -6276,7 +6293,7 @@ window.navCanTab = t=>{
   const k = TAB_PERM[t];
   return k ? canView(k) : true;
 };
-window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','docs','skus','inv','po','pays','sup','sinv','checks','prc','set','mkt','sana','comm','calc'];
+window.NAV_LAND_ORDER = ['today','tasks','leads','deals','customers','contacts','meets','paylinks','logi','revreq','docs','skus','inv','po','pays','sup','sinv','checks','prc','set','mkt','sana','comm','calc'];
 window.navLanding = ()=> NAV_LAND_ORDER.find(t=>navCanTab(t)) || null;
 window.canView = k => window.pLevel(k) >= 1;
 window.canEdit = k => window.pLevel(k) >= 2;
@@ -6963,7 +6980,7 @@ $('#logoutBtn').onclick = async ()=>{
    עד 6.1.0 הניווט התבצע דרך b.click() על כפתור התפריט, ולכן כל מסך היה חייב
    כפתור ראשי משלו בסרגל. משנכנסו שבעת מסכי ה-CRM תחת קטגוריית אב אחת, אין
    לכל מסך כפתור ראשי — ולכן הניווט עבר לפונקציה אחת שאינה תלויה ב-DOM. */
-const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','comm','pays','sup','sinv','checks','tasks','logi','skus','inv','po','prc','docs','set','mkt','sana','calc'];
+const NAV_TABS = ['today','leads','deals','paylinks','meets','customers','contacts','comm','pays','sup','sinv','checks','tasks','logi','revreq','skus','inv','po','prc','docs','set','mkt','sana','calc'];
 let CUR_TAB = 'today';
 /* התצוגה הפנימית הנוכחית של כל מסך שיש לו תתי-קטגוריות — לצורך סימון הפריט הפעיל */
 const NAV_VIEW = {
@@ -7058,6 +7075,7 @@ window.gotoTab = t=>{
   if(t==='sup')  siRender();
   if(t==='sinv') spiRender();
   if(t==='checks') chkRender();   /* 7.72.0 */
+  if(t==='revreq') rrRender();    /* 7.81.0 */
   if(t==='set') renderSettings();
   if(t==='today') dashLoad();
   if(t==='mkt') renderMkt();
@@ -16017,7 +16035,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'noreport2-2026-11-17a';
+const BUILD_ID = 'revreq-2026-11-20a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21039,6 +21057,7 @@ const ST_REG = [
   ['wa_channel_id','adv','adv','וואטסאפ — ערוץ Heyy','','txt',{ltr:1}],
   ['heyy_tenant_id','adv','adv','וואטסאפ — מזהה החשבון ב-Heyy (tenantId)','הוובהוק heyy-hook דוחה אירוע ממזהה אחר. ריק = כל מזהה מתקבל — למלא מהאירוע הראשון ביומן הוובהוקים.','txt',{ltr:1}],
   ['wa_templates','adv','adv','וואטסאפ — מיפוי תבניות Heyy','JSON: מפתח ⇐ מזהה תבנית. מפתח חסר נכשל בקול בשליחה.','json',{ltr:1}],
+  ['review_request_enabled','adv','adv','בקשות ביקורת גוגל — שליחה','כן = "שלח" בלשונית "בקשת ביקורת" שולח הודעות וואטסאפ אמיתיות ללקוחות. להפעיל רק אחרי שמטא אישרה את התבנית.','yn',{danger:'הפעלה מאפשרת שליחת בקשות ביקורת אמיתיות ללקוחות בוואטסאפ. להמשיך?'}],
   ['wa_quote_link_base','adv','adv','וואטסאפ — בסיס הקישור להצעה','רק https://q.ironfitness.co.il/ או https://app.ironfitness.co.il/q# — כל ערך אחר נופל לברירת המחדל.','txt',{ltr:1}],
   ['mail_allow','adv','adv','מייל — רשימת היתר (פילוט)','','list',{ltr:1,danger:'שינוי ברשימת ההיתר קובע מי מקבל מיילים אמיתיים. לשמור?'}],
   ['mail_templates','adv','adv','מייל — תבניות','JSON.','json',{ltr:1}],
@@ -37531,6 +37550,252 @@ window.spiRender = async function(){
     });
   }
   spiPaint();
+};
+
+
+/* ===== בקשת ביקורת גוגל — וואטסאפ ללקוחות שקיבלו את הציוד (7.81.0) =====
+   רומן, 20/11/2026 (אפיון מאושר): בוחר במסך למי לשלוח · שליחה ידנית בלבד, אין טריגר · אפשרות להסיר לקוח · רק רומן ונח.
+   השרת מחזיק את כל ההגדרות — מי מופיע (ord.review_req_candidates: כל הפריטים סופקו לפי פריוריטי, בלי מבוטלות,
+   30 יום אחורה, עם טלפון), פעם אחת לטלפון (dedupe_key ב-core.outbox), והמתג. המסך רק מציג ושולח מזהים.
+   🔴 רומן: "לא לשלוח שום ביקורות גוגל עד אישור מפורש שלי". כל עוד ord.settings.review_request_enabled אינו 'כן'
+      "שלח" פותח הודעה ואינו קורא לשרת — והשרת נכשל בקול גם אם יקראו לו. השליחה עצמה: outbox-dispatch (כל דקה).
+   ⚠️ "שם בהודעה" הוא מה שנשלח כ-payload.lead: איש הקשר, אחרת שם הלקוח רק כשהוא נראה שם של אדם. ריק ⇒ Heyy
+      משתמש בשם שכבר יש לו למספר, ואם אין — ההודעה נפתחת בלי שם. מוצג כדי שאפשר יהיה להחליט לפני השליחה. */
+const RR_CSS = `
+#tab-revreq .rr-bar{ display:flex; gap:var(--sp-2h); align-items:center; flex-wrap:wrap; margin:0 0 var(--sp-3); }
+#tab-revreq .rr-q{ flex:0 1 320px; min-width:160px; padding:var(--sp-2) var(--sp-3); border:1px solid var(--field-bd);
+  border-radius:var(--r-md); font:inherit; font-size:var(--fs-md); min-height:var(--ctl-h-md); box-sizing:border-box; }
+#tab-revreq .rr-sp{ flex:1 1 auto; }
+#tab-revreq .rr-bar .ghost{ min-height:var(--ctl-h-md); box-sizing:border-box; }
+#tab-revreq .rr-note{ border-radius:var(--r-md); padding:var(--sp-2h) var(--sp-3); margin:0 0 var(--sp-3); font-size:var(--fs-md);
+  line-height:1.5; background-color:var(--bg-subtle); border:1px solid var(--line); color:var(--ink-2); }
+#tab-revreq .rr-note.off{ background-color:var(--new-bg); border-color:var(--warn); color:var(--ink-1); }
+#tab-revreq .rr-note.err{ background-color:var(--red-bg); border-color:var(--red); color:var(--ink-1); }
+#tab-revreq .rr-bulk{ display:flex; gap:var(--sp-2h); align-items:center; flex-wrap:wrap; margin:0 0 var(--sp-3);
+  padding:var(--sp-2) var(--sp-3); background-color:var(--bg-subtle); border:1px solid var(--line); border-radius:var(--r-md); font-size:var(--fs-md); }
+#tab-revreq .rr-bulk .btn{ width:auto; min-height:var(--ctl-h-md); font-size:var(--fs-md); padding:var(--sp-1h) var(--sp-4); }
+#tab-revreq .rr-sum{ font-size:var(--fs-sm); color:var(--ink-2); margin:0 0 var(--sp-2); }
+#tab-revreq .rr-st{ display:inline-block; padding:1px var(--sp-2); border-radius:var(--r-pill); font-size:var(--fs-xs); font-weight:700; white-space:nowrap; }
+#tab-revreq .rr-st.none{ background-color:var(--bg-muted); color:var(--ink-2); }
+#tab-revreq .rr-st.wait{ background-color:var(--amber-bg); color:var(--warn-ink); }
+#tab-revreq .rr-st.ok{ background-color:#e7f6ec; color:var(--ok); }
+#tab-revreq .rr-st.read{ background-color:var(--navy); color:#fff; }
+#tab-revreq .rr-st.fail{ background-color:var(--red-bg); color:var(--red); }
+#tab-revreq .rr-oth, #tab-revreq .rr-dk{ font-size:var(--fs-xs); color:var(--ink-3); margin-inline-start:var(--sp-1); }
+#tab-revreq .rr-noname{ color:var(--ink-3); }
+#tab-revreq .rr-tag{ display:inline-block; font-size:var(--fs-2xs); border-radius:var(--r-pill); padding:0 var(--sp-1h);
+  background-color:var(--bg-muted); color:var(--ink-2); margin-inline-start:var(--sp-1); }
+#tab-revreq .rr-ph{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+#tab-revreq td.rr-act{ white-space:nowrap; }
+#tab-revreq .rr-act .ghost{ padding:var(--sp-1) var(--sp-2h); min-height:var(--ctl-h-sm); font-size:var(--fs-sm); }
+#tab-revreq .rr-act .rr-dis{ color:var(--ink-3); }
+#tab-revreq .rr-act .rr-land{ font-size:var(--fs-xs); color:var(--ink-3); }
+#tab-revreq td.rr-cbc, #tab-revreq th.rr-cbc{ width:28px; text-align:center; }
+#tab-revreq .rr-card{ display:flex; gap:var(--sp-2h); align-items:flex-start; background-color:#fff; border:1px solid var(--line);
+  border-radius:var(--r-lg); padding:var(--sp-3); margin:0 0 var(--sp-2); }
+#tab-revreq .rr-cm{ flex:1 1 auto; min-width:0; }
+#tab-revreq .rr-cm .nm{ font-weight:700; color:var(--ink-1); }
+#tab-revreq .rr-cm .meta{ font-size:var(--fs-sm); color:var(--ink-3); margin:var(--sp-0h) 0; }
+#tab-revreq .rr-card .rr-act{ display:flex; flex-direction:column; gap:var(--sp-1h); }
+@media (max-width:759.98px){ #tab-revreq .rr-sp{ display:none; } #tab-revreq .rr-q{ flex:1 1 100%; } }
+`;
+function rrInjectCss(){
+  if(document.getElementById('rr-css')) return;
+  const st = document.createElement('style'); st.id = 'rr-css'; st.textContent = RR_CSS;
+  document.head.appendChild(st);
+}
+
+const RR_PERM = 'logi.review';
+const RR_CHIPS = [['new','לא נשלחו'],['sent','נשלחו'],['all','הכל']];
+const RR_OFF_MSG = 'שליחת בקשות הביקורת עדיין כבויה. התבנית "בקשת ביקורת גוגל" ממתינה לאישור מטא, וההפעלה היא של רומן בלבד '
+  + '(הגדרות ← מתקדם ← "בקשות ביקורת גוגל — שליחה"). בינתיים אפשר לעבור על הרשימה ולהסיר ממנה לקוחות.';
+let RR = null, RR_ERR = '', RR_SEQ = 0, RR_BUSY = false;
+let RR_F = { st:'new', q:'' };
+const RR_SEL = new Set();
+
+/* 🔴 ההגדרה היחידה של מצב הבקשה לשורה. השבבים (rrIn), התגית (rrPill) והאם מותר לבחור (rrPickable) עוברים דרכה.
+   המקור: core.outbox לפי dedupe_key של הטלפון — כלומר גם בקשה שיצאה מהזמנה אחרת של אותו לקוח נחשבת "נשלחה". */
+function rrState(r){
+  if(!r.ob_id) return { k:'new', label:'לא נשלחה', cls:'none' };
+  const s = r.ob_status || '', d = r.ob_delivery || '';
+  if(s === 'נכשל' || d === 'נכשל') return { k:'sent', label:'נכשלה', cls:'fail' };
+  if(s === 'בוטל') return { k:'sent', label:'בוטלה', cls:'fail' };
+  if(d === 'נקרא') return { k:'sent', label:'נקראה', cls:'read' };
+  if(d === 'נמסר') return { k:'sent', label:'נמסרה', cls:'ok' };
+  if(s === 'נשלח') return { k:'sent', label:'נשלחה', cls:'ok' };
+  return { k:'sent', label:'בתור לשליחה', cls:'wait' };
+}
+function rrIn(r, k){ return k === 'all' || rrState(r).k === k; }
+function rrPickable(r){ return !!(RR && RR.can_send && r.mobile && rrState(r).k === 'new'); }
+function rrPill(r){
+  const st = rrState(r);
+  const tip = st.k === 'new' ? '' : [r.ob_at ? fmtDT(r.ob_at) : '', r.ob_error || ''].filter(Boolean).join(' · ');
+  return '<span class="rr-st ' + st.cls + '"' + (tip ? ' title="' + esc(tip) + '"' : '') + '>' + esc(st.label) + '</span>'
+    + (r.ob_order && r.ob_order !== r.order_number ? '<span class="rr-oth">מהזמנה ' + esc(r.ob_order) + '</span>' : '');
+}
+function rrErrHe(e){
+  const s = String((e && e.message) || e || '');
+  if(/42501|permission denied|אין הרשאה/i.test(s)) return 'אין לך הרשאה לבקשות ביקורת';
+  if(/review_req_|function .* does not exist|PGRST202/i.test(s)) return 'צד השרת של בקשות הביקורת אינו זמין';
+  return s || 'שגיאה לא ידועה';
+}
+
+async function rrLoad(){
+  const seq = ++RR_SEQ;
+  try{
+    const { data, error } = await sb.schema('ord').rpc('review_req_list');
+    if(error) throw error;
+    if(seq !== RR_SEQ) return;              // תשובה ישנה אינה דורסת חדשה
+    RR = data || { rows:[] }; RR_ERR = '';
+    const ok = new Set((RR.rows || []).filter(rrPickable).map(r => r.id));
+    [...RR_SEL].forEach(id => { if(!ok.has(id)) RR_SEL.delete(id); });
+  }catch(e){ if(seq !== RR_SEQ) return; RR_ERR = rrErrHe(e); }
+}
+
+/* ── הרשימה ── */
+function rrRowsView(){
+  const q = String(RR_F.q || '').trim().toLowerCase();
+  let rows = ((RR && RR.rows) || []).filter(r => rrIn(r, RR_F.st));
+  if(q) rows = rows.filter(r => [r.customer_name, r.contact_name, r.order_number, r.phone, r.first_name]
+    .some(v => String(v || '').toLowerCase().indexOf(q) >= 0));
+  return rows;                               // הסדר מהשרת: מהחדש לישן
+}
+function rrName(r){ return r.first_name ? esc(r.first_name) : '<span class="rr-noname" title="אין שם פרטי — ייתכן שההודעה תיפתח בלי שם">בלי שם</span>'; }
+function rrActs(r){
+  if(!RR || !RR.can_send) return '';
+  const id = esc(r.id), on = esc(r.order_number);
+  let h = '';
+  if(rrState(r).k === 'new') h += r.mobile
+    ? '<button type="button" class="ghost rr-send" onclick="rrSendOne(\'' + id + '\',event)">שלח</button>'
+    : '<span class="rr-land" title="מספר קווי — אין וואטסאפ">קווי</span>';
+  return h + '<button type="button" class="ghost rr-dis" title="הסרה מהרשימה (ההזמנה אינה נמחקת)" onclick="rrDismiss(\'' + on + '\',event)">הסר</button>';
+}
+function rrCb(r){
+  if(!RR || !RR.can_send) return '';
+  return '<input type="checkbox" class="rr-cb" data-id="' + esc(r.id) + '" aria-label="בחירה"'
+    + (rrPickable(r) ? '' : ' disabled') + (RR_SEL.has(r.id) ? ' checked' : '')
+    + ' onchange="rrPick(\'' + esc(r.id) + '\',this.checked)">';
+}
+function rrDate(r){ return (r.d ? fmtD(r.d) : '—') + '<span class="rr-dk">' + esc(r.d_kind || '') + '</span>'; }
+function rrRowM(r){
+  return '<div class="rr-card" data-id="' + esc(r.id) + '">' + rrCb(r)
+    + '<div class="rr-cm"><div class="nm">' + esc(r.customer_name || '—') + (r.web ? '<span class="rr-tag">אתר</span>' : '') + '</div>'
+    + '<div class="meta">' + esc(r.order_number) + ' · ' + rrDate(r) + ' · <span class="rr-ph">' + esc(r.phone || '') + '</span></div>'
+    + '<div class="meta">שם בהודעה: ' + rrName(r) + '</div>' + rrPill(r) + '</div>'
+    + '<div class="rr-act">' + rrActs(r) + '</div></div>';
+}
+function rrTable(){
+  const rows = rrRowsView(), ed = !!(RR && RR.can_send);
+  const all = (RR && RR.rows) || [];
+  if(!rows.length) return '<div class="empty">' + (all.length ? 'אין הזמנות להצגה בסינון הזה.' : 'אין כרגע הזמנות שכל הפריטים שלהן סופקו ב-30 הימים האחרונים.') + '</div>';
+  const nPh = new Set(rows.map(r => r.p9)).size;
+  const sum = '<div class="rr-sum" id="rr-sum">' + rows.length + ' הזמנות · ' + nPh + ' מספרי טלפון</div>';
+  if(!wideScreen()) return sum + rows.map(rrRowM).join('');
+  const pick = rows.filter(rrPickable);
+  const allOn = pick.length > 0 && pick.every(r => RR_SEL.has(r.id));
+  const head = '<thead><tr>' + (ed ? '<th class="rr-cbc"><input type="checkbox" id="rr-all" aria-label="בחירת הכל"' + (pick.length ? '' : ' disabled') + (allOn ? ' checked' : '') + ' onchange="rrPickAll(this.checked)"></th>' : '')
+    + '<th>תאריך</th><th>הזמנה</th><th>לקוח</th><th>איש קשר</th><th>שם בהודעה</th><th>טלפון</th><th>בקשה</th>' + (ed ? '<th></th>' : '') + '</tr></thead>';
+  const body = rows.map(r => '<tr data-id="' + esc(r.id) + '">'
+    + (ed ? '<td class="rr-cbc">' + rrCb(r) + '</td>' : '')
+    + '<td>' + rrDate(r) + '</td>'
+    + '<td>' + esc(r.order_number) + (r.web ? '<span class="rr-tag">אתר</span>' : '') + '</td>'
+    + '<td>' + esc(r.customer_name || '—') + '</td>'
+    + '<td>' + esc(r.contact_name || '') + '</td>'
+    + '<td>' + rrName(r) + '</td>'
+    + '<td><span class="rr-ph">' + esc(r.phone || '') + '</span></td>'
+    + '<td>' + rrPill(r) + '</td>'
+    + (ed ? '<td class="rr-act">' + rrActs(r) + '</td>' : '') + '</tr>').join('');
+  return sum + '<div class="tbl-wrap"><table class="tbl" data-gs="own">' + head + '<tbody>' + body + '</tbody></table></div>';
+}
+function rrChips(){
+  const el = $('#rr-chips'); if(!el) return;
+  const rows = (RR && RR.rows) || [];
+  el.innerHTML = RR_CHIPS.map(([k, lb]) => '<button type="button" class="chip' + (RR_F.st === k ? ' active' : '') + '" data-k="' + k
+    + '" onclick="rrSetFilter(\'' + k + '\')">' + lb + ' <b>' + rows.filter(r => rrIn(r, k)).length + '</b></button>').join('');
+}
+function rrNote(){
+  const el = $('#rr-note'); if(!el) return;
+  if(RR_ERR){ el.innerHTML = '<div class="rr-note err">לא ניתן לטעון את בקשות הביקורת: ' + esc(RR_ERR) + '</div>'; return; }
+  if(!RR){ el.innerHTML = ''; return; }
+  if(!RR.enabled){ el.innerHTML = '<div class="rr-note off" id="rr-off">' + esc(RR_OFF_MSG) + '</div>'; return; }
+  if(!RR.mapped){ el.innerHTML = '<div class="rr-note off">אין מיפוי לתבנית בקשת הביקורת (הגדרות ← מתקדם ← וואטסאפ — מיפוי תבניות Heyy). השליחה תיכשל עד שימולא.</div>'; return; }
+  el.innerHTML = '<div class="rr-note">כאן מופיעות הזמנות שכל הפריטים שלהן סופקו לפי פריוריטי, ב-30 הימים האחרונים. כל מספר טלפון מקבל בקשה אחת בלבד.</div>';
+}
+function rrBulkPaint(){
+  const el = $('#rr-bulk'); if(!el) return;
+  const rows = ((RR && RR.rows) || []).filter(r => RR_SEL.has(r.id));
+  el.classList.toggle('hidden', !rows.length);
+  if(!rows.length){ el.innerHTML = ''; return; }
+  const nPh = new Set(rows.map(r => r.p9)).size;
+  el.innerHTML = '<span>נבחרו <b>' + rows.length + '</b> הזמנות · ' + nPh + ' מספרי טלפון</span>'
+    + '<button type="button" class="btn rr-go" onclick="rrSendSel()"' + (RR_BUSY ? ' disabled' : '') + '>שליחה לנבחרים</button>'
+    + '<button type="button" class="ghost" onclick="rrClearSel()">ניקוי הבחירה</button>';
+}
+function rrListPaint(){ const b = $('#rr-body'); if(b) b.innerHTML = rrTable(); rrBulkPaint(); }
+function rrPaint(){
+  if(!$('#rr-body')) return;
+  rrNote(); rrChips(); rrListPaint();
+}
+window.rrSetFilter = k => { RR_F.st = k; rrPaint(); };
+window.rrPick = (id, on) => { if(on) RR_SEL.add(id); else RR_SEL.delete(id); rrListPaint(); };
+window.rrPickAll = on => { rrRowsView().filter(rrPickable).forEach(r => { if(on) RR_SEL.add(r.id); else RR_SEL.delete(r.id); }); rrListPaint(); };
+window.rrClearSel = () => { RR_SEL.clear(); rrListPaint(); };
+function rrWire(){
+  const q = $('#rr-q');
+  if(q && !q._rrWired){ q._rrWired = true; q.addEventListener('input', () => { RR_F.q = q.value; rrListPaint(); }); }
+}
+window.rrRender = async function(){
+  rrInjectCss(); rrWire();
+  const b = $('#rr-body'); if(!b) return;
+  if(!RR && !RR_ERR) b.innerHTML = crmLoading(); else rrPaint();
+  await rrLoad();
+  rrPaint();
+};
+window.rrReload = async function(){ await rrLoad(); rrPaint(); };
+
+/* ── השליחה: ידנית, למזהים שנבחרו. השרת בודק הכול מחדש (מועמד · נייד · פעם אחת לטלפון · המתג) ── */
+window.rrSend = async function(ids){
+  ids = [...new Set((ids || []).filter(Boolean))];
+  if(!ids.length || RR_BUSY || !RR) return;
+  if(!RR.can_send || !canEdit(RR_PERM)){ toast('אין לך הרשאה לשלוח בקשות ביקורת', 'err'); return; }
+  /* 🔴 המתג של רומן — הודעה ברורה ואפס קריאות לשרת */
+  if(!RR.enabled){ await sysAlert(RR_OFF_MSG); return; }
+  const rows = ids.map(id => (RR.rows || []).find(r => r.id === id)).filter(Boolean);
+  const nPh = new Set(rows.map(r => r.p9)).size;
+  if(!(await sysConfirm('לשלוח בקשת ביקורת בגוגל בוואטסאפ ל-' + nPh + (nPh === 1 ? ' מספר טלפון' : ' מספרי טלפון')
+      + '? ההודעה יוצאת תוך דקה, ולכל מספר פעם אחת בלבד.', { ok:'שליחה' }))) return;
+  /* לחיצה כפולה פותחת שני דיאלוגים בתור — השני מגיע לכאן כשהראשון כבר שולח */
+  if(RR_BUSY) return;
+  RR_BUSY = true; rrBulkPaint();
+  try{
+    const { data, error } = await sb.schema('ord').rpc('review_req_send', { p_ids: ids });
+    if(error) throw error;
+    const sent = +((data && data.sent) || 0), sk = (data && data.skipped) || [];
+    ids.forEach(id => RR_SEL.delete(id));
+    toast('נשלחו ' + sent + (sent === 1 ? ' בקשה' : ' בקשות') + (sk.length ? ' · ' + sk.length + ' לא נשלחו' : ''), sent ? 'ok' : '');
+    if(sk.length) await sysAlert('לא נשלחו: ' + sk.map(x => String(x.order || '') + ' — ' + String(x.reason || '')).join(' · '));
+  }catch(e){ toast(rrErrHe(e), 'err'); }
+  finally{ RR_BUSY = false; }
+  await rrLoad(); rrPaint();
+};
+window.rrSendOne = (id, ev) => { if(ev) ev.stopPropagation(); return rrSend([id]); };
+window.rrSendSel = () => rrSend([...RR_SEL]);
+
+/* ── הסרה מהרשימה: ord.review_request_dismissed. ההזמנה עצמה אינה נמחקת ── */
+window.rrDismiss = async function(order, ev){
+  if(ev) ev.stopPropagation();
+  if(!RR || !RR.can_send || RR_BUSY) return;
+  const reason = await sysPrompt('להסיר את הזמנה ' + order + ' מרשימת בקשות הביקורת? היא לא תופיע כאן שוב. ההזמנה עצמה אינה נמחקת. סיבה (לא חובה):', '', { ok:'הסרה' });
+  if(reason === null) return;
+  RR_BUSY = true;
+  try{
+    const { error } = await sb.schema('ord').rpc('review_req_dismiss', { p_order: order, p_reason: reason });
+    if(error) throw error;
+    (RR.rows || []).filter(r => r.order_number === order).forEach(r => RR_SEL.delete(r.id));
+    RR.rows = (RR.rows || []).filter(r => r.order_number !== order);
+    toast('הוסרה מהרשימה', 'ok');
+  }catch(e){ toast(rrErrHe(e), 'err'); }
+  finally{ RR_BUSY = false; rrPaint(); }
 };
 
 
