@@ -4652,7 +4652,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.81.1</div>
+      <div class="ver">גרסה 7.82.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4801,7 +4801,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="revreq2-2026-11-20a">גרסה 7.81.1</div>
+    <div class="side-foot" title="revreq3-2026-11-20a">גרסה 7.82.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5079,8 +5079,10 @@ tr.lb-on td{ background-color:#eef5fd !important; }
         <span class="rr-sp"></span>
         <button type="button" class="ghost" onclick="rrReload()">רענון</button>
       </div>
-      <div class="chips" id="rr-chips"></div>
-      <div id="rr-bulk" class="rr-bulk hidden"></div>
+      <div class="rr-row" id="rr-row">
+        <div class="chips" id="rr-chips"></div>
+        <div id="rr-bulk" class="rr-bulk hidden"></div>
+      </div>
       <div id="rr-body"></div>
     </section>
 
@@ -16036,7 +16038,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'revreq2-2026-11-20a';
+const BUILD_ID = 'revreq3-2026-11-20a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -37554,14 +37556,18 @@ window.spiRender = async function(){
 };
 
 
-/* ===== בקשת ביקורת גוגל — וואטסאפ ללקוחות שקיבלו את הציוד (7.81.0) =====
+/* ===== בקשת ביקורת גוגל — וואטסאפ ללקוחות שקיבלו את הציוד (7.81.0 · 7.82.0) =====
    רומן, 20/11/2026 (אפיון מאושר): בוחר במסך למי לשלוח · שליחה ידנית בלבד, אין טריגר · אפשרות להסיר לקוח · רק רומן ונח.
-   השרת מחזיק את כל ההגדרות — מי מופיע (ord.review_req_candidates: כל הפריטים סופקו לפי פריוריטי, בלי מבוטלות,
-   30 יום אחורה, עם טלפון), פעם אחת לטלפון (dedupe_key ב-core.outbox), והמתג. המסך רק מציג ושולח מזהים.
+   השרת מחזיק את כל ההגדרות — מי מופיע (ord.review_req_candidates), ראיית האספקה, פעם אחת לטלפון (dedupe_key
+   ב-core.outbox), והמתג. המסך רק מציג ושולח מזהים.
    🔴 רומן: "לא לשלוח שום ביקורות גוגל עד אישור מפורש שלי". כל עוד ord.settings.review_request_enabled אינו 'כן'
-      "שלח" פותח הודעה ואינו קורא לשרת — והשרת נכשל בקול גם אם יקראו לו. השליחה עצמה: outbox-dispatch (כל דקה).
-   ⚠️ "שם בהודעה" הוא מה שנשלח כ-payload.lead: איש הקשר, אחרת שם הלקוח רק כשהוא נראה שם של אדם. ריק ⇒ Heyy
-      משתמש בשם שכבר יש לו למספר, ואם אין — ההודעה נפתחת בלי שם. מוצג כדי שאפשר יהיה להחליט לפני השליחה. */
+      "שליחה" פותחת הודעה ואינה קוראת לשרת — והשרת נכשל בקול גם אם יקראו לו. השליחה עצמה: outbox-dispatch (כל דקה).
+   7.82.0 — רומן: "איך אני יודע שבאמת זה סופק? ... אני רוצה לדעת תאריך אספקה ובפועל לשלוח ידנית כשאני רואה לנכון".
+      "סופק לפי פריוריטי" = יצאה חשבונית / תעודת משלוח, לא "הלקוח קיבל". לכן כל שורה מציגה את הראיה שיש לה
+      (rrDv): התקבל — יהב "בוצע" · דוח תקינות חתום · הצוות סימן בוצע; יצא — מסמך פריוריטי בלבד. שום דבר אינו נחסם.
+      "ייתכן שכבר כתב ביקורת" — גוגל מוסרת רק שם תצוגה של הכותב, ולכן זו התאמת שמות (בשרת) וסימון בלבד.
+   ⚠️ "פנייה" היא מה שנשלח כ-payload.lead: איש הקשר, אחרת שם הלקוח רק כשהוא נראה שם של אדם. ריק ⇒ Heyy
+      משתמש בשם שכבר יש לו למספר, ואם אין — ההודעה נפתחת בלי שם. */
 const RR_CSS = `
 #tab-revreq .rr-bar{ display:flex; gap:var(--sp-2h); align-items:center; flex-wrap:wrap; margin:0 0 var(--sp-3); }
 #tab-revreq .rr-q{ flex:0 1 320px; min-width:160px; padding:var(--sp-2) var(--sp-3); border:1px solid var(--field-bd);
@@ -37569,36 +37575,62 @@ const RR_CSS = `
 #tab-revreq .rr-sp{ flex:1 1 auto; }
 #tab-revreq .rr-bar .ghost{ min-height:var(--ctl-h-md); box-sizing:border-box; }
 #tab-revreq .rr-note{ border-radius:var(--r-md); padding:var(--sp-2h) var(--sp-3); margin:0 0 var(--sp-3); font-size:var(--fs-md);
-  line-height:1.5; background-color:var(--bg-subtle); border:1px solid var(--line); color:var(--ink-2); }
-#tab-revreq .rr-note.off{ background-color:var(--new-bg); border-color:var(--warn); color:var(--ink-1); }
-#tab-revreq .rr-note.err{ background-color:var(--red-bg); border-color:var(--red); color:var(--ink-1); }
-#tab-revreq .rr-bulk{ display:flex; gap:var(--sp-2h); align-items:center; flex-wrap:wrap; margin:0 0 var(--sp-3);
-  padding:var(--sp-2) var(--sp-3); background-color:var(--bg-subtle); border:1px solid var(--line); border-radius:var(--r-md); font-size:var(--fs-md); }
-#tab-revreq .rr-bulk .btn{ width:auto; min-height:var(--ctl-h-md); font-size:var(--fs-md); padding:var(--sp-1h) var(--sp-4); }
+  line-height:1.5; background-color:var(--new-bg); border:1px solid var(--warn); color:var(--ink-1); }
+#tab-revreq .rr-note.bad{ background-color:var(--red-bg); border-color:var(--red); }
+#tab-revreq .rr-row{ display:flex; align-items:center; gap:var(--sp-2) var(--sp-3); flex-wrap:wrap; margin:0 0 var(--sp-2);
+  min-height:var(--ctl-h-md); }
+#tab-revreq .rr-row .chips{ margin-bottom:0; padding-bottom:0; flex:0 1 auto; }
+#tab-revreq .chips .chip b{ margin-inline-start:var(--sp-1); }
+#tab-revreq .chips .rr-sepc{ flex:none; width:1px; align-self:stretch; background-color:var(--line-strong); margin:0 var(--sp-1); }
+#tab-revreq .rr-bulk{ display:flex; gap:var(--sp-2h); align-items:center; margin-inline-start:auto; font-size:var(--fs-md); }
+#tab-revreq .rr-bulk .btn{ width:auto; min-height:var(--ctl-h-sm); font-size:var(--fs-md); padding:var(--sp-1) var(--sp-4); }
+#tab-revreq .rr-bulk .ghost{ min-height:var(--ctl-h-sm); padding:var(--sp-1) var(--sp-2h); font-size:var(--fs-sm); }
 #tab-revreq .rr-sum{ font-size:var(--fs-sm); color:var(--ink-2); margin:0 0 var(--sp-2); }
 #tab-revreq .rr-st{ display:inline-block; padding:1px var(--sp-2); border-radius:var(--r-pill); font-size:var(--fs-xs); font-weight:700; white-space:nowrap; }
 #tab-revreq .rr-st.none{ background-color:var(--bg-muted); color:var(--ink-2); }
 #tab-revreq .rr-st.wait{ background-color:var(--amber-bg); color:var(--warn-ink); }
+#tab-revreq .rr-st.sent{ background-color:var(--bg-muted); color:var(--navy); }
 #tab-revreq .rr-st.ok{ background-color:#e7f6ec; color:var(--ok); }
 #tab-revreq .rr-st.read{ background-color:var(--navy); color:#fff; }
 #tab-revreq .rr-st.fail{ background-color:var(--red-bg); color:var(--red); }
-#tab-revreq .rr-oth, #tab-revreq .rr-dk{ font-size:var(--fs-xs); color:var(--ink-3); margin-inline-start:var(--sp-1); }
+#tab-revreq .rr-sub{ display:block; font-size:var(--fs-xs); color:var(--ink-3); max-width:min(180px, 11vw); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#tab-revreq .rr-sub.rr-rv{ white-space:normal; line-height:1.3; }
+#tab-revreq .rr-sub.warn{ color:var(--warn-ink); font-weight:600; }
+#tab-revreq .rr-sub.bad{ color:var(--red); }
+#tab-revreq .rr-sub.good{ color:var(--ok); font-weight:600; }
+#tab-revreq .rr-cust{ display:block; max-width:min(240px, 13vw); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 #tab-revreq .rr-noname{ color:var(--ink-3); }
 #tab-revreq .rr-tag{ display:inline-block; font-size:var(--fs-2xs); border-radius:var(--r-pill); padding:0 var(--sp-1h);
-  background-color:var(--bg-muted); color:var(--ink-2); margin-inline-start:var(--sp-1); }
-#tab-revreq .rr-ph{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+  background-color:var(--bg-muted); color:var(--ink-2); margin-inline-start:var(--sp-1); white-space:nowrap; }
+#tab-revreq .rr-ph{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; white-space:nowrap; }
+#tab-revreq table.tbl td{ padding-block:var(--sp-1); vertical-align:middle; }
+#tab-revreq table.tbl tbody tr.rr-nop{ cursor:default; }
 #tab-revreq td.rr-act{ white-space:nowrap; }
-#tab-revreq .rr-act .ghost{ padding:var(--sp-1) var(--sp-2h); min-height:var(--ctl-h-sm); font-size:var(--fs-sm); }
-#tab-revreq .rr-act .rr-dis{ color:var(--ink-3); }
-#tab-revreq .rr-act .rr-land{ font-size:var(--fs-xs); color:var(--ink-3); }
+#tab-revreq .rr-acts{ display:flex; gap:var(--sp-2); align-items:center; justify-content:flex-end; }
+#tab-revreq .rr-acts .ghost{ padding:var(--sp-1) var(--sp-2h); min-height:var(--ctl-h-sm); font-size:var(--fs-sm); box-sizing:border-box; }
+#tab-revreq .rr-acts .rr-send{ background-color:var(--navy); border-color:var(--navy); color:#fff; min-width:64px; }
+#tab-revreq .rr-acts .rr-send.rr-off{ opacity:.5; }
+#tab-revreq .rr-acts .rr-nosend{ display:inline-block; min-width:64px; }
+#tab-revreq .rr-acts .rr-dis{ border-color:transparent; background:none; color:var(--ink-3); font-weight:400; }
+#tab-revreq .rr-acts .rr-dis:hover{ color:var(--red); }
 #tab-revreq td.rr-cbc, #tab-revreq th.rr-cbc{ width:28px; text-align:center; }
-#tab-revreq .rr-card{ display:flex; gap:var(--sp-2h); align-items:flex-start; background-color:#fff; border:1px solid var(--line);
-  border-radius:var(--r-lg); padding:var(--sp-3); margin:0 0 var(--sp-2); }
+#tab-revreq .rr-card{ display:flex; gap:var(--sp-2h); align-items:flex-start; background-color:#fff; border-radius:var(--r-lg);
+  box-shadow:var(--sh-card); padding:var(--sp-3); margin:0 0 var(--sp-2h); }
+#tab-revreq .rr-cbl{ flex:none; display:flex; align-items:center; justify-content:center; min-width:var(--ctl-h-sm); min-height:var(--ctl-h-touch-sm); }
 #tab-revreq .rr-cm{ flex:1 1 auto; min-width:0; }
-#tab-revreq .rr-cm .nm{ font-weight:700; color:var(--ink-1); }
-#tab-revreq .rr-cm .meta{ font-size:var(--fs-sm); color:var(--ink-3); margin:var(--sp-0h) 0; }
-#tab-revreq .rr-card .rr-act{ display:flex; flex-direction:column; gap:var(--sp-1h); }
-@media (max-width:759.98px){ #tab-revreq .rr-sp{ display:none; } #tab-revreq .rr-q{ flex:1 1 100%; } }
+#tab-revreq .rr-cm .nm{ font-weight:600; color:var(--ink-1); overflow-wrap:anywhere; }
+#tab-revreq .rr-cm .meta{ font-size:var(--fs-md); color:var(--ink-3); margin:var(--sp-0h) 0; }
+#tab-revreq .rr-cm .rr-sub{ max-width:none; white-space:normal; }
+#tab-revreq .rr-card .rr-acts{ flex:none; flex-direction:column; align-items:stretch; }
+@media (max-width:1024px){
+  #tab-revreq .rr-row{ position:sticky; top:calc(52px + var(--verbar-h,0px)); z-index:5; background-color:var(--bg);
+    padding:var(--sp-1) 0; }
+  #tab-revreq .rr-bulk{ flex:1 1 100%; margin-inline-start:0; }
+  #tab-revreq .rr-bulk > span{ flex:1 1 auto; }
+}
+@media (max-width:759.98px){ #tab-revreq .rr-sp{ display:none; } #tab-revreq .rr-q{ flex:1 1 0; min-width:0; }
+  #tab-revreq .rr-acts .ghost{ min-height:var(--ctl-h-touch-sm); }
+  #tab-revreq .rr-acts .rr-nosend{ display:none; } }
 `;
 function rrInjectCss(){
   if(document.getElementById('rr-css')) return;
@@ -37607,37 +37639,62 @@ function rrInjectCss(){
 }
 
 const RR_PERM = 'crm.review';
-const RR_CHIPS = [['new','לא נשלחו'],['sent','נשלחו'],['all','הכל']];
-const RR_OFF_MSG = 'שליחת בקשות הביקורת עדיין כבויה. התבנית "בקשת ביקורת גוגל" ממתינה לאישור מטא, וההפעלה היא של רומן בלבד '
-  + '(הגדרות ← מתקדם ← "בקשות ביקורת גוגל — שליחה"). בינתיים אפשר לעבור על הרשימה ולהסיר ממנה לקוחות.';
-let RR = null, RR_ERR = '', RR_SEQ = 0, RR_BUSY = false;
-let RR_F = { st:'new', q:'' };
+const RR_CHIPS = [['new','לא נשלחו'],['sent','נשלחו'],['fail','נכשלו'],['all','הכל']];
+const RR_OFF_NOTE = 'השליחה כבויה. אפשר לעבור על הרשימה ולהסיר ממנה לקוחות. להפעלה: הגדרות ← מתקדם ← "בקשות ביקורת גוגל — שליחה".';
+const RR_OFF_MSG = 'השליחה עדיין כבויה. היא תופעל אחרי שהתבנית תאושר במטא ורומן ידליק אותה בהגדרות ← מתקדם ← "בקשות ביקורת גוגל — שליחה".';
+/* מקור ראיית האספקה ⇐ הנוסח. הרמה (dv_level) מגיעה מהשרת: confirmed = יש אישור שהלקוח קיבל */
+const RR_DV_SRC = { yahav:'יהב', signed:'דוח חתום', done:'הצוות סימן בוצע', transit:'יהב', dnote:'תעודת משלוח בלבד', invoice:'חשבונית בלבד', none:'אין מסמך אספקה' };
+const RR_DV_LVL = { confirmed:['התקבל','ok'], transit:['בדרך','wait'], shipped:['יצא','none'], none:['לא ידוע','none'] };
+let RR = null, RR_ERR = '', RR_SEQ = 0, RR_BUSY = false, RR_FIT_T = 0;
+let RR_F = { st:'new', q:'', conf:false };
 const RR_SEL = new Set();
 
 /* 🔴 ההגדרה היחידה של מצב הבקשה לשורה. השבבים (rrIn), התגית (rrPill) והאם מותר לבחור (rrPickable) עוברים דרכה.
-   המקור: core.outbox לפי dedupe_key של הטלפון — כלומר גם בקשה שיצאה מהזמנה אחרת של אותו לקוח נחשבת "נשלחה". */
+   המקור: core.outbox לפי dedupe_key של הטלפון — כלומר גם בקשה שיצאה מהזמנה אחרת של אותו לקוח נחשבת "נשלחה".
+   7.82.0 — 'fail' קבוצה משלה: "נשלחו" אינו סופר עוד בקשות שנכשלו או בוטלו. */
 function rrState(r){
   if(!r.ob_id) return { k:'new', label:'לא נשלחה', cls:'none' };
   const s = r.ob_status || '', d = r.ob_delivery || '';
-  if(s === 'נכשל' || d === 'נכשל') return { k:'sent', label:'נכשלה', cls:'fail' };
-  if(s === 'בוטל') return { k:'sent', label:'בוטלה', cls:'fail' };
+  if(s === 'נכשל' || d === 'נכשל') return { k:'fail', label:'נכשלה', cls:'fail' };
+  if(s === 'בוטל') return { k:'fail', label:'בוטלה', cls:'none' };
   if(d === 'נקרא') return { k:'sent', label:'נקראה', cls:'read' };
   if(d === 'נמסר') return { k:'sent', label:'נמסרה', cls:'ok' };
-  if(s === 'נשלח') return { k:'sent', label:'נשלחה', cls:'ok' };
+  if(s === 'נשלח') return { k:'sent', label:'נשלחה', cls:'sent' };
   return { k:'sent', label:'בתור לשליחה', cls:'wait' };
 }
 function rrIn(r, k){ return k === 'all' || rrState(r).k === k; }
 function rrPickable(r){ return !!(RR && RR.can_send && r.mobile && rrState(r).k === 'new'); }
+/* מה מותר לשלוח: חדשה, או בקשה שנכשלה/בוטלה ולא נמסרה (השרת מחזיר ob_retry ושולח אותה שוב באותה שורה) */
+function rrSendable(r){ return rrPickable(r) || !!(RR && RR.can_send && r.mobile && r.ob_retry); }
+/* 🔴 ההגדרה היחידה של ראיית האספקה לשורה: התא (rrDvCell), הסינון (rrRowsView), המונה (rrChips) והאזהרה באישור (rrSend).
+   has=false ⇒ השרת עוד אינו מחזיר ראיות (גרסה 1) — מוצג התאריך הישן, ואין סינון. */
+function rrDv(r){
+  if(r.dv_kind === undefined) return { has:false, ok:false, date:r.d, lvl:null, src:r.d_kind || '' };
+  const lv = RR_DV_LVL[r.dv_level] || RR_DV_LVL.none;
+  let src = RR_DV_SRC[r.dv_kind] || '';
+  const extra = r.dv_note || ((r.dv_level === 'shipped' || r.dv_level === 'none') ? (r.delivery_method || '') : '');
+  if(extra && extra !== src) src += (src ? ' · ' : '') + extra;
+  return { has:true, ok:r.dv_level === 'confirmed', date:r.dv_date || null, lvl:lv, src };
+}
+/* ביקורת של כותב בשם דומה (התאמת שמות בשרת). after — נכתבה אחרי שהבקשה יצאה */
+function rrRv(r){
+  if(!r.rv_name) return null;
+  const after = !!(r.ob_id && r.ob_at && r.rv_date && String(r.rv_date) >= String(r.ob_at).slice(0, 10));
+  return { name:r.rv_name, date:r.rv_date, after };
+}
 function rrPill(r){
-  const st = rrState(r);
-  const tip = st.k === 'new' ? '' : [r.ob_at ? fmtDT(r.ob_at) : '', r.ob_error || ''].filter(Boolean).join(' · ');
-  return '<span class="rr-st ' + st.cls + '"' + (tip ? ' title="' + esc(tip) + '"' : '') + '>' + esc(st.label) + '</span>'
-    + (r.ob_order && r.ob_order !== r.order_number ? '<span class="rr-oth">מהזמנה ' + esc(r.ob_order) + '</span>' : '');
+  const st = rrState(r), rv = rrRv(r);
+  let h = '<span class="rr-st ' + st.cls + '"' + (r.ob_at ? ' title="' + esc(fmtDT(r.ob_at)) + '"' : '') + '>' + esc(st.label) + '</span>';
+  if(r.ob_order && r.ob_order !== r.order_number) h += '<span class="rr-sub">מהזמנה <bdi>' + esc(r.ob_order) + '</bdi></span>';
+  if(st.k === 'fail' && r.ob_error) h += '<span class="rr-sub bad" dir="auto" title="' + esc(r.ob_error) + '">' + esc(r.ob_error) + '</span>';
+  if(rv) h += '<span class="rr-sub ' + (rv.after ? 'good' : 'warn') + ' rr-rv" title="לפי התאמת שמות מול הביקורות בגוגל — לא ודאי">'
+    + (rv.after ? 'נכתבה ביקורת אחרי הבקשה: ' : 'ייתכן שכבר כתב ביקורת: ') + esc(rv.name) + (rv.date ? ' · ' + fmtD(rv.date) : '') + '</span>';
+  return h;
 }
 function rrErrHe(e){
   const s = String((e && e.message) || e || '');
   if(/42501|permission denied|אין הרשאה/i.test(s)) return 'אין לך הרשאה לבקשות ביקורת';
-  if(/review_req_|function .* does not exist|PGRST202/i.test(s)) return 'צד השרת של בקשות הביקורת אינו זמין';
+  if(/function .* does not exist|PGRST202|Could not find the function/i.test(s)) return 'צד השרת של בקשות הביקורת אינו זמין';
   return s || 'שגיאה לא ידועה';
 }
 
@@ -37657,70 +37714,100 @@ async function rrLoad(){
 function rrRowsView(){
   const q = String(RR_F.q || '').trim().toLowerCase();
   let rows = ((RR && RR.rows) || []).filter(r => rrIn(r, RR_F.st));
+  if(RR_F.conf) rows = rows.filter(r => rrDv(r).ok);
   if(q) rows = rows.filter(r => [r.customer_name, r.contact_name, r.order_number, r.phone, r.first_name]
     .some(v => String(v || '').toLowerCase().indexOf(q) >= 0));
-  return rows;                               // הסדר מהשרת: מהחדש לישן
+  return rows;                               // הסדר מהשרת: מהאספקה האחרונה לישנה
 }
-function rrName(r){ return r.first_name ? esc(r.first_name) : '<span class="rr-noname" title="אין שם פרטי — ייתכן שההודעה תיפתח בלי שם">בלי שם</span>'; }
+function rrShared(){ const m = {}; ((RR && RR.rows) || []).forEach(r => { m[r.p9] = (m[r.p9] || 0) + 1; }); return m; }
+function rrName(r){ return r.first_name ? esc(r.first_name) : '<span class="rr-noname" title="אין שם פרטי — ההודעה תיפתח בלי פנייה אישית, או בשם שכבר שמור למספר">בלי שם</span>'; }
+function rrPhone(r, sh){
+  return '<span class="rr-ph">' + esc(r.phone || '') + '</span>'
+    + (r.mobile ? '' : '<span class="rr-tag rr-land" title="מספר קווי — אין וואטסאפ">קווי</span>')
+    + (sh[r.p9] > 1 ? '<span class="rr-sub rr-shared" title="יש ברשימה עוד הזמנה עם אותו מספר — בקשה אחת בלבד תישלח">מספר משותף</span>' : '');
+}
+function rrDvCell(r){
+  const d = rrDv(r);
+  return '<span class="rr-dvd">' + (d.date ? fmtD(d.date) : '—') + '</span>'
+    + (d.lvl ? '<span class="rr-st rr-lv ' + d.lvl[1] + '">' + d.lvl[0] + '</span>' : '')
+    + (d.src ? '<span class="rr-sub rr-dvs" title="' + esc(d.src) + '">' + esc(d.src) + '</span>' : '');
+}
 function rrActs(r){
   if(!RR || !RR.can_send) return '';
-  const id = esc(r.id), on = esc(r.order_number);
-  let h = '';
-  if(rrState(r).k === 'new') h += r.mobile
-    ? '<button type="button" class="ghost rr-send" onclick="rrSendOne(\'' + id + '\',event)">שלח</button>'
-    : '<span class="rr-land" title="מספר קווי — אין וואטסאפ">קווי</span>';
-  return h + '<button type="button" class="ghost rr-dis" title="הסרה מהרשימה (ההזמנה אינה נמחקת)" onclick="rrDismiss(\'' + on + '\',event)">הסר</button>';
+  const id = jsq(r.id), on = jsq(r.order_number);
+  const send = rrSendable(r)
+    ? '<button type="button" class="ghost rr-send' + (RR.enabled ? '' : ' rr-off') + '"' + (RR.enabled ? '' : ' title="השליחה כבויה"')
+      + ' onclick="rrSendOne(\'' + id + '\',event)">' + (rrState(r).k === 'fail' ? 'שליחה שוב' : 'שליחה') + '</button>'
+    : '<span class="rr-nosend"></span>';
+  return '<div class="rr-acts">' + send
+    + '<button type="button" class="ghost rr-dis" title="הסרה מהרשימה (ההזמנה אינה נמחקת)" onclick="rrDismiss(\'' + on + '\',event)">הסרה</button></div>';
 }
 function rrCb(r){
-  if(!RR || !RR.can_send) return '';
-  return '<input type="checkbox" class="rr-cb" data-id="' + esc(r.id) + '" aria-label="בחירה"'
-    + (rrPickable(r) ? '' : ' disabled') + (RR_SEL.has(r.id) ? ' checked' : '')
-    + ' onchange="rrPick(\'' + esc(r.id) + '\',this.checked)">';
+  if(!rrPickable(r)) return '';
+  return '<input type="checkbox" class="rr-cb" data-id="' + esc(r.id) + '" aria-label="בחירת ' + esc(r.customer_name || r.order_number) + '"'
+    + (RR_SEL.has(r.id) ? ' checked' : '') + ' onchange="rrPick(\'' + jsq(r.id) + '\',this.checked)">';
 }
-function rrDate(r){ return (r.d ? fmtD(r.d) : '—') + '<span class="rr-dk">' + esc(r.d_kind || '') + '</span>'; }
-function rrRowM(r){
-  return '<div class="rr-card" data-id="' + esc(r.id) + '">' + rrCb(r)
+function rrRowM(r, sh){
+  const cb = rrCb(r);
+  return '<div class="rr-card" data-id="' + esc(r.id) + '">' + (cb ? '<label class="rr-cbl">' + cb + '</label>' : '')
     + '<div class="rr-cm"><div class="nm">' + esc(r.customer_name || '—') + (r.web ? '<span class="rr-tag">אתר</span>' : '') + '</div>'
-    + '<div class="meta">' + esc(r.order_number) + ' · ' + rrDate(r) + ' · <span class="rr-ph">' + esc(r.phone || '') + '</span></div>'
-    + '<div class="meta">שם בהודעה: ' + rrName(r) + '</div>' + rrPill(r) + '</div>'
-    + '<div class="rr-act">' + rrActs(r) + '</div></div>';
+    + (r.contact_name ? '<div class="meta">איש קשר: ' + esc(r.contact_name) + '</div>' : '')
+    + '<div class="meta">הזמנה <bdi>' + esc(r.order_number) + '</bdi></div>'
+    + '<div class="meta rr-dvm">סופק: ' + rrDvCell(r) + '</div>'
+    + '<div class="meta">פנייה: ' + rrName(r) + ' · ' + rrPhone(r, sh) + '</div>' + rrPill(r) + '</div>'
+    + rrActs(r) + '</div>';
 }
 function rrTable(){
   const rows = rrRowsView(), ed = !!(RR && RR.can_send);
   const all = (RR && RR.rows) || [];
-  if(!rows.length) return '<div class="empty">' + (all.length ? 'אין הזמנות להצגה בסינון הזה.' : 'אין כרגע הזמנות שכל הפריטים שלהן סופקו ב-30 הימים האחרונים.') + '</div>';
-  const nPh = new Set(rows.map(r => r.p9)).size;
-  const sum = '<div class="rr-sum" id="rr-sum">' + rows.length + ' הזמנות · ' + nPh + ' מספרי טלפון</div>';
-  if(!wideScreen()) return sum + rows.map(rrRowM).join('');
-  const pick = rows.filter(rrPickable);
-  const allOn = pick.length > 0 && pick.every(r => RR_SEL.has(r.id));
-  const head = '<thead><tr>' + (ed ? '<th class="rr-cbc"><input type="checkbox" id="rr-all" aria-label="בחירת הכל"' + (pick.length ? '' : ' disabled') + (allOn ? ' checked' : '') + ' onchange="rrPickAll(this.checked)"></th>' : '')
-    + '<th>תאריך</th><th>הזמנה</th><th>לקוח</th><th>איש קשר</th><th>שם בהודעה</th><th>טלפון</th><th>בקשה</th>' + (ed ? '<th></th>' : '') + '</tr></thead>';
-  const body = rows.map(r => '<tr data-id="' + esc(r.id) + '">'
-    + (ed ? '<td class="rr-cbc">' + rrCb(r) + '</td>' : '')
-    + '<td>' + rrDate(r) + '</td>'
-    + '<td>' + esc(r.order_number) + (r.web ? '<span class="rr-tag">אתר</span>' : '') + '</td>'
-    + '<td>' + esc(r.customer_name || '—') + '</td>'
-    + '<td>' + esc(r.contact_name || '') + '</td>'
+  if(!RR) return '';
+  if(!rows.length) return '<div class="empty">' + (all.length ? 'אין הזמנות להצגה בסינון הזה.' : 'אין כרגע הזמנות שסופקו ב-30 הימים האחרונים.') + '</div>';
+  const sh = rrShared(), nPh = new Set(rows.map(r => r.p9)).size;
+  const nOk = rows.filter(r => rrDv(r).ok).length, hasDv = rows.some(r => rrDv(r).has);
+  const sum = '<div class="rr-sum" id="rr-sum">' + rows.length + ' הזמנות · ' + nPh + ' מספרי טלפון · כל מספר מקבל בקשה אחת'
+    + (hasDv ? ' · ל-' + nOk + ' יש אישור שהלקוח קיבל' : '') + '</div>';
+  if(!wideScreen()) return sum + rows.map(r => rrRowM(r, sh)).join('');
+  const pick = rows.filter(rrPickable), cbCol = ed && pick.length > 0;
+  const head = '<thead><tr>' + (cbCol ? '<th class="rr-cbc"><input type="checkbox" id="rr-all" aria-label="בחירת כל מי שאפשר לשלוח לו"' + (rrAllOn(rows) ? ' checked' : '') + ' onchange="rrPickAll(this.checked)"></th>' : '')
+    + '<th>סופק</th><th>הזמנה</th><th>לקוח</th><th title="השם שבו ההודעה פונה ללקוח. בלי שם — ההודעה נפתחת בלי פנייה אישית">פנייה</th><th>טלפון</th><th>בקשה</th>'
+    + (ed ? '<th aria-label="פעולות"></th>' : '') + '</tr></thead>';
+  const body = rows.map(r => '<tr data-id="' + esc(r.id) + '" class="' + (rrPickable(r) ? 'rr-pk' : 'rr-nop') + '" onclick="rrRowClick(event,\'' + jsq(r.id) + '\')">'
+    + (cbCol ? '<td class="rr-cbc">' + rrCb(r) + '</td>' : '')
+    + '<td class="rr-dv">' + rrDvCell(r) + '</td>'
+    + '<td><bdi>' + esc(r.order_number) + '</bdi>' + (r.web ? '<span class="rr-tag">אתר</span>' : '') + '</td>'
+    + '<td><span class="rr-cust" title="' + esc(r.customer_name || '') + '">' + esc(r.customer_name || '—') + '</span>'
+      + (r.contact_name ? '<span class="rr-sub">' + esc(r.contact_name) + '</span>' : '') + '</td>'
     + '<td>' + rrName(r) + '</td>'
-    + '<td><span class="rr-ph">' + esc(r.phone || '') + '</span></td>'
-    + '<td>' + rrPill(r) + '</td>'
+    + '<td>' + rrPhone(r, sh) + '</td>'
+    + '<td class="rr-rq">' + rrPill(r) + '</td>'
     + (ed ? '<td class="rr-act">' + rrActs(r) + '</td>' : '') + '</tr>').join('');
   return sum + '<div class="tbl-wrap"><table class="tbl" data-gs="own">' + head + '<tbody>' + body + '</tbody></table></div>';
 }
+/* "בחירת הכל" אינה כוללת מי שייתכן שכבר כתב ביקורת — אותו בוחרים ביד */
+function rrBulkOk(r){ return rrPickable(r) && !r.rv_name; }
+function rrAllOn(rows){ const p = rows.filter(rrBulkOk); return p.length > 0 && p.every(r => RR_SEL.has(r.id)); }
 function rrChips(){
   const el = $('#rr-chips'); if(!el) return;
-  const rows = (RR && RR.rows) || [];
-  el.innerHTML = RR_CHIPS.map(([k, lb]) => '<button type="button" class="chip' + (RR_F.st === k ? ' active' : '') + '" data-k="' + k
-    + '" onclick="rrSetFilter(\'' + k + '\')">' + lb + ' <b>' + rows.filter(r => rrIn(r, k)).length + '</b></button>').join('');
+  if(!RR){ el.innerHTML = ''; return; }
+  const rows = RR.rows || [];
+  let h = RR_CHIPS.map(([k, lb]) => { const n = rows.filter(r => rrIn(r, k)).length;
+    if(k === 'fail' && !n && RR_F.st !== 'fail') return '';       // "נכשלו" מופיע רק כשיש
+    return '<button type="button" class="chip' + (RR_F.st === k ? ' active' : '') + '" data-k="' + k
+      + '" onclick="rrSetFilter(\'' + k + '\')">' + lb + ' <b>' + n + '</b></button>'; }).join('');
+  if(rows.some(r => rrDv(r).has)){
+    const n = rows.filter(r => rrIn(r, RR_F.st) && rrDv(r).ok).length;
+    h += '<span class="rr-sepc"></span><button type="button" class="chip' + (RR_F.conf ? ' active' : '') + '" data-k="conf" aria-pressed="' + (RR_F.conf ? 'true' : 'false')
+      + '" title="רק הזמנות שיש אישור שהלקוח קיבל: יהב, דוח חתום או סימון בוצע" onclick="rrToggleConf()">עם אישור קבלה <b>' + n + '</b></button>';
+  }
+  el.innerHTML = h;
 }
 function rrNote(){
   const el = $('#rr-note'); if(!el) return;
-  if(RR_ERR){ el.innerHTML = '<div class="rr-note err">לא ניתן לטעון את בקשות הביקורת: ' + esc(RR_ERR) + '</div>'; return; }
-  if(!RR){ el.innerHTML = ''; return; }
-  if(!RR.enabled){ el.innerHTML = '<div class="rr-note off" id="rr-off">' + esc(RR_OFF_MSG) + '</div>'; return; }
-  if(!RR.mapped){ el.innerHTML = '<div class="rr-note off">אין מיפוי לתבנית בקשת הביקורת (הגדרות ← מתקדם ← וואטסאפ — מיפוי תבניות Heyy). השליחה תיכשל עד שימולא.</div>'; return; }
-  el.innerHTML = '<div class="rr-note">כאן מופיעות הזמנות שכל הפריטים שלהן סופקו לפי פריוריטי, ב-30 הימים האחרונים. כל מספר טלפון מקבל בקשה אחת בלבד.</div>';
+  let h = '';
+  if(RR_ERR) h += '<div class="rr-note bad" id="rr-bad">' + (RR ? 'הרענון נכשל — מוצגים הנתונים הקודמים: ' : 'לא ניתן לטעון את בקשות הביקורת: ') + esc(RR_ERR) + '</div>';
+  if(RR && !RR.enabled) h += '<div class="rr-note" id="rr-off">' + esc(RR_OFF_NOTE) + '</div>';
+  else if(RR && !RR.mapped) h += '<div class="rr-note" id="rr-nomap">אין מיפוי לתבנית בקשת הביקורת (הגדרות ← מתקדם ← וואטסאפ — מיפוי תבניות Heyy). השליחה תיכשל עד שימולא.</div>';
+  el.innerHTML = h;
 }
 function rrBulkPaint(){
   const el = $('#rr-bulk'); if(!el) return;
@@ -37728,22 +37815,56 @@ function rrBulkPaint(){
   el.classList.toggle('hidden', !rows.length);
   if(!rows.length){ el.innerHTML = ''; return; }
   const nPh = new Set(rows.map(r => r.p9)).size;
-  el.innerHTML = '<span>נבחרו <b>' + rows.length + '</b> הזמנות · ' + nPh + ' מספרי טלפון</span>'
+  el.innerHTML = '<span>' + (rows.length === 1 ? 'נבחרה הזמנה אחת' : 'נבחרו <b>' + rows.length + '</b> הזמנות')
+    + ' · ' + (nPh === 1 ? 'מספר טלפון אחד' : nPh + ' מספרי טלפון') + '</span>'
     + '<button type="button" class="btn rr-go" onclick="rrSendSel()"' + (RR_BUSY ? ' disabled' : '') + '>שליחה לנבחרים</button>'
     + '<button type="button" class="ghost" onclick="rrClearSel()">ניקוי הבחירה</button>';
 }
-function rrListPaint(){ const b = $('#rr-body'); if(b) b.innerHTML = rrTable(); rrBulkPaint(); }
+/* הטבלה ממלאת את הגובה שנשאר במסך. הכלל הגלובלי (.tbl-wrap: 100vh - 215px) מניח 215px מעל הטבלה, וכאן יש יותר
+   (נמדד 265) — בלי זה הדף גולל וגם הטבלה גוללת (רומן, 20/11/2026: "באג שהטבלה בתחתית"). בטאבלט ומטה הדף גולל
+   (max-height:none !important בגיליון), ולכן שם אין מה למדוד. */
+function rrFit(){
+  const w = document.querySelector('#rr-body .tbl-wrap'); if(!w) return;
+  if(_navNarrow()){ w.style.maxHeight = ''; return; }
+  const top = w.getBoundingClientRect().top + window.scrollY;
+  const pad = 24 + ((typeof IS_NEXT !== 'undefined' && IS_NEXT) ? 28 : 0);
+  w.style.maxHeight = Math.max(240, Math.round(window.innerHeight - top - pad)) + 'px';
+  const over = document.documentElement.scrollHeight - window.innerHeight;
+  if(over > 0) w.style.maxHeight = Math.max(240, parseFloat(w.style.maxHeight) - over) + 'px';
+}
+/* 🔴 הציור שומר גלילה ומיקוד: innerHTML מאפס scrollTop, ובלי זה כל "הסרה" או שליחה מחזירים לראש הרשימה */
+function rrListPaint(){
+  const b = $('#rr-body'); if(!b) return;
+  const w0 = b.querySelector('.tbl-wrap'), st = w0 ? w0.scrollTop : 0, sl = w0 ? w0.scrollLeft : 0;
+  b.innerHTML = (RR_ERR && !RR) ? '' : rrTable();
+  rrBulkPaint(); rrFit();
+  const w1 = b.querySelector('.tbl-wrap'); if(w1){ w1.scrollTop = st; w1.scrollLeft = sl; }
+}
 function rrPaint(){
   if(!$('#rr-body')) return;
   rrNote(); rrChips(); rrListPaint();
 }
+/* סימון אינו מצייר את הטבלה מחדש (נמדד ב-7.81: scrollTop 1664 ⇒ 0 אחרי סימון השורה ה-41) — רק את שורת הבחירה */
+function rrSelSync(){
+  document.querySelectorAll('#rr-body .rr-cb').forEach(cb => { cb.checked = RR_SEL.has(cb.dataset.id); });
+  const all = document.getElementById('rr-all'); if(all) all.checked = rrAllOn(rrRowsView());
+  rrBulkPaint(); rrFit();
+}
 window.rrSetFilter = k => { RR_F.st = k; rrPaint(); };
-window.rrPick = (id, on) => { if(on) RR_SEL.add(id); else RR_SEL.delete(id); rrListPaint(); };
-window.rrPickAll = on => { rrRowsView().filter(rrPickable).forEach(r => { if(on) RR_SEL.add(r.id); else RR_SEL.delete(r.id); }); rrListPaint(); };
-window.rrClearSel = () => { RR_SEL.clear(); rrListPaint(); };
+window.rrToggleConf = () => { RR_F.conf = !RR_F.conf; rrPaint(); };
+window.rrPick = (id, on) => { if(on) RR_SEL.add(id); else RR_SEL.delete(id); rrSelSync(); };
+window.rrPickAll = on => { rrRowsView().filter(rrBulkOk).forEach(r => { if(on) RR_SEL.add(r.id); else RR_SEL.delete(r.id); }); rrSelSync(); };
+window.rrClearSel = () => { RR_SEL.clear(); rrSelSync(); };
+window.rrRowClick = (ev, id) => {
+  if(ev && ev.target && ev.target.closest && ev.target.closest('button,input,a,label')) return;
+  const r = ((RR && RR.rows) || []).find(x => x.id === id);
+  if(!r || !rrPickable(r)) return;
+  rrPick(id, !RR_SEL.has(id));
+};
 function rrWire(){
   const q = $('#rr-q');
-  if(q && !q._rrWired){ q._rrWired = true; q.addEventListener('input', () => { RR_F.q = q.value; rrListPaint(); }); }
+  if(q && !q._rrWired){ q._rrWired = true; q.addEventListener('input', () => { RR_F.q = q.value; rrListPaint(); });
+    window.addEventListener('resize', () => { clearTimeout(RR_FIT_T); RR_FIT_T = setTimeout(() => { if(CUR_TAB === 'revreq') rrListPaint(); }, 150); }); }
 }
 window.rrRender = async function(){
   rrInjectCss(); rrWire();
@@ -37761,20 +37882,31 @@ window.rrSend = async function(ids){
   if(!RR.can_send || !canEdit(RR_PERM)){ toast('אין לך הרשאה לשלוח בקשות ביקורת', 'err'); return; }
   /* 🔴 המתג של רומן — הודעה ברורה ואפס קריאות לשרת */
   if(!RR.enabled){ await sysAlert(RR_OFF_MSG); return; }
-  const rows = ids.map(id => (RR.rows || []).find(r => r.id === id)).filter(Boolean);
+  const rows = ids.map(id => (RR.rows || []).find(r => r.id === id)).filter(Boolean).filter(rrSendable);
+  if(!rows.length) return;
+  /* תקרת השרת (review_req_send). בלי הבדיקה כאן "בחירת הכל" על יותר מ-100 נכשלת כולה בשגיאת שרת */
+  if(rows.length > 100){ await sysAlert('אפשר לשלוח עד 100 בקשות בבת אחת — נבחרו ' + rows.length + '. צמצמו את הבחירה ושלחו בשתי פעמים.'); return; }
   const nPh = new Set(rows.map(r => r.p9)).size;
-  if(!(await sysConfirm('לשלוח בקשת ביקורת בגוגל בוואטסאפ ל-' + nPh + (nPh === 1 ? ' מספר טלפון' : ' מספרי טלפון')
-      + '? ההודעה יוצאת תוך דקה, ולכל מספר פעם אחת בלבד.', { ok:'שליחה' }))) return;
-  /* לחיצה כפולה פותחת שני דיאלוגים בתור — השני מגיע לכאן כשהראשון כבר שולח */
+  const noConf = rows.filter(r => { const d = rrDv(r); return d.has && !d.ok; }).length;
+  const maybe = rows.filter(r => { const v = rrRv(r); return v && !v.after; }).length;
+  let msg = rows.length === 1
+    ? 'לשלוח בקשת ביקורת בגוגל ל' + (rows[0].customer_name || 'לקוח') + ' (' + (rows[0].phone || '') + ')? ההודעה יוצאת בוואטסאפ תוך דקה.'
+    : 'לשלוח בקשת ביקורת בגוגל בוואטסאפ ל-' + nPh + ' מספרי טלפון? ההודעה יוצאת תוך דקה, ולכל מספר פעם אחת בלבד.';
+  if(noConf) msg += '\n' + (rows.length === 1 ? 'אין אישור שהלקוח כבר קיבל את ההזמנה.' : 'ל-' + noConf + ' מהן אין אישור שהלקוח כבר קיבל את ההזמנה.');
+  if(maybe) msg += '\n' + (rows.length === 1 ? 'ייתכן שהלקוח כבר כתב ביקורת.' : maybe + ' מהם אולי כבר כתבו ביקורת.');
+  if(!(await sysConfirm(msg, { ok:'שליחה' }))) return;
+  /* לחיצה כפולה פותחת שני דיאלוגים בתור — השני מגיע לכאן כשהראשון כבר שולח, או אחרי שסיים: שולחים רק מה שעדיין ניתן */
   if(RR_BUSY) return;
+  ids = rows.map(r => r.id).filter(id => { const r = (RR.rows || []).find(x => x.id === id); return !!r && rrSendable(r); });
+  if(!ids.length) return;
   RR_BUSY = true; rrBulkPaint();
   try{
     const { data, error } = await sb.schema('ord').rpc('review_req_send', { p_ids: ids });
     if(error) throw error;
     const sent = +((data && data.sent) || 0), sk = (data && data.skipped) || [];
     ids.forEach(id => RR_SEL.delete(id));
-    toast('נשלחו ' + sent + (sent === 1 ? ' בקשה' : ' בקשות') + (sk.length ? ' · ' + sk.length + ' לא נשלחו' : ''), sent ? 'ok' : '');
-    if(sk.length) await sysAlert('לא נשלחו: ' + sk.map(x => String(x.order || '') + ' — ' + String(x.reason || '')).join(' · '));
+    toast((sent === 1 ? 'נשלחה בקשה אחת' : 'נשלחו ' + sent + ' בקשות') + (sk.length ? ' · ' + sk.length + ' לא נשלחו' : ''), sent ? 'ok' : '');
+    if(sk.length) await sysAlert('לא נשלחו:\n' + sk.map(x => String(x.order || '') + ' — ' + String(x.reason || '')).join('\n'));
   }catch(e){ toast(rrErrHe(e), 'err'); }
   finally{ RR_BUSY = false; }
   await rrLoad(); rrPaint();
@@ -37785,13 +37917,18 @@ window.rrSendSel = () => rrSend([...RR_SEL]);
 /* ── הסרה מהרשימה: ord.review_request_dismissed. ההזמנה עצמה אינה נמחקת ── */
 window.rrDismiss = async function(order, ev){
   if(ev) ev.stopPropagation();
-  if(!RR || !RR.can_send || RR_BUSY) return;
-  const reason = await sysPrompt('להסיר את הזמנה ' + order + ' מרשימת בקשות הביקורת? היא לא תופיע כאן שוב. ההזמנה עצמה אינה נמחקת. סיבה (לא חובה):', '', { ok:'הסרה' });
+  if(!RR || !RR.can_send) return;
+  if(RR_BUSY){ toast('שליחה מתבצעת — נסו שוב בעוד רגע'); return; }
+  const row = (RR.rows || []).find(r => r.order_number === order);
+  const reason = await sysPrompt('להסיר את ' + ((row && row.customer_name) || 'ההזמנה') + ' (' + order + ') מרשימת בקשות הביקורת? '
+    + 'היא לא תופיע כאן שוב. ההזמנה עצמה אינה נמחקת.\nסיבה (לא חובה):', '', { ok:'הסרה' });
   if(reason === null) return;
+  if(RR_BUSY) return;
   RR_BUSY = true;
   try{
     const { error } = await sb.schema('ord').rpc('review_req_dismiss', { p_order: order, p_reason: reason });
     if(error) throw error;
+    ++RR_SEQ;                                 // טעינה שיצאה לפני ההסרה לא תחזיר את השורה
     (RR.rows || []).filter(r => r.order_number === order).forEach(r => RR_SEL.delete(r.id));
     RR.rows = (RR.rows || []).filter(r => r.order_number !== order);
     toast('הוסרה מהרשימה', 'ok');
