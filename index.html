@@ -4652,7 +4652,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.82.0</div>
+      <div class="ver">גרסה 7.82.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4801,7 +4801,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="revreq3-2026-11-20a">גרסה 7.82.0</div>
+    <div class="side-foot" title="gbpsrc-2026-11-21a">גרסה 7.82.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5792,7 +5792,7 @@ let ME = null, LEADS = [];
 const statusClass = s => s==='רלוונטי'?'st-rel' : (s==='ליד חדש'?'st-new' : (['סירוב','לא רלוונטי'].includes(s)?'st-no':'st-def'));
 
 /* ===== סטטוסים אחד-לאחד מהמאנדיי (הנחיית רומן 27/07) ===== */
-const LEAD_SOURCES = ['קשרים אישיים','Paycall - שיחה נכנסת','המלצת לקוח','דף נחיתה','אתר אינטרנט','פייסבוק / אינסטגרם','סושיאל','ידנית','קביעת פגישה באתר','דף נחיתה - וואטסאפ','גוגל'];
+const LEAD_SOURCES = ['קשרים אישיים','Paycall - שיחה נכנסת','המלצת לקוח','דף נחיתה','אתר אינטרנט','פייסבוק / אינסטגרם','סושיאל','ידנית','קביעת פגישה באתר','דף נחיתה - וואטסאפ','גוגל','פרופיל גוגל'];
 const LEAD_STATUSES = ['ליד חדש','ללא מענה','ללא מענה2','ללא מענה3','רלוונטי','סירוב','לא רלוונטי'];
 const LEAD_ST_COLORS = {'ליד חדש':'#fdab3d','ללא מענה':'#ffadad','ללא מענה2':'#faa1f1','ללא מענה3':'#ff5ac4','רלוונטי':'#9cd326','סירוב':'#df2f4a','לא רלוונטי':'#bb3354'};
 const SUB_RELEVANT = ['פולואפ','תואמה פגישה','הצעת מחיר','הפניה לאתר'];
@@ -5816,7 +5816,7 @@ const SUB_COLORS = {'רלוונטי':SUB_RELEVANT_COLORS,'סירוב':SUB_REFUSA
    ללבן במסכים אחרים. יש ספירת עוקפים בסקריפט הבנייה. */
 const LB_TK = .70;
 const LEAD_TYPE_COLORS = {'בסיס':'#a1a8b5','פ.ע':'#579bfc','עסקי':'#00c875','ארגוני':'#784bd1','מוסדי':'#ff642e','מסחרי':'#fdab3d','סטונאי':'#0086c0'};
-const LEAD_SRC_COLORS  = {'קשרים אישיים':'#00c875','Paycall - שיחה נכנסת':'#0086c0','המלצת לקוח':'#037f4c','דף נחיתה':'#fdab3d','אתר אינטרנט':'#579bfc','פייסבוק / אינסטגרם':'#a25ddc','סושיאל':'#ff158a','ידנית':'#a1a8b5','קביעת פגישה באתר':'#0f766e','דף נחיתה - וואטסאפ':'#66ccff','גוגל':'#e2445c'};
+const LEAD_SRC_COLORS  = {'קשרים אישיים':'#00c875','Paycall - שיחה נכנסת':'#0086c0','המלצת לקוח':'#037f4c','דף נחיתה':'#fdab3d','אתר אינטרנט':'#579bfc','פייסבוק / אינסטגרם':'#a25ddc','סושיאל':'#ff158a','ידנית':'#a1a8b5','קביעת פגישה באתר':'#0f766e','דף נחיתה - וואטסאפ':'#66ccff','גוגל':'#e2445c','פרופיל גוגל':'#7f5347'};
 /* ===== 6.244.0 — srcdoc: מאיפה מגיע כל "מקור הגעה" =====
    רומן, 10/10/2026: "גם טפסים עתידיים יהיה עדיין מקור הגעה פייסבוק / אינסטגרם. תתעד את זה ... בהגדרות
    CRM. כמו כן תעשה הסבר כוכבית קטנה במקום ההגעה". **מקור אחד, שני צרכנים**: הבלוק בהגדרות ← CRM
@@ -5842,6 +5842,9 @@ const LEAD_SRC_DOC = [
    'נבחר ידנית — ליד שהגיע בהמלצת לקוח.'],
   ['גוגל','manual','ידני; ליד מגוגל שמילא טופס באתר נרשם "אתר אינטרנט"',
    'נבחר ידנית. ליד מקמפיין גוגל שמגיע דרך טופס באתר נרשם "אתר אינטרנט", והקמפיין מזוהה מה-UTM.'],
+  /* 7.82.1 — gbpsrc (רומן, 21/11/2026): שיחה או ביקור מפרופיל העסק אינם עוברים בקישור, ולכן אין להם UTM — הנציג מסמן. */
+  ['פרופיל גוגל','manual','ידני; מי שהתקשר או הגיע אחרי שמצא אותנו בפרופיל העסק בגוגל או במפות',
+   'נבחר ידנית — מי שהתקשר, ביקש מסלול או הגיע לאולם אחרי שמצא אותנו בפרופיל העסק בגוגל (חיפוש או מפות). ליד מהפרופיל שמילא טופס באתר או קבע פגישה נרשם לפי הטופס, ומזוהה אוטומטית בדשבורד השיווק כ"פרופיל העסק בגוגל".'],
   ['קשרים אישיים','manual','בחירה ידנית של הנציג',
    'נבחר ידנית — ליד מקשרים אישיים.'],
   ['סושיאל','manual','בחירה ידנית של הנציג',
@@ -16038,7 +16041,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'revreq3-2026-11-20a';
+const BUILD_ID = 'gbpsrc-2026-11-21a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
