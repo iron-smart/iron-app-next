@@ -1769,6 +1769,11 @@
   .cal-act{ display:inline-flex; align-items:center; gap:var(--sp-1h); min-height:var(--ctl-h-md); padding:0 var(--sp-3); box-sizing:border-box; border:1px solid var(--line); border-radius:var(--r-md); background:#fff; color:var(--navy); font:inherit; font-size:var(--fs-sm); font-weight:700; cursor:pointer; transition:background-color .12s, border-color .12s; }
   .cal-act:hover{ background:var(--bg-subtle); border-color:var(--navy); }
   .cal-act:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+  /* 7.85.1 — "כפתורים בצבע" (רומן, 22/11/2026): שיבוץ יומי = נייבי מלא; הערת יום = ענבר, כמו תגית ההערה ביומן */
+  .cal-act.td-open{ background:var(--navy); color:#fff; border-color:var(--navy); }
+  .cal-act.td-open:hover{ background:var(--navy); border-color:var(--navy); box-shadow:var(--sh-pop); }
+  .cal-act.cal-act-note{ background:var(--amber-bg); color:var(--warn-ink); border-color:var(--warn); }
+  .cal-act.cal-act-note:hover{ background:var(--amber-bg); border-color:var(--warn-ink); box-shadow:var(--sh-pop); }
   /* 7.85.0 — תפריט ה-"＋" בתא היום: שיבוץ הזמנה + ארבעת סוגי הערת היום */
   .cal-plus-menu{ position:fixed; z-index:70; min-width:200px; background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-pop); padding:var(--sp-1); }
   .cal-plus-menu .cpm-h{ font-size:var(--fs-xs); font-weight:700; color:var(--ink-3); padding:var(--sp-1) var(--sp-2h) var(--sp-1h); }
@@ -4666,7 +4671,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.85.1</div>
+      <div class="ver">גרסה 7.85.2</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4815,7 +4820,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="dealfresh-2026-11-22a">גרסה 7.85.1</div>
+    <div class="side-foot" title="calcolor-2026-11-22a">גרסה 7.85.2</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -11101,7 +11106,6 @@ function calPlusClose(){
   const m = document.getElementById('calPlusMenu'); if(m) m.remove();
   document.removeEventListener('mousedown', calPlusOut, true);
   window.removeEventListener('scroll', calPlusClose);
-  window.removeEventListener('resize', calPlusClose);
 }
 function calPlusOut(e){ const m = document.getElementById('calPlusMenu'); if(m && !m.contains(e.target)) calPlusClose(); }
 window.calPlus = (btn, ds) => {
@@ -11130,8 +11134,7 @@ window.calPlus = (btn, ds) => {
   });
   setTimeout(()=>{
     document.addEventListener('mousedown', calPlusOut, true);
-    window.addEventListener('scroll', calPlusClose);
-    window.addEventListener('resize', calPlusClose);
+    window.addEventListener('scroll', calPlusClose);   /* 7.85.1 — בלי resize: בטלפון נורה כשסרגל הכתובת מתכווץ */
   }, 0);
   try{ m.querySelector('button').focus(); }catch(_e){}
 };
@@ -11359,7 +11362,7 @@ function renderCal(){
   el.innerHTML = `<div class="cal-topbar">
       <span class="cal-title">${title}</span>
       <span class="grow"></span>
-      ${canEdit('logi.cal.notes')?`<button type="button" class="cal-act" id="cn-new" onclick="calNoteNew('${cd}')" title="אילוץ, חופש של עובד, יום כיף — מוצג רק למי שמורשה">${ico('cal')} הערת יום${CN_ERR?' <span style="color:var(--red)" title="טעינת הערות היום נכשלה">⚠️</span>':''}</button>`:''}
+      ${canEdit('logi.cal.notes')?`<button type="button" class="cal-act cal-act-note" id="cn-new" onclick="calNoteNew('${cd}')" title="אילוץ, חופש של עובד, יום כיף — מוצג רק למי שמורשה">${ico('cal')} הערת יום${CN_ERR?' <span style="color:var(--red)" title="טעינת הערות היום נכשלה">⚠️</span>':''}</button>`:''}
       <button type="button" class="cal-act td-open" onclick="openTeamDay('${cd}')" title="מי עובד בכל נתיב ביום שנבחר">${ico('crew')} שיבוץ יומי${TD_ERR?' <span style="color:#a92f2f" title="טעינת השיבוץ נכשלה">⚠️</span>':''}</button>
       <div class="cal-seg">
         <button class="${CAL_VIEW==='day'?'on':''}" onclick="calMode('day')">יומי</button>
@@ -16101,7 +16104,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'dealfresh-2026-11-22a';
+const BUILD_ID = 'calcolor-2026-11-22a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
