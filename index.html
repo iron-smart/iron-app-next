@@ -4671,7 +4671,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.86.0</div>
+      <div class="ver">גרסה 7.87.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4820,7 +4820,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="revremind-2026-11-22a">גרסה 7.86.0</div>
+    <div class="side-foot" title="retnew-2026-11-22a">גרסה 7.87.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -16104,7 +16104,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'revremind-2026-11-22a';
+const BUILD_ID = 'retnew-2026-11-22a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -23123,7 +23123,7 @@ const LOAD_NAMES = ['לידים','לקוחות','משימות','עסקאות','�
    expires_at נוסף — בלעדיו "פג תוקף" אינו ניתן לחישוב. */
 const PROTS_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason';
 const CRM_Q = {
-  leads: () => sb.schema('crm').from('leads').select('id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,inquiry_subject,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind').order('created_at',{ascending:false}).limit(10000),
+  leads: () => sb.schema('crm').from('leads').select('id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,inquiry_subject,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind,prev_lead_id').order('created_at',{ascending:false}).limit(10000),
   custs: () => sb.schema('core').from('customers').select('id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes').order('created_at',{ascending:false}).limit(10000),
   /* 7.31.0 — הפתוחות קודם, ואז מיון מקומי לפי due_at (הסדר שהצרכנים מכירים — עולה, ריקים בסוף). עד כאן
      order(due_at).limit(10000) — 8,524 ב-21/10/2026; מעבר לתקרה היו נחתכות **בשקט** המשימות עם המועד הרחוק,
@@ -31652,7 +31652,7 @@ const DL_TASK_COLS = 'id,name,status,value_tag,category,due_at,closed_at,created
 const DL_MEET_COLS = 'id,subject,status,meet_date,start_time,end_time,meet_type,location,teams_link,linked_type,linked_id,source,organizer_name,attendees,all_day,web_link,owner_id,contact_phone,created_at';
 const DL_PROT_COLS = 'id,order_id,call_id,deal_id,order_number,customer_name,phone,doc_type,category,status,sent_at,signed_at,signer_name,link_sent_at,link_sent_via,link_sent_by,link_sent_count,expires_at,superseded_at,superseded_reason';
 const DL_CUST_COLS = 'id,name,phone,email,priority_id,status,opened_at,customer_type,price_group,city,address,region,truck_access,elevator,freight_elevator,logistics_notes';
-const DL_LEAD_COLS = 'id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,inquiry_subject,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind';
+const DL_LEAD_COLS = 'id,full_name,company,phone,email,city,source,status,sub_status,reject_reason,irrelevant_reason,customer_type,customer_id,created_at,position,address,notes,utm_campaign,utm_source,utm_medium,utm_term,landing_page_url,inquiry_subject,send_whatsapp_catalog,owner_id,updated_at,contact_id,returned_at,return_count,return_kind,prev_lead_id';
 window.dlDatesHtml = (d)=>{
   const dt = v => v ? fmtIso(v) : '—';   /* 6.206.0 */
   return `<div class="c2-half"><label>תאריך אישור ההצעה</label>${roIn(dt(d.approved_at))}</div>`
@@ -34246,7 +34246,8 @@ function lbSubCell(l, st, opts, col){
 function lbRet(l){ return !!(l && Number(l.return_count) > 0); }
 function lbRetTip(l){
   const n = Number(l.return_count)||0, at = l.returned_at ? fmtDT(l.returned_at) : '';
-  const k = l.return_kind==='נפתח מחדש' ? 'ליד סגור שנפתח מחדש' : l.return_kind==='לקוח קיים' ? 'לקוח קיים שהשאיר פנייה חדשה' : 'פנייה נוספת על ליד פתוח';
+  const k = l.return_kind==='ליד חוזר' ? 'פנה שוב אחרי הפסקה — נפתח כרטיס חדש'
+          : l.return_kind==='נפתח מחדש' ? 'ליד סגור שנפתח מחדש' : l.return_kind==='לקוח קיים' ? 'לקוח קיים שהשאיר פנייה חדשה' : 'פנייה נוספת על ליד פתוח';
   return 'ליד חוזר · ' + k + (at ? ' · לאחרונה ' + at : '') + (n > 1 ? ' · ' + n + ' פניות חוזרות' : '');
 }
 function lbRetPill(l){ return lbRet(l) ? `<span class="pill lb-ret" title="${esc(lbRetTip(l))}">↻ ליד חוזר</span>` : ''; }
@@ -34286,12 +34287,40 @@ function lbRetBar(l){
      (lead-intake פותח מחדש בלי לנקות אותן). ליד שנסגר שוב — אומרים זאת, בלי לייחס סיבה לעבר. */
   const closedNow = l.status==='סירוב' || l.status==='לא רלוונטי';
   const prev = closedNow ? '' : (l.reject_reason || l.irrelevant_reason || '');
-  const what = l.return_kind==='נפתח מחדש'
+  const what = l.return_kind==='ליד חוזר' ? 'כבר היה לו כרטיס, והוא פנה שוב אחרי הפסקה — לכן נפתח כרטיס חדש'
+    : l.return_kind==='נפתח מחדש'
       ? 'ליד שנסגר בעבר השאיר פנייה חדשה ונפתח מחדש' + (closedNow ? ' (ונסגר שוב)' : prev ? ' · סיבת הסגירה הקודמת: ' + prev : '')
     : l.return_kind==='לקוח קיים' ? 'לקוח קיים במערכת השאיר פנייה חדשה'
     : 'השאיר פנייה נוספת בזמן שהליד פתוח';
   return `<div class="lb-rethd" id="lb-rethd">↻ <span><b>ליד חוזר</b> — ${esc(what)}${at ? ' · ' + esc(at) : ''}${n > 1 ? ' · ' + n + ' פניות חוזרות' : ''}.</span></div>`;
 }
+/* ===== ליד חוזר בכרטיס חדש (7.87.0 retnew) =====
+   רומן, 22/11/2026: "ליד שהשאיר פניה חדשה לפתוח ליד חדש עם תגית ליד חוזר וקישור לכרטיס הליד הישן".
+   המקור: crm.leads.prev_lead_id — נכתב רק בשרת (lead-intake v18). כאן קישור לשני הכיוונים:
+   בכרטיס החדש — אל הקודם; בכרטיס הישן — אל כל כרטיס שנפתח אחריו (לפי LEADS, הישן קודם).
+   ⚠️ הכרטיס הישן מראה את הקישור קדימה רק כשהליד החדש כבר טעון; עד אז יש לו שורת "עדכון" מהשרת שאומרת זאת.
+   נפתח ב-goCard כדי שיהיה "→ חזרה". כרטיס שאינו ב-LEADS נמשך ב-recPull, כמו בפעמון ובחיפוש. */
+function lbChainBar(l){
+  if(!l) return '';
+  const rows = [];
+  if(l.prev_lead_id){
+    const p = (LEADS||[]).find(x => x.id === l.prev_lead_id);
+    rows.push(`<button type="button" class="chip" data-chain="prev" onclick="lbChainOpen('${jsq(l.prev_lead_id)}')">הכרטיס הקודם${p ? ' · ' + esc(p.status || '—') + ' · נפתח ' + esc(fmtDT(p.created_at)) : ''} &#8599;</button>`);
+  }
+  (LEADS||[]).filter(x => x.prev_lead_id && x.prev_lead_id === l.id)
+    .sort((a, b) => String(a.created_at || '') < String(b.created_at || '') ? -1 : 1)
+    .forEach(n => rows.push(`<button type="button" class="chip" data-chain="next" onclick="lbChainOpen('${jsq(n.id)}')">פנה שוב ב-${esc(fmtDT(n.created_at))} — הכרטיס החדש &#8599;</button>`));
+  return rows.length ? `<div class="lb-rethd" id="lb-chain">↻ <span>${rows.join(' ')}</span></div>` : '';
+}
+window.lbChainOpen = (id) => {
+  if(!id) return;
+  if((LEADS||[]).some(x => x.id === id)){ window.goCard(() => openLead(id)); return; }
+  if(typeof window.recPull === 'function' && window.recPullCan('lead')){
+    window.recPull('lead', id).then(st => { if(st === 'ok') window.goCard(() => openLead(id)); else toast(window.recPullMsg(st)); });
+    return;
+  }
+  toast('הכרטיס נוצר אחרי טעינת המסך — רענן את הדף כדי לפתוח אותו');
+};
 function lbRow(l, i, nt, nm, ntid){
   const t=nt[l.id], tid=ntid&&ntid[l.id], m=lbMatch(l);
   const dmk = lbDueMark(t);
@@ -35809,7 +35838,7 @@ window.openLead = (id)=>{
   const hsTasks=_lbT.filter(tmDone),  hsMeets=_lbM.filter(mDone);
   $('#leadSheet').innerHTML = `
     <h3>${esc(l.full_name)} ${mdPill(l.status||'—',LEAD_ST_COLORS,LB_TK)}${lbRetPill(l)}</h3>
-    ${lbRetBar(l)}
+    ${lbRetBar(l)}${lbChainBar(l)}
     <div class="lb-pipe" id="lb-pipe" data-lead="${esc(l.id)}"></div>
     ${ctabsHtml('lb')}
     <div id="lb-pn-main">
