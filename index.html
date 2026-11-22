@@ -4671,7 +4671,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.85.2</div>
+      <div class="ver">גרסה 7.86.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4820,7 +4820,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="calcolor-2026-11-22a">גרסה 7.85.2</div>
+    <div class="side-foot" title="revremind-2026-11-22a">גרסה 7.86.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -16104,7 +16104,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'calcolor-2026-11-22a';
+const BUILD_ID = 'revremind-2026-11-22a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -37627,7 +37627,7 @@ window.spiRender = async function(){
 };
 
 
-/* ===== בקשת ביקורת גוגל — וואטסאפ ללקוחות שקיבלו את הציוד (7.81.0 · 7.82.0 · 7.83.0 · 7.84.0) =====
+/* ===== בקשת ביקורת גוגל — וואטסאפ ללקוחות שקיבלו את הציוד (7.81.0 · 7.82.0 · 7.83.0 · 7.84.0 · 7.86.0) =====
    רומן, 20/11/2026 (אפיון מאושר): בוחר במסך למי לשלוח · שליחה ידנית בלבד, אין טריגר · אפשרות להסיר לקוח · רק רומן ונח.
    השרת מחזיק את כל ההגדרות — מי מופיע (ord.review_req_candidates), ראיית האספקה, פעם אחת לטלפון (dedupe_key
    ב-core.outbox), והמתג. המסך רק מציג ושולח מזהים.
@@ -37683,6 +37683,8 @@ const RR_CSS = `
 #tab-revreq .rr-acts .ghost{ padding:var(--sp-1) var(--sp-2h); min-height:var(--ctl-h-sm); font-size:var(--fs-sm); box-sizing:border-box; }
 #tab-revreq .rr-acts .rr-send{ background-color:var(--navy); border-color:var(--navy); color:#fff; min-width:64px; }
 #tab-revreq .rr-acts .rr-send.rr-off{ opacity:.5; }
+#tab-revreq .rr-acts .rr-rem{ border-color:var(--navy); color:var(--navy); min-width:64px; }
+#tab-revreq .rr-acts .rr-rem.rr-off{ opacity:.5; }
 #tab-revreq .rr-acts .rr-nosend{ display:inline-block; min-width:64px; }
 #tab-revreq .rr-acts .rr-dis{ border-color:transparent; background:none; color:var(--ink-3); font-weight:400; }
 #tab-revreq .rr-acts .rr-dis:hover{ color:var(--red); }
@@ -37726,7 +37728,11 @@ function rrInjectCss(){
 }
 
 const RR_PERM = 'crm.review';
-const RR_CHIPS = [['new','לא נשלחו'],['sent','נשלחו'],['fail','נכשלו'],['all','הכל']];
+const RR_CHIPS = [['new','לא נשלחו'],['sent','נשלחו'],['remind','לתזכורת'],['fail','נכשלו'],['all','הכל']];
+/* 7.86.0 — "לתזכורת" = עברו לפחות כך ימים מהבקשה (רומן, 22/11/2026: "כמובן אחרי 3 ימים נניח").
+   ההחלטה למי לשלוח — ידנית. השרת דורש רק יום אחד, כדי שלא תצא תזכורת באותו יום של הבקשה. */
+const RR_REMIND_DAYS = 3;
+const RR_RM_WAIT = 'התבנית "תזכורת ביקורת" עדיין ממתינה לאישור מטא. אפשר לעבור על הרשימה כבר עכשיו, והשליחה תיפתח כשהתבנית תאושר ותחובר.';
 const RR_OFF_NOTE = 'השליחה כבויה. אפשר לעבור על הרשימה ולהסיר ממנה לקוחות. להפעלה: הגדרות ← מתקדם ← "בקשות ביקורת גוגל — שליחה".';
 const RR_OFF_MSG = 'השליחה כבויה. מדליקים אותה בהגדרות ← מתקדם ← "בקשות ביקורת גוגל — שליחה" (מנהל מערכת בלבד).';
 /* 7.83.0 — אותו כלל של השרת (ord.review_req_set_name): שם פרטי אחד. outbox-dispatch שולח ל-Heyy רק את המילה הראשונה,
@@ -37753,10 +37759,42 @@ function rrState(r){
   if(s === 'נשלח') return { k:'sent', label:'נשלחה', cls:'sent' };
   return { k:'sent', label:'בתור לשליחה', cls:'wait' };
 }
-function rrIn(r, k){ return k === 'all' || rrState(r).k === k; }
-function rrPickable(r){ return !!(RR && RR.can_send && r.mobile && rrState(r).k === 'new'); }
+function rrIn(r, k){ return k === 'all' || (k === 'remind' ? rrDue(r) : rrState(r).k === k); }
+/* 7.86.0 — מי מותר לבחור תלוי בשבב: ב"לתזכורת" — מי שאפשר לשלוח לו תזכורת; בכל השאר — מי שעוד לא נשלחה לו בקשה */
+function rrPickNew(r){ return !!(RR && RR.can_send && r.mobile && rrState(r).k === 'new'); }
+function rrPickable(r){ return RR_F.st === 'remind' ? rrRemindable(r) : rrPickNew(r); }
 /* מה מותר לשלוח: חדשה, או בקשה שנכשלה/בוטלה ולא נמסרה (השרת מחזיר ob_retry ושולח אותה שוב באותה שורה) */
-function rrSendable(r){ return rrPickable(r) || !!(RR && RR.can_send && r.mobile && r.ob_retry); }
+function rrSendable(r){ return rrPickNew(r) || !!(RR && RR.can_send && r.mobile && r.ob_retry); }
+/* 7.86.0 — כמה ימים מאז שהבקשה הראשונה יצאה (ob_sent מהשרת v4; לפניו ob_at). null כשהיא לא יצאה. */
+function rrAgo(r){
+  if(!r.ob_id || r.ob_status !== 'נשלח') return null;
+  const t = r.ob_sent || r.ob_at; if(!t) return null;
+  return Math.max(0, Math.floor((Date.now() - new Date(t).getTime()) / 86400000));
+}
+function rrAgoTxt(a){ return a === 0 ? 'היום' : a === 1 ? 'לפני יום' : a === 2 ? 'לפני יומיים' : 'לפני ' + a + ' ימים'; }
+/* 🔴 ההגדרה היחידה של מצב התזכורת לשורה (rm_* מהשרת, לפי dedupe_key של הטלפון — כמו הבקשה הראשונה) */
+function rrRm(r){
+  if(!r.rm_id) return null;
+  const s = r.rm_status || '', d = r.rm_delivery || '';
+  if(s === 'נכשל' || d === 'נכשל') return { k:'fail', label:'תזכורת נכשלה', cls:'fail' };
+  if(s === 'בוטל') return { k:'fail', label:'תזכורת בוטלה', cls:'none' };
+  if(d === 'נקרא') return { k:'sent', label:'תזכורת נקראה', cls:'read' };
+  if(d === 'נמסר') return { k:'sent', label:'תזכורת נמסרה', cls:'ok' };
+  if(s === 'נשלח') return { k:'sent', label:'תזכורת נשלחה', cls:'sent' };
+  return { k:'sent', label:'תזכורת בתור', cls:'wait' };
+}
+/* השורה מתאימה לתזכורת (בלי קשר למי שמסתכל): שרת v4, נייד, הבקשה הראשונה יצאה (ולא נכשלה במסירה) לפני יום
+   לפחות, ואין תזכורת — או שהתזכורת נכשלה ולא נמסרה (rm_retry). אותם תנאים בדיוק נבדקים שוב בשרת. */
+function rrRemOk(r){
+  if(!(RR && +RR.v >= 4 && r.mobile) || r.ob_delivery === 'נכשל') return false;
+  const a = rrAgo(r);
+  if(a === null || a < 1) return false;
+  return !r.rm_id || !!r.rm_retry;
+}
+/* מותר לשלוח: השורה מתאימה, ולמי שמסתכל יש הרשאת שליחה */
+function rrRemindable(r){ return !!(RR && RR.can_send) && rrRemOk(r); }
+/* "לתזכורת" (הסימון — גם לצופה): עברו RR_REMIND_DAYS ימים, ולא זוהתה ביקורת אחרי הבקשה. מי שאולי כתב לפני הבקשה — נשאר, ומסומן. */
+function rrDue(r){ const v = rrRv(r); return rrRemOk(r) && rrAgo(r) >= RR_REMIND_DAYS && !(v && v.after); }
 /* 🔴 ההגדרה היחידה של ראיית האספקה לשורה: התא (rrDvCell), הסינון (rrRowsView), המונה (rrChips) והאזהרה באישור (rrSend).
    has=false ⇒ השרת עוד אינו מחזיר ראיות (גרסה 1) — מוצג התאריך הישן, ואין סינון. */
 function rrDv(r){
@@ -37776,6 +37814,10 @@ function rrRv(r){
 function rrPill(r){
   const st = rrState(r), rv = rrRv(r);
   let h = '<span class="rr-st ' + st.cls + '"' + (r.ob_at ? ' title="' + esc(fmtDT(r.ob_at)) + '"' : '') + '>' + esc(st.label) + '</span>';
+  const ago = rrAgo(r), rm = rrRm(r);
+  if(ago !== null) h += '<span class="rr-sub rr-ago">' + rrAgoTxt(ago) + '</span>';
+  if(rm) h += ' <span class="rr-st rr-rm ' + rm.cls + '"' + (r.rm_at ? ' title="' + esc(fmtDT(r.rm_at)) + '"' : '') + '>' + esc(rm.label) + '</span>'
+    + (rm.k === 'fail' && r.rm_error ? '<span class="rr-sub bad" dir="auto" title="' + esc(r.rm_error) + '">' + esc(r.rm_error) + '</span>' : '');
   if(r.ob_order && r.ob_order !== r.order_number) h += '<span class="rr-sub">מהזמנה <bdi>' + esc(r.ob_order) + '</bdi></span>';
   if(st.k === 'fail' && r.ob_error) h += '<span class="rr-sub bad" dir="auto" title="' + esc(r.ob_error) + '">' + esc(r.ob_error) + '</span>';
   if(rv) h += '<span class="rr-sub ' + (rv.after ? 'good' : 'warn') + ' rr-rv" title="לפי התאמת שמות מול הביקורות בגוגל — לא ודאי">'
@@ -37839,7 +37881,11 @@ function rrActs(r){
     ? '<button type="button" class="ghost rr-send' + (RR.enabled ? '' : ' rr-off') + '"' + (RR.enabled ? '' : ' title="השליחה כבויה"')
       + ' onclick="rrSendOne(\'' + id + '\',event)">' + (rrState(r).k === 'fail' ? 'שליחה שוב' : 'שליחה') + '</button>'
     : '<span class="rr-nosend"></span>';
-  return '<div class="rr-acts">' + send
+  const rem = rrRemindable(r)
+    ? '<button type="button" class="ghost rr-rem' + (RR.remind_mapped ? '' : ' rr-off') + '"' + (RR.remind_mapped ? '' : ' title="התבנית ממתינה לאישור מטא"')
+      + ' onclick="rrRemindOne(\'' + id + '\',event)">' + (r.rm_retry ? 'תזכורת שוב' : 'תזכורת') + '</button>'
+    : '';
+  return '<div class="rr-acts">' + (rem || send)
     + '<button type="button" class="ghost rr-dis" title="הסרה מהרשימה (ההזמנה אינה נמחקת)" onclick="rrDismiss(\'' + on + '\',event)">הסרה</button></div>';
 }
 function rrCb(r){
@@ -37889,11 +37935,15 @@ function rrTable(){
   const all = (RR && RR.rows) || [];
   if(!RR) return '';
   if(RR_F.st === 'gone') return rrGoneTable();
-  if(!rows.length) return '<div class="empty">' + (all.length ? 'אין הזמנות להצגה בסינון הזה.' : 'אין כרגע הזמנות שסופקו ב-30 הימים האחרונים.') + '</div>';
+  if(!rows.length) return '<div class="empty">' + (RR_F.st === 'remind' && all.length
+    ? 'אין כרגע לקוחות לתזכורת. לקוח מופיע כאן ' + RR_REMIND_DAYS + ' ימים אחרי הבקשה, אם לא זוהתה ביקורת שלו.'
+    : all.length ? 'אין הזמנות להצגה בסינון הזה.' : 'אין כרגע הזמנות שסופקו ב-30 הימים האחרונים.') + '</div>';
   const sh = rrShared(), nPh = new Set(rows.map(r => r.p9)).size;
   const nOk = rows.filter(r => rrDv(r).ok).length, hasDv = rows.some(r => rrDv(r).has);
-  const sum = '<div class="rr-sum" id="rr-sum">' + rows.length + ' הזמנות · ' + nPh + ' מספרי טלפון · כל מספר מקבל בקשה אחת'
-    + (hasDv ? ' · ל-' + nOk + ' יש אישור שהלקוח קיבל' : '') + '</div>';
+  const sum = '<div class="rr-sum" id="rr-sum">' + (RR_F.st === 'remind'
+    ? rows.length + ' הזמנות · ' + nPh + ' מספרי טלפון · הבקשה יצאה לפני ' + RR_REMIND_DAYS + ' ימים או יותר ולא זוהתה ביקורת · כל מספר מקבל תזכורת אחת'
+    : rows.length + ' הזמנות · ' + nPh + ' מספרי טלפון · כל מספר מקבל בקשה אחת'
+    + (hasDv ? ' · ל-' + nOk + ' יש אישור שהלקוח קיבל' : '')) + '</div>';
   if(!wideScreen()) return sum + rows.map(r => rrRowM(r, sh)).join('');
   const pick = rows.filter(rrPickable), cbCol = ed && pick.length > 0;
   const head = '<thead><tr>' + (cbCol ? '<th class="rr-cbc"><input type="checkbox" id="rr-all" aria-label="בחירת כל מי שאפשר לשלוח לו"' + (rrAllOn(rows) ? ' checked' : '') + ' onchange="rrPickAll(this.checked)"></th>' : '')
@@ -37920,6 +37970,7 @@ function rrChips(){
   const rows = RR.rows || [];
   let h = RR_CHIPS.map(([k, lb]) => { const n = rows.filter(r => rrIn(r, k)).length;
     if(k === 'fail' && !n && RR_F.st !== 'fail') return '';       // "נכשלו" מופיע רק כשיש
+    if(k === 'remind' && !(+RR.v >= 4)) return '';               // שרת בלי תזכורות — אין שבב
     return '<button type="button" class="chip' + (RR_F.st === k ? ' active' : '') + '" data-k="' + k
       + '" onclick="rrSetFilter(\'' + k + '\')">' + lb + ' <b>' + n + '</b></button>'; }).join('');
   if(RR_F.st !== 'gone' && rows.some(r => rrDv(r).has)){
@@ -37945,6 +37996,7 @@ function rrStats(){
     + '<span class="rr-stn" data-k="sent"><b>' + n('sent') + '</b> נשלחו</span>'
     + '<span class="rr-stn" data-k="delivered"><b>' + n('delivered') + '</b> נמסרו</span>'
     + '<span class="rr-stn" data-k="read"><b>' + n('read') + '</b> נקראו</span>'
+    + (RR.reminders && +RR.reminders.sent ? '<span class="rr-stn" data-k="reminded"><b>' + (+RR.reminders.sent) + '</b> תזכורות</span>' : '')
     + (n('pending') ? '<span class="rr-stn" data-k="pending"><b>' + n('pending') + '</b> בתור</span>' : '')
     + (n('failed') ? '<span class="rr-stn bad" data-k="failed"><b>' + n('failed') + '</b> נכשלו</span>' : '')
     + '<span class="rr-stn good" data-k="reviewed" title="כותב ביקורת בשם דומה לשם הלקוח, אחרי שהבקשה יצאה. הערכה לפי שמות — לא ודאי"><b>'
@@ -37961,6 +38013,7 @@ function rrNote(){
   let h = '';
   if(RR_ERR) h += '<div class="rr-note bad" id="rr-bad">' + (RR ? 'הרענון נכשל — מוצגים הנתונים הקודמים: ' : 'לא ניתן לטעון את בקשות הביקורת: ') + esc(RR_ERR) + '</div>';
   if(RR && !RR.enabled) h += '<div class="rr-note" id="rr-off">' + esc(RR_OFF_NOTE) + '</div>';
+  else if(RR && RR_F.st === 'remind' && +RR.v >= 4 && !RR.remind_mapped) h += '<div class="rr-note" id="rr-rmwait">' + esc(RR_RM_WAIT) + '</div>';
   else if(RR && !RR.mapped) h += '<div class="rr-note" id="rr-nomap">אין מיפוי לתבנית בקשת הביקורת (הגדרות ← מתקדם ← וואטסאפ — מיפוי תבניות Heyy). השליחה תיכשל עד שימולא.</div>';
   el.innerHTML = h;
 }
@@ -37973,7 +38026,9 @@ function rrBulkPaint(){
   const nPh = new Set(rows.map(r => r.p9)).size;
   el.innerHTML = '<span>' + (rows.length === 1 ? 'נבחרה הזמנה אחת' : 'נבחרו <b>' + rows.length + '</b> הזמנות')
     + ' · ' + (nPh === 1 ? 'מספר טלפון אחד' : nPh + ' מספרי טלפון') + '</span>'
-    + '<button type="button" class="btn rr-go" onclick="rrSendSel()"' + (RR_BUSY ? ' disabled' : '') + '>שליחה לנבחרים</button>'
+    + (RR_F.st === 'remind'
+      ? '<button type="button" class="btn rr-go rr-remgo" onclick="rrRemindSel()"' + (RR_BUSY ? ' disabled' : '') + '>תזכורת לנבחרים</button>'
+      : '<button type="button" class="btn rr-go" onclick="rrSendSel()"' + (RR_BUSY ? ' disabled' : '') + '>שליחה לנבחרים</button>')
     + '<button type="button" class="ghost rr-disall" title="הסרת כל הנבחרות מהרשימה (ההזמנות אינן נמחקות)" onclick="rrDismissSel()"'
       + (RR_BUSY ? ' disabled' : '') + '>' + (RR_DIS ? 'מסיר…' : 'הסרה לנבחרים') + '</button>'
     + '<button type="button" class="ghost rr-clr" onclick="rrClearSel()">ניקוי הבחירה</button>';
@@ -38008,7 +38063,7 @@ function rrSelSync(){
   const all = document.getElementById('rr-all'); if(all) all.checked = rrAllOn(rrRowsView());
   rrBulkPaint(); rrFit();
 }
-window.rrSetFilter = k => { if(k === 'gone') RR_SEL.clear(); RR_F.st = k; rrPaint(); };
+window.rrSetFilter = k => { if(k === 'gone' || (k === 'remind') !== (RR_F.st === 'remind')) RR_SEL.clear(); RR_F.st = k; rrPaint(); };
 window.rrToggleConf = () => { RR_F.conf = !RR_F.conf; rrPaint(); };
 window.rrPick = (id, on) => { if(on) RR_SEL.add(id); else RR_SEL.delete(id); rrSelSync(); };
 window.rrPickAll = on => { rrRowsView().filter(rrBulkOk).forEach(r => { if(on) RR_SEL.add(r.id); else RR_SEL.delete(r.id); }); rrSelSync(); };
@@ -38089,6 +38144,42 @@ window.rrSend = async function(ids){
 };
 window.rrSendOne = (id, ev) => { if(ev) ev.stopPropagation(); return rrSend([id]); };
 window.rrSendSel = () => rrSend([...RR_SEL]);
+
+/* ── 7.86.0 — תזכורת ביקורת: ידנית, לנבחרים. השרת (ord.review_req_remind) בודק הכול מחדש:
+   הבקשה הראשונה יצאה לפני יום לפחות · נייד · תזכורת אחת לכל מספר · המתג · התבנית ממופה ── */
+window.rrRemind = async function(ids){
+  ids = [...new Set((ids || []).filter(Boolean))];
+  if(!ids.length || RR_BUSY || !RR) return;
+  if(!RR.can_send || !canEdit(RR_PERM)){ toast('אין לך הרשאה לשלוח בקשות ביקורת', 'err'); return; }
+  if(!RR.enabled){ await sysAlert(RR_OFF_MSG); return; }
+  if(!RR.remind_mapped){ await sysAlert(RR_RM_WAIT); return; }
+  const rows = ids.map(id => (RR.rows || []).find(r => r.id === id)).filter(Boolean).filter(rrRemindable);
+  if(!rows.length) return;
+  if(rows.length > 100){ await sysAlert('אפשר לשלוח עד 100 תזכורות בבת אחת — נבחרו ' + rows.length + '. צמצמו את הבחירה ושלחו בשתי פעמים.'); return; }
+  const nPh = new Set(rows.map(r => r.p9)).size;
+  const maybe = rows.filter(r => !!rrRv(r)).length;
+  let msg = rows.length === 1
+    ? 'לשלוח תזכורת ביקורת ל' + (rows[0].customer_name || 'לקוח') + ' (' + (rows[0].phone || '') + ')? הבקשה הראשונה יצאה ' + rrAgoTxt(rrAgo(rows[0])) + '.'
+    : 'לשלוח תזכורת ביקורת בוואטסאפ ל-' + nPh + ' מספרי טלפון? לכל מספר תזכורת אחת בלבד.';
+  if(maybe) msg += '\n' + (rows.length === 1 ? 'ייתכן שהלקוח כבר כתב ביקורת.' : maybe + ' מהם אולי כבר כתבו ביקורת.');
+  if(!(await sysConfirm(msg, { ok:'שליחת תזכורת' }))) return;
+  if(RR_BUSY) return;
+  ids = rows.map(r => r.id).filter(id => { const r = (RR.rows || []).find(x => x.id === id); return !!r && rrRemindable(r); });
+  if(!ids.length) return;
+  RR_BUSY = true; rrBulkPaint();
+  try{
+    const { data, error } = await sb.schema('ord').rpc('review_req_remind', { p_ids: ids });
+    if(error) throw error;
+    const sent = +((data && data.sent) || 0), sk = (data && data.skipped) || [];
+    ids.forEach(id => RR_SEL.delete(id));
+    toast((sent === 1 ? 'נשלחה תזכורת אחת' : 'נשלחו ' + sent + ' תזכורות') + (sk.length ? ' · ' + sk.length + ' לא נשלחו' : ''), sent ? 'ok' : '');
+    if(sk.length) await sysAlert('לא נשלחו:\n' + sk.map(x => String(x.order || '') + ' — ' + String(x.reason || '')).join('\n'));
+  }catch(e){ toast(rrErrHe(e), 'err'); }
+  finally{ RR_BUSY = false; }
+  await rrLoad(); rrPaint();
+};
+window.rrRemindOne = (id, ev) => { if(ev) ev.stopPropagation(); return rrRemind([id]); };
+window.rrRemindSel = () => rrRemind([...RR_SEL]);
 
 /* 7.84.0 — מה שקורה במסך אחרי שהשרת אישר הסרה. ההסרה היחידה והמרובה עוברות שתיהן כאן. */
 function rrDropLocal(order, row, reason){
