@@ -3522,20 +3522,20 @@ td.lb-today .lb-dt{ background-color:transparent; }
 .lb-cxrow span{ font-size:var(--fs-xs); color:var(--ink-3); }
 /* 6.252.0 — בחירת לקוח קיים לפני ההמרה (#cvPickModal). מעוגן במזהה המודאל: (1,1,0) גובר על
    button{} ועל .btn{width:100%} בלי תלות במיקום בגיליון. */
-:is(#cvPickModal,#cvContModal) .sheet{ max-width:640px; }   /* שלושת הכפתורים בשורה אחת ב-1440 (ב-580 "ביטול" ירד שורה) */
-:is(#cvPickModal,#cvContModal) .cvp-list{ display:flex; flex-direction:column; gap:var(--sp-1h); margin-top:var(--sp-3); max-height:50vh; overflow:auto; }
-:is(#cvPickModal,#cvContModal) .cvp-row{ display:flex; flex-direction:column; align-items:stretch; gap:var(--sp-0h); width:100%; text-align:start;
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .sheet{ max-width:640px; }   /* שלושת הכפתורים בשורה אחת ב-1440 (ב-580 "ביטול" ירד שורה) */
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-list{ display:flex; flex-direction:column; gap:var(--sp-1h); margin-top:var(--sp-3); max-height:50vh; overflow:auto; }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-row{ display:flex; flex-direction:column; align-items:stretch; gap:var(--sp-0h); width:100%; text-align:start;
   padding:var(--sp-2h) var(--sp-3); border:1px solid var(--line); border-radius:var(--r-md); background-color:#fff; color:var(--dark); font-size:var(--fs-md); }
 /* ⚠️ :not(.on) — בלעדיו (1,3,0) של הריחוף גובר על (1,2,0) של הבחירה, והשורה הנבחרת מאבדת את הרקע
    בדיוק כשהעכבר עליה (נמדד ב-custpicktest: rgb(244,247,251) במקום rgb(238,244,249)). */
-:is(#cvPickModal,#cvContModal) .cvp-row:hover:not(:disabled):not(.on){ background-color:#f4f7fb; }
-:is(#cvPickModal,#cvContModal) .cvp-row.on{ border-color:var(--navy); background-color:#eef4f9; box-shadow:inset -4px 0 0 var(--navy); }
-:is(#cvPickModal,#cvContModal) .cvp-row:disabled{ opacity:.55; cursor:not-allowed; }
-:is(#cvPickModal,#cvContModal) .cvp-main{ display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap; }
-:is(#cvPickModal,#cvContModal) .cvp-pid{ font-size:var(--fs-xs); font-weight:700; color:var(--navy); background-color:#eef2f5; border-radius:var(--r-pill); padding:1px var(--sp-2); }
-:is(#cvPickModal,#cvContModal) .cvp-st{ font-size:var(--fs-xs); font-weight:600; color:#92400e; background-color:var(--amber-bg); border-radius:var(--r-pill); padding:1px var(--sp-2); }
-:is(#cvPickModal,#cvContModal) .cvp-meta{ font-size:var(--fs-xs); color:var(--ink-3); }
-:is(#cvPickModal,#cvContModal) .btn:disabled{ opacity:.45; cursor:not-allowed; }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-row:hover:not(:disabled):not(.on){ background-color:#f4f7fb; }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-row.on{ border-color:var(--navy); background-color:#eef4f9; box-shadow:inset -4px 0 0 var(--navy); }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-row:disabled{ opacity:.55; cursor:not-allowed; }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-main{ display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap; }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-pid{ font-size:var(--fs-xs); font-weight:700; color:var(--navy); background-color:#eef2f5; border-radius:var(--r-pill); padding:1px var(--sp-2); }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-st{ font-size:var(--fs-xs); font-weight:600; color:#92400e; background-color:var(--amber-bg); border-radius:var(--r-pill); padding:1px var(--sp-2); }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .cvp-meta{ font-size:var(--fs-xs); color:var(--ink-3); }
+:is(#cvPickModal,#cvContModal,#cvTypeModal) .btn:disabled{ opacity:.45; cursor:not-allowed; }
 .lb-cxgo{ cursor:pointer; }
 .lb-cxgo:hover{ filter:brightness(.94); text-decoration:underline; }
 /* ---- שלוש עמודות תת-הסטטוס ---- */
@@ -4785,7 +4785,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.97.0</div>
+      <div class="ver">גרסה 7.98.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4934,7 +4934,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="goalstree-2026-11-27a">גרסה 7.97.0</div>
+    <div class="side-foot" title="convtype-2026-11-27a">גרסה 7.98.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5598,6 +5598,18 @@ tr.lb-on td{ background-color:#eef5fd !important; }
     </div>
   </div>
 </div>
+<!-- 7.98.0 — בחירת מחירון בהמרה (crm-convert-lead v28 מחזירה need_type). modal-over: Esc/רקע = ביטול, לא נשלח דבר. -->
+<div class="modal modal-over hidden" id="cvTypeModal">
+  <div class="sheet">
+    <h3>איזה מחירון ללקוח?</h3>
+    <div class="note" id="cvt-note"></div>
+    <div class="cvp-list" id="cvt-list" role="radiogroup" aria-label="מחירונים"></div>
+    <div class="actions">
+      <button type="button" class="btn green" id="cvt-go" disabled onclick="cvTypeGo()">המשך עם המחירון שנבחר</button>
+      <button type="button" class="ghost" onclick="CV_TYPE=null;document.getElementById('cvTypeModal').classList.add('hidden')">ביטול</button>
+    </div>
+  </div>
+</div>
 
 <!-- מודל כרטיס עסקה -->
 <div class="modal hidden" id="dealModal">
@@ -6150,7 +6162,9 @@ function cvPickOpen(id, btn, cands, canOv){
     const st = [k.status && k.status !== 'פעיל' ? k.status : '', k.is_test ? 'בדיקה' : ''].filter(Boolean)
       .map(s=>'<span class="cvp-st">' + esc(s) + '</span>').join('');
     const meta = [k.city || '', cvCnt(k.orders, 'הזמנה אחת', 'הזמנות', 'אין הזמנות'),
-      cvCnt(k.deals, 'עסקה אחת', 'עסקאות', 'אין עסקאות'), k.last_order ? 'הזמנה אחרונה ' + fmtD(k.last_order) : '']
+      cvCnt(k.deals, 'עסקה אחת', 'עסקאות', 'אין עסקאות'), k.last_order ? 'הזמנה אחרונה ' + fmtD(k.last_order) : '',
+      /* 7.98.0 — plname מגיע מ-v28; undefined (שרת ישן) ⇒ לא מוצג, null ⇒ "בלי מחירון" (ואז תתבקש בחירה). */
+      k.plname === undefined ? '' : (k.plname ? 'מחירון ' + k.plname : 'בלי מחירון')]
       .filter(Boolean).map(esc).join(' · ');
     return '<button type="button" class="cvp-row" role="radio" aria-checked="false" data-id="' + esc(k.id) + '"'
       + (ok ? ' onclick="cvPickSel(\'' + jsq(k.id) + '\')"' : ' disabled title="אין ללקוח מספר בפריוריטי — אי אפשר לפתוח עליו הצעה"') + '>'
@@ -6186,6 +6200,53 @@ window.cvPickNew = async ()=>{
   CV_PICK = null; $('#cvPickModal').classList.add('hidden');
   convertLead(s.id, s.btn, { new_customer:true });
 };
+/* ═══ 7.98.0 — convtype: המחירון נבחר בהמרה ═══════════════════════════════
+   רומן, 27/11/2026: "נמכרה עם מחירון עסקי. איך היא הפכה למחירון בסיס?" — הכרטיס בפריוריטי קיבל 'בסיס' מברירת
+   המחדל של הליד, והמחיר העסקי ניתן במסמך בלבד.
+   🔴 ההחלטה של השרת (crm-convert-lead v28, need_type + lists). כאן רק מציגים ושולחים את הבחירה, יחד עם כל מה
+      שכבר נבחר (choice) — אחרת בחירת הלקוח או איש הקשר הייתה אובדת בדרך.
+   ⚠️ אין ברירת מחדל מסומנת, ו"המשך" מנוטרל עד בחירה. סגירה = לא נשלח דבר. */
+let CV_TYPE = null;   /* { id, btn, choice, sel } */
+function cvTypeOpen(id, btn, d, choice){
+  const lists = (d && Array.isArray(d.lists) ? d.lists : []).filter(x=>typeof x === 'string' && x.trim());
+  CV_TYPE = { id, btn, choice: choice || null, sel:'' };
+  $('#cvt-note').innerHTML = (d && d.new_customer
+      ? 'ייפתח לקוח חדש בפריוריטי' + (d.customer_name ? ' — <b>' + esc(d.customer_name) + '</b>' : '') + '. '
+      : 'ללקוח <b>' + esc((d && d.customer_name) || '') + '</b> אין מחירון בפריוריטי. ')
+    + 'המחירון קובע את המחירים בהצעה ואת סוג הלקוח במערכת. בלי בחירה לא נפתח דבר.';
+  $('#cvt-list').innerHTML = lists.map(p=>
+    '<button type="button" class="cvp-row" role="radio" aria-checked="false" data-pl="' + esc(p) + '" onclick="cvTypeSel(this.dataset.pl)">'
+    + '<span class="cvp-main"><b>' + esc(p) + '</b></span>'
+    + '<span class="cvp-meta">' + esc(CU_SEG_OF[p] ? 'סוג לקוח: ' + CU_SEG_OF[p] : '') + '</span></button>').join('');
+  $('#cvt-go').disabled = true;
+  $('#cvTypeModal').classList.remove('hidden');
+}
+window.cvTypeSel = (pl)=>{
+  if(!CV_TYPE) return;
+  CV_TYPE.sel = pl;
+  document.querySelectorAll('#cvt-list .cvp-row').forEach(b=>{
+    const on = b.dataset.pl === pl; b.classList.toggle('on', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
+  $('#cvt-go').disabled = !pl;
+};
+window.cvTypeGo = ()=>{
+  const s = CV_TYPE; if(!s || !s.sel) return;
+  CV_TYPE = null; $('#cvTypeModal').classList.add('hidden');
+  convertLead(s.id, s.btn, Object.assign({}, s.choice, { price_list:s.sel }));
+};
+/* אחרי ההמרה "סוג לקוח" בליד נעול: המחירון חי בכרטיס הלקוח בפריוריטי, ושינוי בליד לא היה מגיע אליו
+   (סיסטרס, 25/10/2026: שונה ל"עסקי" בליד שעה אחרי ההמרה, והכרטיס נשאר "בסיס").
+   מחזיר את שורת הלקוח כשהליד מקושר ללקוח עם מספר פריוריטי, אחרת null. */
+function lbTypeLocked(l){
+  if(!l || !l.customer_id) return null;
+  const k = (CUSTS||[]).find(x=>x.id === l.customer_id);
+  return (k && k.priority_id) ? k : null;
+}
+/* מה מוצג בשדה הנעול: מחירון הכרטיס (המראה); לפני שנטענה, או למי שאינו רואה מחירונים — סוג הליד, שההמרה כתבה. */
+function lbTypeShown(l, k){
+  let pl = '';
+  try{ if(!CPL_BY) cplEnsure(); pl = cplOf(k); }catch(_e){}
+  return pl || (l && l.customer_type) || '';
+}
 /* 🔴 7.2.0 — "לקוח חדש" ירד (רומן, 14/10/2026: "להסיר לגמרי"). השרת (crm-convert-lead v24) אוכף זאת גם
    הוא: בקשת "לקוח חדש" נדחית כשיש מועמד פעיל עם מספר פריוריטי, ולקוחות 'לא פעיל' אינם מועמדים כלל. */
 /* ═══ ההצלבה ההפוכה (6.124.0) ════════════════════════════════════
@@ -16535,7 +16596,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'goalstree-2026-11-27a';
+const BUILD_ID = 'convtype-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -35270,7 +35331,8 @@ function lbRow(l, i, nt, nm, ntid){
       ${lbSubCell(l,'רלוונטי',SUB_RELEVANT,'sub_status')}
       ${lbSubCell(l,'סירוב',SUB_REFUSAL,'reject_reason')}
       ${lbSubCell(l,'לא רלוונטי',SUB_IRRELEVANT,'irrelevant_reason')}
-      <td>${ieSel('lead',l.id,'customer_type',LEAD_TYPES,l.customer_type,{allowEmpty:true,mdColors:LEAD_TYPE_COLORS,mdK:LB_TK})}</td>
+      <td>${(k=>k ? '<span class="lb-ctype-ro" title="לפי כרטיס הלקוח בפריוריטי — שם משנים">' + mdPill(lbTypeShown(l,k),LEAD_TYPE_COLORS,LB_TK) + '</span>'
+        : ieSel('lead',l.id,'customer_type',LEAD_TYPES,l.customer_type,{allowEmpty:true,mdColors:LEAD_TYPE_COLORS,mdK:LB_TK}))(lbTypeLocked(l))}</td>
       <td class="lb-utm" title="${esc(l.utm_campaign||'')}">${esc(l.utm_campaign||'')||'<span class="lb-na">·</span>'}</td>
     </tr>`;
 }
@@ -36780,7 +36842,8 @@ window.openLead = (id)=>{
       <div title="כשיש שם לקוח / חברה — השם המלא חובה (הוא איש הקשר)"><label>שם לקוח / חברה</label><input id="lb-company" value="${esc(l.company||'')}"></div>
       <div><label>תפקיד</label><input id="lb-position" value="${esc(l.position||'')}"></div>
       <div><label>עיר</label><input id="lb-city" value="${esc(l.city||'')}"></div>
-      <div><label>סוג לקוח</label>${selHtml('lb-ctype',LEAD_TYPES,l.customer_type,true,'','leadtype')}</div>
+      ${(k=>k ? `<div id="lb-ctype-lock" title="המחירון נקבע בכרטיס הלקוח בפריוריטי. שינוי שם מתעדכן כאן לבד."><label>סוג לקוח (לפי כרטיס הלקוח)</label>${roIn(lbTypeShown(l,k))}</div>`
+        : `<div><label>סוג לקוח</label>${selHtml('lb-ctype',LEAD_TYPES,l.customer_type,true,'','leadtype')}</div>`)(lbTypeLocked(l))}
       <div><label>מקור הגעה${srcHelp()}</label>${selHtml('lb-source',LEAD_SOURCES,l.source,true,'','leadsrc')}</div>
       <div><label>לשלוח קטלוג בוואטסאפ?</label>${selHtml('lb-wacat',['כן','לא'],l.send_whatsapp_catalog===true?'כן':(l.send_whatsapp_catalog===false?'לא':null),true)}</div>
       <div><label>בעלים ושותפים</label><div id="lb-ownbox">${lbOwnerCellName(l)}</div></div>
@@ -38020,6 +38083,7 @@ function convLocalApply(id, data){
   l.status = 'רלוונטי'; l.sub_status = 'הצעת מחיר';
   l.reject_reason = null; l.irrelevant_reason = null;
   if(data.customer_id) l.customer_id = data.customer_id;
+  if(data.lead_type) l.customer_type = data.lead_type;   /* 7.98.0 — v28 כותב לליד את המחירון שנבחר */
   l.updated_at = nowIso;
   /* ⚠️ TASKS הוא הצרכן שהכי קל לשכוח — בלעדיו lbNextMaps מזינה את
      "תאריך המשימה הבאה" ממשימה שכבר נסגרה, ו-renderTasks מציגה אותה. */
@@ -38055,19 +38119,24 @@ window.convertLead = async (id, btn, choice)=>{
   const res = $('#convResult'); if(res) res.innerHTML='';
   /* 6.252.0 — רשימת היתר לגוף. 7.2.0 — new_customer ירד עם "לקוח חדש" (והשרת v24 אינו מכבד אותו עוד). */
   const body = { lead_id:id };
+  /* 7.98.0 — ask_type: "אני יודע להציג בחירת מחירון" (v28 מחזיר need_type רק למי ששולח אותו). */
+  body.ask_type = true;
+  if(choice && typeof choice.price_list === 'string' && choice.price_list) body.price_list = choice.price_list;
   if(choice && choice.customer_id) body.customer_id = String(choice.customer_id);
   else if(choice && choice.new_customer === true) body.new_customer = true;   /* 7.8.0 — v25 מכבד רק בהרשאה */
   /* 6.255.0 — בחירת איש הקשר (v23), לצד בחירת הלקוח ולא במקומה: בלקוח שנבחר זה עתה השרת
      מריץ את שער איש הקשר **לפני** הקישור, ולכן הבחירה הראשונה חייבת להישלח שוב יחד איתו. */
   if(choice && choice.contact_id) body.contact_id = String(choice.contact_id);
   else if(choice && choice.new_contact === true) body.new_contact = true;
-  let pick = null, pickOv = false, needCt = null;
+  let pick = null, pickOv = false, needCt = null, needTy = null;
   try{
   const { data, error } = await sb.functions.invoke('crm-convert-lead', { body });
   /* 6.252.0 — השרת עצר לבחירה: לא נוצר דבר. הבורר נפתח ב-finally, **אחרי** busyHide — אחרת חלון
      ההמתנה (שאינו נסגר בלחיצת רקע) היה מכסה אותו. */
   if(data && data.need_pick && Array.isArray(data.candidates) && data.candidates.length){ pick = data.candidates; pickOv = data.can_override === true; return; }
   if(data && data.need_contact && Array.isArray(data.contacts) && data.contacts.length){ needCt = data; return; }
+  /* 7.98.0 — השרת עצר לבחירת מחירון: לא נוצר דבר. בלי lists — נופל לשגיאה הרגילה (עם הטקסט של השרת). */
+  if(data && data.need_type && Array.isArray(data.lists) && data.lists.length){ needTy = data; return; }
   /* 7.33.0 — שם באנגלית (crm-convert-lead v26): לא נוצר דבר. התיבה במקום, בלי מודל — #convResult אינו מוסתר ע"י busyHide. */
   if(data && data.need_latin){ if(res) res.innerHTML = cvLatinBox(id, data); return; }
   if(error || (data && data.ok===false)){
@@ -38078,7 +38147,8 @@ window.convertLead = async (id, btn, choice)=>{
      מתעדכנים), ולכן כל מה שנכתב ל-#convResult היה נמחק. */
   const warn = [data.owner_login_error, data.owner_error].filter(Boolean).join(' · ');
   CONV_RESULT = { id, html: `<div class="ok-box">✓ הומר בהצלחה!<br>לקוח בפריוריטי: <b>${esc(data.custname||'—')}</b>${data.picked_existing ? ' · לקוח קיים' : ''}<br>הצעת מחיר: <b>${esc(data.cprofnum||'—')}</b>`
-    + (data.price_list ? `<br>מחירון: <b>${esc(data.price_list)}</b>` : '')
+    + (data.price_list ? `<br>מחירון: <b>${esc(data.price_list)}</b>`
+        : (data.card_price_list ? `<br>מחירון בכרטיס: <b>${esc(data.card_price_list)}</b>` : ''))
     + (warn ? `<br><span style="color:var(--warn-ink)">⚠️ ${esc(warn)}</span>` : '')
     /* ⚠️ מותנה ב-deal_id: השרת מחזיר אותו מאז ומעולם (הלקוח פשוט לא
        קרא אותו), אבל כפתור שמוביל ל-undefined גרוע מכפתור שאינו קיים. */
@@ -38101,6 +38171,7 @@ window.convertLead = async (id, btn, choice)=>{
     if(btn){ btn.disabled = false; btn.textContent = btn.dataset.lbl || 'פתח לקוח והצעת מחיר בפריוריטי'; }
     if(pick) cvPickOpen(id, btn, pick, pickOv);
     if(needCt) cvContOpen(id, btn, needCt, choice);
+    if(needTy) cvTypeOpen(id, btn, needTy, choice);
   }
 };
 /* ═══ 7.33.0 (7.33.1: נוסח ההודעה — רומן) — ליד עם שם באנגלית ═══════════════════════════════════════
