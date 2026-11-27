@@ -4708,7 +4708,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.93.1</div>
+      <div class="ver">גרסה 7.93.2</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4857,7 +4857,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="heroline-2026-11-27a">גרסה 7.93.1</div>
+    <div class="side-foot" title="vatline-2026-11-27a">גרסה 7.93.2</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -16196,7 +16196,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'heroline-2026-11-27a';
+const BUILD_ID = 'vatline-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -23555,11 +23555,13 @@ function saHero(){
   return '<div class="sa-card sa-hero" id="sa-hero"><div class="sa-kpis">'+
     /* 7.93.1 — "לפני מע״מ" לבד מתחת לסכום, ו"כולל מע״מ" בשורה משלו (רומן, 27/11/2026: "₪764,737 ואז למטה רשום לפני מע״מ") */
     k('מכירות '+lbl, saMoney(net), ['לפני מע״מ', T.gross != null ? '<b>'+saMoney(T.gross)+'</b> כולל מע״מ' : ''], 'main')+
-    k('הזמנות', n, [n ? 'ממוצע להזמנה '+saMoney(net/n) : ''], 'all', '')+
-    k('מתהליכי מכירה', saMoney(sl.net), [saN(sl.n), tg > 0 ? Math.round(100*(+sl.net||0)/tg)+'% מיעד החודש ('+ilsK(tg)+')' : pc(sl.net)], '', 'sales')+
-    k('אתר', saMoney(wb.net), [saN(wb.n), pc(wb.net)], '', 'web')+
-    k('ידני', saMoney(mn.net), [saN(mn.n), pc(mn.net)], '', 'manual')+
-    k('החזרות', saMoney(rt.net), [saN(rt.n)], '', 'return')+'</div></div>';
+    /* 7.93.2 — "לפני מע״מ" בכל אריח (רומן: "תציין גם ביתר לפני מעמ"); באתר גם "כולל מע״מ" — מחירי האתר כוללים מע״מ,
+       וכך אפשר להשוות לחנות (רומן: "באתר תעשה לי בקטן גם כולל מעמ"). שרת בלי by_class.web.gross ⇒ בלי השורה. */
+    k('הזמנות', n, [n ? 'ממוצע להזמנה '+saMoney(net/n) : '', n ? 'לפני מע״מ' : ''], 'all', '')+
+    k('מתהליכי מכירה', saMoney(sl.net), ['לפני מע״מ', saN(sl.n), tg > 0 ? Math.round(100*(+sl.net||0)/tg)+'% מיעד החודש ('+ilsK(tg)+')' : pc(sl.net)], '', 'sales')+
+    k('אתר', saMoney(wb.net), ['לפני מע״מ', wb.gross != null ? '<b>'+saMoney(wb.gross)+'</b> כולל מע״מ' : '', saN(wb.n), pc(wb.net)], '', 'web')+
+    k('ידני', saMoney(mn.net), ['לפני מע״מ', saN(mn.n), pc(mn.net)], '', 'manual')+
+    k('החזרות', saMoney(rt.net), ['לפני מע״מ', saN(rt.n)], '', 'return')+'</div></div>';
 }
 function saMonthR(){ const t = new Date(); return { from:isoD(new Date(t.getFullYear(), t.getMonth()-11, 1)), to:isoD(t) }; }
 /* לחיצה על חודש = הטווח של אותו חודש (עד היום, לחודש הנוכחי); לחיצה שנייה על אותו חודש מחזירה ל"החודש" */
