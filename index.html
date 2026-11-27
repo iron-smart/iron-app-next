@@ -4708,7 +4708,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.93.2</div>
+      <div class="ver">גרסה 7.93.3</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4857,7 +4857,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="vatline-2026-11-27a">גרסה 7.93.2</div>
+    <div class="side-foot" title="loginver-2026-11-27a">גרסה 7.93.3</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -6745,6 +6745,9 @@ async function afterLogin(){
   if(pErr){ console.error('profile', pErr); try{ await sb.auth.signOut({ scope:'local' }); }catch(_){} showLogin('שגיאה בטעינת הפרופיל — פנו למנהל המערכת'); return; }
   if(!prof || prof.role==='pending'){ try{ await sb.auth.signOut({ scope:'local' }); }catch(_){} showLogin('המשתמש ממתין לאישור מנהל'); return; }
   ME = { id:user.id, ...prof };
+  /* 7.93.3 — loginver: בדיקת הגרסה יוצאת כבר כאן, במקביל לשאר הכניסה; ההכרעה — רגע לפני שהמערכת נחשפת (למטה).
+     window.VER עשוי עוד לא להיות טעון (הוא בבלוק <script> מאוחר יותר) — אז VER.login שולף בעצמו. */
+  const verQ = (window.VER && VER.loginPrefetch) ? VER.loginPrefetch() : null;
   /* 7.17.0 — אימות דו-שלבי (AUTH-USERS-1): לפני ההרשאות, לפני החלפת סיסמה ראשונה, לפני כל ציור.
      כאן ולא בכפתור הכניסה — כך הוא חל על כל המסלולים: סיסמה, Microsoft, קישור איפוס, לשונית חדשה, סשן שמור. */
   if(!(await mfaGate(user, prof))) return;
@@ -6773,6 +6776,9 @@ async function afterLogin(){
     if(pgErr) throw pgErr;
     ME.perm_group = (typeof pg === 'string' && pg.trim()) ? pg : null;
   }catch(e){ console.error('my_perm_group', e); ME.perm_group = null; }
+  /* 7.93.3 — loginver: בנייה מפורסמת חדשה יותר ⇒ נטענת עכשיו, לפני שהמערכת נחשפת — לא פס עם ספירה אחרי הכניסה.
+     true = הדף בדרך לטעינה מחדש: לא מסירים את הפתיח ולא חושפים דבר. כשל כאן לעולם אינו חוסם כניסה. */
+  try{ if(window.VER && VER.login && await VER.login(verQ)) return; }catch(e){ console.error('VER.login', e); }
   killSplash();
   /* פעימת חיים — מאפשרת ללשונית חדשה באותו דפדפן להיחשב לאותו סשן (ראו boot) */
   /* 6.227.0 — בלשונית ההתחקות אין פעימת חיים ואין שעון חוסר-פעילות: אלה מפתחות של רומן ב-localStorage */
@@ -16196,7 +16202,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'vatline-2026-11-27a';
+const BUILD_ID = 'loginver-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -40563,6 +40569,7 @@ boot();
      ברגע הפנוי הראשון; אחרי 8 שעות בלי רגע פנוי — דיאלוג שמאפשר לדחות. אין יותר התנתקות. */
   var VER_GRACE_MS = 10 * 60 * 1000;
   var VER_CAP_MS   = 8 * 60 * 60 * 1000;
+  var VER_LOGIN_MS = 2500;            /* 7.93.3 — loginver: כמה מחכים לבדיקת הגרסה בכניסה לפני שנכנסים בלעדיה */
   /* 6.46.1 — כל מצב הגלגול יושב ברשומה אחת: {b: הבנייה שפורסמה, v: התווית,
      t: מועד ההתנתקות}. הצמדת המועד לבנייה היא מה שמאפשר ללשונית מעודכנת ולשונית
      ישנה לחיות זו לצד זו: "אני מיושן" נגזר מ-b מול BUILD_ID שלי, ולכן ידוע גם
@@ -40592,12 +40599,12 @@ boot();
   function verPost(m){ try{ if(verCh) verCh.postMessage(m); }catch(_e){} }
 
   /* תיעוד ב-ord.audit_log. מחזיר הבטחה כדי שאפשר יהיה להמתין לה לפני ניתוק. */
-  function verAudit(action, label){
+  function verAudit(action, label, b){
     try{
       if(typeof ME === 'undefined' || !ME || !ME.email) return Promise.resolve();
       return sb.schema('ord').from('audit_log').insert({
         user_email: ME.email, action: action, entity: 'app_version',
-        entity_id: String((verState() || {}).b || ''), label: String(label == null ? '' : label)
+        entity_id: String(b || (verState() || {}).b || ''), label: String(label == null ? '' : label)
       }).then(function(){}, function(){});
     }catch(_e){ return Promise.resolve(); }
   }
@@ -40797,6 +40804,52 @@ boot();
       verShow(); verPaint();
     }catch(_e){ /* רשת — מתעלמים בשקט */ }
     finally{ verBusy = false; }
+  };
+
+  /* ===== 7.93.3 — loginver: הכניסה עצמה מביאה את הגרסה החדשה =====
+     רומן (27/11/2026): "אם אני מתחבר עכשיו למערכת בבוקר — למה אחרי החיבור אני צריך לעדכן גרסה? עצם החיבור
+     החדש צריך כבר לעדכן". הסיבה: הלשונית נשארת פתוחה מאתמול, והניתוק בחוסר פעילות (forceRelogin) מציג את מסך
+     הכניסה בתוך הדף הישן בלי לטעון אותו. הכניסה בבוקר רצה על הבנייה של אתמול, ורק אחריה VER.check מגלה ומציג פס
+     עם ספירה. (וכך גם לשונית שכרום משחזר מהעותק השמור אצלו.)
+     כאן ההכרעה נעשית לפני שהמערכת נחשפת: בנייה מפורסמת אחרת ⇒ טוענים אותה מיד. ברגע הזה אין כרטיס פתוח ואין
+     שינוי שלא נשמר, ולכן אין מה לאבד ואין סיבה לחסד. הסשן שורד את הטעינה — TAB_KEY ב-sessionStorage נקבע לפני
+     afterLogin בכל מסלולי הכניסה — בדיוק כמו ברענון האוטומטי של 7.10.0 (verGo).
+     שלושה שומרים:
+     1. פעם אחת לכל בנייה בלשונית — VK_AUTO, אותו מנעול של verKick. אם מטמון הקצה של Pages עוד מגיש את הישנה
+        (נמדד עד ~4 דקות אחרי פריסה), נכנסים כרגיל והפס והאכיפה עושים את שלהם. בלי זה — לולאת טעינות.
+     2. כשל או איטיות של ה-RPC (VER_LOGIN_MS) = כניסה רגילה. הבדיקה לעולם אינה חוסמת כניסה.
+     3. next — אותו שער של VER.check: הבנייה שם לעולם אינה המפורסמת.
+     הבדיקה יוצאת כבר בתחילת afterLogin (loginPrefetch), במקביל לפרופיל ולהרשאות, כדי שהכניסה לא תתארך. */
+  var verLoginGo = false;
+  VER.loginPrefetch = function(){
+    if(IS_NEXT) return null;
+    try{ return Promise.resolve(sb.schema('core').rpc('current_app_version')).catch(function(){ return null; }); }
+    catch(_e){ return null; }
+  };
+  /* מחזיר true כשהדף בדרך לטעינה מחדש — afterLogin עוצר ואינו חושף את המערכת */
+  VER.login = async function(q){
+    if(verLoginGo) return true;                 /* לחיצה שנייה על "כניסה" בזמן שהטעינה כבר בדרך */
+    if(IS_NEXT || verOut) return false;
+    try{
+      var res = await Promise.race([ q || VER.loginPrefetch(),
+        new Promise(function(ok){ setTimeout(function(){ ok(null); }, VER_LOGIN_MS); }) ]);
+      if(!res || res.error) return false;
+      var row = Array.isArray(res.data) ? res.data[0] : res.data;
+      if(!row || !row.build_id) return false;
+      var sid = String(row.build_id);
+      if(sid === String(BUILD_ID)) return false;
+      if(verAuto() === sid) return false;        /* כבר נטענה בשבילה בלשונית הזו וחזרה הישנה — מטמון קצה */
+      verLoginGo = verOut = true;
+      try{ var msg = document.getElementById('loginOk'); if(msg) msg.textContent = 'נטענת הגרסה החדשה…'; }catch(_e){}
+      try{ await Promise.race([ verAudit('רענון בכניסה לגרסה חדשה', String(row.version || sid), sid),
+        new Promise(function(ok){ setTimeout(ok, 1500); }) ]); }catch(_e){}
+      /* קישור איפוס/כניסה של Supabase משאיר אסימונים ב-#. טעינה עם הכתובת הזו הייתה מחזירה את מסך "בחירת סיסמה
+         חדשה" (boot בודק type=recovery לפני הסשן) — ואסימון לא אמור להישאר בכתובת. קישור עמוק (#lead=…) נשמר. */
+      try{ if(/(?:^#|&)(?:access_token|refresh_token|type|error)=/.test(location.hash || '')) history.replaceState(null, '', location.pathname + location.search); }catch(_e){}
+      verAutoSet(sid);
+      verGo(sid);
+      return true;
+    }catch(_e){ return false; }
   };
 
   /* ניווט לכתובת עם מפתח שבירת מטמון — כתובת שונה, ולכן הדפדפן חייב להביא
