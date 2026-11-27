@@ -4776,7 +4776,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.95.1</div>
+      <div class="ver">גרסה 7.96.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4925,7 +4925,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="goalsplit-2026-11-27a">גרסה 7.95.1</div>
+    <div class="side-foot" title="plannercfg-2026-11-27a">גרסה 7.96.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -6414,7 +6414,7 @@ window.TAB_PERM = {
   calc:'crm.deals'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
-window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', msg:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', general:'set.general', rem:'dash.reminders' };
+window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', msg:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', planner:'set.crm', general:'set.general', rem:'dash.reminders' };
 window.LOGI_VIEWS = ['orders','calls','cal'];
 window.navCanTab = t=>{
   /* 6.140.0 — logi.screen מפריד בין הנתונים לבין המסך.
@@ -16514,7 +16514,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'goalsplit-2026-11-27a';
+const BUILD_ID = 'plannercfg-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21192,7 +21192,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['general','כללי'],['rem','תזכורות']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['planner','מתכנן Steel'],['general','כללי'],['rem','תזכורות']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
@@ -21204,7 +21204,7 @@ function settingsCats(){
    🔴 כל מסך ב-settingsCats חייב להופיע כאן פעם אחת בדיוק (נאכף בבנייה) — מסך שלא שויך נעלם מהתפריט בלי שגיאה. */
 const SET_GROUPS = [
   ['users',   'משתמשים והרשאות', ['users']],
-  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','commission','teams']],
+  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','commission','planner','teams']],   /* 7.96.0 — plannercfg */
   ['texts',   'טקסטים ומסמכים',   ['texts']],
   ['logs',    'חיבורים ויומנים',  ['conn','synclog','hooks','errors']],
   ['general', 'כללי',             ['general','notif','msg','rem']],   /* 7.95.0 — remset */
@@ -21514,6 +21514,9 @@ window.intOutlookSync = async () => {
    json (נבדק לפני שמירה) · ro חותמת שהמערכת כותבת — קריאה בלבד.
    ⚠️ הכתיבה: stSave בלבד, `.select('key')` ושורה אחת בדיוק — RLS שדוחה מחזיר 0 שורות בלי שגיאה (6.191.0).
    ⚠️ כל רשומה בשורה משלה: crmsettest/notifsettest קוראות את הרישום שורה-שורה. */
+/* 7.96.0 — plannercfg: גובהי המתח של מתכנן Steel — 190–250 בקפיצות של 5 (חורי הצד של ST-UP265 ב-185.5–255.5 כל 5;
+   המתח בשני ברגים במרחק 10 ⇒ נומינלי ±5). 🔴 חוזה מול planner-config ומול המתכנן: אותם ערכים, ו-230 כשחסר/לא חוקי. */
+const PLAN_H_OPTS = ['190','195','200','205','210','215','220','225','230','235','240','245','250'];
 const ST_REG = [
   ['wa_coord','texts','wa','אישור תיאום התקנה','נשלחת ללקוח כשההתקנה תואמה.','area'],
   ['wa_service','texts','wa','אישור תיאום קריאת שירות','נשלחת ללקוח כשקריאת השירות תואמה.','area'],
@@ -21579,6 +21582,9 @@ const ST_REG = [
   ['dash_age_sched_days','general','gen','לובי: ממתינה לשיבוץ','הזמנה פעילה בלי תאריך שיבוץ, ותיקה מ-N ימים, נספרת כחריגה.','num',{min:0,max:90,step:1,unit:'d'}],
   ['hook_watch_enabled','general','mon','ניטור הוובהוקים מפריוריטי','מתריע על שתיקה בשעות העבודה ועל וובהוק שנכשל.','yn'],
   ['hook_watch_gap_hours','general','mon','התראה אחרי שתיקה של','שעות בלי אף וובהוק — א׳–ה׳, 12:00–18:00.','num',{min:1,max:48,step:1,unit:'h'}],
+  ['planner_bar_station_h','planner','planner','מתח בתוך התחנה','ברשימת החלקים: "גובה המתח בתוך התחנה".','sel',{opts:PLAN_H_OPTS,suf:' ס״מ'}],
+  ['planner_bar_gap_h','planner','planner','מתח בין התחנות','ניתן לשינוי במעמד ההתקנה.','sel',{opts:PLAN_H_OPTS,suf:' ס״מ'}],
+  ['planner_mgb_h','planner','planner','מתח מולטי גריפ (ST-BAR-70M)','מחליף בהדמיה את מתח 109 של התחנה.','sel',{opts:PLAN_H_OPTS,suf:' ס״מ'}],
   ['leads_default_view','adv','adv','לידים: תצוגת ברירת מחדל (לא פעיל)','מ-7.2.0 הבורד נפתח תמיד ב"שלי" — הערך אינו קובע עוד את תצוגת הפתיחה.','txt',{ltr:1}],
   ['crm_source_of_truth','adv','adv','CRM: מקור האמת','"system" מדויק בלבד מציג את משיכת ההצעה מפריוריטי בכרטיס העסקה — אותו תנאי של השרת.','txt',{ltr:1}],
   ['supply_service_skus','adv','adv','מק"טי שירות','התקנה, משלוח וסבלות — אינם נספרים כפריטים פתוחים באספקה.','list'],
@@ -21656,6 +21662,7 @@ const ST_GROUPS = {
   nfpop:['חלון קופץ להתראות דחופות','ההתראות האחרות מגיעות לפעמון בלבד'],
   gen:['תצוגה וזמנים',''],
   mon:['ניטור',''],
+  planner:['גובה המתח','בקפיצות של 5 ס״מ, לפי חורי הקורה'],
 };
 /* view_as_allow — שער ההתחקות (6.227.0). אינו מוצג בשום מסך: נערך במסד בלבד. */
 const ST_HIDE = new Set(['view_as_allow']);
@@ -21716,7 +21723,7 @@ function stRowHtml(d, ed){
     ctl = `<input type="text" class="st-txt" id="${id}" value="${esc(v)}" ${dis}${ltr}>${save}`;
   } else if(d.kind === 'sel'){
     const os = (d.opts || []).slice(); if(!os.includes(v)) os.unshift(v);
-    ctl = `<select class="st-txt" id="${id}" ${dis}${ltr}>${os.map(o => `<option value="${esc(o)}" ${o === v ? 'selected' : ''}>${esc(o)}${(d.opts || []).includes(o) ? '' : ' (לא מוכר)'}</option>`).join('')}</select>${save}`;
+    ctl = `<select class="st-txt" id="${id}" ${dis}${ltr}>${os.map(o => `<option value="${esc(o)}" ${o === v ? 'selected' : ''}>${esc(o)}${(d.opts || []).includes(o) ? esc(d.suf || '') : ' (לא מוכר)'}</option>`).join('')}</select>${save}`;
   } else if(d.kind === 'ro'){
     cls = ' st-ro-row';
     ctl = `<span class="st-ro" dir="ltr" title="${esc(v)}">${esc(stRoFmt(v))}</span>`;
@@ -21900,6 +21907,8 @@ function renderSettings(){
     body = srlHtml();   /* 7.49.0 — closecalc */
   } else if(SET_VIEW==='commission' && canView('set.crm')){
     body = ctsHtml();   /* 7.50.0 — comm3 */
+  } else if(SET_VIEW==='planner' && canView('set.crm')){
+    body = plannerSetHtml();   /* 7.96.0 — plannercfg */
   } else if(SET_VIEW==='conn'){
     body = integHtml();
   } else if(SET_VIEW==='synclog' && canView('set.synclog')){
@@ -22590,6 +22599,17 @@ function crmSettingsHtml(){
         <li><b>ההצעה "נשלחה" בפריוריטי</b><span>השלב עולה ל<b>נשלחה הצעת מחיר ראשונית</b> ונפתחת משימה. סיווג <b>תהליך מכירה</b>.</span></li>
         <li><b>מהדורה חדשה נשלחה</b><span>המשימה הפתוחה זזה למועד "אחרי עדכון מהדורה של הצעה" (ואם אין — נפתחת חדשה).</span></li>
       </ol></details>`;
+}
+/* ═══ 7.96.0 — plannercfg: מתכנן Steel (רומן, 27/11/2026) ══════════════════════════════════════════════
+   גובהי מתח המשיכה במתכנן Steel (דף תלת־ממד ציבורי לחנויות) נקבעים כאן ולא במתכנן, ומשתנים רק בקפיצות שמתאימות
+   לחורים. המתכנן קורא אותם דרך פונקציית הקצה planner-config (קריאה בלבד, מטמון 60 ש׳) — anon אינו קורא את
+   ord.settings. 🔴 שמות המפתחות ו-PLAN_H_OPTS הם חוזה מול הפונקציה ומול המתכנן; ערך מחוץ לרשימה מוצג "(לא מוכר)",
+   אינו נשמר (stSave · sel), והפונקציה מחזירה עליו 230. הכתיבה — stSave בלבד, כמו כל ord.settings. */
+function plannerSetHtml(){
+  const ed = canEdit('set.crm');
+  return `<div class="st-top"><h2 class="sec">מתכנן Steel</h2></div>
+    <div class="st-lead">גובה המתח שמתכנן Steel מציג בהדמיה וברשימת החלקים. השינוי נשמר בכפתור "שמירה" ומגיע למתכנן <b>תוך דקה, בלי פריסה</b>.</div>
+    ${stCard('planner', ed)}`;
 }
 function notifSettingsHtml(){
   const ed = canEdit('set.notif');
