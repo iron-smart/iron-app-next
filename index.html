@@ -4499,16 +4499,19 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 #tab-sana .tbl th, #tab-mkt table.tbl th{ background:var(--bg-subtle); color:var(--ink-2); box-shadow:inset 0 -1px 0 var(--line); padding:var(--sp-2h) var(--sp-3); }
 #tab-sana .tbl td, #tab-mkt table.tbl td{ padding:var(--sp-2h) var(--sp-3); }
 #tab-sana .tbl tfoot td{ font-weight:800; background:var(--bg-subtle); border-top:1px solid var(--line); }
-/* כרטיס הסיכום */
-#tab-sana .sa-kpis{ display:grid; grid-template-columns:minmax(0,1.5fr) repeat(5,minmax(0,1fr)); gap:var(--sp-5); align-items:end; }
+/* כרטיס הסיכום — 7.93.1 heroline (רומן, 27/11/2026: "תעשה קווים ישרים"): כל אריח = שלוש שורות של גריד משותף
+   (subgrid) — כותרת · סכום · פירוט. הכותרות בקו אחד, הסכומים על קו בסיס אחד (גם כשהראשי גדול יותר), הפירוט מאותו
+   גובה, וקווי ההפרדה באותו גובה. עד 7.93.0: align-items:end — כל אריח לפי התחתית שלו, ופירוט בשתי שורות הרים אותו. */
+#tab-sana .sa-kpis{ display:grid; grid-template-columns:minmax(0,1.5fr) repeat(5,minmax(0,1fr)); column-gap:var(--sp-5); row-gap:0; }
 #tab-sana .sa-kpis.c2{ grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); }
-#tab-sana .sa-kpi{ min-width:0; }
+#tab-sana .sa-kpi{ min-width:0; display:grid; grid-row:span 3; grid-template-rows:subgrid; row-gap:0; }
 #tab-sana .sa-kpi + .sa-kpi{ border-inline-start:1px solid var(--line-soft); padding-inline-start:var(--sp-5); }
-#tab-sana .sa-kpi > span{ display:block; font-size:var(--fs-sm); font-weight:700; color:var(--ink-3); }
-#tab-sana .sa-kpi > b{ display:block; font-size:var(--fs-h); font-weight:800; color:var(--navy); line-height:1.35; white-space:nowrap; }
+#tab-sana .sa-kpi > span{ display:block; align-self:end; font-size:var(--fs-sm); font-weight:700; color:var(--ink-3); }
+#tab-sana .sa-kpi > b{ display:block; align-self:baseline; font-size:var(--fs-h); font-weight:800; color:var(--navy); line-height:1.35; white-space:nowrap; }
 #tab-sana .sa-kpi.main > b{ font-size:calc(var(--fs-h) * 1.5); line-height:1.2; }
-#tab-sana .sa-kpi > small{ display:block; font-size:var(--fs-sm); color:var(--ink-2); line-height:1.5; }
+#tab-sana .sa-kpi > small{ display:block; align-self:start; font-size:var(--fs-sm); color:var(--ink-2); line-height:1.5; }
 #tab-sana .sa-kpi > small b{ color:var(--ink-1); }
+#tab-sana .sa-kpi > small .sl{ display:block; }   /* כל נתון בשורה משלו — "לפני מע״מ" לבד מתחת לסכום */
 /* 7.91.0 — salesdrill: אריח סיווג ותא סיווג בטבלת החודשים לחיצים ⇒ ההזמנות של אותו סיווג */
 #tab-sana .sa-kpi.clk{ cursor:pointer; }
 #tab-sana .sa-kpi.clk:hover > b{ color:var(--green); }
@@ -4536,12 +4539,14 @@ tr.lb-on td{ background-color:#eef5fd !important; }
 @media(max-width:1279.98px){
   #tab-sana .sa-kpis{ grid-template-columns:repeat(4,minmax(0,1fr)); }
   #tab-sana .sa-kpi.main, #tab-sana .sa-kpi.all{ grid-column:span 2; }
+  #tab-sana .sa-kpis:not(.c2) .sa-kpi.main, #tab-sana .sa-kpis:not(.c2) .sa-kpi.all{ padding-block-end:var(--sp-4); }   /* 7.93.1 — רווח לשורה השנייה */
   #tab-sana .sa-kpi.all + .sa-kpi{ border-inline-start:0; padding-inline-start:0; }
   #tab-sana .sa-kpi > b{ font-size:max(var(--fs-md), min(var(--fs-h), 2.8cqi)); }
   #tab-sana .sa-kpi.main > b{ font-size:max(var(--fs-h), min(calc(var(--fs-h) * 1.5), 4.4cqi)); }
 }
 @media(max-width:1024px){
-  #tab-sana .sa-kpis{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--sp-4); }
+  #tab-sana .sa-kpis{ grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--sp-4); }
+  #tab-sana .sa-kpi.main, #tab-sana .sa-kpis:not(.c2) .sa-kpi:nth-child(-n+4){ padding-block-end:var(--sp-4); }   /* 7.93.1 — כל שורת אריחים חוץ מהאחרונה */
   #tab-sana .sa-kpi.main, #tab-sana .sa-kpi.all{ grid-column:1 / -1; }
   #tab-sana .sa-kpi > b{ font-size:var(--fs-h); }
   #tab-sana .sa-kpi.main > b{ font-size:calc(var(--fs-h) * 1.5); }
@@ -4703,7 +4708,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.93.0</div>
+      <div class="ver">גרסה 7.93.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4852,7 +4857,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="soseg-2026-11-26a">גרסה 7.93.0</div>
+    <div class="side-foot" title="heroline-2026-11-27a">גרסה 7.93.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -16191,7 +16196,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'soseg-2026-11-26a';
+const BUILD_ID = 'heroline-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -23529,6 +23534,7 @@ const vnBtn = ()=> '<button type="button" class="lf-clear vs-nt" aria-pressed="'
    416,251 = 416,251); ל"לפני מע״מ" שלנו (אחרי הנחת מסמך) אין עמודה מקבילה בדוח, ולכן שני המספרים מוצגים יחד.
    היעד נמדד מול "מתהליכי מכירה" — אותו בסיס של הלובי ושל כרטיס המועדפות (7.68.0), ורק כשהטווח הוא החודש. */
 const saMoney = v=> shekel(Math.round(+v||0));
+const saN = n=> (+n||0)===1 ? 'הזמנה אחת' : (+n||0)+' הזמנות';   /* 7.93.1 — לא "1 הזמנות" */
 function saHero(){
   const R = saRange(), own = saOwner(), e = soaGet(R.from, R.to, saGrain()), D = (e && e.d && !e.err) ? e.d : null;
   if(!D) return '';   /* טעינה / כשל / אין הרשאה — כרטיס "סך המכירות" שמתחת מדווח */
@@ -23537,22 +23543,23 @@ function saHero(){
   const k = (l, v, s, cls, pick)=>{ const pk = pick != null, on = pk && !!pick && SA_OCLS===pick, go = on ? '' : (pick||'');
     return '<div class="sa-kpi'+(cls ? ' '+cls : '')+(pk ? ' clk'+(on ? ' on' : '') : '')+'"'+
       (pk ? ' role="button" tabindex="0" data-cls="'+esc(pick)+'" aria-pressed="'+on+'" onclick="saPick(\''+go+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();saPick(\''+go+'\')}"' : '')+
-      '><span>'+l+'</span><b>'+v+'</b><small>'+(s||'')+'</small></div>'; };
+      '><span>'+l+'</span><b>'+v+'</b><small>'+(Array.isArray(s) ? s.filter(Boolean).map(x=>'<span class="sl">'+x+'</span>').join('') : (s||''))+'</small></div>'; };   /* 7.93.1 — מערך = שורה לכל נתון */
   const lbl = ({ month:'החודש', prev:'בחודש הקודם', q:'ב-3 חודשים', ytd:'מתחילת השנה' })[R.p] || 'בטווח';
   if(own){ const o = soaOwn(D, own);
     return '<div class="sa-card sa-hero" id="sa-hero"><div class="sa-kpis c2">'+
-      k('מכירות '+lbl+' · '+esc((LOWN_BY[own]||{}).name||''), saMoney(o.s), 'לפני מע״מ · '+o.n+' הזמנות מתהליכים', 'main')+
-      k('כל המכירות', saMoney(T.net), (+T.n||0)+' הזמנות')+'</div></div>'; }
+      k('מכירות '+lbl+' · '+esc((LOWN_BY[own]||{}).name||''), saMoney(o.s), ['לפני מע״מ', saN(o.n)+' מתהליכים'], 'main')+
+      k('כל המכירות', saMoney(T.net), ['לפני מע״מ', saN(T.n)])+'</div></div>'; }
   const n = +T.n||0, net = +T.net||0, sl = bc.sales || {}, wb = bc.web || {}, mn = bc.manual || {}, rt = bc['return'] || {};
   const P = (SA.cache[saKey()] || {}).d, tg = (R.p==='month' && P && P.pref) ? (+P.pref.target_m||0) : 0;
   const pc = v=> net > 0 ? Math.round(100*(+v||0)/net)+'% מהמכירות' : '';
   return '<div class="sa-card sa-hero" id="sa-hero"><div class="sa-kpis">'+
-    k('מכירות '+lbl, saMoney(net), 'לפני מע״מ'+(T.gross != null ? ' · <b>'+saMoney(T.gross)+'</b> כולל מע״מ' : ''), 'main')+
-    k('הזמנות', n, n ? 'ממוצע '+saMoney(net/n) : '', 'all', '')+
-    k('מתהליכי מכירה', saMoney(sl.net), (+sl.n||0)+' הזמנות · '+(tg > 0 ? Math.round(100*(+sl.net||0)/tg)+'% מיעד '+ilsK(tg) : pc(sl.net)), '', 'sales')+
-    k('אתר', saMoney(wb.net), (+wb.n||0)+' הזמנות · '+pc(wb.net), '', 'web')+
-    k('ידני', saMoney(mn.net), (+mn.n||0)+' הזמנות', '', 'manual')+
-    k('החזרות', saMoney(rt.net), (+rt.n||0)+' הזמנות', '', 'return')+'</div></div>';
+    /* 7.93.1 — "לפני מע״מ" לבד מתחת לסכום, ו"כולל מע״מ" בשורה משלו (רומן, 27/11/2026: "₪764,737 ואז למטה רשום לפני מע״מ") */
+    k('מכירות '+lbl, saMoney(net), ['לפני מע״מ', T.gross != null ? '<b>'+saMoney(T.gross)+'</b> כולל מע״מ' : ''], 'main')+
+    k('הזמנות', n, [n ? 'ממוצע להזמנה '+saMoney(net/n) : ''], 'all', '')+
+    k('מתהליכי מכירה', saMoney(sl.net), [saN(sl.n), tg > 0 ? Math.round(100*(+sl.net||0)/tg)+'% מיעד החודש ('+ilsK(tg)+')' : pc(sl.net)], '', 'sales')+
+    k('אתר', saMoney(wb.net), [saN(wb.n), pc(wb.net)], '', 'web')+
+    k('ידני', saMoney(mn.net), [saN(mn.n), pc(mn.net)], '', 'manual')+
+    k('החזרות', saMoney(rt.net), [saN(rt.n)], '', 'return')+'</div></div>';
 }
 function saMonthR(){ const t = new Date(); return { from:isoD(new Date(t.getFullYear(), t.getMonth()-11, 1)), to:isoD(t) }; }
 /* לחיצה על חודש = הטווח של אותו חודש (עד היום, לחודש הנוכחי); לחיצה שנייה על אותו חודש מחזירה ל"החודש" */
