@@ -1454,6 +1454,17 @@
   #tab-sana .sa-tgx-x{ margin-inline-start:var(--sp-2); padding:0 var(--sp-1); border:0; background:transparent; color:var(--ink-3); font-size:var(--fs-xs); cursor:pointer; }
   #tab-sana .sa-tgx-x:disabled{ opacity:.35; cursor:default; }
   #tab-sana .sa-tghid{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-1); margin:var(--sp-1) 0 0; font-size:var(--fs-xs); color:var(--ink-3); }
+  #tab-sana .sa-tgg{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:var(--sp-4) var(--sp-5); }   /* 7.95.1 — כרטיסים זה לצד זה; הראשון (מתהליכי מכירה) מימין */
+  #tab-sana .sa-tgc{ min-width:0; max-width:100%; }
+  #tab-sana .sa-tgc > .sa-tgs{ display:flex; align-items:center; gap:var(--sp-1); margin-top:0; }
+  #tab-sana .sa-tgw{ margin:var(--sp-2) 0 var(--sp-3); padding:var(--sp-2) var(--sp-3); border:1px solid var(--red); border-radius:var(--r-md); background:var(--bg-subtle); color:var(--red); font-size:var(--fs-sm); }
+  #tab-sana .sa-tgw.ok{ border-color:var(--green); color:var(--green); }
+  #tab-sana .sa-tgw ul{ margin:var(--sp-1) 0 0; padding-inline-start:var(--sp-4); }
+  #tab-sana .sa-tgt tr.sa-tgtot td{ background:var(--bg-subtle); }
+  #tab-sana .sa-tgt td.num small{ display:block; font-size:var(--fs-xs); white-space:normal; }
+  #tab-sana .sa-tgt td .ok{ color:var(--green); font-weight:700; white-space:normal; }
+  #tab-sana .sa-tgt td .warn{ color:var(--red); font-weight:700; white-space:normal; }   /* td.num אינו נשבר — אחרת "חורג ב-₪X" מרחיב את הכרטיס */
+  #tab-sana .sa-gln.warn{ color:var(--red); }
   #tab-sana .sa-wks{ display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-2); }
   #tab-sana .sa-wk{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2); background:var(--bg-subtle); min-width:0; }
   #tab-sana .sa-wk b{ display:block; font-size:var(--fs-xl); font-weight:800; color:var(--navy); }
@@ -4765,7 +4776,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.95.0</div>
+      <div class="ver">גרסה 7.95.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4914,7 +4925,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="remset-2026-11-27a">גרסה 7.95.0</div>
+    <div class="side-foot" title="goalsplit-2026-11-27a">גרסה 7.95.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -5921,7 +5932,7 @@ const SUB_IRRELEVANT = ['ליד פיקטיבי','טוען שלא השאיר פנ
 /* ===== טבלת הלידים — צבעים, עמודות והצלבה (6.97.0) =====
    רומן, 18/08/2026: "סוג לקוח תוסיף צבעים, מקור הגעה גם". הצבעים עוברים
    דרך mdPill/tint כמו צבעי הסטטוס, ולכן הם פסטל אחיד ולא כתם רווי. */
-const LEAD_TYPES = ['בסיס','פ.ע','עסקי','ארגוני','מוסדי','מסחרי','סטונאי'];
+const LEAD_TYPES = ['בסיס','פ.ע','עסקי','ארגוני','מוסדי','מסחרי','סטונאי','ריטייל'];   /* 7.95.1 — רומן: "ותאפשר לבחור גם ליד חדש ולהגדיר אותו מראש ריטייל" */
 /* צבעי תת-הסטטוס (6.103.0). **הועתקו מהגדרות הלוח במאנדיי** (1756633625,
    העמודות color_mkyyvh6e / color_mkkpnwqx / color_mkyyyvhg) כדי שרומן יראה
    את אותם צבעים שהוא מכיר משם. עוברים דרך tint/onWhite כמו כל השאר, ולכן
@@ -5935,7 +5946,7 @@ const SUB_COLORS = {'רלוונטי':SUB_RELEVANT_COLORS,'סירוב':SUB_REFUSA
    היא בוחרת צבע טקסט לפי WCAG, ורקע כהה יותר עלול להפוך טקסט כהה
    ללבן במסכים אחרים. יש ספירת עוקפים בסקריפט הבנייה. */
 const LB_TK = .70;
-const LEAD_TYPE_COLORS = {'בסיס':'#a1a8b5','פ.ע':'#579bfc','עסקי':'#00c875','ארגוני':'#784bd1','מוסדי':'#ff642e','מסחרי':'#fdab3d','סטונאי':'#0086c0'};
+const LEAD_TYPE_COLORS = {'בסיס':'#a1a8b5','פ.ע':'#579bfc','עסקי':'#00c875','ארגוני':'#784bd1','מוסדי':'#ff642e','מסחרי':'#fdab3d','סטונאי':'#0086c0','ריטייל':'#3b97a6'};
 const LEAD_SRC_COLORS  = {'קשרים אישיים':'#00c875','Paycall - שיחה נכנסת':'#0086c0','המלצת לקוח':'#037f4c','דף נחיתה':'#fdab3d','אתר אינטרנט':'#579bfc','פייסבוק / אינסטגרם':'#a25ddc','סושיאל':'#ff158a','ידנית':'#a1a8b5','קביעת פגישה באתר':'#0f766e','דף נחיתה - וואטסאפ':'#66ccff','גוגל':'#e2445c','פרופיל גוגל':'#7f5347'};
 /* ===== 6.244.0 — srcdoc: מאיפה מגיע כל "מקור הגעה" =====
    רומן, 10/10/2026: "גם טפסים עתידיים יהיה עדיין מקור הגעה פייסבוק / אינסטגרם. תתעד את זה ... בהגדרות
@@ -16503,7 +16514,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'remset-2026-11-27a';
+const BUILD_ID = 'goalsplit-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -23851,7 +23862,7 @@ const saN = n=> (+n||0)===1 ? 'הזמנה אחת' : (+n||0)+' הזמנות';   /
    (שורת הצוות ב-crm.sales_targets; אחרת סכום אנשי המכירות — אותה הגדרה של sales_analytics). null מהשרת = אין הרשאה.
    ביצוע: מתהליכי מכירה = by_class.sales · אתר = by_class.web · סוג = by_cls_seg של ליד + לקוח קיים. הכול לפני מע״מ.
    ⚠️ רק כשהטווח הוא חודש אחד שלם (או החודש עד היום) — יעד חודשי מול טווח אחר אינו השוואה. */
-const SA_GL_SEGS = ['פרטי', 'עסקי', 'ארגוני', 'מוסדי', 'מסחרי', 'סיטונאי', 'חנויות', 'אחר'];
+const SA_GL_SEGS = ['פרטי', 'עסקי', 'ארגוני', 'מוסדי', 'מסחרי', 'סיטונאי', 'ריטייל', 'אחר'];   /* 7.95.1 — חנויות ⇒ ריטייל */
 let SA_GL = {};
 function saGlReset(){ SA_GL = {}; }
 function saGlMonth(R){
@@ -23874,9 +23885,10 @@ function saGlGet(m){
 }
 function saGlOf(m){
   const e = saGlGet(m); if(!e || !Array.isArray(e.rows)) return null;
-  const G = { sales:0, web:0, seg:{} };
+  const G = { sales:0, web:0, seg:{}, alloc:{} };
   e.rows.forEach(x=>{ if(!x || x.month !== m) return; const a = +x.amount||0; if(!(a > 0)) return;
-    if(x.scope==='sales') G.sales = a; else if(x.scope==='web') G.web = a; else if(x.scope==='seg' && SA_GL_SEGS.includes(x.seg)) G.seg[x.seg] = a; });
+    if(x.scope==='sales') G.sales = a; else if(x.scope==='web') G.web = a;
+    else if(x.scope==='seg' && SA_GL_SEGS.includes(x.seg)){ if(x.owner) G.alloc[x.seg] = (G.alloc[x.seg]||0) + a; else G.seg[x.seg] = a; } });   /* 7.95.1 — owner = חלק של נציג */
   return G;
 }
 function saGoals(m, D, G){
@@ -23902,7 +23914,9 @@ function saGoals(m, D, G){
     row('מתהליכי מכירה', +(bc.sales||{}).net||0, G.sales, 'top')+
     sg.map(s=>row(mdPill(s, cuSegColors()), segAct(s), G.seg[s], 'sub')).join('')+   /* 7.94.1 — צבע הסוג כמו במסך הלקוחות */
     row('אתר', +(bc.web||{}).net||0, G.web, 'top')+'</div>'+
-    (note ? '<div class="sa-gln">'+note+'</div>' : '')+'</div>';
+    (note ? '<div class="sa-gln">'+note+'</div>' : '')+
+    (()=>{ const u = sg.filter(s=>Math.abs((G.alloc[s]||0) - G.seg[s]) >= 1);   /* 7.95.1 — סוג שלא פוזר לנציגים */
+       return u.length ? '<div class="sa-gln warn">לא פוזר לנציגים: '+u.map(s=>esc(s)+' '+saMoney(G.seg[s] - (G.alloc[s]||0))).join(' · ')+'</div>' : ''; })()+'</div>';
 }
 window.saGlEdit = m=>{
   if(!SA_ISO.test(m||'')) return;
@@ -24103,7 +24117,7 @@ window.saOcls = k=>{ SA_OCLS = k||''; renderSana(); };
 /* ===== 7.93.0 — soseg: סוג לקוח ב"סך המכירות" (רומן, 26/11/2026: "אפשר להוסיף את כל הפילוח עליה") =====
    הסוג = crm.customer_segment על המחירון הנוכחי (אותו חוק של custSeg במסך הלקוחות). by_cls_seg = מקור × סוג מהשרת;
    כל שורת שבבים נספרת לפי הבחירה בשורה השנייה, כך ששני הסינונים משתלבים. ⚠️ ערך שאינו ברשימה ⇒ "כל הסוגים". */
-const SO_SEGS = ['פרטי', 'עסקי', 'ארגוני', 'מוסדי', 'מסחרי', 'סיטונאי', 'חנויות', 'אחר', 'לא מסווג'];
+const SO_SEGS = ['פרטי', 'עסקי', 'ארגוני', 'מוסדי', 'מסחרי', 'סיטונאי', 'ריטייל', 'אחר', 'לא מסווג'];
 let SA_OSEG = '';
 window.saOseg = k=>{ SA_OSEG = SO_SEGS.includes(k) ? k : ''; renderSana(); };
 function soSegPill(s){
@@ -24199,11 +24213,11 @@ function saTgEditor(d){
     const ph = (own || v != null) ? '' : (()=>{ const s = reps.reduce((a,k)=>a+(val(m,k)||0),0); return s ? 'סכום: '+ilsK(s) : ''; })();   /* רמז רק כשאין יעד צוות */
     return '<td class="num">'+(ed ? '<input type="number" min="0" step="1000" inputmode="numeric" class="inline-edit sa-tgi" value="'+(v==null ? '' : v)+'" placeholder="'+esc(ph)+'"'+
         ' aria-label="'+esc('יעד '+ml(m)+' · '+(own ? (LOWN_BY[own]||{}).name||'' : 'צוות'))+'" onchange="saTgSet(\''+m+'\',\''+(own ? jsq(own) : '')+'\',this)">'
-      : (v==null ? (ph ? '<small>'+esc(ph)+'</small>' : '—') : ilsK(v)))+'</td>'; };
+      : (v==null ? (ph ? '<small>'+esc(ph)+'</small>' : '—') : ilsK(v)))+saTgCellHint(m, own, v)+'</td>'; };   /* 7.95.1 — פער מול הסוגים */
   const row = (lbl, own)=> '<tr><td>'+lbl+'</td>'+ms.map(m=>cell(m, own)).join('')+'</tr>';
   const body = SA_TG.rows===null ? '<div class="empty">'+(SA_TG.err ? 'הטעינה נכשלה' : 'טוען יעדים…')+'</div>'
-    : '<div class="tbl-wrap"><table class="tbl sa-tgt" data-gs="own"><thead><tr><th></th>'+ms.map(m=>'<th class="num">'+esc(ml(m))+'</th>').join('')+'</tr></thead><tbody>'+
-      row('<b>מתהליכי מכירה · צוות</b> <small>ריק = סכום אנשי המכירות</small>', null)+reps.map(k=>row(lbAva(k,1)+' '+esc(LOWN_BY[k].name||''), k)).join('')+'</tbody></table></div>'+saTgGlTables(ms, ml, ed);   /* 7.94.0 */
+    : saTgGrid('<div class="tbl-wrap"><table class="tbl sa-tgt" data-gs="own"><thead><tr><th></th>'+ms.map(m=>'<th class="num">'+esc(ml(m))+'</th>').join('')+'</tr></thead><tbody>'+
+      row('<b>מתהליכי מכירה · צוות</b> <small>ריק = סכום אנשי המכירות</small>', null)+reps.map(k=>row(lbAva(k,1)+' '+esc(LOWN_BY[k].name||''), k)).join('')+'</tbody></table></div>', ms, ml, ed, reps);   /* 7.95.1 — כרטיסים זה לצד זה */
   if(SA_TG.open && SA_TG.rows===null && !SA_TG.busy) setTimeout(saTgLoad, 0);
   return '<details class="sa-tg" id="sa-tg"'+(SA_TG.open ? ' open' : '')+' ontoggle="saTgToggle(this)"><summary>יעדים חודשיים <small>לפני מע״מ</small></summary>'+
     '<div class="sa-tgnav"><button type="button" class="lf-clear" onclick="saTgQ(-1)" aria-label="רבעון קודם">›</button><span>'+esc(ml(ms[0]))+' – '+esc(ml(ms[2]))+'</span>'+
@@ -24225,43 +24239,88 @@ window.saGlHide = (s, on)=>{
 };
 /* יעד התהליכים לחודש מתוך שורות העורך — שורת הצוות, אחרת סכום אנשי המכירות (אותה הגדרה של crm.sales_goals_get) */
 function saTgTeam(m){ const L = SA_TG.rows || [], t = L.find(x=>x.month===m && !x.owner); return t ? (+t.amount||0) : L.filter(x=>x.month===m && x.owner).reduce((a, x)=>a + (+x.amount||0), 0); }
-function saTgGlTables(ms, ml, ed){
-  const G = Array.isArray(SA_TG.gl) ? SA_TG.gl : null; if(!G) return '';
-  const val = (m, sc, sg)=>{ const r = G.find(x=>x.month===m && x.scope===sc && (x.seg||null)===(sg||null)); return r ? +r.amount : null; };
-  const cell = (m, sc, sg)=>{ const v = val(m, sc, sg);
-    return '<td class="num">'+(ed ? '<input type="number" min="0" step="1000" inputmode="numeric" class="inline-edit sa-tgi" value="'+(v==null ? '' : v)+'"'+
-        ' aria-label="'+esc('יעד '+ml(m)+' · '+(sc==='web' ? 'אתר' : sg))+'" onchange="saGlSet(\''+m+'\',\''+sc+'\',\''+jsq(sg||'')+'\',this)">'
-      : (v==null ? '—' : ilsK(v)))+'</td>'; };
-  const tbl = (rows, ft)=> '<div class="tbl-wrap"><table class="tbl sa-tgt sa-tgx"><thead><tr><th></th>'+ms.map(m=>'<th class="num">'+esc(ml(m))+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody>'+(ft || '')+'</table></div>';
-  const row = (lbl, sc, sg)=> '<tr data-sc="'+sc+'" data-seg="'+esc(sg||'')+'"><td>'+lbl+'</td>'+ms.map(m=>cell(m, sc, sg)).join('')+'</tr>';
-  const has = s=> ms.some(m=>val(m, 'seg', s) != null), hid = saGlHidden();
-  const segs = SA_GL_SEGS.filter(s=>!hid.includes(s) || has(s)), hidden = SA_GL_SEGS.filter(s=>!segs.includes(s)), sc = cuSegColors();
-  const lbl = s=> mdPill(s, sc)+(ed ? '<button type="button" class="sa-tgx-x" data-hide="'+esc(s)+'" aria-label="'+esc('הסתרת '+s)+'"'+
-      ' title="'+esc(has(s) ? 'יש לסוג יעד בחודשים האלה — מוחקים אותו קודם' : 'הסתרת הסוג מהעורך — יחזור מ"מוסתרים"')+'"'+(has(s) ? ' disabled' : '')+' onclick="saGlHide(\''+jsq(s)+'\',1)">✕</button>' : '');
-  const team = m=> saTgTeam(m), web = m=> val(m, 'web', null) || 0, seg = m=> segs.reduce((a, s)=>a + (val(m, 'seg', s) || 0), 0);
-  const dTxt = (s, t)=>{ const d = s - t; return Math.abs(d) < 1 ? '<small>כמו יעד הצוות</small>' : '<small class="warn">'+(d < 0 ? 'חסר '+saMoney(-d) : 'מעל ב-'+saMoney(d))+' מול הצוות</small>'; };
-  const sumC = v=> '<td class="num">'+(v > 0 ? saMoney(v) : '—')+'</td>';
-  const segFoot = '<tfoot><tr class="sa-tgsum"><td>סה״כ סוגים</td>'+ms.map(m=>{ const s = seg(m), t = team(m);
-      return '<td class="num">'+(s > 0 ? saMoney(s) : '—')+(s > 0 && t > 0 ? dTxt(s, t) : '')+'</td>'; }).join('')+'</tr></tfoot>';
-  const hidRow = hidden.length ? '<div class="sa-tghid">מוסתרים: '+hidden.map(s=>'<button type="button" class="chip" data-unhide="'+esc(s)+'" onclick="saGlHide(\''+jsq(s)+'\',0)">'+esc(s)+' ＋</button>').join('')+'</div>' : '';
-  const summ = tbl('<tr class="sa-tgsr" data-k="team"><td>מתהליכי מכירה · צוות</td>'+ms.map(m=>sumC(team(m))).join('')+'</tr>'+
-                   '<tr class="sa-tgsr" data-k="web"><td>אתר</td>'+ms.map(m=>sumC(web(m))).join('')+'</tr>',
-                   '<tfoot><tr class="sa-tgsum" data-k="all"><td>סה״כ יעדים</td>'+ms.map(m=>sumC(team(m) + web(m))).join('')+'</tr></tfoot>');
-  return '<div class="sa-tgs">מתהליכי מכירה לפי סוג לקוח <small>חלק מיעד הצוות · הזמנות מתהליכים של אותו סוג</small></div>'+tbl(segs.map(s=>row(lbl(s), 'seg', s)).join(''), segFoot)+hidRow+
-    '<div class="sa-tgs">אתר <small>הזמנות האתר</small></div>'+tbl(row('<b>אתר</b>', 'web', ''))+
-    '<div class="sa-tgs">סיכום חודשי <small>לפני מע״מ</small></div>'+summ;
+/* ===== 7.95.1 — goalsplit: יעד הסוג מפוצל בין הנציגים · כרטיסים זה לצד זה (רומן, 27/11/2026) =====
+   "כאשר תהליכי מכירה ממולא ולמשל 'עסקי 500,000' אז תחייב את מי שממלא לפזר את זה בין הנציגים — כלומר המספרים אמורים
+   להיות תואמים. כמובן בצע זאת עבור כל הסגמנטים" · "שים את כל הטבלאות מיושרות זה לצד זה, כאשר תהליכי מכירה מימין".
+   מודל: לכל סוג — סה״כ (owner null) ושורה לכל נציג (owner). "תואם": סכום הנציגים = סה״כ הסוג · יעד הנציג (sales_targets) =
+   סכום חלקיו בסוגים · סה״כ הסוגים = יעד הצוות. כל תא נשמר לבד ולכן אין חסימה בשרת — saGlIssues היא מקור אחד לרשימה בראש
+   העורך ולסימון בתאים. חודש בלי אף יעד סוג אינו נבדק (אין מה לפזר). */
+function saGlRows(){ return Array.isArray(SA_TG.gl) ? SA_TG.gl : null; }
+function saGlVal(G, m, sc, sg, own){ const r = G.find(x=>x.month===m && x.scope===sc && (x.seg||null)===(sg||null) && (x.owner||null)===(own||null)); return r ? +r.amount : null; }
+function saGlAlloc(G, m, s){ return G.filter(x=>x.month===m && x.scope==='seg' && x.seg===s && x.owner).reduce((a, x)=>a + (+x.amount||0), 0); }
+function saGlRepSum(G, m, own){ return G.filter(x=>x.month===m && x.scope==='seg' && x.owner===own).reduce((a, x)=>a + (+x.amount||0), 0); }
+function saGlSegTot(G, m){ return SA_GL_SEGS.reduce((a, s)=>a + (saGlVal(G, m, 'seg', s, null) || 0), 0); }
+function saGlSegsOn(G, m){ return G.some(x=>x.month===m && x.scope==='seg'); }
+function saTgRepGoal(m, own){ const r = (SA_TG.rows || []).find(x=>x.month===m && x.owner===own); return r ? (+r.amount||0) : 0; }
+function saGlIssues(G, ms, reps, ml){
+  const out = [], mo = m=> ml ? ml(m) : m;
+  ms.forEach(m=>{
+    if(!saGlSegsOn(G, m)) return;
+    SA_GL_SEGS.forEach(s=>{ const t = saGlVal(G, m, 'seg', s, null) || 0, a = saGlAlloc(G, m, s), d = t - a;
+      if((t > 0 || a > 0) && Math.abs(d) >= 1) out.push({ m, k:'seg', s, txt:s+' · '+mo(m)+': '+(d > 0 ? 'נותר לפזר '+saMoney(d) : 'הנציגים מעל הסה״כ ב-'+saMoney(-d)) }); });
+    reps.forEach(r=>{ const v = saTgRepGoal(m, r), s = saGlRepSum(G, m, r);
+      if((v > 0 || s > 0) && Math.abs(v - s) >= 1) out.push({ m, k:'rep', r, txt:((LOWN_BY[r]||{}).name||'')+' · '+mo(m)+': יעד '+saMoney(v)+', לפי הסוגים '+saMoney(s) }); });
+    const P = saTgTeam(m), S = saGlSegTot(G, m);
+    if(P > 0 && S > 0 && Math.abs(P - S) >= 1) out.push({ m, k:'team', txt:'סוגים מול הצוות · '+mo(m)+': '+saMoney(S)+' מול '+saMoney(P) });
+  });
+  return out;
 }
-window.saGlSet = async (m, sc, sg, el)=>{
-  if(!SA_ISO.test(m||'') || (sc!=='web' && sc!=='seg') || (sc==='seg' && !SA_GL_SEGS.includes(sg))) return;
+/* סימון בתא של טבלת הצוות: נציג — יעדו מול סכום חלקיו בסוגים; צוות — יעדו מול סה״כ הסוגים */
+function saTgCellHint(m, own, v){
+  const G = saGlRows(); if(!G || !saGlSegsOn(G, m)) return '';
+  if(own){ const s = saGlRepSum(G, m, own), x = +v||0; return ((x > 0 || s > 0) && Math.abs(x - s) >= 1) ? '<small class="warn">לפי הסוגים '+saMoney(s)+'</small>' : ''; }
+  const P = saTgTeam(m), S = saGlSegTot(G, m);
+  return (P > 0 && S > 0 && Math.abs(P - S) >= 1) ? '<small class="warn">סוגים '+saMoney(S)+'</small>' : '';
+}
+/* 7.94.1 — saGlHidden/saGlHide/saTgTeam נשארים במקומם (מעל) — לא מוגדרים כאן שוב. */
+function saTgGrid(teamHtml, ms, ml, ed, reps){
+  const card = (title, inner, k)=> '<div class="sa-tgc" data-card="'+k+'"><div class="sa-tgs">'+title+'</div>'+inner+'</div>';
+  const team = card('מתהליכי מכירה <small>צוות ונציגים</small>', teamHtml, 'team');
+  const G = saGlRows(); if(!G) return '<div class="sa-tgg">'+team+'</div>';
+  const nm = r=> (LOWN_BY[r]||{}).name||'';
+  const th = '<thead><tr><th></th>'+ms.map(m=>'<th class="num">'+esc(ml(m))+'</th>').join('')+'</tr></thead>';
+  const tbl = (rows, ft)=> '<div class="tbl-wrap"><table class="tbl sa-tgt sa-tgx">'+th+'<tbody>'+rows+'</tbody>'+(ft || '')+'</table></div>';
+  const inp = (m, sc, sg, own, lbl)=>{ const v = saGlVal(G, m, sc, sg, own);
+    return '<td class="num">'+(ed ? '<input type="number" min="0" step="1000" inputmode="numeric" class="inline-edit sa-tgi" value="'+(v==null ? '' : v)+'"'+
+        ' aria-label="'+esc('יעד '+ml(m)+' · '+lbl)+'" onchange="saGlSet(\''+m+'\',\''+sc+'\',\''+jsq(sg||'')+'\',this,\''+jsq(own||'')+'\')">'
+      : (v==null ? '—' : saMoney(v)))+'</td>'; };
+  const has = s=> ms.some(m=>saGlVal(G, m, 'seg', s, null) != null || saGlAlloc(G, m, s) > 0), hid = saGlHidden();
+  const segs = SA_GL_SEGS.filter(s=>!hid.includes(s) || has(s)), hidden = SA_GL_SEGS.filter(s=>!segs.includes(s)), sc = cuSegColors();
+  const xBtn = s=> ed ? '<button type="button" class="sa-tgx-x" data-hide="'+esc(s)+'" aria-label="'+esc('הסתרת '+s)+'"'+
+      ' title="'+esc(has(s) ? 'יש לסוג יעד בחודשים האלה — מוחקים אותו קודם' : 'הסתרת הסוג מהעורך — יחזור מ"מוסתרים"')+'"'+(has(s) ? ' disabled' : '')+' onclick="saGlHide(\''+jsq(s)+'\',1)">✕</button>' : '';
+  const segCard = s=>{
+    const rows = '<tr class="sa-tgtot" data-sc="seg" data-seg="'+esc(s)+'" data-own=""><td><b>סה״כ '+esc(s)+'</b></td>'+ms.map(m=>inp(m, 'seg', s, null, s)).join('')+'</tr>'+
+      reps.map(r=>'<tr data-sc="seg" data-seg="'+esc(s)+'" data-own="'+esc(r)+'"><td>'+lbAva(r,1)+' '+esc(nm(r))+'</td>'+ms.map(m=>inp(m, 'seg', s, r, s+' · '+nm(r))).join('')+'</tr>').join('');
+    const ft = '<tfoot><tr class="sa-tgsum"><td>נותר לפזר</td>'+ms.map(m=>{ const t = saGlVal(G, m, 'seg', s, null) || 0, a = saGlAlloc(G, m, s), d = t - a;
+        return '<td class="num">'+(!(t > 0 || a > 0) ? '—' : Math.abs(d) < 1 ? '<span class="ok">✓ פוזר</span>' : '<span class="warn">'+(d > 0 ? saMoney(d) : 'חורג ב-'+saMoney(-d))+'</span>')+'</td>'; }).join('')+'</tr></tfoot>';
+    return '<div class="sa-tgc" data-card="seg" data-seg="'+esc(s)+'"><div class="sa-tgs">'+mdPill(s, sc)+xBtn(s)+'</div>'+tbl(rows, ft)+'</div>'; };
+  const web = card('אתר <small>הזמנות האתר</small>', tbl('<tr data-sc="web" data-seg="" data-own=""><td><b>אתר</b></td>'+ms.map(m=>inp(m, 'web', null, null, 'אתר')).join('')+'</tr>'), 'web');
+  const P = m=> saTgTeam(m), W = m=> saGlVal(G, m, 'web', null, null) || 0, S = m=> saGlSegTot(G, m);
+  const sumC = (v, x)=> '<td class="num">'+(v > 0 ? saMoney(v) : '—')+(x || '')+'</td>';
+  const summ = card('סיכום חודשי <small>לפני מע״מ</small>', tbl(
+      '<tr class="sa-tgsr" data-k="team"><td>מתהליכי מכירה · צוות</td>'+ms.map(m=>sumC(P(m))).join('')+'</tr>'+
+      '<tr class="sa-tgsr" data-k="segs"><td>סה״כ סוגים</td>'+ms.map(m=>{ const s = S(m), p = P(m);
+        return sumC(s, s > 0 && p > 0 ? (Math.abs(s - p) < 1 ? '<small class="ok">כמו יעד הצוות</small>' : '<small class="warn">'+(s < p ? 'חסר '+saMoney(p - s) : 'מעל ב-'+saMoney(s - p))+'</small>') : ''); }).join('')+'</tr>'+
+      '<tr class="sa-tgsr" data-k="web"><td>אתר</td>'+ms.map(m=>sumC(W(m))).join('')+'</tr>',
+      '<tfoot><tr class="sa-tgsum" data-k="all"><td>סה״כ יעדים</td>'+ms.map(m=>sumC(P(m) + W(m))).join('')+'</tr></tfoot>'), 'summary');
+  const iss = saGlIssues(G, ms, reps, ml);
+  const banner = iss.length ? '<div class="sa-tgw" role="status"><b>היעדים לא תואמים ('+iss.length+')</b><ul>'+iss.map(i=>'<li>'+esc(i.txt)+'</li>').join('')+'</ul></div>'
+    : (ms.some(m=>saGlSegsOn(G, m)) ? '<div class="sa-tgw ok" role="status">✓ כל היעדים תואמים — כל סוג מפוזר בין הנציגים, ויחד הם יעד הצוות</div>' : '');
+  const hidRow = hidden.length ? '<div class="sa-tghid">מוסתרים: '+hidden.map(s=>'<button type="button" class="chip" data-unhide="'+esc(s)+'" onclick="saGlHide(\''+jsq(s)+'\',0)">'+esc(s)+' ＋</button>').join('')+'</div>' : '';
+  return banner+'<div class="sa-tgg">'+team+segs.map(segCard).join('')+web+summ+'</div>'+hidRow;
+}
+window.saGlSet = async (m, sc, sg, el, own)=>{
+  own = own || '';
+  if(!SA_ISO.test(m||'') || (sc!=='web' && sc!=='seg') || (sc==='seg' && !SA_GL_SEGS.includes(sg)) || (own && (sc!=='seg' || !LOWN_BY[own]))) return;
   const raw = String(el.value||'').trim(), v = raw==='' ? 0 : Number(raw);
   if(!isFinite(v) || v < 0){ toast('יעד לא תקין', 'err'); return; }
-  const s2 = sc==='seg' ? sg : null;
+  const s2 = sc==='seg' ? sg : null, o2 = own || null;
   el.disabled = true;
-  let r; try{ r = await sb.schema('crm').rpc('sales_goal_set', { p_month:m, p_scope:sc, p_seg:s2, p_amount:v }); }catch(e){ r = { error:e }; }
+  let r; try{ r = await sb.schema('crm').rpc('sales_goal_set', { p_month:m, p_scope:sc, p_seg:s2, p_amount:v, p_owner:o2 }); }catch(e){ r = { error:e }; }
   el.disabled = false;
   if(!r || r.error){ toast('שמירת היעד נכשלה: '+(((r && r.error) && r.error.message) || 'שגיאה'), 'err'); return; }
-  const G = (Array.isArray(SA_TG.gl) ? SA_TG.gl : []).filter(x=>!(x.month===m && x.scope===sc && (x.seg||null)===s2));
-  if(v > 0) G.push({ month:m, scope:sc, seg:s2, amount:v });
+  const G = (Array.isArray(SA_TG.gl) ? SA_TG.gl : []).filter(x=>!(x.month===m && x.scope===sc && (x.seg||null)===s2 && (x.owner||null)===o2));
+  if(v > 0) G.push({ month:m, scope:sc, seg:s2, owner:o2, amount:v });
   SA_TG.gl = G; saGlReset();
   toast(v > 0 ? 'היעד נשמר ✓' : 'היעד נמחק ✓');
   if(CUR_TAB==='sana') renderSana();
@@ -24303,7 +24362,7 @@ function saTypes(d){
   const un = T.find(x=>x.seg==='לא מסווג'), unN = un ? (+un.opened_n||0)+(+un.won_n||0)+(+un.lost_n||0)+(+un.open_n||0) : 0;
   const allN = tot('opened_n')+tot('won_n')+tot('lost_n')+tot('open_n');
   return '<div class="sa-card" id="sa-types"><h3>לפי סוג לקוח <span class="cnt">שבעת הסוגים של תוכנית המכירות</span></h3>'+
-    '<div class="sa-sub">הסוג = המחירון של הלקוח בפריוריטי (בסיס ופ.ע = פרטי, ה.פ/מסחרי = מסחרי, סטונאי = סיטונאי, ריטייל = חנויות); לקוח אתר (WP) בלי מחירון = פרטי.</div>'+
+    '<div class="sa-sub">הסוג = המחירון של הלקוח בפריוריטי (בסיס ופ.ע = פרטי, ה.פ/מסחרי = מסחרי, סטונאי = סיטונאי); לקוח אתר (WP) בלי מחירון = פרטי.</div>'+
       (unN ? '<div class="sa-sub sa-warn">'+Math.round(100*unN/Math.max(1,allN))+'% מהשורות בלי מחירון בפריוריטי.</div>' : '')+
     (T.length ? '<div class="tbl-wrap"><table class="tbl" data-gs="own"><thead><tr><th>סוג</th><th class="num">פתוח עכשיו</th><th class="num">נפתחו</th><th class="num">נסגרו להזמנה</th><th class="num">ירדו</th><th class="num">אחוז סגירה</th></tr></thead><tbody>'+
       T.map(x=>'<tr data-seg="'+esc(x.seg)+'"><td><b>'+esc(x.seg)+'</b></td><td class="num">'+saNv(+x.open_n, +x.open_s)+'</td><td class="num">'+saNv(+x.opened_n, +x.opened_s)+'</td>'+
@@ -27894,7 +27953,7 @@ function custRow(c){
    ⚠️ הטעינה עצלה ולא ב-Promise.all של loadLeads: הוספה שם מסיטה את כל המפרק (מלכודת הטוען). */
 /* 7.90.1 — wpseg (רומן, 25/11/2026): "פ.ע זה פרטי" · "ריטייל זה חנויות" · "אין סיווג כזה אתר". */
 const CU_SEG_OF = { 'בסיס':'פרטי', 'פ.ע':'פרטי', 'עסקי':'עסקי', 'ארגוני':'ארגוני', 'מוסדי':'מוסדי',
-  'מסחרי':'מסחרי', 'ה.פ':'מסחרי', 'ספייס':'מסחרי', 'פיט':'מסחרי', 'סטונאי':'סיטונאי', 'ריטייל':'חנויות' };
+  'מסחרי':'מסחרי', 'ה.פ':'מסחרי', 'ספייס':'מסחרי', 'פיט':'מסחרי', 'סטונאי':'סיטונאי', 'ריטייל':'ריטייל' };   /* 7.95.1 — רומן, 27/11: "חנויות — תשנה את זה לסוג ריטייל בכל המערכת" */
 const CU_SEGS = new Set([...Object.values(CU_SEG_OF), 'לא מסווג', 'אחר']);
 const CPL_TTL = 5*60*1000;
 let CPL_BY = null, CPL_AT = 0, CPL_P = null, CPL_ERR = '', CPL_ERR_AT = 0;
