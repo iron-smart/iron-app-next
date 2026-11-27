@@ -1538,11 +1538,11 @@
   /* 7.95.0 — remset: בורר "מי רואה" — בטופס המהיר בלובי ובמסך ההגדרות */
   .rem-vwbox{ margin-top:var(--sp-2); }
   .rem-vwl{ font-size:var(--fs-xs); font-weight:700; color:var(--ink-2); margin-bottom:var(--sp-1); }
-  .rem-vw{ display:flex; flex-wrap:wrap; gap:var(--sp-1h) var(--sp-2); }
-  .rem-vp{ display:inline-flex; align-items:center; gap:var(--sp-1h); padding:var(--sp-1) var(--sp-2h); border:1px solid var(--line); border-radius:var(--r-pill); background:#fff; font-size:var(--fs-sm); color:var(--ink-2); cursor:pointer; }
-  .rem-vp.on{ border-color:var(--navy); background:var(--bg-subtle); color:var(--ink-1); font-weight:700; }
-  .rem-vp input{ margin:0; min-height:0; width:auto; }
-  .rem-vp.lock{ cursor:default; opacity:.7; }
+  /* remdd — רשימה נפתחת (details.lf-multi). lf-multi מגביל את השורה ל-210px כי שם היא תווית סינון; כאן היא שמות */
+  .lf-multi.rem-dd>summary{ max-width:min(520px, 100%); overflow:hidden; text-overflow:ellipsis; }
+  .lf-multi.rem-dd .lf-menu{ min-width:240px; }
+  .lf-multi.rem-dd .lf-opt input:disabled + span{ opacity:.6; }
+  .lf-multi.rem-dd.lock>summary{ cursor:default; }
   .rem-vwn{ margin-top:var(--sp-1); font-size:var(--fs-xs); color:var(--ink-3); }
   /* "היום שלי" — כרטיס ביקור לטכנאי, בנוי לטלפון */
   .md-tog{ display:flex; gap:var(--sp-1h); margin-bottom:var(--sp-1h) }
@@ -4776,7 +4776,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.96.0</div>
+      <div class="ver">גרסה 7.96.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4925,7 +4925,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="plannercfg-2026-11-27a">גרסה 7.96.0</div>
+    <div class="side-foot" title="remdd-2026-11-27a">גרסה 7.96.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -8928,19 +8928,31 @@ function remName(id){
 function remRecLbl(m){ m = +m||0; return !m ? 'חד-פעמי' : ({1:'חודשי',3:'רבעוני',6:'חצי-שנתי',12:'שנתי',24:'כל שנתיים'}[m] || ('כל '+m+' חודשים')); }
 function remErrHe(e){ const m = String((e && e.message) || e || ''); return (/row-level security|42501|permission denied/i.test(m) && !/[א-ת]/.test(m)) ? 'אין הרשאה לפעולה הזו' : m; }
 /* בורר "מי רואה". pfx: 'rem' (הטופס המהיר בלובי) / 'rs' (מסך ההגדרות). creator ומנהלי המערכת רואים תמיד — אינם בבורר. */
+function remVwSum(ids){
+  const n = (ids||[]).map(id=>remName(id)||'—');
+  return !n.length ? 'רק מי שיצר ומנהל המערכת' : n.length <= 2 ? n.join(', ') : n.slice(0,2).join(', ')+' ועוד '+(n.length-2);
+}
+/* remdd (27/11/2026) — רומן: "תעשה רשימה נפתחת פשוט עם בחירה מרובה". details.lf-multi: הקליק בחוץ וה-Esc שסוגרים
+   אותה כבר רשומים במסמך. ה-id נשאר על העוטף, ולכן remVwCollect (input[type=checkbox] בתוך #pfx-vw) לא השתנה. */
 function remVwHtml(pfx, sel, lock, creator){
   if(!REM_PEOPLE) return '<div class="rem-vw" id="'+pfx+'-vw" data-wait="1">'+crmLoading('טוען עובדים…')+'</div>';
   const S = new Set((sel||[]).map(String)), cr = String(creator||remMe());
   const L = REM_PEOPLE.filter(p=>!p.is_admin && String(p.id)!==cr);
   const al = [remName(cr) || 'מי שיצר את התזכורת'].concat(REM_PEOPLE.filter(p=>p.is_admin && String(p.id)!==cr).map(p=>p.full_name).filter(Boolean));
-  return '<div class="rem-vw" id="'+pfx+'-vw">'+
-    (L.map(p=>{ const on = S.has(String(p.id));
-      return '<label class="rem-vp'+(on?' on':'')+(lock?' lock':'')+'" title="'+(p.can_edit?'צפייה, עריכה וסימון שולם':'צפייה בלובי בלבד')+'"><input type="checkbox" value="'+esc(p.id)+'"'+(on?' checked':'')+(lock?' disabled':'')+' onchange="remVwPick(this)"><span>'+esc(p.full_name||'—')+'</span></label>'; }).join('')
-     || '<span class="rem-vwn">אין עובדים נוספים</span>')+'</div>'+
+  const on = L.filter(p=>S.has(String(p.id))).map(p=>String(p.id)), sum = remVwSum(on);
+  return '<details class="lf-multi rem-dd'+(on.length?' lf-on':'')+(lock?' lock':'')+'" id="'+pfx+'-vw"><summary title="'+esc(sum)+'">'+esc(sum)+'</summary><div class="lf-menu">'+
+    (L.map(p=>{ const c = S.has(String(p.id));
+      return '<label class="lf-opt" title="'+(p.can_edit?'צפייה, עריכה וסימון שולם':'צפייה בלובי בלבד')+'"><input type="checkbox" value="'+esc(p.id)+'"'+(c?' checked':'')+(lock?' disabled':'')+' onchange="remVwPick(this)"><span>'+esc(p.full_name||'—')+'</span></label>'; }).join('')
+     || '<div class="rem-vwn">אין עובדים נוספים</div>')+'</div></details>'+
     '<div class="rem-vwn">רואים תמיד: <b>'+esc(al.join(', '))+'</b> (מי שיצר את התזכורת ומנהל המערכת).'+
-      (lock ? ' רק הם יכולים לשנות את "מי רואה".' : ' מי שמסומן בלי הרשאת "תזכורות ותשלומים" רואה אותה בלובי בלבד.')+'</div>';
+      (lock ? ' רק הם יכולים לשנות את "מי רואה".' : ' מי שמסומן בלי הרשאת "תזכורות ותשלומים" רואה אותה בלובי בלבד. עובד חדש מופיע ברשימה מעצמו.')+'</div>';
 }
-window.remVwPick = el=>{ const l = el.closest('.rem-vp'); if(l) l.classList.toggle('on', !!el.checked); };
+window.remVwPick = el=>{
+  const d = el.closest('.rem-dd'); if(!d) return;
+  const ids = [...d.querySelectorAll('input[type=checkbox]')].filter(i=>i.checked).map(i=>i.value), sum = remVwSum(ids);
+  const s = d.querySelector('summary'); if(s){ s.textContent = sum; s.title = sum; }
+  d.classList.toggle('lf-on', ids.length > 0);
+};
 function remVwCollect(pfx, orig){
   const box = document.getElementById(pfx+'-vw');
   const ins = box ? [...box.querySelectorAll('input[type=checkbox]')] : [];
@@ -9032,7 +9044,7 @@ function remsHtml(){
       <div class="st-row st-wide"><div class="st-l"><b>מי רואה</b></div><div id="rs-vwbox">${remVwHtml('rs', [], false)}</div></div>
       <div class="st-row st-wide"><div class="am-act"><button type="button" class="btn" id="rs-save" onclick="remsSave()">שמירה</button><button type="button" class="ghost" id="rs-edx" hidden onclick="remsEditEnd()">ביטול עריכה</button></div><div class="err" id="rs-err"></div></div>
     </div></section>` : '<div class="st-lead">צפייה בלבד — הוספה ועריכה דורשות הרשאת עריכה ב"תזכורות ותשלומים".</div>';
-  return `<div class="st-top"><h2 class="sec">תזכורות</h2></div>
+  return `<div class="st-top"><h2 class="sec">תזכורת משימות</h2></div>
     <div class="st-lead">טסטים, אגרות ותשלומים. כל תזכורת מופיעה בלובי אצל מי שנבחר ב"מי רואה", אצל מי שיצר אותה ואצל מנהל המערכת. תזכורת חוזרת יוצרת את המופע הבא ברגע שמסמנים "שולם".</div>
     ${form}
     <div class="st-top"><h2 class="sec">כל התזכורות</h2><span class="st-cnt" id="rs-cnt"></span></div>
@@ -16514,7 +16526,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'plannercfg-2026-11-27a';
+const BUILD_ID = 'remdd-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21192,7 +21204,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['planner','מתכנן Steel'],['general','כללי'],['rem','תזכורות']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['planner','מתכנן Steel'],['general','כללי'],['rem','תזכורת משימות']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
