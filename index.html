@@ -1443,7 +1443,17 @@
   #tab-sana .sa-tg summary{ cursor:pointer; font-weight:800; color:var(--navy); font-size:var(--fs-sm); }
   #tab-sana .sa-tg summary small{ font-weight:600; color:var(--ink-3); }
   #tab-sana .sa-tgnav{ display:flex; align-items:center; gap:var(--sp-2); margin:var(--sp-2) 0; font-size:var(--fs-sm); font-weight:700; color:var(--ink-2); }
-  #tab-sana .sa-tgt td .sa-tgi{ width:auto; max-width:none; min-width:0; text-align:end; border-color:var(--line); }
+  #tab-sana .sa-tgt td .sa-tgi{ width:11ch; max-width:none; min-width:0; text-align:end; border-color:var(--line); }
+  #tab-sana .sa-tg .tbl-wrap{ width:max-content; max-width:100%; }   /* 7.94.1 — רומן: "תקטין את רוחב הטבלה, היא ענקית" */
+  #tab-sana .sa-tg table.sa-tgt{ width:auto; }
+  #tab-sana .sa-tgt th:first-child, #tab-sana .sa-tgt td:first-child{ width:26ch; }   /* אותן עמודות בכל טבלאות העורך — החודשים בקו אחד */
+  #tab-sana .sa-tgt th.num, #tab-sana .sa-tgt td.num{ width:15ch; }
+  #tab-sana .sa-tgt td:first-child small{ display:block; }   /* "ריק = סכום אנשי המכירות" בשורה משלו — אחרת טבלת הצוות רחבה מהשאר */
+  #tab-sana .sa-tgsum td small{ display:block; font-size:var(--fs-xs); font-weight:600; color:var(--ink-3); white-space:normal; }   /* td.num אינו נשבר — אחרת השורה מרחיבה את העמודה */
+  #tab-sana .sa-tgsum td small.warn{ color:var(--red); }
+  #tab-sana .sa-tgx-x{ margin-inline-start:var(--sp-2); padding:0 var(--sp-1); border:0; background:transparent; color:var(--ink-3); font-size:var(--fs-xs); cursor:pointer; }
+  #tab-sana .sa-tgx-x:disabled{ opacity:.35; cursor:default; }
+  #tab-sana .sa-tghid{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-1); margin:var(--sp-1) 0 0; font-size:var(--fs-xs); color:var(--ink-3); }
   #tab-sana .sa-wks{ display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:var(--sp-2); margin:0 0 var(--sp-2); }
   #tab-sana .sa-wk{ border:1px solid var(--line); border-radius:var(--r-md); padding:var(--sp-2); background:var(--bg-subtle); min-width:0; }
   #tab-sana .sa-wk b{ display:block; font-size:var(--fs-xl); font-weight:800; color:var(--navy); }
@@ -4733,7 +4743,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.94.0</div>
+      <div class="ver">גרסה 7.94.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4882,7 +4892,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="salesgoals-2026-11-27a">גרסה 7.94.0</div>
+    <div class="side-foot" title="goalsedit-2026-11-27a">גרסה 7.94.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -16229,7 +16239,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'salesgoals-2026-11-27a';
+const BUILD_ID = 'goalsedit-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -23623,7 +23633,7 @@ function saGoals(m, D, G){
                 free.length ? 'מתהליכים בלי יעד: '+free.map(z=>esc(z[0])+' '+saMoney(z[1])).join(' · ') : ''].filter(Boolean).join(' · ');
   return '<div class="sa-gl" id="sa-gl">'+hd+'<div class="sa-glg">'+
     row('מתהליכי מכירה', +(bc.sales||{}).net||0, G.sales, 'top')+
-    sg.map(s=>row(esc(s), segAct(s), G.seg[s], 'sub')).join('')+
+    sg.map(s=>row(mdPill(s, cuSegColors()), segAct(s), G.seg[s], 'sub')).join('')+   /* 7.94.1 — צבע הסוג כמו במסך הלקוחות */
     row('אתר', +(bc.web||{}).net||0, G.web, 'top')+'</div>'+
     (note ? '<div class="sa-gln">'+note+'</div>' : '')+'</div>';
 }
@@ -23932,6 +23942,22 @@ function saTgEditor(d){
     '<div class="sa-tgnav"><button type="button" class="lf-clear" onclick="saTgQ(-1)" aria-label="רבעון קודם">›</button><span>'+esc(ml(ms[0]))+' – '+esc(ml(ms[2]))+'</span>'+
     '<button type="button" class="lf-clear" onclick="saTgQ(1)" aria-label="רבעון הבא">‹</button></div>'+body+'</details>';
 }
+/* 7.94.1 — goalsedit: סוגים מוסתרים מהעורך (רומן: "אפשרות להוריד סגמנט אם אני יודע שלא יהיה חודש הזה או הבא מכירות").
+   לכל משתמש (localStorage; כשל ⇒ בזיכרון בלבד). סוג שיש לו יעד בחודשים המוצגים לעולם אינו מוסתר. */
+let SA_GL_HIDE_MEM = null;
+function saGlHidden(){
+  if(Array.isArray(SA_GL_HIDE_MEM)) return SA_GL_HIDE_MEM;
+  let a = []; try{ a = JSON.parse(localStorage.getItem('iron_sa_gl_hide') || '[]'); }catch(_e){ a = []; }
+  return SA_GL_HIDE_MEM = (Array.isArray(a) ? a : []).filter(s=>SA_GL_SEGS.includes(s));
+}
+window.saGlHide = (s, on)=>{
+  if(!SA_GL_SEGS.includes(s)) return;
+  const h = saGlHidden().filter(x=>x !== s); if(on) h.push(s);
+  SA_GL_HIDE_MEM = h; try{ localStorage.setItem('iron_sa_gl_hide', JSON.stringify(h)); }catch(_e){}
+  if(CUR_TAB==='sana') renderSana();
+};
+/* יעד התהליכים לחודש מתוך שורות העורך — שורת הצוות, אחרת סכום אנשי המכירות (אותה הגדרה של crm.sales_goals_get) */
+function saTgTeam(m){ const L = SA_TG.rows || [], t = L.find(x=>x.month===m && !x.owner); return t ? (+t.amount||0) : L.filter(x=>x.month===m && x.owner).reduce((a, x)=>a + (+x.amount||0), 0); }
 function saTgGlTables(ms, ml, ed){
   const G = Array.isArray(SA_TG.gl) ? SA_TG.gl : null; if(!G) return '';
   const val = (m, sc, sg)=>{ const r = G.find(x=>x.month===m && x.scope===sc && (x.seg||null)===(sg||null)); return r ? +r.amount : null; };
@@ -23939,10 +23965,24 @@ function saTgGlTables(ms, ml, ed){
     return '<td class="num">'+(ed ? '<input type="number" min="0" step="1000" inputmode="numeric" class="inline-edit sa-tgi" value="'+(v==null ? '' : v)+'"'+
         ' aria-label="'+esc('יעד '+ml(m)+' · '+(sc==='web' ? 'אתר' : sg))+'" onchange="saGlSet(\''+m+'\',\''+sc+'\',\''+jsq(sg||'')+'\',this)">'
       : (v==null ? '—' : ilsK(v)))+'</td>'; };
-  const tbl = rows=> '<div class="tbl-wrap"><table class="tbl sa-tgt sa-tgx"><thead><tr><th></th>'+ms.map(m=>'<th class="num">'+esc(ml(m))+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>';
+  const tbl = (rows, ft)=> '<div class="tbl-wrap"><table class="tbl sa-tgt sa-tgx"><thead><tr><th></th>'+ms.map(m=>'<th class="num">'+esc(ml(m))+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody>'+(ft || '')+'</table></div>';
   const row = (lbl, sc, sg)=> '<tr data-sc="'+sc+'" data-seg="'+esc(sg||'')+'"><td>'+lbl+'</td>'+ms.map(m=>cell(m, sc, sg)).join('')+'</tr>';
-  return '<div class="sa-tgs">מתהליכי מכירה לפי סוג לקוח <small>חלק מיעד הצוות · הזמנות מתהליכים של אותו סוג</small></div>'+tbl(SA_GL_SEGS.map(s=>row(esc(s), 'seg', s)).join(''))+
-    '<div class="sa-tgs">אתר <small>הזמנות האתר</small></div>'+tbl(row('<b>אתר</b>', 'web', ''));
+  const has = s=> ms.some(m=>val(m, 'seg', s) != null), hid = saGlHidden();
+  const segs = SA_GL_SEGS.filter(s=>!hid.includes(s) || has(s)), hidden = SA_GL_SEGS.filter(s=>!segs.includes(s)), sc = cuSegColors();
+  const lbl = s=> mdPill(s, sc)+(ed ? '<button type="button" class="sa-tgx-x" data-hide="'+esc(s)+'" aria-label="'+esc('הסתרת '+s)+'"'+
+      ' title="'+esc(has(s) ? 'יש לסוג יעד בחודשים האלה — מוחקים אותו קודם' : 'הסתרת הסוג מהעורך — יחזור מ"מוסתרים"')+'"'+(has(s) ? ' disabled' : '')+' onclick="saGlHide(\''+jsq(s)+'\',1)">✕</button>' : '');
+  const team = m=> saTgTeam(m), web = m=> val(m, 'web', null) || 0, seg = m=> segs.reduce((a, s)=>a + (val(m, 'seg', s) || 0), 0);
+  const dTxt = (s, t)=>{ const d = s - t; return Math.abs(d) < 1 ? '<small>כמו יעד הצוות</small>' : '<small class="warn">'+(d < 0 ? 'חסר '+saMoney(-d) : 'מעל ב-'+saMoney(d))+' מול הצוות</small>'; };
+  const sumC = v=> '<td class="num">'+(v > 0 ? saMoney(v) : '—')+'</td>';
+  const segFoot = '<tfoot><tr class="sa-tgsum"><td>סה״כ סוגים</td>'+ms.map(m=>{ const s = seg(m), t = team(m);
+      return '<td class="num">'+(s > 0 ? saMoney(s) : '—')+(s > 0 && t > 0 ? dTxt(s, t) : '')+'</td>'; }).join('')+'</tr></tfoot>';
+  const hidRow = hidden.length ? '<div class="sa-tghid">מוסתרים: '+hidden.map(s=>'<button type="button" class="chip" data-unhide="'+esc(s)+'" onclick="saGlHide(\''+jsq(s)+'\',0)">'+esc(s)+' ＋</button>').join('')+'</div>' : '';
+  const summ = tbl('<tr class="sa-tgsr" data-k="team"><td>מתהליכי מכירה · צוות</td>'+ms.map(m=>sumC(team(m))).join('')+'</tr>'+
+                   '<tr class="sa-tgsr" data-k="web"><td>אתר</td>'+ms.map(m=>sumC(web(m))).join('')+'</tr>',
+                   '<tfoot><tr class="sa-tgsum" data-k="all"><td>סה״כ יעדים</td>'+ms.map(m=>sumC(team(m) + web(m))).join('')+'</tr></tfoot>');
+  return '<div class="sa-tgs">מתהליכי מכירה לפי סוג לקוח <small>חלק מיעד הצוות · הזמנות מתהליכים של אותו סוג</small></div>'+tbl(segs.map(s=>row(lbl(s), 'seg', s)).join(''), segFoot)+hidRow+
+    '<div class="sa-tgs">אתר <small>הזמנות האתר</small></div>'+tbl(row('<b>אתר</b>', 'web', ''))+
+    '<div class="sa-tgs">סיכום חודשי <small>לפני מע״מ</small></div>'+summ;
 }
 window.saGlSet = async (m, sc, sg, el)=>{
   if(!SA_ISO.test(m||'') || (sc!=='web' && sc!=='seg') || (sc==='seg' && !SA_GL_SEGS.includes(sg))) return;
