@@ -4781,7 +4781,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.96.2</div>
+      <div class="ver">גרסה 7.96.3</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4930,7 +4930,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="goals3-2026-11-27a">גרסה 7.96.2</div>
+    <div class="side-foot" title="plannername-2026-11-27a">גרסה 7.96.3</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -16531,7 +16531,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'goals3-2026-11-27a';
+const BUILD_ID = 'plannername-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21209,7 +21209,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['planner','מתכנן Steel'],['general','כללי'],['rem','תזכורת משימות']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['planner','מודל תכנון'],['general','כללי'],['rem','תזכורת משימות']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
@@ -21531,7 +21531,7 @@ window.intOutlookSync = async () => {
    json (נבדק לפני שמירה) · ro חותמת שהמערכת כותבת — קריאה בלבד.
    ⚠️ הכתיבה: stSave בלבד, `.select('key')` ושורה אחת בדיוק — RLS שדוחה מחזיר 0 שורות בלי שגיאה (6.191.0).
    ⚠️ כל רשומה בשורה משלה: crmsettest/notifsettest קוראות את הרישום שורה-שורה. */
-/* 7.96.0 — plannercfg: גובהי המתח של מתכנן Steel — 190–250 בקפיצות של 5 (חורי הצד של ST-UP265 ב-185.5–255.5 כל 5;
+/* 7.96.0 — plannercfg: גובהי המתח של מודל התכנון — 190–250 בקפיצות של 5 (חורי הצד של ST-UP265 ב-185.5–255.5 כל 5;
    המתח בשני ברגים במרחק 10 ⇒ נומינלי ±5). 🔴 חוזה מול planner-config ומול המתכנן: אותם ערכים, ו-230 כשחסר/לא חוקי. */
 const PLAN_H_OPTS = ['190','195','200','205','210','215','220','225','230','235','240','245','250'];
 const ST_REG = [
@@ -22617,15 +22617,15 @@ function crmSettingsHtml(){
         <li><b>מהדורה חדשה נשלחה</b><span>המשימה הפתוחה זזה למועד "אחרי עדכון מהדורה של הצעה" (ואם אין — נפתחת חדשה).</span></li>
       </ol></details>`;
 }
-/* ═══ 7.96.0 — plannercfg: מתכנן Steel (רומן, 27/11/2026) ══════════════════════════════════════════════
-   גובהי מתח המשיכה במתכנן Steel (דף תלת־ממד ציבורי לחנויות) נקבעים כאן ולא במתכנן, ומשתנים רק בקפיצות שמתאימות
+/* ═══ 7.96.0 — plannercfg: מודל תכנון (עד 7.96.3 "מתכנן Steel"; רומן, 27/11/2026) ══════════════════════════════════════════════
+   גובהי מתח המשיכה במודל התכנון (דף תלת־ממד ציבורי לחנויות) נקבעים כאן ולא במתכנן, ומשתנים רק בקפיצות שמתאימות
    לחורים. המתכנן קורא אותם דרך פונקציית הקצה planner-config (קריאה בלבד, מטמון 60 ש׳) — anon אינו קורא את
    ord.settings. 🔴 שמות המפתחות ו-PLAN_H_OPTS הם חוזה מול הפונקציה ומול המתכנן; ערך מחוץ לרשימה מוצג "(לא מוכר)",
    אינו נשמר (stSave · sel), והפונקציה מחזירה עליו 230. הכתיבה — stSave בלבד, כמו כל ord.settings. */
 function plannerSetHtml(){
   const ed = canEdit('set.crm');
-  return `<div class="st-top"><h2 class="sec">מתכנן Steel</h2></div>
-    <div class="st-lead">גובה המתח שמתכנן Steel מציג בהדמיה וברשימת החלקים. השינוי נשמר בכפתור "שמירה" ומגיע למתכנן <b>תוך דקה, בלי פריסה</b>.</div>
+  return `<div class="st-top"><h2 class="sec">מודל תכנון</h2></div>
+    <div class="st-lead">גובה המתח שמודל התכנון מציג בהדמיה וברשימת החלקים. השינוי נשמר בכפתור "שמירה" ומגיע למודל התכנון <b>תוך דקה, בלי פריסה</b>.</div>
     ${stCard('planner', ed)}`;
 }
 function notifSettingsHtml(){
