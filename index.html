@@ -1524,6 +1524,15 @@
   .rem-form{ display:grid; grid-template-columns:1.4fr .9fr .9fr .7fr .9fr auto; gap:var(--sp-1h); margin-top:var(--sp-1h) }
   .rem-form input,.rem-form select{ padding:5px 7px; font-size:var(--fs-sm); border:1px solid var(--field-bd); border-radius:var(--r-md); width:auto; min-width:0 }
   @media(max-width:759.98px){ .rem-form{ grid-template-columns:1fr 1fr } }
+  /* 7.95.0 — remset: בורר "מי רואה" — בטופס המהיר בלובי ובמסך ההגדרות */
+  .rem-vwbox{ margin-top:var(--sp-2); }
+  .rem-vwl{ font-size:var(--fs-xs); font-weight:700; color:var(--ink-2); margin-bottom:var(--sp-1); }
+  .rem-vw{ display:flex; flex-wrap:wrap; gap:var(--sp-1h) var(--sp-2); }
+  .rem-vp{ display:inline-flex; align-items:center; gap:var(--sp-1h); padding:var(--sp-1) var(--sp-2h); border:1px solid var(--line); border-radius:var(--r-pill); background:#fff; font-size:var(--fs-sm); color:var(--ink-2); cursor:pointer; }
+  .rem-vp.on{ border-color:var(--navy); background:var(--bg-subtle); color:var(--ink-1); font-weight:700; }
+  .rem-vp input{ margin:0; min-height:0; width:auto; }
+  .rem-vp.lock{ cursor:default; opacity:.7; }
+  .rem-vwn{ margin-top:var(--sp-1); font-size:var(--fs-xs); color:var(--ink-3); }
   /* "היום שלי" — כרטיס ביקור לטכנאי, בנוי לטלפון */
   .md-tog{ display:flex; gap:var(--sp-1h); margin-bottom:var(--sp-1h) }
   .md-card{ border:1px solid #e6eaf0; border-radius:var(--r-lg); padding:var(--sp-2) var(--sp-2h); margin-bottom:var(--sp-1h); background:#fff }
@@ -2512,6 +2521,19 @@
   #tab-set .am-acts{ white-space:nowrap; }
   #tab-set .am-acts .st-save + .st-save{ margin-inline-start:var(--sp-1h); }
   #tab-set .am-tbl tr.am-editing td{ background-color:var(--amber-bg); }
+  /* 7.95.0 — remset: מסך התזכורות */
+  #tab-set .rs-g{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:var(--sp-2) var(--sp-3); }
+  #tab-set .rs-g label{ display:flex; flex-direction:column; gap:var(--sp-0h); font-size:var(--fs-xs); font-weight:700; color:var(--ink-2); }
+  #tab-set .rs-g label[hidden]{ display:none; }
+  #tab-set .rs-g small{ font-weight:400; color:var(--ink-3); }
+  #tab-set .set-body .rs-g .st-txt{ width:auto; }   /* תאריך — לא 320px של שדה טקסט */
+  #tab-set .set-body .rs-g .st-num{ width:9rem; }
+  #tab-set .rs-chips{ display:flex; flex-wrap:wrap; gap:var(--sp-1h); margin:0 0 var(--sp-2); }
+  #tab-set .rs-chips .chip.on{ background:var(--navy); color:#fff; border-color:var(--navy); }
+  #tab-set .rs-tbl tr.rs-late:not(.am-editing) td{ background-color:var(--red-bg); }   /* השורה שבעריכה מודגשת גם כשהיא באיחור */
+  #tab-set .rs-s-late{ color:var(--red); font-weight:700; }
+  #tab-set .rs-tbl td.rs-vwc{ font-size:var(--fs-sm); color:var(--ink-2); }
+  #tab-set .rs-only{ font-size:var(--fs-xs); color:var(--ink-3); }
   .st-errline{ margin:0 var(--sp-4) var(--sp-2h); }
   .st-grp{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-card); margin-bottom:var(--sp-2h); overflow:hidden; }
   .st-grp[hidden]{ display:none; }
@@ -4743,7 +4765,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.94.1</div>
+      <div class="ver">גרסה 7.95.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4892,7 +4914,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="goalsedit-2026-11-27a">גרסה 7.94.1</div>
+    <div class="side-foot" title="remset-2026-11-27a">גרסה 7.95.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -6381,7 +6403,7 @@ window.TAB_PERM = {
   calc:'crm.deals'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
-window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', msg:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', general:'set.general' };
+window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', msg:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', general:'set.general', rem:'dash.reminders' };
 window.LOGI_VIEWS = ['orders','calls','cal'];
 window.navCanTab = t=>{
   /* 6.140.0 — logi.screen מפריד בין הנתונים לבין המסך.
@@ -8134,7 +8156,7 @@ const DASH_SECS = [
   {sec:'exc',  perm:'dash.exceptions'},   /* בלי מפתח דומיין בכוונה — מצרף רק ממקורות שהקורא מורשה להם (ראו renderExceptions) */
   {sec:'fin',  perm:'dash.fin',       data:'acc.pays'},
   {sec:'inv',  perm:'dash.inv',       data:'inv.stock'},
-  {sec:'rem',  perm:'dash.reminders'},    /* dash.reminders הוא גם מפתח הנתונים (RLS על ord.reminders) */
+  {sec:'rem',  perm:'dash.reminders', any:()=>remShared()},    /* 7.95.0 — גם בלי ההרשאה, כשיש תזכורת משותפת (RLS לפי viewers) */
   /* 'sup' בוטל ב-6.89.0 — ההתיישנות היא שורות-משנה בקוקפיט (dash.supervise) */
   {sec:'sales',perm:'dash.sales',     data:'crm'},
   {sec:'ops',  perm:'dash.ops',       data:'logi'},
@@ -8182,7 +8204,7 @@ function applyDashboard(){
   document.querySelectorAll('#dash-secs .dash-sec').forEach(el=>{
     const s = DASH_SECS.find(x=>x.sec===el.dataset.sec);
     if(!s){ el.hidden = true; return; }          /* סקשן של שלב עתידי */
-    let show = canView(s.perm) && (!s.data || canView(s.data));
+    let show = (canView(s.perm) && (!s.data || canView(s.data))) || !!(s.any && s.any());   /* 7.95.0 — any: נראות לפי נתונים */
     /* מנהל שאינו משובץ לא רואה "היום שלי" — הדגל מנוהל ב-renderMyDay */
     if(s.sec==='myday' && window.MD_HIDE) show = false;
     el.hidden = !show;
@@ -8541,7 +8563,7 @@ function renderKpiStrip(){
       inv.buy_value ? kSub(ilsK(inv.buy_value)+' בסיכון', (inv.buy_n||0)>0) : '', 'inv'));
   }
   const rem = DASH_DATA.rem && DASH_DATA.rem.d;
-  if(canView('dash.reminders') && rem && (rem.overdue_n||0) > 0){
+  if(remSeen() && rem && (rem.overdue_n||0) > 0){   /* 7.95.0 — השרת כבר סינן לפי "מי רואה" */
     T.push(kTile('תזכורות באיחור', rem.overdue_n||0, "dashSecFocus('rem')", kSub(ilsK(rem.overdue_sum), true), 'rem'));
   }
   /* 6.194.0 — המכירות מהגלובלים החיים ולא מ-crm.sales_dash: הפונקציה לא סיננה לפי
@@ -8705,7 +8727,11 @@ async function dashLoad(force){
   if(canView('dash.inv')){ want('inv.stock','inv','dash_inv_summary'); want('inv.po','po','dash_po_summary'); }
   if(canView('dash.fin')) want('acc.pays','fin','dash_fin_summary');
   if(canView('dash.strategic')) want('acc.pays','strategic','dash_strategic');
-  want('dash.reminders','rem','dash_reminders');
+  /* 7.95.0 — remset: לכל משתמש מחובר, לא רק למי שיש לו dash.reminders. תזכורת יכולה להיות משותפת גם עם מי שאין לו
+     את ההרשאה (רומן: "טסט משאית — נח ומיקי יראו בנוסף אליי"); השרת מסנן לפי viewers ומחזיר אפסים למי שאין לו שורות. */
+  jobs.push(sb.schema('ord').rpc('dash_reminders')
+    .then(r=>{ DASH_DATA.rem = r.error ? {err:r.error.message} : {d:r.data}; })
+    .catch(e=>{ DASH_DATA.rem = {err:String(e)}; }));
   want('dash.sync','sync','dash_sync_health');
   /* 6.194.0 — crm.sales_dash אינה נקראת עוד: המשפך מ-DEALS, המונים מ-LEADS/MEETS/TASKS */
   if(!jobs.length) return;
@@ -8859,17 +8885,74 @@ function renderPoBlock(){
     (stale?'<div class="db-empty" style="color:var(--red);font-weight:700">נתוני הרכש אינם מסונכרנים'+(!d.scheduled?' — הסנכרון אינו מתוזמן':'')+'</div>':'')+
     dashAsOf(d.data_as_of, 48);
 }
+/* ═══ 7.95.0 — remset: תזכורות — "מי רואה" + מסך בהגדרות (רומן, 27/11/2026) ═══════════════════════════════
+   "אין מסך בהגדרות איפשהו לזה?" ⇒ "כן, לבנות" ⇒ "תוסיף שאני יכול לבחור מי רואה כל שורה בתזכורת. כלומר טסט משאית
+   אני ארצה למשל שנח ומיקי יראו בנוסף אליי, תשלום ארנונה למשל אני ארצה רק אני ונח".
+   🔴 הנראות נאכפת בשרת (פונקציות-מסד/reminders_viewers.20261127.sql): RLS על ord.reminders + סינון מפורש
+      ב-dash_reminders / reminder_close (security definer). רואה: מנהל מערכת · היוצר · viewers. כאן רק מציירים.
+   ⚠️ dash.reminders כבר אינו "רואה תזכורות" אלא "יוצר ומנהל תזכורות": מי שסומן ב"מי רואה" בלי ההרשאה רואה את
+      השורה בלובי בלבד. לכן הבלוק נטען לכל משתמש (dashLoad) ומוצג כשיש לו שורה (remShared · DASH_SECS.any).
+   ⚠️ viewers נשלח רק כשהבורר השתנה (remVwCollect מול מה שהוצג), ומי שאינו מופיע בבורר (עובד שהושבת) נשמר —
+      בורר שמצייר רק עובדים פעילים היה מוחק אותו בשקט בכל שמירה. */
+let REM_PEOPLE = null, REM_PEOPLE_P = null;
+function remPeopleLoad(){
+  if(REM_PEOPLE) return Promise.resolve(REM_PEOPLE);
+  if(!REM_PEOPLE_P) REM_PEOPLE_P = Promise.resolve().then(()=>sb.schema('ord').rpc('reminder_people')).then(r=>{
+      REM_PEOPLE_P = null;
+      if(r && r.error) throw r.error;
+      REM_PEOPLE = Array.isArray(r && r.data) ? r.data : [];
+      return REM_PEOPLE;
+    }).catch(e=>{ REM_PEOPLE_P = null; throw e; });
+  return REM_PEOPLE_P;
+}
+function remShared(){ const d = DASH_DATA.rem && DASH_DATA.rem.d; return !!(d && ((+d.pending_n||0) > 0 || (d.next||[]).length)); }
+function remSeen(){ return canView('dash.reminders') || remShared(); }
+function remMe(){ return String((ME && ME.id) || ''); }
+function remIsAdmin(){ const p = (REM_PEOPLE||[]).find(x=>String(x.id)===remMe()); return !!(p && p.is_admin); }
+function remCanOwn(r){ return !!r && (String(r.created_by||'')===remMe() || remIsAdmin()); }
+function remName(id){
+  const p = (REM_PEOPLE||[]).find(x=>String(x.id)===String(id)); if(p) return p.full_name || '';
+  const o = LOWN_BY ? LOWN_BY[id] : null; return o ? (o.name||'') : '';
+}
+function remRecLbl(m){ m = +m||0; return !m ? 'חד-פעמי' : ({1:'חודשי',3:'רבעוני',6:'חצי-שנתי',12:'שנתי',24:'כל שנתיים'}[m] || ('כל '+m+' חודשים')); }
+function remErrHe(e){ const m = String((e && e.message) || e || ''); return (/row-level security|42501|permission denied/i.test(m) && !/[א-ת]/.test(m)) ? 'אין הרשאה לפעולה הזו' : m; }
+/* בורר "מי רואה". pfx: 'rem' (הטופס המהיר בלובי) / 'rs' (מסך ההגדרות). creator ומנהלי המערכת רואים תמיד — אינם בבורר. */
+function remVwHtml(pfx, sel, lock, creator){
+  if(!REM_PEOPLE) return '<div class="rem-vw" id="'+pfx+'-vw" data-wait="1">'+crmLoading('טוען עובדים…')+'</div>';
+  const S = new Set((sel||[]).map(String)), cr = String(creator||remMe());
+  const L = REM_PEOPLE.filter(p=>!p.is_admin && String(p.id)!==cr);
+  const al = [remName(cr) || 'מי שיצר את התזכורת'].concat(REM_PEOPLE.filter(p=>p.is_admin && String(p.id)!==cr).map(p=>p.full_name).filter(Boolean));
+  return '<div class="rem-vw" id="'+pfx+'-vw">'+
+    (L.map(p=>{ const on = S.has(String(p.id));
+      return '<label class="rem-vp'+(on?' on':'')+(lock?' lock':'')+'" title="'+(p.can_edit?'צפייה, עריכה וסימון שולם':'צפייה בלובי בלבד')+'"><input type="checkbox" value="'+esc(p.id)+'"'+(on?' checked':'')+(lock?' disabled':'')+' onchange="remVwPick(this)"><span>'+esc(p.full_name||'—')+'</span></label>'; }).join('')
+     || '<span class="rem-vwn">אין עובדים נוספים</span>')+'</div>'+
+    '<div class="rem-vwn">רואים תמיד: <b>'+esc(al.join(', '))+'</b> (מי שיצר את התזכורת ומנהל המערכת).'+
+      (lock ? ' רק הם יכולים לשנות את "מי רואה".' : ' מי שמסומן בלי הרשאת "תזכורות ותשלומים" רואה אותה בלובי בלבד.')+'</div>';
+}
+window.remVwPick = el=>{ const l = el.closest('.rem-vp'); if(l) l.classList.toggle('on', !!el.checked); };
+function remVwCollect(pfx, orig){
+  const box = document.getElementById(pfx+'-vw');
+  const ins = box ? [...box.querySelectorAll('input[type=checkbox]')] : [];
+  const shown = new Set(ins.map(i=>i.value));
+  const out = new Set((orig||[]).map(String).filter(id=>!shown.has(id)));
+  ins.forEach(i=>{ if(i.checked) out.add(i.value); });
+  return [...out].sort();
+}
 function renderRemBlock(){
   const el=$('#db-rem'); if(!el) return;
   const x=DASH_DATA.rem;
-  if(!canView('dash.reminders')||!x){ el.innerHTML=''; return; }
-  if(x.err){ _dbErr(el); return; }
+  if(!x){ el.innerHTML=''; return; }
+  if(x.err){ if(canView('dash.reminders')) _dbErr(el); else el.innerHTML=''; return; }
+  if(!remSeen()){ el.innerHTML=''; return; }
+  /* 7.95.0 — מי שרואה רק בזכות "מי רואה": הסקשן נחשף כאן, כי applyDashboard רץ לפני שהנתונים הגיעו */
+  const sec = el.closest('.dash-sec'); if(sec && sec.hidden && remShared()) sec.hidden = false;
   const d=x.d||{};
   const canE = canEdit('dash.reminders');
   const today = isoD(new Date());
   /* 6.194.0 — צופה בלי תזכורות ממתינות: אין כרטיס. עורך רואה שורת ריק + ＋ */
   if(!(d.next||[]).length && !canE){ el.innerHTML=''; dashAlert('rem','rem',0); return; }
-  el.innerHTML = '<h3>תזכורות <span class="cnt">טסטים, אגרות ותשלומים'+((d.pending_sum||0)>0?' · ממתין '+ilsK(d.pending_sum):'')+'</span>'+(canE?' <button type="button" class="chip" onclick="remFormToggle()">＋ חדשה</button>':'')+'</h3>'+
+  const all = canView('dash.reminders') ? ' <button type="button" class="chip" onclick="gotoSet(\'rem\')">כל התזכורות</button>' : '';
+  el.innerHTML = '<h3>תזכורות <span class="cnt">טסטים, אגרות ותשלומים'+((d.pending_sum||0)>0?' · ממתין '+ilsK(d.pending_sum):'')+'</span>'+(canE?' <button type="button" class="chip" onclick="remFormToggle()">＋ חדשה</button>':'')+all+'</h3>'+
     ((d.next||[]).slice(0,DB_CAP).map(r=>
       '<div class="db-row'+(r.due_date<today?' lb-ovr':'')+'"><span class="w">'+fmtD(r.due_date)+'</span><span class="t"><b>'+esc(r.title||'')+'</b><small>'+esc(r.kind||'')+(r.amount?' · '+ilsK(+r.amount):'')+(r.due_date<today?' · באיחור':'')+'</small></span>'+
       (canE?'<button type="button" class="chip" style="padding:4px 10px;font-size:var(--fs-sm)" onclick="remPaid(\''+r.id+'\')">שולם</button>':'')+'</div>').join('')
@@ -8889,15 +8972,20 @@ window.remFormToggle = ()=>{
     '<input id="rem-due" type="date">'+
     '<input id="rem-amt" type="number" inputmode="decimal" placeholder="₪ (רשות)">'+
     '<select id="rem-rec"><option value="">חד-פעמי</option><option value="12">שנתי</option><option value="6">חצי-שנתי</option><option value="1">חודשי</option></select>'+
-    '<button type="button" class="chip" onclick="remSave()">שמירה</button></div>';
+    '<button type="button" class="chip" onclick="remSave()">שמירה</button></div>'+
+    '<div class="rem-vwbox"><div class="rem-vwl">מי רואה</div><div id="rem-vwbox">'+remVwHtml('rem', [], false)+'</div></div>';
+  /* 7.95.0 — בלי רשימת העובדים התזכורת נשמרת גלויה רק ליוצר ולמנהל המערכת; אומרים את זה במקום להשאיר טוען */
+  if(!REM_PEOPLE) remPeopleLoad()
+    .then(()=>{ const b = document.getElementById('rem-vwbox'); if(b && !f.hidden) b.innerHTML = remVwHtml('rem', remVwCollect('rem', []), false); })
+    .catch(e=>{ const b = document.getElementById('rem-vwbox'); if(b) b.innerHTML = '<div class="rem-vwn">רשימת העובדים לא נטענה ('+esc(remErrHe(e))+'). התזכורת תישמר גלויה רק למי שיצר אותה ולמנהל המערכת; אפשר להוסיף צופים במסך התזכורות.</div>'; });
 };
 window.remSave = async ()=>{
   const t=($('#rem-title').value||'').trim(), k=$('#rem-kind').value, du=$('#rem-due').value;
   if(!t || !k || !du){ toast('כותרת, סוג ותאריך יעד — חובה'); return; }
   const amt = parseFloat($('#rem-amt').value); const rec = parseInt($('#rem-rec').value)||null;
   const r = await sb.schema('ord').from('reminders').insert({ title:t, kind:k, due_date:du,
-    amount: isNaN(amt)?null:amt, recur_months:rec });
-  if(r.error){ toast('שמירה נכשלה: '+r.error.message); return; }
+    amount: isNaN(amt)?null:amt, recur_months:rec, viewers: remVwCollect('rem', []) });   /* 7.95.0 — מי רואה */
+  if(r.error){ toast('שמירה נכשלה: '+remErrHe(r.error)); return; }
   toast('התזכורת נשמרה ✓'); dashRetry();
 };
 window.remPaid = async id=>{
@@ -8905,6 +8993,182 @@ window.remPaid = async id=>{
   const r = await sb.schema('ord').rpc('reminder_close', { p_id:id });
   if(r.error){ toast('סימון נכשל: '+r.error.message); return; }
   toast('סומן כשולם ✓'); dashRetry();
+  if(CUR_TAB==='set' && SET_VIEW==='rem') remsLoad();   /* 7.95.0 — גם מתוך מסך התזכורות */
+};
+/* ═══ 7.95.0 — remset: הגדרות ← כללי ← "תזכורות" ══════════════════════════════════════════════════════
+   כל מה שהמשתמש רואה (RLS), כולל ששולמו. הוספה · עריכה · "שולם" · מחיקה. הגישה: dash.reminders (SET_PERM.rem).
+   🔴 עריכה שולחת רק שדות שהשתנו — חוזה ה-snapshot (6.82.0): REMS_SNAP הוא מה שהוצג בטופס ברגע הפתיחה, וההשוואה
+      היא מחרוזת מול מחרוזת מאותו אלמנט. בלי זה כל שמירה הייתה כותבת מחדש את כל השדות, כולל viewers.
+   ⚠️ מחיקה ושינוי "מי רואה" — רק היוצר או מנהל מערכת (השרת אוכף: reminders_del + aa_reminders_guard). הכפתורים
+      מוסתרים לאחרים, אבל ההחלטה בשרת; 0 שורות שחזרו = "לא בוצע", לא "נמחק". */
+let REMS = { rows:null, err:'', perr:'', busy:false };
+let REMS_F = 'open', REMS_EDIT = null, REMS_SNAP = null;
+const REM_KINDS = ['טסט','ביטוח','אגרה','תשלום לרשות','אחר'];   /* = reminders_kind_check במסד */
+const REM_RECS = [['','חד-פעמי'],['1','חודשי'],['3','רבעוני'],['6','חצי-שנתי'],['12','שנתי'],['24','כל שנתיים']];
+function remsHtml(){
+  const ed = canEdit('dash.reminders');
+  const form = ed ? `<section class="st-card" id="rs-form"><div class="st-rows">
+      <div class="st-row st-wide am-edhd" id="rs-edhd" hidden></div>
+      <div class="st-row st-wide"><label class="st-l" for="rs-title"><b>כותרת</b></label><input id="rs-title" class="st-txt" maxlength="200" placeholder="למשל: טסט משאית מאן"></div>
+      <div class="st-row st-wide"><div class="st-l"><b>פרטים</b></div><div class="rs-g">
+        <label><span>סוג</span><select id="rs-kind" class="st-sel"><option value="">בחירה…</option>${REM_KINDS.map(k=>`<option>${esc(k)}</option>`).join('')}</select></label>
+        <label><span>תאריך יעד</span><input id="rs-due" class="st-txt" type="date"></label>
+        <label><span>סכום ₪ <small>לא חובה</small></span><input id="rs-amt" class="st-num" type="number" inputmode="decimal" min="0" step="0.01"></label>
+        <label><span>חוזרת</span><select id="rs-rec" class="st-sel">${REM_RECS.map(([v,l])=>`<option value="${v}">${l}</option>`).join('')}</select></label>
+        <label id="rs-paidl" hidden><span>תאריך תשלום</span><input id="rs-paid" class="st-txt" type="date"></label>
+      </div></div>
+      <div class="st-row st-wide"><label class="st-l" for="rs-notes"><b>הערות</b> <small>לא חובה</small></label><textarea id="rs-notes" class="st-ta" maxlength="2000" rows="2"></textarea></div>
+      <div class="st-row st-wide"><div class="st-l"><b>מי רואה</b></div><div id="rs-vwbox">${remVwHtml('rs', [], false)}</div></div>
+      <div class="st-row st-wide"><div class="am-act"><button type="button" class="btn" id="rs-save" onclick="remsSave()">שמירה</button><button type="button" class="ghost" id="rs-edx" hidden onclick="remsEditEnd()">ביטול עריכה</button></div><div class="err" id="rs-err"></div></div>
+    </div></section>` : '<div class="st-lead">צפייה בלבד — הוספה ועריכה דורשות הרשאת עריכה ב"תזכורות ותשלומים".</div>';
+  return `<div class="st-top"><h2 class="sec">תזכורות</h2></div>
+    <div class="st-lead">טסטים, אגרות ותשלומים. כל תזכורת מופיעה בלובי אצל מי שנבחר ב"מי רואה", אצל מי שיצר אותה ואצל מנהל המערכת. תזכורת חוזרת יוצרת את המופע הבא ברגע שמסמנים "שולם".</div>
+    ${form}
+    <div class="st-top"><h2 class="sec">כל התזכורות</h2><span class="st-cnt" id="rs-cnt"></span></div>
+    <div class="rs-chips" id="rs-chips"></div>
+    <section class="st-card" id="rs-list">${crmLoading()}</section>`;
+}
+window.remsLoad = async ()=>{
+  REMS.err = ''; REMS.perr = '';
+  const pp = canEdit('dash.reminders') ? remPeopleLoad().catch(e=>{ REMS.perr = remErrHe(e); return null; }) : Promise.resolve(null);
+  try{
+    const { data, error } = await sb.schema('ord').from('reminders')
+      .select('id,title,kind,due_date,amount,status,paid_at,recur_months,notes,viewers,created_by,created_at')
+      .order('due_date', { ascending:true }).limit(2000);
+    if(error) throw error;
+    REMS.rows = Array.isArray(data) ? data : [];
+  }catch(e){ REMS.rows = null; REMS.err = 'הטעינה נכשלה: ' + remErrHe(e); }
+  await pp;
+  if(SET_VIEW !== 'rem') return;
+  if(REMS_EDIT){ const fr = (REMS.rows||[]).find(x=>String(x.id)===String(REMS_EDIT.id)); if(fr) REMS_EDIT = fr; else remsFormReset(); }
+  remsVwPaint(); remsListRender();
+};
+function remsVwPaint(){
+  const vb = document.getElementById('rs-vwbox'); if(!vb) return;
+  if(!REM_PEOPLE && REMS.perr){ vb.innerHTML = '<div class="rem-vwn err">רשימת העובדים לא נטענה: '+esc(REMS.perr)+'</div>'; return; }
+  const r = REMS_EDIT;
+  vb.innerHTML = remVwHtml('rs', remVwCollect('rs', r ? r.viewers : []), r ? !remCanOwn(r) : false, r ? r.created_by : remMe());
+}
+function remsDays(due, today){ return Math.round((Date.parse(due+'T00:00:00') - Date.parse(today+'T00:00:00'))/864e5); }
+function remsStatus(r, today){
+  if(r.status==='שולם') return ['שולם '+fmtD(r.paid_at), 'am-s-read'];
+  if(r.status!=='ממתין') return [r.status||'—', 'am-s-off'];
+  const n = r.due_date ? remsDays(r.due_date, today) : null;
+  if(n==null) return ['ממתין', 'am-s-sent'];
+  if(n < 0) return [n===-1 ? 'באיחור יום' : 'באיחור '+(-n)+' ימים', 'rs-s-late'];
+  if(n === 0) return ['היום', 'am-s-plan'];
+  if(n <= 30) return [n===1 ? 'מחר' : 'בעוד '+n+' ימים', 'am-s-plan'];
+  return ['ממתין', 'am-s-sent'];
+}
+window.remsFilter = k=>{ REMS_F = k; remsListRender(); };
+function remsListRender(){
+  const box = document.getElementById('rs-list'); if(!box) return;
+  const cnt = document.getElementById('rs-cnt'), chips = document.getElementById('rs-chips');
+  if(REMS.rows === null){ box.innerHTML = REMS.err ? `<div class="st-empty err">${esc(REMS.err)}</div>` : crmLoading(); if(chips) chips.innerHTML=''; return; }
+  const R = REMS.rows, today = isoD(new Date());
+  const open = R.filter(r=>r.status==='ממתין'), paid = R.filter(r=>r.status==='שולם');
+  const n = { open:open.length, paid:paid.length, all:R.length };
+  if(chips) chips.innerHTML = [['open','ממתינות'],['paid','שולמו'],['all','הכול']].map(([k,l])=>`<button type="button" class="chip${REMS_F===k?' on':''}" data-f="${k}" onclick="remsFilter('${k}')">${l} ${n[k]}</button>`).join('');
+  const over = open.filter(r=>r.due_date && r.due_date < today).length;
+  if(cnt) cnt.textContent = R.length ? open.length+' ממתינות'+(over ? ' · '+over+' באיחור' : '') : '';
+  const L = REMS_F==='open' ? open : REMS_F==='paid' ? paid.slice().sort((a,b)=>String(b.paid_at||'').localeCompare(String(a.paid_at||''))) : R;
+  if(!L.length){ box.innerHTML = `<div class="st-empty">${REMS_F==='paid' ? 'עוד לא סומנו תזכורות כשולמו' : REMS_F==='open' ? 'אין תזכורות ממתינות' : 'עוד לא נוספו תזכורות'}</div>`; return; }
+  const ed = canEdit('dash.reminders');
+  box.innerHTML = `<div class="tbl-wrap"><table class="tbl am-tbl rs-tbl"><thead><tr><th>תאריך יעד</th><th>תזכורת</th><th>סוג</th><th class="num">סכום</th><th>חוזרת</th><th>מי רואה</th><th>מצב</th>${ed?'<th></th>':''}</tr></thead><tbody>${L.map(r=>{
+    const late = r.status==='ממתין' && r.due_date && r.due_date < today, st = remsStatus(r, today);
+    const vw = (r.viewers||[]).map(id=>remName(id)||'—');
+    const cls = [late ? 'rs-late' : '', REMS_EDIT && String(REMS_EDIT.id)===String(r.id) ? 'am-editing' : ''].filter(Boolean).join(' ');
+    const acts = ed ? `<td class="am-acts"><button type="button" class="st-save" onclick="remsEdit('${esc(r.id)}')">עריכה</button>`
+      + (r.status==='ממתין' ? `<button type="button" class="st-save" onclick="remPaid('${esc(r.id)}')">שולם</button>` : '')
+      + (remCanOwn(r) ? `<button type="button" class="st-save" onclick="remsDel('${esc(r.id)}')">מחיקה</button>` : '') + '</td>' : '';
+    return `<tr data-rem="${esc(r.id)}"${cls ? ` class="${cls}"` : ''}><td class="am-wc">${esc(fmtD(r.due_date))}</td>`
+      + `<td><b>${esc(r.title||'')}</b>${r.notes ? `<span class="am-sub">${esc(r.notes)}</span>` : ''}</td>`
+      + `<td>${esc(r.kind||'')}</td><td class="num">${r.amount!=null && r.amount!=='' ? esc(shekel(+r.amount)) : '—'}</td>`
+      + `<td>${esc(remRecLbl(r.recur_months))}</td>`
+      + `<td class="rs-vwc">${vw.length ? esc(vw.join(', ')) : '<span class="rs-only">רק מי שיצר ומנהל המערכת</span>'}</td>`
+      + `<td><span class="${st[1]}">${esc(st[0])}</span></td>${acts}</tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+function remsFormVals(){
+  const v = id=> String((document.getElementById(id) || {}).value || '');
+  return { title:v('rs-title'), kind:v('rs-kind'), due:v('rs-due'), amt:v('rs-amt'), rec:v('rs-rec'), notes:v('rs-notes'), paid:v('rs-paid') };
+}
+function remsFormReset(){
+  REMS_EDIT = null; REMS_SNAP = null;
+  ['rs-title','rs-due','rs-amt','rs-notes','rs-paid','rs-kind','rs-rec'].forEach(id=>{ const e = document.getElementById(id); if(e) e.value = ''; });
+  const pl = document.getElementById('rs-paidl'); if(pl) pl.hidden = true;
+  const hd = document.getElementById('rs-edhd'); if(hd){ hd.hidden = true; hd.textContent = ''; }
+  const x = document.getElementById('rs-edx'); if(x) x.hidden = true;
+  const b = document.getElementById('rs-save'); if(b) b.textContent = 'שמירה';
+  const er = document.getElementById('rs-err'); if(er) er.textContent = '';
+  const vb = document.getElementById('rs-vwbox'); if(vb) vb.innerHTML = remVwHtml('rs', [], false);
+}
+window.remsEditEnd = ()=>{ remsFormReset(); remsListRender(); };
+window.remsEdit = id=>{
+  const r = (REMS.rows||[]).find(x=>String(x.id)===String(id)); if(!r) return;
+  remsFormReset();
+  REMS_EDIT = r;
+  const set = (k, v)=>{ const e = document.getElementById(k); if(e) e.value = v; };
+  const rv = r.recur_months==null ? '' : String(r.recur_months), rec = document.getElementById('rs-rec');
+  if(rec && ![...rec.options].some(o=>o.value===rv)){ const o = document.createElement('option'); o.value = rv; o.textContent = remRecLbl(rv); rec.appendChild(o); }
+  set('rs-title', r.title||''); set('rs-kind', r.kind||''); set('rs-due', r.due_date||'');
+  set('rs-amt', r.amount==null || r.amount==='' ? '' : String(+r.amount)); set('rs-rec', rv); set('rs-notes', r.notes||'');
+  const paid = r.status==='שולם', pl = document.getElementById('rs-paidl'); if(pl) pl.hidden = !paid;
+  set('rs-paid', paid ? (r.paid_at||'') : '');
+  const lock = !remCanOwn(r);
+  const vb = document.getElementById('rs-vwbox'); if(vb) vb.innerHTML = remVwHtml('rs', r.viewers||[], lock, r.created_by);
+  const hd = document.getElementById('rs-edhd'); if(hd){ hd.hidden = false; hd.textContent = 'עריכה: '+(r.title||''); }
+  const x = document.getElementById('rs-edx'); if(x) x.hidden = false;
+  const b = document.getElementById('rs-save'); if(b) b.textContent = 'שמירת שינויים';
+  REMS_SNAP = remsFormVals(); REMS_SNAP.vw = (r.viewers||[]).map(String).sort().join(',');
+  remsListRender();
+  const f = document.getElementById('rs-form'); if(f && f.scrollIntoView) f.scrollIntoView({ block:'start', behavior:'smooth' });
+};
+window.remsSave = async ()=>{
+  if(REMS.busy) return;
+  const er = document.getElementById('rs-err'), say = m=>{ if(er) er.textContent = m || ''; };
+  const V = remsFormVals(), t = V.title.trim(), k = V.kind, du = V.due;
+  if(!t || !k || !du){ say('כותרת, סוג ותאריך יעד — חובה'); return; }
+  const amt = V.amt.trim()==='' ? null : Number(V.amt);
+  if(amt!==null && (!isFinite(amt) || amt < 0)){ say('הסכום אינו תקין'); return; }
+  const rec = V.rec==='' ? null : parseInt(V.rec, 10), notes = V.notes.trim() || null;
+  const ed = REMS_EDIT, vw = remVwCollect('rs', ed ? ed.viewers : []);
+  let q;
+  if(!ed){
+    q = sb.schema('ord').from('reminders').insert({ title:t, kind:k, due_date:du, amount:amt, recur_months:rec, notes:notes, viewers:vw }).select('id');
+  } else {
+    const S = REMS_SNAP || {}, patch = {};
+    if(V.title !== S.title) patch.title = t;
+    if(V.kind !== S.kind) patch.kind = k;
+    if(V.due !== S.due) patch.due_date = du;
+    if(V.amt !== S.amt) patch.amount = amt;
+    if(V.rec !== S.rec) patch.recur_months = rec;
+    if(V.notes !== S.notes) patch.notes = notes;
+    if(ed.status==='שולם' && V.paid !== S.paid){ if(!V.paid){ say('תאריך תשלום — חובה לתזכורת ששולמה'); return; } patch.paid_at = V.paid; }
+    if(vw.join(',') !== S.vw) patch.viewers = vw;
+    if(!Object.keys(patch).length){ say('אין שינוי לשמירה'); return; }
+    q = sb.schema('ord').from('reminders').update(patch).eq('id', ed.id).select('id');
+  }
+  REMS.busy = true; const btn = document.getElementById('rs-save'); if(btn) btn.disabled = true; say('');
+  try{
+    const { data, error } = await q;
+    if(error) throw error;
+    if(!Array.isArray(data) || !data.length) throw new Error(ed ? 'השמירה לא בוצעה — אין הרשאה לתזכורת הזו, או שהיא נמחקה' : 'השמירה לא בוצעה');
+    toast(ed ? 'התזכורת עודכנה' : 'התזכורת נשמרה');
+    remsFormReset();
+    await remsLoad();
+    dashRetry();
+  }catch(e){ say(remErrHe(e)); }
+  finally{ REMS.busy = false; if(btn) btn.disabled = false; }
+};
+window.remsDel = async id=>{
+  const r = (REMS.rows||[]).find(x=>String(x.id)===String(id)); if(!r) return;
+  if(!(await sysConfirm('למחוק את התזכורת "'+(r.title||'')+'"? אין דרך לשחזר אותה.'))) return;
+  const { data, error } = await sb.schema('ord').from('reminders').delete().eq('id', id).select('id');
+  if(error){ toast('המחיקה נכשלה: '+remErrHe(error)); return; }
+  if(!Array.isArray(data) || !data.length){ toast('המחיקה לא בוצעה — רק מי שיצר את התזכורת או מנהל המערכת יכולים למחוק'); return; }
+  if(REMS_EDIT && String(REMS_EDIT.id)===String(id)) remsFormReset();
+  toast('התזכורת נמחקה'); await remsLoad(); dashRetry();
 };
 /* חריגי המנכ"ל: מיזוג מדורג של כל הדגלים האדומים למקום אחד. כל מקור
    נבדק בהרשאתו שלו — הבלוק לעולם אינו חושף נתון שהקורא לא רואה במקור. */
@@ -16239,7 +16503,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'goalsedit-2026-11-27a';
+const BUILD_ID = 'remset-2026-11-27a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -20917,7 +21181,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['general','כללי']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['general','כללי'],['rem','תזכורות']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
@@ -20932,7 +21196,7 @@ const SET_GROUPS = [
   ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','commission','teams']],
   ['texts',   'טקסטים ומסמכים',   ['texts']],
   ['logs',    'חיבורים ויומנים',  ['conn','synclog','hooks','errors']],
-  ['general', 'כללי',             ['general','notif','msg']],
+  ['general', 'כללי',             ['general','notif','msg','rem']],   /* 7.95.0 — remset */
 ];
 /* כותרת הלשונית = שם המסך ב-settingsCats, פרט ל-CRM שבתוך הקבוצה "CRM ולוגיסטיקה" */
 const SET_TAB_LBL = { crm:'CRM' };
@@ -21615,6 +21879,8 @@ function renderSettings(){
     body = notifSettingsHtml();
   } else if(SET_VIEW==='msg' && canView('set.notif')){
     body = amHtml();   /* 7.75.0 — admnote */
+  } else if(SET_VIEW==='rem' && canView('dash.reminders')){
+    body = remsHtml();   /* 7.95.0 — remset */
   } else if(SET_VIEW==='booking' && canView('set.crm')){
     body = bookSettingsHtml();   /* 7.4.0 — booking1 */
   } else if(SET_VIEW==='crm' && canView('set.crm')){
@@ -21664,6 +21930,7 @@ function renderSettings(){
   if(SET_VIEW==='salesrules' && canView('set.crm')) srlLoad();   /* 7.49.0 */
   if(SET_VIEW==='commission' && canView('set.crm')) ctsLoad();   /* 7.50.0 */
   if(SET_VIEW==='msg' && canView('set.notif')) amLoad();   /* 7.75.0 — admnote */
+  if(SET_VIEW==='rem' && canView('dash.reminders')) remsLoad();   /* 7.95.0 — remset */
   stWire(el);
 }
 /* ═══ 7.75.0 — admnote: "הודעה לעובד" (רומן, 15/11/2026) ══════════════════════════════════════
