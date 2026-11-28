@@ -2825,6 +2825,7 @@ input.inv-q, input.inv-bq{ width:76px; min-height:var(--ctl-h-sm); box-sizing:bo
 .inv-bsk{ border:1px solid var(--line); border-radius:var(--r-lg); padding:var(--sp-3); margin:var(--sp-3) 0; }
 .inv-bsk-h{ display:flex; align-items:center; gap:var(--sp-2) var(--sp-3); flex-wrap:wrap; margin-bottom:var(--sp-2); }
 .inv-bsk-h .nm{ font-weight:800; color:var(--navy); font-size:var(--fs-lg); }
+.inv-bsk-h .sp{ flex:1; }
 .inv-bsk-h .mt{ font-size:var(--fs-sm); color:var(--ink-2); }
 .inv-bsk-act{ display:flex; gap:var(--sp-2); flex-wrap:wrap; margin-top:var(--sp-2); }
 .inv-x{ border:0; background:none; color:var(--ink-3); cursor:pointer; font-size:var(--fs-md); padding:0 var(--sp-1); }
@@ -4841,7 +4842,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.100.0</div>
+      <div class="ver">גרסה 7.100.1</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4990,7 +4991,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="invplan-2026-11-28a">גרסה 7.100.0</div>
+    <div class="side-foot" title="invplanfix-2026-11-28a">גרסה 7.100.1</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -13604,7 +13605,7 @@ window.openInv = pn => {
     + kv('שווי מחזור שנתי', money(r.annual_value))
     + '</div>';
 
-  if(invMgr()) h += invParamForm(r);   /* 7.100.0 — invplan */
+  if(invMgr()) h += invParamForm(r) + '<div class="inv-kv">' + kv('מלאי ביטחון', invN(r.safety_stock)) + kv('נקודת הזמנה', invN(r.reorder_point)) + kv('רמת יעד', invN(r.order_up_to)) + '</div>';   /* 7.100.0 — invplan · 7.100.1 */
   else h += '<div class="inv-sec-h">פרמטרי תכנון</div><div class="inv-kv">'
     + kv('זמן אספקה', invN(r.lead_days) + ' ימים')
     + kv('סטיית זמן אספקה', invN(r.lead_sd_days) + ' ימים')
@@ -13667,6 +13668,7 @@ window.invAct = async (kind, val)=>{
   if(kind==='bskdel'){ await invBskDel(val); return; }
   if(kind==='bskorder'){ await invBskOrder(val); return; }
   if(kind==='bskcancel'){ await invBskCancel(val); return; }
+  if(kind==='bskfix'){ await invBskFixPo(val); return; }
   if(kind==='bskxls'){ invBskXls(val); return; }
   if(kind==='psave'){ await invParamSave(val); return; }
   if(kind==='st'){  INV_F.st = (INV_F.st===val ? '' : val); renderInv(); return; }
@@ -13701,12 +13703,13 @@ async function invAuxLoad(){
   const S = sb.schema('ord');
   const safe = p => Promise.resolve(p).then(r => r, e => ({ data:null, error:e }));
   const q = await Promise.all([
-    safe(S.from('inv_params').select('*').limit(5000)),
+    safe(S.from('inv_params').select('*').order('partname').limit(20000)),
     safe(S.from('inv_supplier_stats').select('*').order('supplier_name')),
     safe(S.from('inv_defaults').select('*').eq('scope','*').limit(1)),
-    safe(S.from('inv_baskets').select('id,supplier_code,status,po_ordname,notes,created_at,ordered_at').in('status',['טיוטה','הוזמן']).order('created_at',{ascending:false}).limit(200)),
-    safe(S.from('inv_basket_lines').select('basket_id,partname,qty,rec_qty').limit(10000))
+    safe(S.from('inv_baskets').select('id,supplier_code,status,po_ordname,notes,created_at,ordered_at').in('status',['טיוטה','הוזמן']).order('created_at',{ascending:false}).limit(200))
   ]);
+  const bids = q[3].error ? [] : (q[3].data || []).map(b => b.id);
+  q[4] = bids.length ? await safe(S.from('inv_basket_lines').select('basket_id,partname,qty,rec_qty').in('basket_id', bids)) : { data:[], error:null };
   if(!q[0].error){ INV_P = {}; (q[0].data || []).forEach(p => { INV_P[p.partname] = p; }); }
   if(!q[1].error) INV_SUP = q[1].data || [];
   if(!q[2].error) INV_DEF = (q[2].data || [])[0] || {};
@@ -13750,7 +13753,11 @@ function invSelSet(pn, on){
   const inp = document.querySelector('.inv-q[data-q="' + invCss(pn) + '"]');
   const v = inp ? numIn(inp.value) : null;
   const r = INV.find(x => x.partname === pn);
-  INV_SEL[pn] = (typeof v === 'number' && v > 0) ? Math.round(v) : (Number(r && r.qty_recommended) || 0);
+  const rec = Number(r && r.qty_recommended) || 0;
+  /* 7.100.1 (סקירה): כמות לא תקינה/0 בתיבה ⇒ ההמלצה — וגם בתיבה, כדי שמה שנשמר בסל הוא מה שרואים */
+  if(typeof v === 'number' && v > 0) INV_SEL[pn] = Math.round(v);
+  else { INV_SEL[pn] = rec; if(inp) inp.value = String(rec); }
+  if(!(INV_SEL[pn] > 0)){ delete INV_SEL[pn]; const cb = document.querySelector('.inv-sel[data-sel="' + invCss(pn) + '"]'); if(cb) cb.checked = false; }
 }
 function invSelChange(ev){
   const t = ev.target; if(!t || !t.classList) return;
@@ -13760,11 +13767,14 @@ function invSelChange(ev){
   } else if(t.classList.contains('inv-sel')){
     invSelSet(t.dataset.sel, t.checked);
   } else if(t.classList.contains('inv-q')){
-    const pn = t.dataset.q, v = numIn(t.value);
-    if(typeof v === 'number' && v > 0){
-      INV_SEL[pn] = Math.round(v);
-      const cb = document.querySelector('.inv-sel[data-sel="' + invCss(pn) + '"]'); if(cb) cb.checked = true;
-    }
+    /* 7.100.1 (סקירה): הקלדת כמות אינה מסמנת את השורה. קודם היא סימנה ב-change (ביציאה מהתיבה), והלחיצה על
+       התיבה שבאה מיד אחריה — הסדר הטבעי — הפכה את הסימון וביטלה את הבחירה בשקט. עכשיו: בשורה מסומנת כמות
+       חיובית מעדכנת · 0 מבטל את הבחירה · ערך לא תקין חוזר לכמות הקודמת. הסימון קורא את התיבה (invSelSet). */
+    const pn = t.dataset.q, v = numIn(t.value), cb = document.querySelector('.inv-sel[data-sel="' + invCss(pn) + '"]');
+    const r = INV.find(x => x.partname === pn), prev = INV_SEL[pn] != null ? INV_SEL[pn] : (Number(r && r.qty_recommended) || 0);
+    if(typeof v === 'number' && v > 0){ t.value = String(Math.round(v)); if(INV_SEL[pn] != null) INV_SEL[pn] = Math.round(v); }
+    else if(v === 0){ if(INV_SEL[pn] != null){ delete INV_SEL[pn]; if(cb) cb.checked = false; toast('כמות 0 — השורה הוסרה מהבחירה'); } }
+    else { t.value = String(prev); toast('כמות לא תקינה — הוחזרה ל-' + prev); }
   } else if(t.classList.contains('inv-bq')){
     invBskQty(t.dataset.b, t.dataset.p, t.value); return;
   } else return;
@@ -13783,24 +13793,32 @@ async function invBskAdd(){
     (by[code] = by[code] || []).push({ basket_id:null, partname:p, qty:Math.round(Number(INV_SEL[p])), rec_qty: r ? (Number(r.qty_recommended) || null) : null });
   });
   if(noSup.length) await sysAlert('ל-' + noSup.length + ' מק״טים אין ספק משויך, ולכן לא נוספו: ' + noSup.slice(0, 8).join(', ') + (noSup.length > 8 ? '…' : '') + '. את הספק משייכים בכרטיס המק״ט ← פרמטרי תכנון.');
-  let added = 0;
+  /* 7.100.1 (סקירה): כשל של ספק אחד הוצג בטוסט ונדרס מיד ב"נוספו", והבחירה נמחקה כולה. עכשיו הכשלים מרוכזים
+     בחלונית, מה שלא נוסף נשאר מסומן, וסל ריק שנפתח בקריאה הזאת ונכשל — מבוטל. */
+  let added = 0; const fails = [], doneP = [];
   for(const code of Object.keys(by)){
-    let b = invBskDraft(code);
+    let b = invBskDraft(code), created = false;
     if(!b){
       const ins = await sb.schema('ord').from('inv_baskets').insert({ supplier_code: code }).select('id,supplier_code,status').single();
       if(ins.error){
         if(String(ins.error.code) === '23505'){ await invAuxLoad(); b = invBskDraft(code); }   /* סשן אחר פתח סל לאותו ספק */
-        if(!b){ toast('פתיחת הסל נכשלה — ' + invErrText(ins.error)); continue; }
-      } else b = Object.assign({ lines:[] }, ins.data);
+        if(!b){ fails.push(invSupName(code) + ' — פתיחת הסל נכשלה: ' + invErrText(ins.error)); continue; }
+      } else { b = Object.assign({ lines:[] }, ins.data); created = true; }
     }
     const rows = by[code].map(x => Object.assign({}, x, { basket_id: b.id }));
-    const up = await sb.schema('ord').from('inv_basket_lines').upsert(rows, { onConflict:'basket_id,partname' });
-    if(up.error){ toast('ההוספה לסל נכשלה — ' + invErrText(up.error)); continue; }
-    added += rows.length;
+    const up = await sb.schema('ord').from('inv_basket_lines').upsert(rows, { onConflict:'basket_id,partname' }).select('partname');
+    if(up.error || (up.data || []).length !== rows.length){
+      fails.push(invSupName(code) + ' — ' + (up.error ? invErrText(up.error) : 'הסל כבר אינו טיוטה (ייתכן שסומן או בוטל בלשונית אחרת)'));
+      if(created) await sb.schema('ord').from('inv_baskets').update({ status:'בוטל' }).eq('id', b.id).eq('status', 'טיוטה');
+      continue;
+    }
+    added += rows.length; rows.forEach(x => doneP.push(x.partname));
   }
-  INV_SEL = {};
+  doneP.forEach(p => { delete INV_SEL[p]; });
   await invAuxLoad();
-  if(added){ toast('נוספו ' + added + ' מק״טים לסל'); INV_VIEW = 'bsk'; renderInv(); navMark(); }
+  if(fails.length) await sysAlert((added ? 'נוספו ' + added + ' מק״טים לסל. ' : '') + 'לא נוספו: ' + fails.join(' · ') + '. השורות שלא נוספו נשארו מסומנות.');
+  else if(added) toast('נוספו ' + added + ' מק״טים לסל');
+  if(added && !fails.length){ INV_VIEW = 'bsk'; renderInv(); navMark(); }
   else renderInv();
 }
 function invBskTotals(b){
@@ -13854,13 +13872,34 @@ function invBasket(){
   drafts.forEach(b => { h += invBskCard(b); });
   if(ordered.length){
     h += '<div class="inv-sec"><div class="inv-sec-h">הוזמנו<span class="sub">' + fmtNum(ordered.length) + ' סלים</span></div>'
-      + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>ספק</th><th>הזמנה</th><th>סומן</th><th>מק״טים</th><th>יחידות</th><th>מצב</th></tr></thead><tbody>'
+      + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>ספק</th><th>הזמנה</th><th>סומן</th><th>מק״טים</th><th>יחידות</th><th>מצב</th>' + (invMgr() ? '<th></th>' : '') + '</tr></thead><tbody>'
       + ordered.map(b => '<tr><td>' + esc(invSupName(b.supplier_code)) + '</td><td dir="ltr">' + esc(b.po_ordname || '') + '</td><td>' + invDate(b.ordered_at) + '</td>'
           + '<td>' + fmtNum(b.lines.length) + '</td><td>' + fmtNum(b.lines.reduce((s, l) => s + (Number(l.qty) || 0), 0)) + '</td>'
-          + '<td>' + (INV_POS.has(b.po_ordname) ? 'נקלטה מפריוריטי — נספרת מההזמנה עצמה' : 'ממתינה לסנכרון — נספרת כבדרך') + '</td></tr>').join('')
+          + '<td>' + invBskState(b) + '</td>'
+          + (invMgr() && !INV_POS.has(b.po_ordname) ? '<td><button class="inv-btn ghost" data-inv-act="bskfix" data-inv-val="' + esc(b.id) + '">תיקון מספר</button> '
+              + '<button class="inv-btn ghost" data-inv-act="bskcancel" data-inv-val="' + esc(b.id) + '">ביטול</button></td>' : (invMgr() ? '<td></td>' : '')) + '</tr>').join('')
       + '</tbody></table></div></div>';
   }
   return h;
+}
+/* 7.100.1: המנוע סופר סל "הוזמן" כבדרך רק 14 יום מהסימון ועד שההזמנה מופיעה בסנכרון (inv_review_fixes.20261128.sql) */
+function invBskState(b){
+  if(INV_POS.has(b.po_ordname)) return 'נקלטה מפריוריטי — נספרת מההזמנה עצמה';
+  const age = b.ordered_at ? (Date.now() - new Date(b.ordered_at).getTime()) / 86400000 : 0;
+  return age > 14 ? '<b style="color:var(--red)">לא נמצאה בפריוריטי 14 יום — אינה נספרת. לתקן את המספר או לבטל</b>' : 'ממתינה לסנכרון — נספרת כבדרך';
+}
+async function invBskFixPo(bid){
+  if(!invMgr()) return;
+  const b = INV_BSK.find(x => x.id === bid); if(!b) return;
+  const po = await sysPrompt('מספר הזמנת הרכש הנכון עבור ' + invSupName(b.supplier_code) + ':', b.po_ordname || '', { ok:'עדכון' });
+  if(po == null) return;
+  const v = String(po).trim().toUpperCase();
+  if(!/^[A-Z]{1,4}\d{4,}$/.test(v)){ toast('מספר הזמנה לא תקין — אותיות ואחריהן ספרות, כמו PO26000123'); return; }
+  if(v === b.po_ordname){ toast('אין שינוי'); return; }
+  const r = await sb.schema('ord').from('inv_baskets').update({ po_ordname:v }).eq('id', bid).eq('status', 'הוזמן').select('id');
+  if(r.error || !(r.data || []).length){ toast('העדכון נכשל' + (r.error ? ' — ' + invErrText(r.error) : '')); return; }
+  toast('עודכן — ' + v);
+  await invLoad(true);
 }
 async function invBskQty(bid, pn, raw){
   if(!invMgr()) return;
@@ -13888,22 +13927,23 @@ async function invBskOrder(bid){
   if(po == null) return;
   const v = String(po).trim().toUpperCase();
   if(!/^[A-Z]{1,4}\d{4,}$/.test(v)){ toast('מספר הזמנה לא תקין — אותיות ואחריהן ספרות, כמו PO26000123'); return; }
-  const now = new Date().toISOString();
-  const r = await sb.schema('ord').from('inv_baskets').update({ status:'הוזמן', po_ordname:v, ordered_at:now, ordered_by:(typeof ME !== 'undefined' && ME && ME.id) || null, updated_at:now })
+  const r = await sb.schema('ord').from('inv_baskets').update({ status:'הוזמן', po_ordname:v })
     .eq('id', bid).eq('status', 'טיוטה').select('id');
   if(r.error || !(r.data || []).length){ toast('הסימון נכשל' + (r.error ? ' — ' + invErrText(r.error) : ' — ייתכן שהסל כבר סומן')); await invAuxLoad(); invBody(); return; }
-  toast('סומן הוזמן — ' + v + '. התכנון מתעדכן');
+  const ex = await sb.schema('ord').from('purchase_orders').select('ordname').eq('ordname', v).limit(1);
+  if(!ex.error && !(ex.data || []).length) toast('סומן הוזמן — ' + v + '. ההזמנה עוד לא בסנכרון: הכמויות נספרות כבדרך עד שתגיע (עד 14 יום)');
+  else toast('סומן הוזמן — ' + v + '. התכנון מתעדכן');
   await invLoad(true);
 }
 async function invBskCancel(bid){
   if(!invMgr()) return;
   const b = INV_BSK.find(x => x.id === bid); if(!b) return;
-  const ok = await sysConfirm('לבטל את הסל של ' + invSupName(b.supplier_code) + '? השורות נשמרות בהיסטוריה, וההמלצות יחזרו כרגיל.', { ok:'ביטול הסל', cancel:'חזרה' });
+  const ok = await sysConfirm('לבטל את הסל של ' + invSupName(b.supplier_code) + (b.status === 'הוזמן' ? ' (הזמנה ' + (b.po_ordname || '') + ')? הכמויות יפסיקו להיספר כבדרך.' : '?') + ' השורות נשמרות בהיסטוריה, וההמלצות יחזרו כרגיל.', { ok:'ביטול הסל', cancel:'חזרה' });
   if(!ok) return;
-  const r = await sb.schema('ord').from('inv_baskets').update({ status:'בוטל', updated_at:new Date().toISOString() }).eq('id', bid).eq('status', 'טיוטה').select('id');
+  const r = await sb.schema('ord').from('inv_baskets').update({ status:'בוטל' }).eq('id', bid).in('status', ['טיוטה','הוזמן']).select('id');
   if(r.error || !(r.data || []).length){ toast('הביטול נכשל' + (r.error ? ' — ' + invErrText(r.error) : '')); return; }
   toast('הסל בוטל');
-  await invAuxLoad(); renderInv();
+  if(b.status === 'הוזמן') await invLoad(true); else { await invAuxLoad(); renderInv(); }
 }
 function invBskXls(bid){
   const b = INV_BSK.find(x => x.id === bid); if(!b || !b.lines.length){ toast('אין שורות לייצוא'); return; }
@@ -13967,12 +14007,19 @@ function invParamForm(r){
     + '<div class="inv-pf-act"><button class="inv-btn" data-inv-act="psave" data-inv-pn="' + esc(r.partname) + '">שמירת הפרמטרים</button>'
     + '<span class="st-msg" id="ipf-msg"></span></div>';
 }
+/* 7.100.1: אקסל שומר מספרים קטנים בכתיב מדעי (5.0000000000000003E-2) ועם רעש עשרוני (45.000000000000007) —
+   numIn הכללי דוחה אותם. מעגלים ל-9 ספרות אחרי הנקודה. */
+function invNum(s){
+  const t = String(s == null ? '' : s).trim();
+  const n = /^-?\d+(\.\d+)?e[-+]?\d+$/i.test(t) ? Number(t) : numIn(t);
+  return (typeof n === 'number' && isFinite(n)) ? Math.round(n * 1e9) / 1e9 : n;
+}
 /* מחזיר { ok, v } — v=null למחיקה (שדה ריק) */
 function invParse(raw, k){
   const s = String(raw == null ? '' : raw).trim();
   if(s === '' || s === '-' || s === '—') return { ok:true, v:null };
   if(k === 'sup' || k === 'txt') return { ok:true, v:s };
-  const n = numIn(s);
+  const n = invNum(s);
   if(typeof n !== 'number' || n < 0) return { ok:false };
   if(k === 'int') return (n === Math.round(n) && n <= 400) ? { ok:true, v:n } : { ok:false };
   if(k === 'pct') return (n >= 50 && n <= 99.9) ? { ok:true, v:Math.round(n * 10) / 1000 } : { ok:false };
@@ -13991,7 +14038,7 @@ async function invParamSave(pn){
   });
   const nt = document.getElementById('ipf-notes');
   if(nt && nt.value.trim() !== String(nt.dataset.o).trim()) patch.notes = nt.value.trim() || null;
-  if(INV_SHIP.some(f => f in patch)){ patch.ship_src = 'ידני'; patch.ship_verify = false; }
+  if(INV_SHIP.some(f => f in patch)) patch.ship_src = 'ידני';   /* 7.100.1: "לאימות" נמחק רק כשמורידים את הסימון */
   const vf = document.getElementById('ipf-verify');
   if(vf && !vf.checked && !('ship_verify' in patch)) patch.ship_verify = false;
   const msg = document.getElementById('ipf-msg');
@@ -14052,7 +14099,7 @@ const INVSET_DEF = [
   ['container_cbm','נפח מכולה','מ״ק','num'], ['container_fill_pct','סף מילוי מכולה להתראה','%','fill']
 ];
 const INVSET_SUP = [
-  ['lead_days_median','זמן אספקה','int'], ['lead_days_sd','סטייה','int'], ['clearance_days','שחרור מהנמל','int'],
+  ['lead_days_manual','זמן אספקה — דריסה','int'], ['lead_days_sd','סטייה','int'], ['clearance_days','שחרור מהנמל','int'],
   ['container_cbm','נפח מכולה','num'], ['min_order_value','מינימום הזמנה (₪)','num'], ['advance_pct','מקדמה %','adv'], ['notes','הערות','txt']
 ];
 /* [כותרת באקסל, שדה, סוג] — עמודות שאינן כאן נקראות כמידע בלבד */
@@ -14084,7 +14131,7 @@ function invSetParse(raw, k){
   const s = String(raw == null ? '' : raw).trim();
   if(s === '') return { ok:true, v:null };
   if(k === 'txt') return { ok:true, v:s };
-  const n = numIn(s);
+  const n = invNum(s);
   if(typeof n !== 'number' || n < 0) return { ok:false };
   if(k === 'int') return (n === Math.round(n) && n <= 400) ? { ok:true, v:n } : { ok:false };
   if(k === 'pct') return (n >= 50 && n <= 99.9) ? { ok:true, v:Math.round(n * 10) / 1000 } : { ok:false };
@@ -14099,9 +14146,9 @@ function invSetPaint(){
     + INVSET_DEF.map(([f, l, u, k]) => { const v = invSetShow(k, D[f]);
         return '<label>' + esc(l) + (u ? ' (' + esc(u) + ')' : '') + '<input id="isd-' + f + '" inputmode="decimal" dir="ltr" data-o="' + esc(v) + '" value="' + esc(v) + '"' + dis + '></label>'; }).join('')
     + '</div>' + (ed ? '<div class="invset-act"><button type="button" class="st-save" onclick="invSetSaveDef()">שמירה</button><span class="st-msg" id="isd-msg"></span></div>' : '') + '</section>';
-  h += '<section class="st-card"><div class="st-hd"><h3>ספקים</h3><small>זמן האספקה נמדד מהזמנות הרכש (ימים מההזמנה עד המשלוח הראשון) וניתן לדריסה. ריק = ברירת המחדל הכללית</small></div>'
-    + '<div class="tbl-wrap"><table class="tbl invset-tbl"><thead><tr><th>ספק</th><th>מטבע</th><th>מדידות</th>' + INVSET_SUP.map(x => '<th>' + esc(x[1]) + '</th>').join('') + (ed ? '<th></th>' : '') + '</tr></thead><tbody>'
-    + INVSET.sup.map(s => '<tr data-sup="' + esc(s.supplier_code) + '"><td>' + esc(s.supplier_name || s.supplier_code) + '</td><td>' + esc(s.currency || '') + '</td><td>' + fmtNum(s.obs_count || 0) + '</td>'
+  h += '<section class="st-card"><div class="st-hd"><h3>ספקים</h3><small>זמן האספקה נמדד מהזמנות הרכש — ימים מההזמנה עד המשלוח הראשון, כלומר עד הנמל — ולתכנון מתווספים ימי השחרור. דריסה גוברת על הנמדד ואינה מוחקת אותו; ריק = הנמדד</small></div>'
+    + '<div class="tbl-wrap"><table class="tbl invset-tbl"><thead><tr><th>ספק</th><th>מטבע</th><th>מדידות</th><th>נמדד (ימים)</th>' + INVSET_SUP.map(x => '<th>' + esc(x[1]) + '</th>').join('') + (ed ? '<th></th>' : '') + '</tr></thead><tbody>'
+    + INVSET.sup.map(s => '<tr data-sup="' + esc(s.supplier_code) + '"><td>' + esc(s.supplier_name || s.supplier_code) + '</td><td>' + esc(s.currency || '') + '</td><td>' + fmtNum(s.obs_count || 0) + '</td><td>' + (s.lead_days_median != null ? fmtNum(s.lead_days_median) : '—') + '</td>'
         + INVSET_SUP.map(([f, l, k]) => { const v = invSetShow(k, s[f]);
             return '<td><input class="' + (k === 'txt' ? 'wide' : '') + '" id="iss-' + esc(s.supplier_code) + '-' + f + '" dir="' + (k === 'txt' ? 'auto' : 'ltr') + '" data-o="' + esc(v) + '" value="' + esc(v) + '" aria-label="' + esc(l) + '"' + dis + '></td>'; }).join('')
         + (ed ? '<td><button type="button" class="st-save" onclick="invSetSaveSup(\'' + jsq(s.supplier_code) + '\')">שמירה</button></td>' : '') + '</tr>').join('')
@@ -14123,7 +14170,7 @@ window.invSetSaveDef = async ()=>{
   patch.updated_at = new Date().toISOString();
   const r = await sb.schema('ord').from('inv_defaults').update(patch).eq('scope', '*').select('scope');
   if(r.error || !(r.data || []).length){ if(m) m.textContent = 'השמירה נכשלה' + (r.error ? ' — ' + invErrText(r.error) : ''); return; }
-  toast('נשמר ✓'); INV_LOADED = false; await invSetLoad();
+  toast('נשמר ✓'); INV_LOADED = false; INV_TRIED = false; await invSetLoad();
 };
 window.invSetSaveSup = async code=>{
   if(!canEdit('inv.stock') || !INVSET) return;
@@ -14136,7 +14183,7 @@ window.invSetSaveSup = async code=>{
   patch.updated_at = new Date().toISOString();
   const r = await sb.schema('ord').from('inv_supplier_stats').update(patch).eq('supplier_code', code).select('supplier_code');
   if(r.error || !(r.data || []).length){ if(m) m.textContent = 'השמירה נכשלה' + (r.error ? ' — ' + invErrText(r.error) : ''); return; }
-  toast('נשמר ✓'); INV_LOADED = false; await invSetLoad();
+  toast('נשמר ✓'); INV_LOADED = false; INV_TRIED = false; await invSetLoad();
 };
 window.invParamXlsx = async ()=>{
   if(!INV_LOADED) await invLoad();
@@ -14158,6 +14205,7 @@ async function xlsxRows(file){
   const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength), td = new TextDecoder();
   if(/\.csv$/i.test(file.name || '')){
     let txt = td.decode(buf); if(txt.charCodeAt(0) === 65279) txt = txt.slice(1);   /* BOM (65279) */
+    if(txt.indexOf(String.fromCharCode(65533)) >= 0){ try{ txt = new TextDecoder('windows-1255').decode(buf); }catch(e){} }   /* 7.100.1: CSV של אקסל בעברית */
     return txt.split(/\r?\n/).filter(x => x.trim()).map(line => {
       const out = []; let cur = '', q = false;
       for(let i = 0; i < line.length; i++){ const ch = line[i];
@@ -14211,25 +14259,33 @@ window.invParamImport = async inp=>{
   const hdr = (rows[0] || []).map(x => String(x || '').trim()), iPn = hdr.indexOf('מק״ט');
   if(iPn < 0){ if(m) m.textContent = 'לא נמצאה עמודת "מק״ט" בשורה הראשונה'; return; }
   const cols = INV_PX.map(([h, f, k]) => [hdr.indexOf(h), f, k]).filter(x => x[0] >= 0);
-  const known = new Set(INV.map(r => r.partname));
-  const patches = []; let skip = 0, bad = 0, vals = 0;
+  const known = new Set(INV.map(r => r.partname)), supOk = new Set(INV_SUP.map(s => s.supplier_code)), seen = new Set();
+  const patches = []; let skip = 0, bad = 0, vals = 0, badSup = 0, dup = 0;
   rows.slice(1).forEach(row => {
     const pn = String(row[iPn] || '').trim(); if(!pn) return;
     if(!known.has(pn)){ skip++; return; }
+    if(seen.has(pn)){ dup++; return; }   /* 7.100.1: מק"ט כפול בקובץ — השורה הראשונה קובעת */
+    seen.add(pn);
     const P = INV_P[pn] || {}, patch = {};
     cols.forEach(([i, f, k]) => {
       const raw = String(row[i] == null ? '' : row[i]).trim(); if(raw === '') return;
       const p = invParse(raw, k); if(!p.ok){ bad++; return; }
+      if(k === 'sup' && p.v != null && !supOk.has(p.v)){ badSup++; return; }   /* 7.100.1: רק ספק מוכר */
       const cur = P[f] == null ? null : P[f];
       if(p.v === cur || (p.v != null && cur != null && String(p.v) === String(cur))) return;
       if(typeof p.v === 'number' && cur != null && Math.abs(p.v - Number(cur)) < 1e-9) return;
       patch[f] = p.v; vals++;
     });
-    if(INV_SHIP.some(f => f in patch)){ patch.ship_src = 'אקסל'; patch.ship_verify = false; }
+    if(INV_SHIP.some(f => f in patch)) patch.ship_src = 'אקסל';
+    /* 7.100.1: "לאימות" נמחק רק כשהקובץ מחליף את כל ערכי המשלוח שהיו */
+    const had = INV_SHIP.filter(f => P[f] != null);
+    if(P.ship_verify && had.length && had.every(f => f in patch)) patch.ship_verify = false;
     if(Object.keys(patch).length){ patch.partname = pn; patches.push(patch); }
   });
-  if(!patches.length){ if(m) m.textContent = 'אין שינויים לייבוא' + (skip ? ' · ' + skip + ' מק״טים לא מוכרים' : '') + (bad ? ' · ' + bad + ' ערכים לא תקינים' : ''); return; }
-  const ok = await sysConfirm('יעודכנו ' + patches.length + ' מק״טים (' + vals + ' ערכים).' + (skip ? ' ' + skip + ' שורות דולגו — מק״ט לא מוכר.' : '') + (bad ? ' ' + bad + ' ערכים לא תקינים לא ייובאו.' : '') + ' להמשיך?', { ok:'ייבוא' });
+  const notes = (skip ? ' ' + skip + ' שורות דולגו — מק״ט לא מוכר.' : '') + (dup ? ' ' + dup + ' שורות כפולות דולגו.' : '')
+    + (bad ? ' ' + bad + ' ערכים לא תקינים לא ייובאו.' : '') + (badSup ? ' ' + badSup + ' קודי ספק לא מוכרים לא ייובאו (הקוד חייב להופיע ב"ספקים").' : '');
+  if(!patches.length){ if(m) m.textContent = 'אין שינויים לייבוא.' + notes; return; }
+  const ok = await sysConfirm('יעודכנו ' + patches.length + ' מק״טים (' + vals + ' ערכים).' + notes + ' להמשיך?', { ok:'ייבוא' });
   if(!ok) return;
   /* 🔴 upsert מרובה עם עמודות שונות בכל שורה היה ממלא null בעמודות שלא נשלחו ודורס ערכים — ולכן מקבצים לפי
      אותה קבוצת עמודות, וכל קבוצה נשלחת בנפרד. */
@@ -14246,7 +14302,7 @@ window.invParamImport = async inp=>{
     if(fail) break;
   }
   if(m) m.textContent = fail ? 'נשמרו ' + done + ' מתוך ' + patches.length + ' — ' + fail : 'עודכנו ' + done + ' מק״טים ✓';
-  INV_LOADED = false;
+  INV_LOADED = false; INV_TRIED = false;
 };
 
 function invExport(){
@@ -17239,7 +17295,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'invplan-2026-11-28a';
+const BUILD_ID = 'invplanfix-2026-11-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
