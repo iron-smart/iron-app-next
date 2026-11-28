@@ -4842,7 +4842,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.100.1</div>
+      <div class="ver">גרסה 7.100.2</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4991,7 +4991,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="invplanfix-2026-11-28a">גרסה 7.100.1</div>
+    <div class="side-foot" title="invstage3-2026-11-28a">גרסה 7.100.2</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -13604,6 +13604,7 @@ window.openInv = pn => {
     + kv('חודשי היסטוריה', invN(r.months_hist))
     + kv('שווי מחזור שנתי', money(r.annual_value))
     + '</div>';
+  h += '<div id="inv-dmx" data-pn="' + esc(r.partname) + '"></div>';   /* 7.100.2 — פרויקטים ומורכבים, נטען אחרי הפתיחה */
 
   if(invMgr()) h += invParamForm(r) + '<div class="inv-kv">' + kv('מלאי ביטחון', invN(r.safety_stock)) + kv('נקודת הזמנה', invN(r.reorder_point)) + kv('רמת יעד', invN(r.order_up_to)) + '</div>';   /* 7.100.0 — invplan · 7.100.1 */
   else h += '<div class="inv-sec-h">פרמטרי תכנון</div><div class="inv-kv">'
@@ -13660,7 +13661,46 @@ window.openInv = pn => {
   };
   mountCard('invModal', ()=>openInv(pn));
   runCardHooks('inv', pn);
+  invDemandExtras(r);
 };
+/* 7.100.2 — invstage3: מה שהמנוע עושה בביקוש, בכרטיס.
+   פרויקטים — ord.v_inv_sales_clean: הזמנה בודדת ≥ project_factor × המכירה החודשית הרגילה (חציון); העודף לא נספר
+   בתחזית ובמלאי הביטחון (רומן: "לא לספור את העודף ... אבל כן לציין זאת").
+   מורכבים — ord.v_inv_bom_links: ביקוש האב × הכמות ברכיב נוסף לביקוש הרכיב (רומן: "בפריטים שמרכיבים מוצר אב
+   אז להתחשב בזה גם כמובן"). ביקוש האב נלקח מ-INV — אותו מספר שהמנוע מחשב.
+   כשל או ריק ⇒ לא מוצג דבר; תשובה מאוחרת לכרטיס אחר נזרקת. */
+async function invDemandExtras(r){
+  const pn = r.partname, mine = () => { const b = $('#inv-dmx'); return b && b.dataset.pn === String(pn) ? b : null; };
+  let pj = [], bl = [];
+  try{
+    const S = sb.schema('ord');
+    const q = await Promise.all([
+      S.from('v_inv_sales_clean').select('ym,qty_raw,proj_excess,top_order_qty,top_ordname,month_median').eq('partname', pn).gte('proj_excess', 0.0001).order('ym', { ascending:false }).limit(12),
+      S.from('v_inv_bom_links').select('parent,qty').eq('child', pn)
+    ]);
+    if(!q[0].error) pj = (q[0].data || []).filter(x => Number(x.proj_excess) > 0);
+    if(!q[1].error) bl = q[1].data || [];
+  }catch(e){ return; }
+  const box = mine(); if(!box || (!pj.length && !bl.length)) return;
+  let h = '';
+  if(pj.length){
+    const tot = pj.reduce((s, x) => s + (Number(x.proj_excess) || 0), 0);
+    h += '<div class="inv-sec-h">הזמנות פרויקט — לא נספרו בתחזית <span class="sub">' + invN(tot) + ' יח׳ ב-' + pj.length + ' חודשים</span></div>'
+      + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>חודש</th><th>הזמנה</th><th>כמות בהזמנה</th><th>רגיל בחודש</th><th>לא נספר</th></tr></thead><tbody>'
+      + pj.map(x => '<tr><td>' + esc(x.ym || '') + '</td><td dir="ltr">' + esc(x.top_ordname || '') + '</td><td>' + invN(x.top_order_qty) + '</td><td>' + invD(x.month_median, 1) + '</td><td><b>' + invN(x.proj_excess) + '</b></td></tr>').join('')
+      + '</tbody></table></div>'
+      + '<div class="note">הזמנה בודדת שגדולה פי ' + esc(String(Number((INV_DEF || {}).project_factor) || 3)) + ' ויותר מהמכירה החודשית הרגילה של המק״ט. העודף מעל הרגיל לא נכנס לביקוש החודשי ולמלאי הביטחון (הסף בהגדרות מלאי).</div>';
+  }
+  if(bl.length){
+    let tot = 0;
+    const rows = bl.map(b => { const p = INV.find(x => x.partname === b.parent) || {}, dm = (Number(p.demand_month) || 0) * (Number(b.qty) || 0); tot += dm;
+      return '<tr><td>' + esc(b.parent) + '</td><td class="td-desc">' + esc(p.partdes || '—') + '</td><td>' + invD(b.qty, 0) + '</td><td>' + invD(p.demand_month, 1) + '</td><td><b>' + invD(dm, 1) + '</b></td></tr>'; }).join('');
+    h += '<div class="inv-sec-h">ביקוש דרך מוצרים מורכבים <span class="sub">+' + invD(tot, 1) + ' לחודש</span></div>'
+      + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>מוצר אב</th><th>תיאור</th><th>כמות ברכיב</th><th>ביקוש האב לחודש</th><th>נוסף לחודש</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+      + '<div class="note">הרכיב נכנס למוצרים המורכבים האלה (עץ המוצר במודול התמחור). הביקוש שלהם כבר כלול ב"ביקוש חודשי" שלמעלה.</div>';
+  }
+  box.innerHTML = h;
+}
 
 window.invAct = async (kind, val)=>{
   /* 7.100.0 — invplan */
@@ -17295,7 +17335,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'invplanfix-2026-11-28a';
+const BUILD_ID = 'invstage3-2026-11-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
