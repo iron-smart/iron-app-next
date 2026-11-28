@@ -2808,6 +2808,34 @@
 .inv-kv .r .v{ font-size:var(--fs-md); font-weight:700; color:var(--navy); }
 .inv-why{ background:var(--bg-subtle); border-radius:var(--r-md); padding:var(--sp-2h) var(--sp-3); font-size:var(--fs-sm); color:var(--ink-2); line-height:1.75; }
 .inv-why b{ color:var(--navy); }
+/* 7.100.0 — invplan: פרמטרים עריכים · בחירה בהמלצות · סל הזמנה · כמה זמן המלאי יחזיק */
+.inv-selbar{ display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap; margin:var(--sp-2) 0; }
+.inv-selbar .n{ font-size:var(--fs-sm); color:var(--ink-2); }
+input.inv-q, input.inv-bq{ width:76px; min-height:var(--ctl-h-sm); box-sizing:border-box; padding:var(--field-py) var(--field-px); border:1px solid var(--line); border-radius:var(--r-sm); text-align:center; font-size:var(--fs-md); }
+.inv-inb{ display:inline-block; margin-inline-start:var(--sp-1); padding:0 var(--sp-1); font-size:var(--fs-2xs); color:var(--navy); background:var(--hol-bg); border-radius:var(--r-pill); }
+.inv-pf{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:var(--sp-2); margin:var(--sp-2) 0; }
+.inv-pf-f{ display:flex; flex-direction:column; gap:var(--sp-1); padding:var(--sp-2); background:var(--bg-subtle); border-radius:var(--r-md); }
+.inv-pf-f .k{ font-size:var(--fs-xs); color:var(--ink-3); }
+.inv-pf-f .in{ display:flex; align-items:center; gap:var(--sp-1); font-size:var(--fs-sm); color:var(--ink-3); }
+.inv-pf-f input, .inv-pf-f select, .inv-pf-n textarea{ flex:1; min-width:0; min-height:var(--ctl-h-sm); box-sizing:border-box; padding:var(--field-py) var(--field-px); border:1px solid var(--line); border-radius:var(--r-sm); font-size:var(--fs-md); }
+.inv-pf-f .src{ font-size:var(--fs-2xs); color:var(--ink-3); }
+.inv-pf-f .src.vf{ color:var(--amber); font-weight:700; }
+.inv-pf-n{ display:flex; flex-direction:column; gap:var(--sp-1); margin:var(--sp-2) 0; font-size:var(--fs-xs); color:var(--ink-3); }
+.inv-pf-act{ display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap; margin-top:var(--sp-2); }
+.inv-bsk{ border:1px solid var(--line); border-radius:var(--r-lg); padding:var(--sp-3); margin:var(--sp-3) 0; }
+.inv-bsk-h{ display:flex; align-items:center; gap:var(--sp-2) var(--sp-3); flex-wrap:wrap; margin-bottom:var(--sp-2); }
+.inv-bsk-h .nm{ font-weight:800; color:var(--navy); font-size:var(--fs-lg); }
+.inv-bsk-h .mt{ font-size:var(--fs-sm); color:var(--ink-2); }
+.inv-bsk-act{ display:flex; gap:var(--sp-2); flex-wrap:wrap; margin-top:var(--sp-2); }
+.inv-x{ border:0; background:none; color:var(--ink-3); cursor:pointer; font-size:var(--fs-md); padding:0 var(--sp-1); }
+.inv-x:hover{ color:var(--red); }
+.sku-cov-warn{ color:var(--red); font-size:var(--fs-sm); margin-top:var(--sp-1); }
+.invset-tbl input{ width:84px; min-height:var(--ctl-h-sm); box-sizing:border-box; padding:var(--field-py) var(--field-px); border:1px solid var(--line); border-radius:var(--r-sm); font-size:var(--fs-sm); }
+.invset-tbl input.wide{ width:160px; }
+.invset-f{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:var(--sp-2); padding:var(--sp-2) var(--sp-3); }
+.invset-f label{ display:flex; flex-direction:column; gap:var(--sp-1); font-size:var(--fs-xs); color:var(--ink-3); }
+.invset-f input{ min-height:var(--ctl-h-sm); box-sizing:border-box; padding:var(--field-py) var(--field-px); border:1px solid var(--line); border-radius:var(--r-sm); font-size:var(--fs-md); }
+.invset-act{ display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap; padding:var(--sp-2) var(--sp-3); }
 @media(max-width:759.98px){ .inv-grp-h{ gap:var(--sp-1h); } .inv-bar{ width:80px; } }
 
 /* ===== הזמנות רכש — ספקי חו"ל (6.10.0 · סודר מחדש ב-6.195.0) =====
@@ -4813,7 +4841,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
   <div class="card">
     <div class="brand">
       <img class="wm" id="loginLogo" src="assets/logo-white.png" alt="IRON FITNESS" onerror="this.style.display='none'; var d=document.createElement('div'); d.className='wmtxt'; d.textContent='IRON FITNESS'; if(this.parentNode) this.parentNode.insertBefore(d,this);">
-      <div class="ver">גרסה 7.99.1</div>
+      <div class="ver">גרסה 7.100.0</div>
     </div>
     <div class="form">
       <h1>ברוכים הבאים</h1>
@@ -4962,7 +4990,7 @@ tr.lb-on td{ background-color:#eef5fd !important; }
       </div>
       <button class="side-out" id="logoutBtn" title="יציאה מהמערכת" aria-label="יציאה מהמערכת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
     </div>
-    <div class="side-foot" title="herodedup-2026-11-28a">גרסה 7.99.1</div>
+    <div class="side-foot" title="invplan-2026-11-28a">גרסה 7.100.0</div>
     <button class="side-collapse" title="כיווץ התפריט" aria-label="כיווץ התפריט" onclick="setSide(false)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
   </aside>
   <button id="sideOpenTab" title="פתיחת התפריט" aria-label="פתיחת התפריט" onclick="setSide(true)"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -6517,7 +6545,7 @@ window.TAB_PERM = {
   calc:'crm.deals'
 };
 window.LOGI_PERM = { orders:'logi.orders', calls:'logi.calls', cal:'logi.cal' };
-window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', msg:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', planner:'set.crm', general:'set.general', rem:'dash.reminders' };
+window.SET_PERM  = { users:'set.users', teams:'set.teams', texts:'set.texts', conn:'set.conn', synclog:'set.synclog', hooks:'set.hooks', errors:'set.errors', notif:'set.notif', msg:'set.notif', crm:'set.crm', booking:'set.crm', salesrules:'set.crm', commission:'set.crm', planner:'set.crm', invset:'inv.stock', general:'set.general', rem:'dash.reminders' };
 window.LOGI_VIEWS = ['orders','calls','cal'];
 window.navCanTab = t=>{
   /* 6.140.0 — logi.screen מפריד בין הנתונים לבין המסך.
@@ -12869,6 +12897,11 @@ function _openSku(pn){
       </div>
       <div class="note">הכמות כוללת גם מלאי שיצא בפועל וגם מלאי שהוזמן וטרם יצא.</div>
     </div>
+${canView('inv.stock')?`
+    <div class="sku-box sku-cov">
+      <div class="bx-t">כמה זמן המלאי יחזיק</div>
+      <div id="sku-cov-box">${crmLoading('מחשב כמה זמן המלאי יחזיק…')}</div>
+    </div>`:''}
 
     ${cost?`    <div class="sku-box">
       <div class="bx-t">מחירונים ללקוח</div>
@@ -12912,6 +12945,7 @@ function _openSku(pn){
     <div class="note">שדות פריוריטי (מחירון לפני וכולל מע"מ, מלאי, זמינות, מכירות, סטטוס פעיל) מסונכרנים אוטומטית כל יום ב-07:00, א׳–ו׳, ואינם ניתנים לעריכה כאן. שני המחירים נמשכים כמות שהם ממחירון הבסיס בפריוריטי — אף אחד מהם אינו מחושב.</div>`;
   mountCard('skuModal', ()=>openSku(pn));
   skuPlFill(pn);
+  skuCovFill(pn);   /* 7.100.0 — invplan */
 }
 /* ── מחירונים בכרטיס הפריט (6.19.5) — קריאה נקודתית מ-ord.price_list_items שסונכרן מראש;
      אפס משיכות יזומות מפריוריטי. אותו מקור שמזין את "פריטים במחירון" ואת הפורטל. ── */
@@ -13077,6 +13111,7 @@ async function invLoad(force){
     if(error) throw error;
     INV = data || [];
     INV_LOADED = true;
+    try{ await invAuxLoad(); }catch(_e){ /* 7.100.0 — פרמטרים/סלים: כשל כאן אינו מפיל את המסך */ }
     if(INV.length >= 10000) toast('הוחזרו 10,000 שורות — ייתכן שהרשימה נקטעה');
   }catch(e){
     INV_ERR = invErrText(e);
@@ -13120,6 +13155,7 @@ function invViews(){
   const rec = INV.filter(r=>Number(r.qty_recommended)>0).length;
   const exc = INV_LOADED ? invIssues(INV).total : 0;
   const V = [['act','מה לעשות עכשיו',act],['dash','סקירת מלאי',null],['rec','המלצות רכש',rec],
+             ['bsk','סל הזמנה',invBskCount()],   /* 7.100.0 — invplan */
              ['exc','חריגים ואיכות נתונים',exc],['all','כל המק״טים',INV.length]];
   el.innerHTML = V.map(v => '<button class="chip' + (INV_VIEW===v[0]?' active':'') + '" data-inv-view="' + v[0] + '">' + v[1]
     + (v[2]==null ? '' : ' <span class="n">' + fmtNum(v[2]) + '</span>') + '</button>').join('');
@@ -13166,13 +13202,16 @@ function invBody(){
   el.innerHTML = INV_VIEW==='act' ? invActView()
                : INV_VIEW==='dash' ? invDash()
                : INV_VIEW==='rec' ? invRec()
+               : INV_VIEW==='bsk' ? invBasket()
                : INV_VIEW==='exc' ? invExc() : invAll();
   el.onclick = ev=>{
     const act = ev.target.closest('[data-inv-act]');
     if(act){ ev.stopPropagation(); invAct(act.dataset.invAct, act.dataset.invPn || act.dataset.invVal || ''); return; }
+    if(ev.target.closest('.inv-nopen')) return;   /* 7.100.0 — תיבת סימון / כמות בתוך שורה אינה פותחת את הכרטיס */
     const row = ev.target.closest('[data-pn]');
     if(row) openInv(row.dataset.pn);
   };
+  el.onchange = invSelChange;   /* 7.100.0 */
 }
 
 function invTable(rows, cols, key, noun){
@@ -13314,6 +13353,7 @@ function invGroups(rows, fld){
   return Object.values(g).sort((a,b)=> b.risk - a.risk || b.cost - a.cost);
 }
 function invGrpHead(t){
+  if(!(t.cap>0)) t.cap = Number(INV_DEF && INV_DEF.container_cbm) || 0;   /* 7.100.0 — ברירת המחדל מ"הגדרות מלאי" */
   const pct = t.cap>0 ? Math.round(t.cbm/t.cap*100) : null;
   const bar = pct==null
     ? '<span class="mt">נפח <b>' + invD(t.cbm,2) + '</b> מ״ק · לא הוגדר נפח מכולה לספק</span>'
@@ -13454,9 +13494,10 @@ function invRec(){
     + '</div>';
   h += '<div class="note">זהו הפלט הקלאסי של מודל (R,s,S): ההשלמה עד רמת היעד עבור מק״טים שפוזיציית המלאי שלהם ירדה מתחת לנקודת ההזמנה. הוא אינו כולל מק״טים שההזמנה שלהם מאחרת או שהיתרה שלהם שלילית — אלה נמצאים במסך "מה לעשות עכשיו".</div>';
   if(!rows.length) return h + '<div class="empty">אין המלצות רכש בסינון הנוכחי</div>';
+  if(invMgr()) h += invSelBar();   /* 7.100.0 — invplan */
   invGroups(rows).forEach((t,i)=>{
     h += '<div class="inv-grp">' + invGrpHead(t)
-      + invTable(t.rows.slice().sort((x,y)=>(Number(y.value_at_risk)||0)-(Number(x.value_at_risk)||0)), INV_REC_COLS, 'inv-g'+i)
+      + invTable(t.rows.slice().sort((x,y)=>(Number(y.value_at_risk)||0)-(Number(x.value_at_risk)||0)), invRecCols(), 'inv-g'+i)
       + '</div>';
   });
   return h;
@@ -13563,7 +13604,8 @@ window.openInv = pn => {
     + kv('שווי מחזור שנתי', money(r.annual_value))
     + '</div>';
 
-  h += '<div class="inv-sec-h">פרמטרי תכנון</div><div class="inv-kv">'
+  if(invMgr()) h += invParamForm(r);   /* 7.100.0 — invplan */
+  else h += '<div class="inv-sec-h">פרמטרי תכנון</div><div class="inv-kv">'
     + kv('זמן אספקה', invN(r.lead_days) + ' ימים')
     + kv('סטיית זמן אספקה', invN(r.lead_sd_days) + ' ימים')
     + kv('מחזור בדיקה', invN(r.review_days) + ' ימים')
@@ -13620,6 +13662,13 @@ window.openInv = pn => {
 };
 
 window.invAct = async (kind, val)=>{
+  /* 7.100.0 — invplan */
+  if(kind==='bskadd'){ await invBskAdd(); return; }
+  if(kind==='bskdel'){ await invBskDel(val); return; }
+  if(kind==='bskorder'){ await invBskOrder(val); return; }
+  if(kind==='bskcancel'){ await invBskCancel(val); return; }
+  if(kind==='bskxls'){ invBskXls(val); return; }
+  if(kind==='psave'){ await invParamSave(val); return; }
   if(kind==='st'){  INV_F.st = (INV_F.st===val ? '' : val); renderInv(); return; }
   if(kind==='exc'){ INV_EXC = Number(val)||0; invBody(); return; }
   if(kind==='ac'){  INV_ACT = (INV_ACT===val ? '' : val); invBody(); return; }
@@ -13637,6 +13686,567 @@ window.invAct = async (kind, val)=>{
     closeCards();
     await invLoad(true);
   }
+};
+
+/* ═══ 7.100.0 — invplan: פרמטרי תכנון · סל הזמנה לפי ספק · הגדרות מלאי (רומן, 28/11/2026) ═══════════════════════
+   רומן: "אתה יכול לבנות כבר עד שלב 2 ברצף?" · "מאשר, תבנה". הכרעות: הזמנה "לפי מכולה" · מדיניות זמינות "אבל תאפשר לי
+   לשנות הגדרות כשאצטרך" · "המלצות ואני בוחר ידנית … באילו המלצות להתחשב" — פתיחת ההזמנה בפריוריטי נשארת ידנית.
+   🔴 המנוע (ord.v_inventory_plan) קורא את inv_params / inv_supplier_stats / inv_defaults — כל שמירה כאן משנה את ההמלצות
+      בטעינה הבאה, ולכן כל שמירה מסתיימת ב-invLoad(true).
+   🔴 סל שסומן "הוזמן" נספר במנוע כרכש בדרך עד שההזמנה (po_ordname) מגיעה מפריוריטי (po-sync) — כך ההמלצה יורדת
+      מהרשימה ולא נספרת פעמיים. מספר ההזמנה חובה (check במסד), וסל שהוזמן/בוטל קפוא (RLS).
+   🔴 נפח = inv_params.ship_cbm בלבד (נפח משלוח). מידות המוצר בכרטיס הפריט הן של מוצר מורכב ואינן מזינות מכולה. */
+let INV_P = {}, INV_SUP = [], INV_DEF = {}, INV_BSK = [], INV_POS = new Set(), INV_SEL = {};
+async function invAuxLoad(){
+  const S = sb.schema('ord');
+  const safe = p => Promise.resolve(p).then(r => r, e => ({ data:null, error:e }));
+  const q = await Promise.all([
+    safe(S.from('inv_params').select('*').limit(5000)),
+    safe(S.from('inv_supplier_stats').select('*').order('supplier_name')),
+    safe(S.from('inv_defaults').select('*').eq('scope','*').limit(1)),
+    safe(S.from('inv_baskets').select('id,supplier_code,status,po_ordname,notes,created_at,ordered_at').in('status',['טיוטה','הוזמן']).order('created_at',{ascending:false}).limit(200)),
+    safe(S.from('inv_basket_lines').select('basket_id,partname,qty,rec_qty').limit(10000))
+  ]);
+  if(!q[0].error){ INV_P = {}; (q[0].data || []).forEach(p => { INV_P[p.partname] = p; }); }
+  if(!q[1].error) INV_SUP = q[1].data || [];
+  if(!q[2].error) INV_DEF = (q[2].data || [])[0] || {};
+  if(!q[3].error){
+    const lines = q[4].error ? [] : (q[4].data || []);
+    INV_BSK = (q[3].data || []).map(b => Object.assign({}, b, { lines: lines.filter(l => l.basket_id === b.id) }));
+    const pos = INV_BSK.filter(b => b.status === 'הוזמן' && b.po_ordname).map(b => b.po_ordname);
+    INV_POS = new Set();
+    if(pos.length){
+      const r = await safe(S.from('purchase_orders').select('ordname').in('ordname', pos));
+      if(!r.error) (r.data || []).forEach(x => INV_POS.add(x.ordname));
+    }
+  }
+}
+const invSupName = code => { const s = INV_SUP.find(x => x.supplier_code === code); return s ? (s.supplier_name || code) : (code || ''); };
+const invBskDraft = code => INV_BSK.find(b => b.status === 'טיוטה' && b.supplier_code === code);
+function invBskCount(){ return INV_BSK.filter(b => b.status === 'טיוטה').reduce((s, b) => s + b.lines.length, 0); }
+function invInBsk(pn){ let n = 0; INV_BSK.forEach(b => { if(b.status === 'טיוטה') b.lines.forEach(l => { if(l.partname === pn) n += Number(l.qty) || 0; }); }); return n; }
+const invCss = s => (window.CSS && CSS.escape) ? CSS.escape(s) : String(s).replace(/["\\]/g, '\\$&');
+
+/* ---- "המלצות רכש": בחירה וכמות ---- */
+function invSelN(){ return Object.keys(INV_SEL).filter(p => Number(INV_SEL[p]) > 0).length; }
+function invSelBar(){
+  return '<div class="inv-selbar"><span class="n" id="inv-seln">' + fmtNum(invSelN()) + ' נבחרו</span>'
+    + '<button class="inv-btn" data-inv-act="bskadd">הוספת הנבחרים לסל</button>'
+    + '<span class="n">הכמות המוצעת היא ההמלצה, וניתן לשנות אותה לפני ההוספה. הסל נפתח לפי הספק של כל מק״ט.</span></div>';
+}
+function invRecCols(){
+  if(!invMgr()) return INV_REC_COLS;
+  const sel = { t:'<input type="checkbox" class="inv-nopen inv-sela" aria-label="בחירת כל הקבוצה">',
+    f:r=>'<input type="checkbox" class="inv-nopen inv-sel" data-sel="' + esc(r.partname) + '"' + (INV_SEL[r.partname] != null ? ' checked' : '') + ' aria-label="בחירה">' };
+  const qty = { t:'כמות להזמנה', s:r=>Number(r.qty_recommended)||0,
+    f:r=>{ const b = invInBsk(r.partname);
+      return '<input class="inv-nopen inv-q" data-q="' + esc(r.partname) + '" inputmode="numeric" value="'
+        + esc(String(INV_SEL[r.partname] != null ? INV_SEL[r.partname] : (Number(r.qty_recommended)||0))) + '" aria-label="כמות להזמנה">'
+        + (b > 0 ? '<span class="inv-inb">בסל ' + invN(b) + '</span>' : ''); } };
+  return [sel].concat(INV_REC_COLS.map(c => c.t === 'מומלץ' ? qty : c));
+}
+function invSelSet(pn, on){
+  if(!on){ delete INV_SEL[pn]; return; }
+  const inp = document.querySelector('.inv-q[data-q="' + invCss(pn) + '"]');
+  const v = inp ? numIn(inp.value) : null;
+  const r = INV.find(x => x.partname === pn);
+  INV_SEL[pn] = (typeof v === 'number' && v > 0) ? Math.round(v) : (Number(r && r.qty_recommended) || 0);
+}
+function invSelChange(ev){
+  const t = ev.target; if(!t || !t.classList) return;
+  if(t.classList.contains('inv-sela')){
+    const tb = t.closest('table');
+    if(tb) tb.querySelectorAll('.inv-sel').forEach(cb => { cb.checked = t.checked; invSelSet(cb.dataset.sel, t.checked); });
+  } else if(t.classList.contains('inv-sel')){
+    invSelSet(t.dataset.sel, t.checked);
+  } else if(t.classList.contains('inv-q')){
+    const pn = t.dataset.q, v = numIn(t.value);
+    if(typeof v === 'number' && v > 0){
+      INV_SEL[pn] = Math.round(v);
+      const cb = document.querySelector('.inv-sel[data-sel="' + invCss(pn) + '"]'); if(cb) cb.checked = true;
+    }
+  } else if(t.classList.contains('inv-bq')){
+    invBskQty(t.dataset.b, t.dataset.p, t.value); return;
+  } else return;
+  const n = document.getElementById('inv-seln'); if(n) n.textContent = fmtNum(invSelN()) + ' נבחרו';
+}
+
+/* ---- הסל ---- */
+async function invBskAdd(){
+  if(!invMgr()){ toast('אין הרשאה לפתיחת סל הזמנה'); return; }
+  const pns = Object.keys(INV_SEL).filter(p => Number(INV_SEL[p]) > 0);
+  if(!pns.length){ toast('לא נבחרו מק״טים'); return; }
+  const by = {}, noSup = [];
+  pns.forEach(p => {
+    const r = INV.find(x => x.partname === p), code = r && r.supplier_code;
+    if(!code){ noSup.push(p); return; }
+    (by[code] = by[code] || []).push({ basket_id:null, partname:p, qty:Math.round(Number(INV_SEL[p])), rec_qty: r ? (Number(r.qty_recommended) || null) : null });
+  });
+  if(noSup.length) await sysAlert('ל-' + noSup.length + ' מק״טים אין ספק משויך, ולכן לא נוספו: ' + noSup.slice(0, 8).join(', ') + (noSup.length > 8 ? '…' : '') + '. את הספק משייכים בכרטיס המק״ט ← פרמטרי תכנון.');
+  let added = 0;
+  for(const code of Object.keys(by)){
+    let b = invBskDraft(code);
+    if(!b){
+      const ins = await sb.schema('ord').from('inv_baskets').insert({ supplier_code: code }).select('id,supplier_code,status').single();
+      if(ins.error){
+        if(String(ins.error.code) === '23505'){ await invAuxLoad(); b = invBskDraft(code); }   /* סשן אחר פתח סל לאותו ספק */
+        if(!b){ toast('פתיחת הסל נכשלה — ' + invErrText(ins.error)); continue; }
+      } else b = Object.assign({ lines:[] }, ins.data);
+    }
+    const rows = by[code].map(x => Object.assign({}, x, { basket_id: b.id }));
+    const up = await sb.schema('ord').from('inv_basket_lines').upsert(rows, { onConflict:'basket_id,partname' });
+    if(up.error){ toast('ההוספה לסל נכשלה — ' + invErrText(up.error)); continue; }
+    added += rows.length;
+  }
+  INV_SEL = {};
+  await invAuxLoad();
+  if(added){ toast('נוספו ' + added + ' מק״טים לסל'); INV_VIEW = 'bsk'; renderInv(); navMark(); }
+  else renderInv();
+}
+function invBskTotals(b){
+  const t = { units:0, val:0, cbm:0, noCbm:0, kg:0, noKg:0, ct:0 };
+  b.lines.forEach(l => {
+    const q = Number(l.qty) || 0, r = INV.find(x => x.partname === l.partname) || {}, P = INV_P[l.partname] || {};
+    t.units += q; t.val += q * invUnitCost(r);
+    if(Number(P.ship_cbm) > 0) t.cbm += q * Number(P.ship_cbm); else t.noCbm++;
+    if(Number(P.ship_kg) > 0) t.kg += q * Number(P.ship_kg); else t.noKg++;
+    if(Number(P.cartons_per_unit) > 0) t.ct += q * Number(P.cartons_per_unit);
+  });
+  return t;
+}
+function invBskCard(b){
+  const sup = INV_SUP.find(s => s.supplier_code === b.supplier_code) || {};
+  const t = invBskTotals(b), ed = invMgr();
+  const cap = Number(sup.container_cbm) || Number(INV_DEF.container_cbm) || 0;
+  const pct = cap > 0 ? Math.round(t.cbm / cap * 100) : null;
+  const adv = Number(sup.advance_pct);
+  const bar = pct == null ? '' : '<div class="inv-bar" title="' + esc(invD(t.cbm, 2) + ' מ״ק מתוך ' + invD(cap, 0)) + '"><i class="' + (pct > 100 ? 'over' : '') + '" style="width:' + Math.min(100, pct) + '%"></i></div>'
+    + '<span class="mt"><b>' + pct + '%</b> ממכולה</span>';
+  let h = '<div class="inv-bsk" data-bsk="' + esc(b.id) + '"><div class="inv-bsk-h"><span class="nm">' + esc(invSupName(b.supplier_code)) + '</span>'
+    + '<span class="mt"><b>' + fmtNum(b.lines.length) + '</b> מק״טים · <b>' + fmtNum(t.units) + '</b> יחידות</span>'
+    + '<span class="mt">שווי <b>' + shekel(t.val) + '</b></span>'
+    + '<span class="mt">נפח <b>' + invD(t.cbm, 2) + '</b> מ״ק' + (t.noCbm ? ' (חסר נפח ל-' + t.noCbm + ')' : '') + '</span>'
+    + '<span class="mt">משקל <b>' + fmtNum(Math.round(t.kg)) + '</b> ק״ג' + (t.noKg ? ' (חסר ל-' + t.noKg + ')' : '') + '</span>'
+    + (t.ct > 0 ? '<span class="mt"><b>' + fmtNum(Math.round(t.ct)) + '</b> קרטונים</span>' : '')
+    + (adv > 0 ? '<span class="mt">מקדמה ' + Math.round(adv * 100) + '% — <b>' + shekel(t.val * adv) + '</b></span>' : '')
+    + '<span class="sp"></span>' + bar + '</div>';
+  const rows = b.lines.slice().sort((x, y) => String(x.partname).localeCompare(String(y.partname)));
+  h += '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>מק״ט</th><th>תיאור</th><th>כמות</th><th>מומלץ</th><th>עלות ליחידה</th><th>סה״כ</th><th>נפח (מ״ק)</th><th>משקל (ק״ג)</th>' + (ed ? '<th></th>' : '') + '</tr></thead><tbody>'
+    + rows.map(l => {
+        const r = INV.find(x => x.partname === l.partname) || {}, P = INV_P[l.partname] || {}, q = Number(l.qty) || 0, uc = invUnitCost(r);
+        return '<tr data-pn="' + esc(l.partname) + '" style="cursor:pointer"><td class="clip">' + esc(l.partname) + '</td><td class="td-desc">' + esc(r.partdes || '—') + '</td>'
+          + '<td>' + (ed ? '<input class="inv-nopen inv-bq" data-b="' + esc(b.id) + '" data-p="' + esc(l.partname) + '" inputmode="numeric" value="' + esc(String(q)) + '" aria-label="כמות">' : invN(q)) + '</td>'
+          + '<td>' + invN(l.rec_qty) + '</td><td>' + money(uc) + '</td><td>' + money(q * uc) + '</td>'
+          + '<td>' + (Number(P.ship_cbm) > 0 ? invD(q * Number(P.ship_cbm), 2) : '—') + '</td>'
+          + '<td>' + (Number(P.ship_kg) > 0 ? fmtNum(Math.round(q * Number(P.ship_kg))) : '—') + '</td>'
+          + (ed ? '<td><button class="inv-x" data-inv-act="bskdel" data-inv-val="' + esc(b.id + '|' + l.partname) + '" aria-label="הסרה מהסל" title="הסרה מהסל">✕</button></td>' : '') + '</tr>';
+      }).join('') + '</tbody></table></div>';
+  h += '<div class="inv-bsk-act"><button class="inv-btn ghost" data-inv-act="bskxls" data-inv-val="' + esc(b.id) + '">ייצוא לאקסל לספק</button>'
+    + (ed ? '<button class="inv-btn" data-inv-act="bskorder" data-inv-val="' + esc(b.id) + '">סימון הוזמן</button>'
+          + '<button class="inv-btn ghost" data-inv-act="bskcancel" data-inv-val="' + esc(b.id) + '">ביטול הסל</button>' : '')
+    + '</div></div>';
+  return h;
+}
+function invBasket(){
+  const drafts = INV_BSK.filter(b => b.status === 'טיוטה'), ordered = INV_BSK.filter(b => b.status === 'הוזמן');
+  let h = '<div class="note">סל לכל ספק. מוסיפים מ"המלצות רכש" (סימון וכמות), מעדכנים כאן, מייצאים לאקסל לספק, ואחרי שפותחים את ההזמנה בפריוריטי — "סימון הוזמן" עם מספר ההזמנה. מרגע הסימון הכמויות נספרות כ"בדרך" עד שההזמנה מגיעה מפריוריטי, וההמלצה יורדת מהרשימה. הנפח והמשקל לפי נתוני המשלוח שבכרטיס המק״ט.</div>';
+  if(!drafts.length) h += '<div class="empty">אין סל פתוח. מסמנים המלצות במסך "המלצות רכש" ומוסיפים לסל.</div>';
+  drafts.forEach(b => { h += invBskCard(b); });
+  if(ordered.length){
+    h += '<div class="inv-sec"><div class="inv-sec-h">הוזמנו<span class="sub">' + fmtNum(ordered.length) + ' סלים</span></div>'
+      + '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>ספק</th><th>הזמנה</th><th>סומן</th><th>מק״טים</th><th>יחידות</th><th>מצב</th></tr></thead><tbody>'
+      + ordered.map(b => '<tr><td>' + esc(invSupName(b.supplier_code)) + '</td><td dir="ltr">' + esc(b.po_ordname || '') + '</td><td>' + invDate(b.ordered_at) + '</td>'
+          + '<td>' + fmtNum(b.lines.length) + '</td><td>' + fmtNum(b.lines.reduce((s, l) => s + (Number(l.qty) || 0), 0)) + '</td>'
+          + '<td>' + (INV_POS.has(b.po_ordname) ? 'נקלטה מפריוריטי — נספרת מההזמנה עצמה' : 'ממתינה לסנכרון — נספרת כבדרך') + '</td></tr>').join('')
+      + '</tbody></table></div></div>';
+  }
+  return h;
+}
+async function invBskQty(bid, pn, raw){
+  if(!invMgr()) return;
+  const v = numIn(raw);
+  if(!(typeof v === 'number' && v > 0)){ toast('כמות חייבת להיות חיובית. להסרה — ✕'); invBody(); return; }
+  const bk = INV_BSK.find(x => x.id === bid), ln = bk && bk.lines.find(l => l.partname === pn);
+  if(ln && Number(ln.qty) === Math.round(v)) return;   /* אותה כמות — אין כתיבה (שני אירועי change לאותה הקלדה) */
+  if(ln) ln.qty = Math.round(v);
+  const r = await sb.schema('ord').from('inv_basket_lines').update({ qty: Math.round(v) }).eq('basket_id', bid).eq('partname', pn).select('partname');
+  if(r.error || !(r.data || []).length){ toast('העדכון נכשל' + (r.error ? ' — ' + invErrText(r.error) : '')); }
+  await invAuxLoad(); invBody(); invViews();
+}
+async function invBskDel(val){
+  if(!invMgr()) return;
+  const i = String(val).indexOf('|'), bid = String(val).slice(0, i), pn = String(val).slice(i + 1);
+  const r = await sb.schema('ord').from('inv_basket_lines').delete().eq('basket_id', bid).eq('partname', pn).select('partname');
+  if(r.error || !(r.data || []).length){ toast('ההסרה נכשלה' + (r.error ? ' — ' + invErrText(r.error) : '')); return; }
+  await invAuxLoad(); invBody(); invViews();
+}
+async function invBskOrder(bid){
+  if(!invMgr()) return;
+  const b = INV_BSK.find(x => x.id === bid); if(!b) return;
+  if(!b.lines.length){ toast('הסל ריק'); return; }
+  const po = await sysPrompt('מספר הזמנת הרכש שנפתחה בפריוריטי עבור ' + invSupName(b.supplier_code) + ' (למשל PO26000123):', '', { ok:'סימון הוזמן' });
+  if(po == null) return;
+  const v = String(po).trim().toUpperCase();
+  if(!/^[A-Z]{1,4}\d{4,}$/.test(v)){ toast('מספר הזמנה לא תקין — אותיות ואחריהן ספרות, כמו PO26000123'); return; }
+  const now = new Date().toISOString();
+  const r = await sb.schema('ord').from('inv_baskets').update({ status:'הוזמן', po_ordname:v, ordered_at:now, ordered_by:(typeof ME !== 'undefined' && ME && ME.id) || null, updated_at:now })
+    .eq('id', bid).eq('status', 'טיוטה').select('id');
+  if(r.error || !(r.data || []).length){ toast('הסימון נכשל' + (r.error ? ' — ' + invErrText(r.error) : ' — ייתכן שהסל כבר סומן')); await invAuxLoad(); invBody(); return; }
+  toast('סומן הוזמן — ' + v + '. התכנון מתעדכן');
+  await invLoad(true);
+}
+async function invBskCancel(bid){
+  if(!invMgr()) return;
+  const b = INV_BSK.find(x => x.id === bid); if(!b) return;
+  const ok = await sysConfirm('לבטל את הסל של ' + invSupName(b.supplier_code) + '? השורות נשמרות בהיסטוריה, וההמלצות יחזרו כרגיל.', { ok:'ביטול הסל', cancel:'חזרה' });
+  if(!ok) return;
+  const r = await sb.schema('ord').from('inv_baskets').update({ status:'בוטל', updated_at:new Date().toISOString() }).eq('id', bid).eq('status', 'טיוטה').select('id');
+  if(r.error || !(r.data || []).length){ toast('הביטול נכשל' + (r.error ? ' — ' + invErrText(r.error) : '')); return; }
+  toast('הסל בוטל');
+  await invAuxLoad(); renderInv();
+}
+function invBskXls(bid){
+  const b = INV_BSK.find(x => x.id === bid); if(!b || !b.lines.length){ toast('אין שורות לייצוא'); return; }
+  const head = ['מק״ט', 'תיאור', 'כמות', 'עלות ליחידה', 'סה״כ', 'נפח ליחידה (מ״ק)', 'נפח (מ״ק)', 'משקל ליחידה (ק״ג)', 'משקל (ק״ג)', 'קרטונים ליחידה'];
+  const rows = b.lines.map(l => {
+    const r = INV.find(x => x.partname === l.partname) || {}, P = INV_P[l.partname] || {}, q = Number(l.qty) || 0, uc = invUnitCost(r);
+    return [l.partname, r.partdes || '', q, uc, q * uc, Number(P.ship_cbm) || '', Number(P.ship_cbm) ? q * Number(P.ship_cbm) : '',
+            Number(P.ship_kg) || '', Number(P.ship_kg) ? q * Number(P.ship_kg) : '', Number(P.cartons_per_unit) || ''];
+  });
+  const url = URL.createObjectURL(_skuXlsx(head, rows));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'סל-' + String(invSupName(b.supplier_code)).replace(/[\\/:*?"<>|]/g, '').slice(0, 40) + '-' + new Date().toISOString().slice(0, 10) + '.xlsx';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 8000);
+}
+
+/* ---- כרטיס המלאי: פרמטרי תכנון עריכים ----
+   [שדה, תווית, יחידה, סוג] — sup: ספק · int: ימים · pct: אחוז (נשמר כשבר) · num: מספר חיובי · dem: ביקוש (0 מותר) */
+const INV_PF = [
+  ['supplier_code','ספק','','sup'], ['lead_days','זמן אספקה','ימים','int'], ['lead_sd_days','סטיית זמן אספקה','ימים','int'],
+  ['review_days','מחזור בדיקה','ימים','int'], ['service_level','רמת זמינות','%','pct'], ['min_order_qty','מינימום הזמנה','יח׳','num'],
+  ['pack_size','כפולת הזמנה','יח׳','num'], ['max_cover_months','תקרת כיסוי','חודשים','num'], ['manual_monthly_demand','ביקוש חודשי ידני','יח׳','dem'],
+  ['ship_cbm','נפח משלוח ליחידה','מ״ק','num'], ['ship_kg','משקל משלוח ליחידה','ק״ג','num'], ['cartons_per_unit','קרטונים ליחידה','','num']
+];
+const INV_SHIP = ['ship_cbm', 'ship_kg', 'cartons_per_unit'];
+function invPfShow(f, k, v){ if(v == null || v === '') return ''; return k === 'pct' ? String(Math.round(Number(v) * 1000) / 10) : String(v); }
+function invPfSrc(f, r, P){
+  if(f === 'supplier_code') return P.supplier_code ? 'משויך' : (r.supplier_code ? 'משורות הרכש' : 'לא משויך');
+  if(f === 'lead_days') return r.lead_is_manual ? 'ידני' : r.lead_from_history ? 'נמדד אצל הספק' : (Number(r.lead_days) === 21 ? 'לפי סוג המקור' : 'ברירת מחדל');
+  if(INV_SHIP.indexOf(f) >= 0) return P[f] != null ? (P.ship_src || 'ידני') : 'חסר';
+  return P[f] != null ? 'ידני' : 'ברירת מחדל';
+}
+function invPfEff(f, r){
+  const m = { lead_days:r.lead_days, lead_sd_days:r.lead_sd_days, review_days:r.review_days, service_level:r.service_level,
+              min_order_qty:r.min_order_qty, pack_size:r.pack_size, max_cover_months:r.max_cover_months, manual_monthly_demand:r.demand_month };
+  return m[f];
+}
+function invParamForm(r){
+  const P = INV_P[r.partname] || {};
+  const flds = INV_PF.map(([f, l, u, k]) => {
+    const cur = invPfShow(f, k, P[f]);
+    const src = invPfSrc(f, r, P), vf = INV_SHIP.indexOf(f) >= 0 && P.ship_verify && P[f] != null;
+    let ctl;
+    if(k === 'sup'){
+      const opts = INV_SUP.slice().sort((a, b) => String(a.supplier_name || '').localeCompare(String(b.supplier_name || ''), 'he'));
+      ctl = '<select id="ipf-' + f + '" data-o="' + esc(cur) + '"><option value="">— לא משויך —</option>'
+        + opts.map(s => '<option value="' + esc(s.supplier_code) + '"' + (s.supplier_code === P.supplier_code ? ' selected' : '') + '>' + esc(s.supplier_name || s.supplier_code) + '</option>').join('')
+        + (P.supplier_code && !opts.some(s => s.supplier_code === P.supplier_code) ? '<option value="' + esc(P.supplier_code) + '" selected>' + esc(P.supplier_code) + '</option>' : '')
+        + '</select>';
+    } else {
+      const eff = invPfEff(f, r);
+      ctl = '<input id="ipf-' + f + '" inputmode="decimal" dir="ltr" data-o="' + esc(cur) + '" value="' + esc(cur) + '" placeholder="' + esc(invPfShow(f, k, eff)) + '">' + (u ? '<span>' + esc(u) + '</span>' : '');
+    }
+    return '<label class="inv-pf-f"><span class="k">' + esc(l) + '</span><span class="in">' + ctl + '</span>'
+      + '<small class="src' + (vf ? ' vf' : '') + '">' + esc(src) + (vf ? ' · לאימות' : '') + '</small></label>';
+  }).join('');
+  return '<div class="inv-sec-h">פרמטרי תכנון <span class="sub">שדה ריק = ברירת המחדל שמוצגת באפור · השמירה מעדכנת את ההמלצה</span></div>'
+    + '<div class="inv-pf">' + flds + '</div>'
+    + '<label class="inv-pf-n">הערות<textarea id="ipf-notes" rows="2" data-o="' + esc(P.notes || '') + '">' + esc(P.notes || '') + '</textarea></label>'
+    + (P.ship_verify ? '<label class="inv-pf-n"><span><input type="checkbox" id="ipf-verify" data-o="1" checked> נתוני המשלוח מסומנים לאימות (נראים כמילוי ולא כמדידה)</span></label>' : '')
+    + '<div class="inv-pf-act"><button class="inv-btn" data-inv-act="psave" data-inv-pn="' + esc(r.partname) + '">שמירת הפרמטרים</button>'
+    + '<span class="st-msg" id="ipf-msg"></span></div>';
+}
+/* מחזיר { ok, v } — v=null למחיקה (שדה ריק) */
+function invParse(raw, k){
+  const s = String(raw == null ? '' : raw).trim();
+  if(s === '' || s === '-' || s === '—') return { ok:true, v:null };
+  if(k === 'sup' || k === 'txt') return { ok:true, v:s };
+  const n = numIn(s);
+  if(typeof n !== 'number' || n < 0) return { ok:false };
+  if(k === 'int') return (n === Math.round(n) && n <= 400) ? { ok:true, v:n } : { ok:false };
+  if(k === 'pct') return (n >= 50 && n <= 99.9) ? { ok:true, v:Math.round(n * 10) / 1000 } : { ok:false };
+  if(k === 'dem') return { ok:true, v:n };
+  return n > 0 ? { ok:true, v:n } : { ok:false };
+}
+async function invParamSave(pn){
+  if(!invMgr()){ toast('אין הרשאה לשינוי פרמטרי תכנון'); return; }
+  const patch = {}, bad = [];
+  INV_PF.forEach(([f, l, u, k]) => {
+    const el = document.getElementById('ipf-' + f); if(!el) return;
+    if(String(el.value).trim() === String(el.dataset.o)) return;
+    const p = invParse(el.value, k);
+    if(!p.ok){ bad.push(l); return; }
+    patch[f] = p.v;
+  });
+  const nt = document.getElementById('ipf-notes');
+  if(nt && nt.value.trim() !== String(nt.dataset.o).trim()) patch.notes = nt.value.trim() || null;
+  if(INV_SHIP.some(f => f in patch)){ patch.ship_src = 'ידני'; patch.ship_verify = false; }
+  const vf = document.getElementById('ipf-verify');
+  if(vf && !vf.checked && !('ship_verify' in patch)) patch.ship_verify = false;
+  const msg = document.getElementById('ipf-msg');
+  if(bad.length){ if(msg) msg.textContent = 'ערך לא תקין: ' + bad.join(', '); return; }
+  if(!Object.keys(patch).length){ toast('אין שינוי לשמירה'); return; }
+  patch.partname = pn; patch.updated_at = new Date().toISOString();
+  if(typeof ME !== 'undefined' && ME && ME.id) patch.updated_by = ME.id;
+  const r = await sb.schema('ord').from('inv_params').upsert(patch, { onConflict:'partname' });
+  if(r.error){ if(msg) msg.textContent = 'השמירה נכשלה — ' + invErrText(r.error); return; }
+  toast('נשמר — מרענן את התכנון');
+  closeCards();
+  await invLoad(true);
+}
+
+/* ---- כרטיס הפריט: כמה זמן המלאי יחזיק ---- */
+let SKU_COV_REQ = 0;
+async function skuCovFill(pn){
+  const box = $('#sku-cov-box'); if(!box) return;
+  const tok = ++SKU_COV_REQ;
+  let r = INV_LOADED ? INV.find(x => String(x.partname) === String(pn)) : null;
+  if(!r){
+    try{
+      const res = await sb.schema('ord').from('v_inventory_actions')
+        .select('partname,is_planned,not_managed,force_include,demand_month,available_now,on_order_qty,days_to_runout,runout_date,next_arrival,days_to_arrival,lead_days,supplier_name,supplier_code,po_late,gap_days')
+        .eq('partname', String(pn)).maybeSingle();
+      if(res.error) throw res.error;
+      r = res.data;
+    }catch(e){ if(tok !== SKU_COV_REQ) return; box.innerHTML = '<div class="note">החישוב נכשל: ' + esc(invErrText(e)) + '</div>'; return; }
+  }
+  if(tok !== SKU_COV_REQ) return;
+  if(!r){ box.innerHTML = '<div class="note">המק״ט אינו בתכנון המלאי.</div>'; return; }
+  if(r.not_managed && !r.force_include){ box.innerHTML = '<div class="note">המק״ט אינו מנוהל בתכנון המלאי (שירות, ערכה, או שאינו מגיע עוד מפריוריטי).</div>'; return; }
+  const k = (l, v) => '<div class="sku-kpi"><span class="kl">' + l + '</span><span class="kv">' + v + '</span></div>';
+  const dm = Number(r.demand_month) || 0;
+  box.innerHTML = '<div class="sku-grid">'
+    + k('קצב מכירה חודשי', dm > 0 ? invD(dm, dm < 10 ? 1 : 0) : 'אין מכירות')
+    + k('זמין היום', invN(r.available_now))
+    + k('ימים עד אזילה', r.days_to_runout == null ? '—' : invN(r.days_to_runout))
+    + k('תאריך אזילה צפוי', invDate(r.runout_date))
+    + k('המשלוח הבא', r.next_arrival ? invDate(r.next_arrival) + (Number(r.on_order_qty) > 0 ? ' · ' + invN(r.on_order_qty) + ' בדרך' : '') : (Number(r.on_order_qty) > 0 ? invN(r.on_order_qty) + ' בדרך, בלי תאריך' : 'אין רכש פתוח'))
+    + k('זמן אספקה', invN(r.lead_days) + ' ימים' + (r.supplier_name ? ' · ' + esc(r.supplier_name) : ''))
+    + '</div>'
+    + (r.po_late ? '<div class="sku-cov-warn">המשלוח הבא נוחת אחרי שהמלאי נגמר — ' + invN(r.gap_days) + ' ימי חוסר צפויים.</div>' : '')
+    + (canView('inv.stock') ? '<div class="modal-actions"><button class="ghost" onclick="skuToInv(\'' + jsq(String(pn)) + '\')">לכרטיס המלאי</button></div>' : '');
+}
+window.skuToInv = async pn => {
+  closeCards();
+  if(!INV_LOADED) await invLoad();
+  gotoInv('all');
+  openInv(pn);
+};
+
+/* ---- הגדרות ← "הגדרות מלאי" ---- */
+const INVSET_DEF = [
+  ['lead_days','זמן אספקה (ברירת מחדל)','ימים','int'], ['lead_sd_days','סטיית זמן אספקה','ימים','int'], ['review_days','מחזור בדיקה','ימים','int'],
+  ['sl_a','רמת זמינות — מובילים (A)','%','pct'], ['sl_b','רמת זמינות — בינוניים (B)','%','pct'], ['sl_c','רמת זמינות — זנב (C)','%','pct'],
+  ['max_cover_months','תקרת כיסוי','חודשים','num'], ['clearance_days','שחרור והובלה מהנמל (יבוא)','ימים','int'],
+  ['container_cbm','נפח מכולה','מ״ק','num'], ['container_fill_pct','סף מילוי מכולה להתראה','%','fill']
+];
+const INVSET_SUP = [
+  ['lead_days_median','זמן אספקה','int'], ['lead_days_sd','סטייה','int'], ['clearance_days','שחרור מהנמל','int'],
+  ['container_cbm','נפח מכולה','num'], ['min_order_value','מינימום הזמנה (₪)','num'], ['advance_pct','מקדמה %','adv'], ['notes','הערות','txt']
+];
+/* [כותרת באקסל, שדה, סוג] — עמודות שאינן כאן נקראות כמידע בלבד */
+const INV_PX = [
+  ['ספק (קוד)','supplier_code','sup'], ['זמן אספקה (ימים)','lead_days','int'], ['סטיית זמן אספקה','lead_sd_days','int'],
+  ['מחזור בדיקה','review_days','int'], ['רמת זמינות %','service_level','pct'], ['מינימום הזמנה','min_order_qty','num'],
+  ['כפולת הזמנה','pack_size','num'], ['תקרת כיסוי (חודשים)','max_cover_months','num'], ['ביקוש חודשי ידני','manual_monthly_demand','dem'],
+  ['נפח משלוח ליחידה (מ״ק)','ship_cbm','num'], ['משקל משלוח ליחידה (ק״ג)','ship_kg','num'], ['קרטונים ליחידה','cartons_per_unit','num'], ['הערות','notes','txt']
+];
+let INVSET = null;
+function invSetHtml(){
+  return '<div class="st-top"><h2 class="sec">הגדרות מלאי</h2></div>'
+    + '<div class="st-lead">ברירות המחדל של מנוע התכנון במסך "מעקב מלאי". ערך שהוגדר לספק גובר על ברירת המחדל, וערך שהוגדר למק״ט (בכרטיס המלאי) גובר על שניהם. כל שינוי משפיע על ההמלצות בטעינה הבאה של מסך המלאי.</div>'
+    + '<div id="invset">' + crmLoading('טוען הגדרות מלאי…') + '</div>' + (setTimeout(invSetLoad, 0), '');
+}
+window.invSetLoad = async ()=>{
+  const box = $('#invset'); if(!box) return;
+  const S = sb.schema('ord');
+  let d, s;
+  try{ [d, s] = await Promise.all([S.from('inv_defaults').select('*').eq('scope','*').limit(1), S.from('inv_supplier_stats').select('*').order('supplier_name')]); }
+  catch(e){ d = { error:e }; s = {}; }
+  if(!$('#invset')) return;
+  if(d.error || s.error){ $('#invset').innerHTML = '<div class="err">' + esc(invErrText(d.error || s.error)) + '</div>'; return; }
+  INVSET = { def:(d.data || [])[0] || {}, sup:s.data || [] };
+  invSetPaint();
+};
+function invSetShow(k, v){ if(v == null || v === '') return ''; return (k === 'pct' || k === 'fill' || k === 'adv') ? String(Math.round(Number(v) * 1000) / 10) : String(v); }
+function invSetParse(raw, k){
+  const s = String(raw == null ? '' : raw).trim();
+  if(s === '') return { ok:true, v:null };
+  if(k === 'txt') return { ok:true, v:s };
+  const n = numIn(s);
+  if(typeof n !== 'number' || n < 0) return { ok:false };
+  if(k === 'int') return (n === Math.round(n) && n <= 400) ? { ok:true, v:n } : { ok:false };
+  if(k === 'pct') return (n >= 50 && n <= 99.9) ? { ok:true, v:Math.round(n * 10) / 1000 } : { ok:false };
+  if(k === 'fill') return (n >= 10 && n <= 100) ? { ok:true, v:Math.round(n * 10) / 1000 } : { ok:false };
+  if(k === 'adv') return (n <= 100) ? { ok:true, v:Math.round(n * 10) / 1000 } : { ok:false };
+  return n > 0 ? { ok:true, v:n } : { ok:false };
+}
+function invSetPaint(){
+  const box = $('#invset'); if(!box || !INVSET) return;
+  const ed = canEdit('inv.stock'), D = INVSET.def, dis = ed ? '' : ' disabled';
+  let h = '<section class="st-card"><div class="st-hd"><h3>ברירות מחדל כלליות</h3><small>חלות על כל מק״ט שאין לו ערך משלו או של הספק</small></div><div class="invset-f">'
+    + INVSET_DEF.map(([f, l, u, k]) => { const v = invSetShow(k, D[f]);
+        return '<label>' + esc(l) + (u ? ' (' + esc(u) + ')' : '') + '<input id="isd-' + f + '" inputmode="decimal" dir="ltr" data-o="' + esc(v) + '" value="' + esc(v) + '"' + dis + '></label>'; }).join('')
+    + '</div>' + (ed ? '<div class="invset-act"><button type="button" class="st-save" onclick="invSetSaveDef()">שמירה</button><span class="st-msg" id="isd-msg"></span></div>' : '') + '</section>';
+  h += '<section class="st-card"><div class="st-hd"><h3>ספקים</h3><small>זמן האספקה נמדד מהזמנות הרכש (ימים מההזמנה עד המשלוח הראשון) וניתן לדריסה. ריק = ברירת המחדל הכללית</small></div>'
+    + '<div class="tbl-wrap"><table class="tbl invset-tbl"><thead><tr><th>ספק</th><th>מטבע</th><th>מדידות</th>' + INVSET_SUP.map(x => '<th>' + esc(x[1]) + '</th>').join('') + (ed ? '<th></th>' : '') + '</tr></thead><tbody>'
+    + INVSET.sup.map(s => '<tr data-sup="' + esc(s.supplier_code) + '"><td>' + esc(s.supplier_name || s.supplier_code) + '</td><td>' + esc(s.currency || '') + '</td><td>' + fmtNum(s.obs_count || 0) + '</td>'
+        + INVSET_SUP.map(([f, l, k]) => { const v = invSetShow(k, s[f]);
+            return '<td><input class="' + (k === 'txt' ? 'wide' : '') + '" id="iss-' + esc(s.supplier_code) + '-' + f + '" dir="' + (k === 'txt' ? 'auto' : 'ltr') + '" data-o="' + esc(v) + '" value="' + esc(v) + '" aria-label="' + esc(l) + '"' + dis + '></td>'; }).join('')
+        + (ed ? '<td><button type="button" class="st-save" onclick="invSetSaveSup(\'' + jsq(s.supplier_code) + '\')">שמירה</button></td>' : '') + '</tr>').join('')
+    + '</tbody></table></div><div class="invset-act"><span class="st-msg" id="iss-msg"></span></div></section>';
+  h += '<section class="st-card"><div class="st-hd"><h3>פרמטרים למק״טים באקסל</h3><small>ייצוא של כל המק״טים עם הפרמטרים שלהם, עדכון באקסל וייבוא חזרה. תא ריק = ללא שינוי · "-" = מחיקה (חזרה לברירת המחדל)</small></div>'
+    + '<div class="invset-act"><button type="button" class="ghost" onclick="invParamXlsx()">ייצוא פרמטרים לאקסל</button>'
+    + (ed ? '<label class="ghost">ייבוא מאקסל<input type="file" id="ipx-file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden onchange="invParamImport(this)"></label>' : '')
+    + '<span class="st-msg" id="ipx-msg"></span></div></section>';
+  box.innerHTML = h;
+}
+window.invSetSaveDef = async ()=>{
+  if(!canEdit('inv.stock') || !INVSET) return;
+  const patch = {}, bad = [];
+  INVSET_DEF.forEach(([f, l, u, k]) => { const el = $('#isd-' + f); if(!el || String(el.value).trim() === String(el.dataset.o)) return;
+    const p = invSetParse(el.value, k); if(!p.ok) bad.push(l); else patch[f] = p.v; });
+  const m = $('#isd-msg');
+  if(bad.length){ if(m) m.textContent = 'ערך לא תקין: ' + bad.join(', '); return; }
+  if(!Object.keys(patch).length){ toast('אין שינוי לשמירה'); return; }
+  patch.updated_at = new Date().toISOString();
+  const r = await sb.schema('ord').from('inv_defaults').update(patch).eq('scope', '*').select('scope');
+  if(r.error || !(r.data || []).length){ if(m) m.textContent = 'השמירה נכשלה' + (r.error ? ' — ' + invErrText(r.error) : ''); return; }
+  toast('נשמר ✓'); INV_LOADED = false; await invSetLoad();
+};
+window.invSetSaveSup = async code=>{
+  if(!canEdit('inv.stock') || !INVSET) return;
+  const patch = {}, bad = [];
+  INVSET_SUP.forEach(([f, l, k]) => { const el = document.getElementById('iss-' + code + '-' + f); if(!el || String(el.value).trim() === String(el.dataset.o)) return;
+    const p = invSetParse(el.value, k); if(!p.ok) bad.push(l); else patch[f] = p.v; });
+  const m = $('#iss-msg');
+  if(bad.length){ if(m) m.textContent = 'ערך לא תקין: ' + bad.join(', '); return; }
+  if(!Object.keys(patch).length){ toast('אין שינוי לשמירה'); return; }
+  patch.updated_at = new Date().toISOString();
+  const r = await sb.schema('ord').from('inv_supplier_stats').update(patch).eq('supplier_code', code).select('supplier_code');
+  if(r.error || !(r.data || []).length){ if(m) m.textContent = 'השמירה נכשלה' + (r.error ? ' — ' + invErrText(r.error) : ''); return; }
+  toast('נשמר ✓'); INV_LOADED = false; await invSetLoad();
+};
+window.invParamXlsx = async ()=>{
+  if(!INV_LOADED) await invLoad();
+  if(!INV_LOADED){ toast('נתוני המלאי לא נטענו'); return; }
+  const head = ['מק״ט', 'תיאור'].concat(INV_PX.map(x => x[0])).concat(['ספק בשימוש', 'זמן אספקה בשימוש', 'סטטוס']);
+  const rows = INV.map(r => { const P = INV_P[r.partname] || {};
+    return [r.partname, r.partdes || ''].concat(INV_PX.map(([h, f, k]) => P[f] == null ? '' : (k === 'pct' ? Math.round(Number(P[f]) * 1000) / 10 : P[f])))
+      .concat([invSup(r), Number(r.lead_days) || '', r.status || '']); });
+  const url = URL.createObjectURL(_skuXlsx(head, rows));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'פרמטרי-מלאי-' + new Date().toISOString().slice(0, 10) + '.xlsx';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 8000);
+};
+/* קורא xlsx בלי ספרייה: zip (central directory) ⇒ deflate-raw ⇒ sharedStrings + הגיליון הראשון. 🔴 אין eval ואין
+   הורדה מרשת — רק הקובץ שהמשתמש בחר. CSV נתמך כחלופה (דפדפן בלי DecompressionStream). */
+async function xlsxRows(file){
+  const buf = new Uint8Array(await file.arrayBuffer());
+  const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength), td = new TextDecoder();
+  if(/\.csv$/i.test(file.name || '')){
+    let txt = td.decode(buf); if(txt.charCodeAt(0) === 65279) txt = txt.slice(1);   /* BOM (65279) */
+    return txt.split(/\r?\n/).filter(x => x.trim()).map(line => {
+      const out = []; let cur = '', q = false;
+      for(let i = 0; i < line.length; i++){ const ch = line[i];
+        if(q){ if(ch === '"'){ if(line[i + 1] === '"'){ cur += '"'; i++; } else q = false; } else cur += ch; }
+        else if(ch === '"') q = true; else if(ch === ','){ out.push(cur); cur = ''; } else cur += ch; }
+      out.push(cur); return out; });
+  }
+  if(typeof DecompressionStream === 'undefined') throw new Error('הדפדפן אינו תומך בקריאת xlsx — יש לשמור כ-CSV');
+  let eocd = -1;
+  for(let i = buf.length - 22; i >= Math.max(0, buf.length - 66000); i--){ if(dv.getUint32(i, true) === 0x06054b50){ eocd = i; break; } }
+  if(eocd < 0) throw new Error('הקובץ אינו קובץ xlsx תקין');
+  const n = dv.getUint16(eocd + 10, true); let p = dv.getUint32(eocd + 16, true);
+  const files = {};
+  for(let k = 0; k < n; k++){
+    if(dv.getUint32(p, true) !== 0x02014b50) throw new Error('מבנה הקובץ אינו תקין');
+    const method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true);
+    const nl = dv.getUint16(p + 28, true), el = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), lo = dv.getUint32(p + 42, true);
+    files[td.decode(buf.subarray(p + 46, p + 46 + nl))] = { method, csize, lo };
+    p += 46 + nl + el + cl;
+  }
+  const read = async name => {
+    const f = files[name]; if(!f) return null;
+    const st = f.lo + 30 + dv.getUint16(f.lo + 26, true) + dv.getUint16(f.lo + 28, true), data = buf.subarray(st, st + f.csize);
+    if(f.method === 0) return td.decode(data);
+    if(f.method !== 8) throw new Error('שיטת דחיסה לא נתמכת');
+    return await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();
+  };
+  const sheet = Object.keys(files).filter(x => /^xl\/worksheets\/sheet\d+\.xml$/.test(x)).sort((a, b) => parseInt(a.replace(/\D/g, ''), 10) - parseInt(b.replace(/\D/g, ''), 10))[0];
+  if(!sheet) throw new Error('לא נמצא גיליון בקובץ');
+  const dp = new DOMParser(), ssx = await read('xl/sharedStrings.xml');
+  const ss = ssx ? [...dp.parseFromString(ssx, 'application/xml').getElementsByTagName('si')].map(si => [...si.getElementsByTagName('t')].map(t => t.textContent).join('')) : [];
+  const doc = dp.parseFromString(await read(sheet), 'application/xml');
+  const colOf = ref => { let c = 0; const m = String(ref || '').match(/^[A-Z]+/); if(m) for(const ch of m[0]) c = c * 26 + (ch.charCodeAt(0) - 64); return c - 1; };
+  return [...doc.getElementsByTagName('row')].map(row => {
+    const out = [];
+    [...row.getElementsByTagName('c')].forEach((c, i) => {
+      const t = c.getAttribute('t'), v = c.getElementsByTagName('v')[0], ci = c.getAttribute('r') ? colOf(c.getAttribute('r')) : i;
+      out[ci] = t === 's' ? (ss[Number(v && v.textContent)] || '') : t === 'inlineStr' ? ((c.getElementsByTagName('is')[0] || {}).textContent || '') : (v ? v.textContent : '');
+    });
+    for(let i = 0; i < out.length; i++) if(out[i] == null) out[i] = '';
+    return out;
+  });
+}
+window.invParamImport = async inp=>{
+  const file = inp && inp.files && inp.files[0]; if(inp) inp.value = '';
+  if(!file || !canEdit('inv.stock')) return;
+  const m = $('#ipx-msg');
+  if(!INV_LOADED) await invLoad();
+  let rows;
+  try{ rows = await xlsxRows(file); }catch(e){ if(m) m.textContent = String((e && e.message) || e); return; }
+  const hdr = (rows[0] || []).map(x => String(x || '').trim()), iPn = hdr.indexOf('מק״ט');
+  if(iPn < 0){ if(m) m.textContent = 'לא נמצאה עמודת "מק״ט" בשורה הראשונה'; return; }
+  const cols = INV_PX.map(([h, f, k]) => [hdr.indexOf(h), f, k]).filter(x => x[0] >= 0);
+  const known = new Set(INV.map(r => r.partname));
+  const patches = []; let skip = 0, bad = 0, vals = 0;
+  rows.slice(1).forEach(row => {
+    const pn = String(row[iPn] || '').trim(); if(!pn) return;
+    if(!known.has(pn)){ skip++; return; }
+    const P = INV_P[pn] || {}, patch = {};
+    cols.forEach(([i, f, k]) => {
+      const raw = String(row[i] == null ? '' : row[i]).trim(); if(raw === '') return;
+      const p = invParse(raw, k); if(!p.ok){ bad++; return; }
+      const cur = P[f] == null ? null : P[f];
+      if(p.v === cur || (p.v != null && cur != null && String(p.v) === String(cur))) return;
+      if(typeof p.v === 'number' && cur != null && Math.abs(p.v - Number(cur)) < 1e-9) return;
+      patch[f] = p.v; vals++;
+    });
+    if(INV_SHIP.some(f => f in patch)){ patch.ship_src = 'אקסל'; patch.ship_verify = false; }
+    if(Object.keys(patch).length){ patch.partname = pn; patches.push(patch); }
+  });
+  if(!patches.length){ if(m) m.textContent = 'אין שינויים לייבוא' + (skip ? ' · ' + skip + ' מק״טים לא מוכרים' : '') + (bad ? ' · ' + bad + ' ערכים לא תקינים' : ''); return; }
+  const ok = await sysConfirm('יעודכנו ' + patches.length + ' מק״טים (' + vals + ' ערכים).' + (skip ? ' ' + skip + ' שורות דולגו — מק״ט לא מוכר.' : '') + (bad ? ' ' + bad + ' ערכים לא תקינים לא ייובאו.' : '') + ' להמשיך?', { ok:'ייבוא' });
+  if(!ok) return;
+  /* 🔴 upsert מרובה עם עמודות שונות בכל שורה היה ממלא null בעמודות שלא נשלחו ודורס ערכים — ולכן מקבצים לפי
+     אותה קבוצת עמודות, וכל קבוצה נשלחת בנפרד. */
+  const groups = {}, now = new Date().toISOString();
+  patches.forEach(p => { p.updated_at = now; const key = Object.keys(p).sort().join(','); (groups[key] = groups[key] || []).push(p); });
+  let done = 0, fail = '';
+  for(const key of Object.keys(groups)){
+    const g = groups[key];
+    for(let i = 0; i < g.length; i += 200){
+      const r = await sb.schema('ord').from('inv_params').upsert(g.slice(i, i + 200), { onConflict:'partname' });
+      if(r.error){ fail = invErrText(r.error); break; }
+      done += Math.min(200, g.length - i);
+    }
+    if(fail) break;
+  }
+  if(m) m.textContent = fail ? 'נשמרו ' + done + ' מתוך ' + patches.length + ' — ' + fail : 'עודכנו ' + done + ' מק״טים ✓';
+  INV_LOADED = false;
 };
 
 function invExport(){
@@ -16629,7 +17239,7 @@ window.createProtocol = async (orderId, ctx)=>{
    כאן הוא ברמה העליונה, לפני המודול. שני הצרכנים ממשיכים לעבוד: ייצוא
    המחירון פותר אותו לקסיקלית, ובלוק הגרסה מהסקופ הגלובלי.
    זה הצימוד היחיד שמנע ממודול התמחור להיות ניתן לחילוץ. */
-const BUILD_ID = 'herodedup-2026-11-28a';
+const BUILD_ID = 'invplan-2026-11-28a';
 window.BUILD_ID = BUILD_ID;
 /* ===== סביבת בדיקה (iron-smart.github.io/iron-app-next) =====
    אותו קוד, אותו מסד. ההבדל היחיד: לא בודקים גרסה (BUILD_ID כאן תמיד חדש מהגרסה
@@ -21307,7 +21917,7 @@ window.dlShipCalc = async (dealId)=>{
 function settingsCats(){
   /* 6.24.0 — התפריט נגזר ממפתחות ההרשאה set.*, לא מתפקיד המשתמש.
      ללא אימוג׳ים — רומן 29/07/2026 */
-  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['planner','מודל תכנון'],['general','כללי'],['rem','תזכורת משימות']];
+  const all = [['users','משתמשים והרשאות'],['teams','צוותי לוגיסטיקה'],['texts','טקסטים ומסמכים'],['conn','חיבורים'],['synclog','יומן סנכרון'],['hooks','יומן וובהוקים'],['errors','יומן שגיאות'],['notif','התראות'],['msg','הודעה לעובד'],['crm','CRM ולוגיסטיקה'],['booking','תיאום פגישות מהאתר'],['salesrules','כללי מכירה'],['commission','מדרגות עמלה'],['planner','מודל תכנון'],['invset','הגדרות מלאי'],['general','כללי'],['rem','תזכורת משימות']];
   try{ return all.filter(c=> canView(SET_PERM[c[0]])); }catch(_e){ return []; }
 }
 /* ═══ 7.22.0 — setmin: 11 קטגוריות ⇒ 5 ════════════════════════════════════════
@@ -21319,7 +21929,7 @@ function settingsCats(){
    🔴 כל מסך ב-settingsCats חייב להופיע כאן פעם אחת בדיוק (נאכף בבנייה) — מסך שלא שויך נעלם מהתפריט בלי שגיאה. */
 const SET_GROUPS = [
   ['users',   'משתמשים והרשאות', ['users']],
-  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','commission','planner','teams']],   /* 7.96.0 — plannercfg */
+  ['crm',     'CRM ולוגיסטיקה',   ['crm','booking','salesrules','commission','planner','invset','teams']],   /* 7.96.0 — plannercfg · 7.100.0 — invplan */
   ['texts',   'טקסטים ומסמכים',   ['texts']],
   ['logs',    'חיבורים ויומנים',  ['conn','synclog','hooks','errors']],
   ['general', 'כללי',             ['general','notif','msg','rem']],   /* 7.95.0 — remset */
@@ -22024,6 +22634,8 @@ function renderSettings(){
     body = ctsHtml();   /* 7.50.0 — comm3 */
   } else if(SET_VIEW==='planner' && canView('set.crm')){
     body = plannerSetHtml();   /* 7.96.0 — plannercfg */
+  } else if(SET_VIEW==='invset' && canView('inv.stock')){
+    body = invSetHtml();   /* 7.100.0 — invplan */
   } else if(SET_VIEW==='conn'){
     body = integHtml();
   } else if(SET_VIEW==='synclog' && canView('set.synclog')){
@@ -22772,6 +23384,9 @@ const NF_KINDS = [
   ['scall_done','לוגיסטיקה','קריאת שירות בוצעה','טכנאי סגר קריאת שירות','צוות הלוגיסטיקה, חוץ ממי שסגר','logi'],
   ['hook_silent','מערכת','וובהוקים מפריוריטי שותקים','שעות עבודה בלי אף וובהוק','מנהל המערכת','admin'],
   ['hook_failed','מערכת','וובהוק נכשל','וובהוק מפריוריטי לא עובד כראוי','מנהל המערכת','admin'],
+  /* 7.100.0 — invplan: ord.cron_run_inv_watch (cron inv-watch-hourly, :50). נעלמות לבד כשהתנאי חוזר לתקין. */
+  ['inv_sync','מערכת','סנכרון מלאי או רכש לא תקין','סנכרון המלאי או הזמנות הרכש לא רץ היום, נכשל, או שמספר המק״טים ירד ביותר מ-5%','מנהל המערכת','admin'],
+  ['inv_container','מערכת','אפשר למלא מכולה','ההמלצות לספק הגיעו לסף מילוי המכולה שב«הגדרות מלאי» — פעם בשבוע לכל ספק','מנהל המערכת','admin'],
   /* 7.75.0 — admnote: core.admin_note_flush. קהל 'all' אינו מפתח ב-core.nf_audience ⇒ ids=null ⇒ כל העובדים (במכוון). */
   ['admin_note','מערכת','הודעה ממנהל','נשלחת ידנית מ«הגדרות ← כללי ← הודעה לעובד» — מיד או בשעה שנקבעה','העובדים שנבחרו','all'],
   /* 7.44.0 — crm.sales_weekly_digest (cron sales-weekly-sun): נמענים = dash.salesteam ומנהלי מערכת. לחיצה ⇒ מסך הניתוח. */
